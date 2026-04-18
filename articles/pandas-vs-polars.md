@@ -3,7 +3,7 @@ title: "データエンジニアリングにおけるパラダイムシフト：
 emoji: "🐼"
 type: "tech"
 topics: ["python", "pandas", "polars", "データ分析"]
-published: false
+published: true
 ---
 
 ## はじめに
