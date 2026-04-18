@@ -1,4 +1,10 @@
-# データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証
+---
+title: "データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証"
+emoji: "🐼"
+type: "tech"
+topics: ["python", "pandas", "polars", "データ分析"]
+published: false
+---
 
 ## はじめに
 
