@@ -215,6 +215,31 @@ result = (
 
 この場合、Polars は「何をしたいか」を先に受け取り、最適化可能な形で全体を見渡したうえで GPU 実行に落とし込める。
 
+### 実践テクニック：VRAM不足を回避する「型」の管理
+
+1億行規模のデータを扱う際、VRAM の節約は計算速度以上に重要である。Polars GPU Engine では、不要な列を減らすだけでなく、**各カラムの型を必要十分な幅に抑える**ことでもメモリ消費を下げられる。
+
+たとえば、デフォルトでは `Int64` や `Float64` として扱われるカラムを、精度が許す範囲で `Int32` や `Float32` に落とすだけでも、**対象カラムの VRAM 消費をほぼ半分にできる**。フラグ列も整数のまま保持するのではなく、`Boolean` に寄せた方がよい。
+
+```python
+import polars as pl
+
+# 読み込み直後に型を絞り、GPU に送るデータ量を抑える
+df = (
+    pl.scan_parquet("large_data_100M.parquet")
+    .with_columns(
+        [
+            pl.col("user_id").cast(pl.Int32),      # 64bitから32bitへ
+            pl.col("score").cast(pl.Float32),      # 64bitから32bitへ
+            pl.col("is_active").cast(pl.Boolean),  # 数値フラグをBooleanへ
+        ]
+    )
+    .collect(engine="gpu")
+)
+```
+
+とくに 16GB〜24GB クラスの GPU では、このような型管理の有無が「高速に終わるか」だけでなく、**そもそも OOM を起こさず完走できるか**を左右する。1億行時代の GPU 活用では、クエリ最適化に加えて、**列の型を意識して VRAM に載せるデータを小さくする**ことが実践上の基本になる。
+
 ---
 
 ## セットアップ：`uv` 環境で cuDF を導入する
