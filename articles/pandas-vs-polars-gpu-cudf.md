@@ -1,6 +1,5 @@
 ---
 title: "【続編】Pandas vs Polars の先へ。1 億行**対応**の GPU × cuDF 活用戦略"
-title: "【続編】Pandas vs Polars の先へ。1 億行**対応**の GPU × cuDF 活用戦略"
 type: "tech"
 topics: ["python", "pandas", "polars", "gpu", "cudf"]
 published: false
