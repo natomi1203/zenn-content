@@ -19,13 +19,12 @@
 
 - `articles/`: Zenn の個別記事（Markdown）
 - `books/`: 複数チャプターで構成される Zenn 本
-- `images/`: 記事・本で利用する画像アセット
 
 ## 執筆記事
 
-- [データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証](./articles/pandas-vs-polars.md)
-- [【続編】Pandas vs Polars の先へ。1億行のデータを爆速にする GPU × cuDF 活用戦略](./articles/pandas-vs-polars-gpu-cudf.md)
 - [LLMによる評価の課題と対策 - LLM as Judge](./articles/llm-as-judge.md)
+- [【続編】Pandas vs Polars の先へ。1億行のデータを爆速にする GPU × cuDF 活用戦略](./articles/pandas-vs-polars-gpu-cudf.md)
+- [データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証](./articles/pandas-vs-polars.md)
 
 ## ワークフロー
 
