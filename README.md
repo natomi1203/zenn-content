@@ -3,43 +3,43 @@
 [![Zenn](https://img.shields.io/badge/Zenn-111111?style=flat&logo=zenn&logoColor=3EA8FF)](https://zenn.dev/natomi1203)
 [![Repo](https://img.shields.io/badge/Repository-GitHub-181717?style=flat&logo=github)](https://github.com/natomi1203/zenn-content)
 
-This repository manages content published on [Zenn](https://zenn.dev/), including technical articles and books.
-Changes merged into `main` are automatically deployed to Zenn through GitHub integration.
+このリポジトリは、[Zenn](https://zenn.dev/) に公開する技術記事（Article）や本（Book）のコンテンツを管理するためのものです。  
+`main` ブランチにマージされた変更は、GitHub 連携により自動で Zenn に反映されます。
 
-## Overview
+## 概要
 
-The content focuses on practical topics around:
+主に以下の実践的なテーマを扱っています。
 
-- Machine learning and LLM evaluation
-- Data engineering and analytics workflows
-- Python ecosystem tools such as Pandas, Polars, and cuDF
-- Cloud and platform engineering patterns
+- 機械学習と LLM 評価
+- データエンジニアリングと分析ワークフロー
+- Pandas / Polars / cuDF などの Python データ処理エコシステム
+- クラウド・プラットフォーム設計
 
-## Directory Structure
+## ディレクトリ構成
 
-- `articles/`: Markdown files for individual Zenn articles
-- `books/`: Multi-chapter Zenn books
-- `images/`: Image assets used in articles and books
+- `articles/`: Zenn の個別記事（Markdown）
+- `books/`: 複数チャプターで構成される Zenn 本
+- `images/`: 記事・本で利用する画像アセット
 
-## Featured Articles
+## 執筆記事
 
-- [Data Engineering Paradigm Shift: Structural Comparison and Performance Validation of Pandas vs Polars](./articles/pandas-vs-polars.md)
-- [Pandas vs Polars Sequel: Accelerating 100 Million Rows with GPU x cuDF](./articles/pandas-vs-polars-gpu-cudf.md)
-- [Challenges and Mitigations in LLM-based Evaluation (LLM as Judge)](./articles/llm-as-judge.md)
+- [データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証](./articles/pandas-vs-polars.md)
+- [【続編】Pandas vs Polars の先へ。1億行のデータを爆速にする GPU × cuDF 活用戦略](./articles/pandas-vs-polars-gpu-cudf.md)
+- [LLMによる評価の課題と対策 - LLM as Judge](./articles/llm-as-judge.md)
 
-## Writing Workflow
+## ワークフロー
 
-1. Draft or update content locally.
-2. Open a pull request for review.
-3. Merge approved changes into `main`.
-4. GitHub automatically syncs merged content to Zenn.
+1. ローカルで記事を作成・更新する
+2. Pull Request を作成してレビューする
+3. 承認後に `main` へマージする
+4. GitHub 連携により Zenn へ自動反映される
 
-## Zenn CLI Commands
+## 便利な Zenn CLI コマンド
 
-- Create a new article: `npx zenn new:article`
-- Start local preview: `npx zenn preview`
+- 新規記事作成: `npx zenn new:article`
+- ローカルプレビュー: `npx zenn preview`
 
-## Author
+## 著者
 
 - **Zenn**: [natomi1203](https://zenn.dev/natomi1203)
 - **GitHub**: [@natomi1203](https://github.com/natomi1203)
