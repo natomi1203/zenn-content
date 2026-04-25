@@ -12,12 +12,12 @@
 
 - `articles/`: Zennの個別の記事データ（マークダウンファイル）を格納しています。各ファイルは自動的にZennの記事として設定されます。
 - `books/`: 本（チャプターごと）の管理。
-- `images/`: 記事内で使用する画像アセット。
 
 ## 📚 執筆記事
 
 - [データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証](./articles/pandas-vs-polars.md)
 - [【続編】Pandas vs Polars の先へ。1億行のデータを爆速にする GPU × cuDF 活用戦略](./articles/pandas-vs-polars-gpu-cudf.md)
+- [LLMによる評価の課題と対策 - LLM as Judge](./articles/llm-as-judge.md)
 
 ## 🚀 ワークフロー
 
