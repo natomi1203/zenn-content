@@ -302,31 +302,31 @@ LLM-as-a-Judge は、研究と実践の両面で成熟しつつある。しか�
 
 ## 参考文献
 
-[^1]: LangSmith Documentation — https://docs.smith.langchain.com
-[^2]: Langfuse Documentation & GitHub — https://langfuse.com / https://github.com/langfuse/langfuse
-[^3]: Arize Phoenix Documentation — https://docs.arize.com/phoenix
-[^4]: Braintrust Documentation — https://www.braintrust.dev/docs
-[^5]: Promptfoo Documentation — https://www.promptfoo.dev/docs/
-[^6]: DeepEval Documentation — https://docs.confident-ai.com
-[^7]: Giskard Documentation — https://www.giskard.ai/docs
-[^8]: Latitude Documentation — https://docs.latitude.so
-[^9]: Confident AI Documentation — https://www.confident-ai.com
+[^1]: [LangSmith Documentation](https://docs.smith.langchain.com)
+[^2]: [Langfuse Documentation](https://langfuse.com) & [GitHub](https://github.com/langfuse/langfuse)
+[^3]: [Arize Phoenix Documentation](https://docs.arize.com/phoenix)
+[^4]: [Braintrust Documentation](https://www.braintrust.dev/docs)
+[^5]: [Promptfoo Documentation](https://www.promptfoo.dev/docs/)
+[^6]: [DeepEval Documentation](https://docs.confident-ai.com)
+[^7]: [Giskard Documentation](https://www.giskard.ai/docs)
+[^8]: [Latitude Documentation](https://docs.latitude.so)
+[^9]: [Confident AI Documentation](https://www.confident-ai.com)
 [^10]: Cheng et al. (2026) — "Judge Reliability Harness"
 [^11]: CompliBench (2026)
 [^12]: Towards Provably Unbiased LLM Judges (2026)
-[^13]: Braintrust, "Best AI evals products for self-hosted / on-prem enterprise deployments (2026)" — https://www.braintrust.dev/articles/best-self-hosted-ai-evals-tools-2026
-[^14]: Confident AI vs Braintrust: Head-to-Head Comparison (2026) — https://www.confident-ai.com/knowledge-base/compare/confident-ai-vs-braintrust
-[^15]: SecurityXploded, "Best 5 AI Red Teaming Solutions for LLM Applications in 2026" — https://securityxploded.com/best-5-ai-red-teaming-solutions-for-llm-applications-in-2026.php
-[^16]: iternal.ai, "The Definitive LLM Selection & Benchmarks Guide" (2026-03) — https://iternal.ai/llm-selection-guide
-[^17]: Braintrust, "Best AI evals products for self-hosted / on-prem enterprise deployments" (2026-03-27) — https://www.braintrust.dev/articles/best-self-hosted-ai-evals-tools-2026
-[^18]: RelayPlane, "Braintrust: Cost Proxy vs Eval Platform" (2026-04-15) — https://relayplane.com/compare/braintrust
-[^19]: Confident AI, 公式サイト — https://www.confident-ai.com/
-[^20]: Confident AI, "Top Confident AI Competitors and Why There's No True Alternatives" (2026-04-20) — https://www.confident-ai.com/knowledge-base/compare/top-confident-ai-competitors-and-why-theres-no-alternatives
-[^21]: OpenAlternative, "Flowise AI vs Latitude: A Detailed Comparison" (2026-04-26) — https://openalternative.co/compare/flowise-ai/vs/latitude
-[^22]: HackRead, "Top AI Tools for Red Teaming in 2026" (2026-02-05) — https://hackread.com/top-ai-tools-for-red-teaming-in-2026/
-[^23]: AIFOD, "Claude 3.5 vs GPT-4o vs Llama 4: Best LLM for Small Startups in 2026" (2026-04-13) — https://af.net/realtime/claude-3-5-vs-gpt-4o-vs-llama-4-best-llm-for-small-startups-in-2026/
-[^24]: Stackd, "Braintrust - Pricing, Review & Alternatives" (2026-01-18) — https://trystackd.com/tools/braintrust
-[^25]: Giskard, "Continuous Red Teaming v2026" — https://www.giskard.ai/products/continuous-red-teaming
+[^13]: Braintrust, ["Best AI evals products for self-hosted / on-prem enterprise deployments (2026)"](https://www.braintrust.dev/articles/best-self-hosted-ai-evals-tools-2026)
+[^14]: [Confident AI vs Braintrust: Head-to-Head Comparison (2026)](https://www.confident-ai.com/knowledge-base/compare/confident-ai-vs-braintrust)
+[^15]: SecurityXploded, ["Best 5 AI Red Teaming Solutions for LLM Applications in 2026"](https://securityxploded.com/best-5-ai-red-teaming-solutions-for-llm-applications-in-2026.php)
+[^16]: iternal.ai, ["The Definitive LLM Selection & Benchmarks Guide" (2026-03)](https://iternal.ai/llm-selection-guide)
+[^17]: Braintrust, ["Best AI evals products for self-hosted / on-prem enterprise deployments" (2026-03-27)](https://www.braintrust.dev/articles/best-self-hosted-ai-evals-tools-2026)
+[^18]: RelayPlane, ["Braintrust: Cost Proxy vs Eval Platform" (2026-04-15)](https://relayplane.com/compare/braintrust)
+[^19]: Confident AI, [公式サイト](https://www.confident-ai.com/)
+[^20]: Confident AI, ["Top Confident AI Competitors and Why There's No True Alternatives" (2026-04-20)](https://www.confident-ai.com/knowledge-base/compare/top-confident-ai-competitors-and-why-theres-no-alternatives)
+[^21]: OpenAlternative, ["Flowise AI vs Latitude: A Detailed Comparison" (2026-04-26)](https://openalternative.co/compare/flowise-ai/vs/latitude)
+[^22]: HackRead, ["Top AI Tools for Red Teaming in 2026" (2026-02-05)](https://hackread.com/top-ai-tools-for-red-teaming-in-2026/)
+[^23]: AIFOD, ["Claude 3.5 vs GPT-4o vs Llama 4: Best LLM for Small Startups in 2026" (2026-04-13)](https://af.net/realtime/claude-3-5-vs-gpt-4o-vs-llama-4-best-llm-for-small-startups-in-2026/)
+[^24]: Stackd, ["Braintrust - Pricing, Review & Alternatives" (2026-01-18)](https://trystackd.com/tools/braintrust)
+[^25]: Giskard, ["Continuous Red Teaming v2026"](https://www.giskard.ai/products/continuous-red-teaming)
 
 ---
 
