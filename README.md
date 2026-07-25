@@ -1,6 +1,6 @@
 # Zenn Content Repository
 
-[![Zenn](https://img.shields.io/badge/Zenn-111111?style=flat&logo=zenn&logoColor=3EA8FF)](https://zenn.dev/natomi1203)
+[![Zenn](https://img.shields.io/badge/Zenn-111111?style=flat&logo=zenn&logoColor=3EA8FF)](https://zenn.dev/tommy_suplex)
 [![Repo](https://img.shields.io/badge/Repository-GitHub-181717?style=flat&logo=github)](https://github.com/natomi1203/zenn-content)
 
 このリポジトリは、[Zenn](https://zenn.dev/) に公開する技術記事（Article）や本（Book）のコンテンツを管理するためのものです。  
@@ -22,9 +22,14 @@
 
 ## 執筆記事
 
-- [LLMによる評価の課題と対策 - LLM as Judge](./articles/llm-as-judge.md)
-- [【続編】Pandas vs Polars の先へ。1億行のデータを爆速にする GPU × cuDF 活用戦略](./articles/pandas-vs-polars-gpu-cudf.md)
-- [データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証](./articles/pandas-vs-polars.md)
+### 公開済み
+
+- [データエンジニアリングにおけるパラダイムシフト：Pandas と Polars の構造的比較と性能検証](https://zenn.dev/tommy_suplex/articles/pandas-vs-polars)
+
+### 下書き
+
+- [LLM-as-a-Judge時代の、評価ツール選定完全ガイド](./articles/llm-as-judge.md)
+- [【続編】Pandas vs Polars の先へ。1億行対応の GPU × cuDF 活用戦略](./articles/pandas-vs-polars-gpu-cudf-revise.md)
 
 ## ワークフロー
 
@@ -40,5 +45,5 @@
 
 ## 著者
 
-- **Zenn**: [natomi1203](https://zenn.dev/natomi1203)
+- **Zenn**: [tommy_suplex](https://zenn.dev/tommy_suplex)
 - **GitHub**: [@natomi1203](https://github.com/natomi1203)
