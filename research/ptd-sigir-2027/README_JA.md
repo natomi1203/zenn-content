@@ -36,7 +36,7 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つのcore component、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_training_examples.py` はraw/frozen-teacher rowをkey一致させ、train/validationのcandidate setを固定date maskと照合し、観測purchaseごとに完全なdepth-13 groupを出力します。test shardではoutcome列を開きません。`runner/train_ptd.py` はこのimmutable artifactから登録済みvariant/seedの単一fitを実行し、batch size 64、exact 2 epoch、no-clobber checkpoint、validation-loss auditを強制します。test側は`runner/build_retrieval_queries.py`と`runner/retrieval_runner.py`が固定24-cell beam/latency matrixまで担当します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。
 
-有料launchはまだreadyではありません。残るcode gateは、validation purchase-NDCGによるhyperparameter/single-sibling選択、alternating cycleのassignment-weight materializationとorchestration、完全なrun manifest/retrieval planの組み立て、および完成revisionからの新しい決定論的bundleです。Vertex AI費用の明示承認は、それらとは別の最終gateです。
+有料launchはまだreadyではありません。validation queryの隔離と、exact 27-cell purchase-NDCG/single-sibling selectorは実装済みです。残るcode gateは、alternating cycleのassignment-weight materializationとorchestration、完全なfit scheduling・run manifest・retrieval planの組み立て、および完成revisionからの新しい決定論的bundleです。Vertex AI費用の明示承認は、それらとは別の最終gateです。
 
 `artifact/verified/launch_bundle_evidence.json` はrevision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` から2回独立生成してbyte一致した `git archive` / `gzip -n` bundle（SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`）を記録します。展開後bundleは利用可能な全テスト、引用検査、artifact検証を通過しました。bundleはlocalにのみ存在し、uploadもVertex AI submitもしていません。
 
@@ -57,9 +57,24 @@ uv run --with torch --with pyarrow --with numpy python runner/train_ptd.py \
   --checkpoint /restricted/fits/ptd_combined-16630/checkpoint.pt \
   --manifest /restricted/fits/ptd_combined-16630/manifest.json \
   --device cuda
+
+uv run --with pyarrow --with numpy python runner/build_validation_queries.py \
+  --teacher-manifest /restricted/teacher/manifest.json \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --output /restricted/validation/queries.jsonl \
+  --manifest /restricted/validation/query-manifest.json
+
+uv run --with torch --with pyarrow --with numpy python runner/select_validation.py \
+  --validation-queries-manifest /restricted/validation/query-manifest.json \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --fit-manifest-glob '/restricted/fits/*/manifest.json' \
+  --output /restricted/validation/selection.json \
+  --device cuda
 ```
 
-後者は1回のfitであり、preregistered grid selectionやprospective実験全体ではありません。
+fit commandは1回のfitであり、prospective実験全体ではありません。selectorには27個すべてのcombined-grid manifestと、選択tupleを使ったitem-only/node-only manifestが必要です。
 
 `artifact/vertex_preflight_job_spec.json` はsynthetic runtime互換性検査用で、まだlaunch不能なVertex `CustomJobSpec` templateです。登録済みL4 machine/container、正確なbundle hash、空output/no-clobber検査、container内の `PTD_COST_AUTHORIZED=true` gateを固定し、service accountとGCS locationはplaceholder、authorization既定値はfalseです。`make vertex-preflight-validate` は安全なlocal検証だけを行います。`scripts/validate_vertex_preflight.py` は明示的な `--authorize-cost` と具体的なservice-account/GCS値がある場合だけspecをrenderでき、`gcloud`呼び出しやjob submitは一切行いません。現在、launch可能なrender済みspecは存在しません。
 

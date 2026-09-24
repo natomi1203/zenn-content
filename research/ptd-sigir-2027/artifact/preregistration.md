@@ -42,7 +42,7 @@ For a sibling set `S`, temperature `tau`, frozen teacher logits `a_T`, and stude
 
 `L_tree` is the sum of negative log sibling probabilities along the positive item's root-to-leaf path for purchase-positive training pairs. Item probabilities are clipped with `epsilon_item = 1e-6`; internal descendant masses use `epsilon_node = 1e-12`. A zero-mass child remains in the sibling support with finite near-zero mass.
 
-The primary hyperparameters are selected once on validation from a predeclared grid: `tau in {1,2,4}`, `lambda_item in {0.1,0.3,1.0}`, and `lambda_node in {0.1,0.3,1.0}`. The grid is evaluated only for seed 16630; the selected tuple is then rerun for all three seeds. Ties within 0.001 validation NDCG@50 use the lower total distillation weight, then lower temperature. The complete validation-selection record and its hash must be fixed before test scoring.
+The primary hyperparameters are selected once on validation from a predeclared grid: `tau in {1,2,4}`, `lambda_item in {0.1,0.3,1.0}`, and `lambda_node in {0.1,0.3,1.0}`. The grid is evaluated only for seed 16630; the selected tuple is then rerun for all three seeds. Every tuple within an absolute 0.001 validation purchase NDCG@50 of the maximum enters the tie set; selection then minimizes `lambda_item + lambda_node`, temperature, `lambda_item`, and `lambda_node`, in that order. The better single-level variant uses the higher validation purchase NDCG@50 at the selected tuple, with lexical variant name as the exact-equality tie-break. Both validation metrics use the registered purchase-positive date--user macro population. The complete validation-selection record and its hash must be fixed before test scoring.
 
 ## Tree optimization
 

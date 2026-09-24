@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/validation-selection.schema.json",
+  "title": "PTD validation-only model selection",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "status",
+    "selection_seed",
+    "selection_dates",
+    "selection_metric",
+    "selection_population",
+    "purchase_positive_units",
+    "validation_queries_manifest_sha256",
+    "validation_queries_sha256",
+    "catalog_sha256",
+    "date_eligibility_sha256",
+    "grid_scores",
+    "selected_hyperparameters",
+    "single_variant_scores",
+    "best_single_variant",
+    "single_variant_tie_break",
+    "checks",
+    "scope_note"
+  ],
+  "properties": {
+    "contract_version": {"const": "ptd-validation-selection/v1"},
+    "status": {"const": "complete"},
+    "selection_seed": {"const": 16630},
+    "selection_dates": {"const": ["2026-07-21"]},
+    "selection_metric": {"const": "purchase_ndcg_at_50"},
+    "selection_population": {"const": "purchase_positive_date_user_units"},
+    "purchase_positive_units": {"type": "integer", "minimum": 1},
+    "validation_queries_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "validation_queries_sha256": {"$ref": "#/$defs/sha256"},
+    "catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "date_eligibility_sha256": {"$ref": "#/$defs/sha256"},
+    "grid_scores": {
+      "type": "array",
+      "minItems": 27,
+      "maxItems": 27,
+      "items": {"$ref": "#/$defs/grid_score"}
+    },
+    "selected_hyperparameters": {
+      "type": "object",
+      "required": [
+        "temperature",
+        "lambda_item",
+        "lambda_node",
+        "tie_window_absolute_ndcg",
+        "tie_break"
+      ],
+      "properties": {
+        "temperature": {"enum": [1.0, 2.0, 4.0]},
+        "lambda_item": {"enum": [0.1, 0.3, 1.0]},
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]},
+        "tie_window_absolute_ndcg": {"const": 0.001},
+        "tie_break": {
+          "const": "within_0.001_of_best_then_lambda_sum_temperature_lambda_item_lambda_node_asc"
+        }
+      },
+      "additionalProperties": false
+    },
+    "single_variant_scores": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/single_score"}
+    },
+    "best_single_variant": {"enum": ["ptd_item", "ptd_node"]},
+    "single_variant_tie_break": {"const": "metric_desc_then_variant_lexical_asc"},
+    "checks": {
+      "type": "object",
+      "required": [
+        "exact_27_cell_combined_grid",
+        "selection_seed_16630_only",
+        "validation_date_only",
+        "purchase_positive_macro",
+        "item_and_node_use_selected_hyperparameters",
+        "teacher_oracle_not_used",
+        "test_queries_not_read",
+        "deterministic_tie_break",
+        "no_overwrite"
+      ],
+      "properties": {
+        "exact_27_cell_combined_grid": {"const": true},
+        "selection_seed_16630_only": {"const": true},
+        "validation_date_only": {"const": true},
+        "purchase_positive_macro": {"const": true},
+        "item_and_node_use_selected_hyperparameters": {"const": true},
+        "teacher_oracle_not_used": {"const": true},
+        "test_queries_not_read": {"const": true},
+        "deterministic_tie_break": {"const": true},
+        "no_overwrite": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "scope_note": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "grid_score": {
+      "type": "object",
+      "required": [
+        "temperature",
+        "lambda_item",
+        "lambda_node",
+        "purchase_ndcg_at_50",
+        "fit_manifest",
+        "checkpoint_sha256"
+      ],
+      "properties": {
+        "temperature": {"enum": [1.0, 2.0, 4.0]},
+        "lambda_item": {"enum": [0.1, 0.3, 1.0]},
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]},
+        "purchase_ndcg_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "fit_manifest": {"$ref": "#/$defs/artifact"},
+        "checkpoint_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "single_score": {
+      "type": "object",
+      "required": ["variant", "purchase_ndcg_at_50", "fit_manifest", "checkpoint_sha256"],
+      "properties": {
+        "variant": {"enum": ["ptd_item", "ptd_node"]},
+        "purchase_ndcg_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "fit_manifest": {"$ref": "#/$defs/artifact"},
+        "checkpoint_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

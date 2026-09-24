@@ -98,3 +98,17 @@ Changes:
 6. Added hash-locked query and 24-entry run-plan schemas. Frozen teacher scores are available to the explicit teacher oracle only; outcome labels are accessed only after retrieval for metric computation.
 
 Rationale: the earlier registration fixed the model, beam width, metric names, and latency thresholds but not every serving and secondary-metric convention. These choices make the runner executable and fail closed without changing an outcome, comparison, or threshold.
+
+## A8 - 2026-09-25 JST - executable validation selection
+
+This amendment was made while no prospective five-day PTD evaluation existed and every PTD efficacy, ablation, and latency claim remained `PENDING`. The selector was tested only with synthetic validation queries, synthetic checkpoints, and an injected deterministic scorer.
+
+Changes:
+
+1. Required the combined PTD validation sweep to contain exactly all 27 `temperature x lambda_item x lambda_node` cells at seed 16630.
+2. Clarified the pre-existing 0.001 tie rule: every cell within an absolute 0.001 purchase NDCG@50 of the maximum enters the tie set; selection then minimizes `lambda_item + lambda_node`, temperature, `lambda_item`, and `lambda_node`, in that order.
+3. Fixed the validation population to purchase-positive date--user units, matching the registered primary macro metric.
+4. Required item-only and node-only fits to use the selected tuple. Their higher validation purchase NDCG@50 wins; exact equality uses lexical variant name.
+5. Required an immutable validation-query artifact that reads outcome columns only for the validation shard, plus a hash-linked selection artifact fixed before any PTD test scoring.
+
+Rationale: the original registration declared the grid, seed, 0.001 tie window, and first two tie-break dimensions but did not completely order residual ties or define the executable query artifact. This amendment removes those degrees of freedom without inspecting or changing a PTD result.

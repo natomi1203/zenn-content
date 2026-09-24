@@ -89,7 +89,12 @@ class CatalogTree:
     """Complete binary tree plus immutable date eligibility sets."""
 
     def __init__(
-        self, catalog_path: Path, date_eligibility_path: Path, *, depth: int
+        self,
+        catalog_path: Path,
+        date_eligibility_path: Path,
+        *,
+        depth: int,
+        required_dates: Sequence[str] | None = None,
     ) -> None:
         if depth <= 0:
             raise ValueError("tree depth must be positive")
@@ -134,13 +139,22 @@ class CatalogTree:
             if self.leaf_by_product.get(product) != leaf:
                 raise ValueError("date eligibility product/leaf differs from catalog")
             self.eligible_products.setdefault(date, set()).add(product)
-        test_dates = set(EXPECTED_SPLIT["test"])
-        if not test_dates <= set(self.eligible_products):
-            raise ValueError("tree date eligibility is missing a registered test date")
+        selected_dates = tuple(required_dates or EXPECTED_SPLIT["test"])
+        if not selected_dates or len(set(selected_dates)) != len(selected_dates):
+            raise ValueError("tree requires a non-empty unique date set")
+        registered_dates = set(
+            EXPECTED_SPLIT["train"]
+            + EXPECTED_SPLIT["validation"]
+            + EXPECTED_SPLIT["test"]
+        )
+        if not set(selected_dates) <= registered_dates:
+            raise ValueError("tree requested an unregistered date")
+        if not set(selected_dates) <= set(self.eligible_products):
+            raise ValueError("tree date eligibility is missing a required date")
         self.eligible_products = {
             date: products
             for date, products in self.eligible_products.items()
-            if date in test_dates
+            if date in set(selected_dates)
         }
         for date, products in self.eligible_products.items():
             by_level = {level: set() for level in range(depth + 1)}
@@ -207,10 +221,15 @@ def _parse_history(value: Any, label: str, line_number: int) -> tuple[int, ...]:
     return tuple(normalized)
 
 
-def load_queries(path: Path) -> list[RetrievalQuery]:
-    """Load exact five-day query rows; candidate labels are evaluation-only."""
+def load_queries(
+    path: Path, *, allowed_dates: Sequence[str] | None = None
+) -> list[RetrievalQuery]:
+    """Load query rows for an explicit registered date set."""
     rows: list[RetrievalQuery] = []
     seen: set[tuple[str, str]] = set()
+    selected_dates = tuple(allowed_dates or EXPECTED_SPLIT["test"])
+    if not selected_dates or len(set(selected_dates)) != len(selected_dates):
+        raise ValueError("query loader requires a non-empty unique date set")
     expected_keys = {
         "date",
         "user_id",
@@ -234,7 +253,7 @@ def load_queries(path: Path) -> list[RetrievalQuery]:
                 raise ValueError(f"query line {line_number} has unexpected fields")
             date = value["date"]
             user_id = value["user_id"]
-            if date not in EXPECTED_SPLIT["test"]:
+            if date not in selected_dates:
                 raise ValueError(f"unexpected query date at line {line_number}")
             if not isinstance(user_id, str) or not user_id:
                 raise ValueError(f"invalid user_id at line {line_number}")
@@ -305,8 +324,8 @@ def load_queries(path: Path) -> list[RetrievalQuery]:
                     candidates=candidates,
                 )
             )
-    if not rows or {row.date for row in rows} != set(EXPECTED_SPLIT["test"]):
-        raise ValueError("queries must cover all five test dates")
+    if not rows or {row.date for row in rows} != set(selected_dates):
+        raise ValueError("queries must cover exactly the requested dates")
     return sorted(rows, key=lambda row: (row.date, row.user_id))
 
 

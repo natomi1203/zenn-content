@@ -177,6 +177,16 @@ def validate_execution_readiness() -> None:
         ),
         "single_fit_runner_sha256": sha256(ROOT / "runner" / "train_ptd.py"),
         "single_fit_runner_tests_sha256": sha256(ROOT / "tests" / "test_train_ptd.py"),
+        "validation_query_builder_sha256": sha256(
+            ROOT / "runner" / "build_validation_queries.py"
+        ),
+        "validation_query_builder_tests_sha256": sha256(
+            ROOT / "tests" / "test_build_validation_queries.py"
+        ),
+        "validation_selector_sha256": sha256(ROOT / "runner" / "select_validation.py"),
+        "validation_selector_tests_sha256": sha256(
+            ROOT / "tests" / "test_select_validation.py"
+        ),
         "alternating_solver_sha256": sha256(ROOT / "runner" / "alternating_solver.py"),
         "alternating_solver_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "alternating_solver_smoke.json"
@@ -195,7 +205,6 @@ def validate_execution_readiness() -> None:
     }
     assert audit["production_pipeline_ready"] is False
     assert audit["launch_blockers"] == [
-        "implement_validation_purchase_NDCG_hyperparameter_and_single_sibling_selection",
         "implement_alternating_cycle_weight_materialization_and_orchestration",
         "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
         "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
@@ -411,6 +420,19 @@ def validate_production_component_evidence() -> None:
     assert query_schema["additionalProperties"] is False
     assert query_schema["properties"]["click_history_most_recent_first"]["maxItems"] == 30
     assert query_schema["properties"]["purchase_history_most_recent_first"]["maxItems"] == 30
+    validation_query_schema = load("artifact/validation_query_row.schema.json")
+    assert validation_query_schema["additionalProperties"] is False
+    assert validation_query_schema["properties"]["date"]["const"] == "2026-07-21"
+    validation_selection_schema = load("artifact/validation_selection.schema.json")
+    assert validation_selection_schema["additionalProperties"] is False
+    assert validation_selection_schema["properties"]["selection_seed"]["const"] == 16630
+    assert validation_selection_schema["properties"]["grid_scores"]["minItems"] == 27
+    assert validation_selection_schema["properties"]["grid_scores"]["maxItems"] == 27
+    assert (
+        validation_selection_schema["properties"]["selected_hyperparameters"]
+        ["properties"]["tie_window_absolute_ndcg"]["const"]
+        == 0.001
+    )
     plan_schema = load("artifact/retrieval_run_plan.schema.json")
     assert plan_schema["properties"]["entries"]["minItems"] == 24
     assert plan_schema["properties"]["entries"]["maxItems"] == 24

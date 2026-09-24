@@ -41,14 +41,14 @@
       "path": "artifact/preregistration.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "7c78fa9cd08d8331c8d21d7e2218dec492647fad807dd50f49925a642008b853"
+      "sha256": "90c8db1441b3c6f22470c418c26975f366c674c1a59f361d07ab296d0b401422"
     },
     {
       "id": "preregistration-amendments",
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "aac17ce15466d3421b7b65d8ecceb39bc2da8a4beeb54402e2377e06f1337654"
+      "sha256": "10240b2b73af01719f55474186b9e6c3a092b3a2a98ba4eb83d5a2e4a844d0bf"
     },
     {
       "id": "artifact-manifest-schema",
@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "00f979f68e0e22b31fde090593508c4f02adeec0cd7c5034a44e454cbfdd636c"
+      "sha256": "068187bad5a71c760fb3318395f2b71a886d363b9ce37164f8bddcd6e47e31de"
     },
     {
       "id": "launch-bundle-evidence",
@@ -289,6 +289,48 @@
       "sha256": "2ae7708663ac8db01f32b1419e29de89a7c110d7c21c19fbc96f2f6a75765861"
     },
     {
+      "id": "validation-query-builder",
+      "path": "runner/build_validation_queries.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "6019530cc73525c20db69c07925cfabcdb08655d39b35e2ad2b9b5877a02083d"
+    },
+    {
+      "id": "validation-query-row-schema",
+      "path": "artifact/validation_query_row.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "b15e265406dbcf8a41000d8591c5fca4c80b0e6a92e8d278b7c1d439bc45e673"
+    },
+    {
+      "id": "validation-query-builder-tests",
+      "path": "tests/test_build_validation_queries.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "09feee3edd9bf8e692349aec2b02c875d103d19d5be3d7a2374858053eb12693"
+    },
+    {
+      "id": "validation-selector",
+      "path": "runner/select_validation.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "20821d43f73c08691b311c9ad6e02c18da7d8af8597c8988e9c97f581eb2ef4c"
+    },
+    {
+      "id": "validation-selection-schema",
+      "path": "artifact/validation_selection.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "712066658f22b7e77433afebd2eff19f301031e4bf2ae92948a3584499f8558a"
+    },
+    {
+      "id": "validation-selector-tests",
+      "path": "tests/test_select_validation.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "a31315934d5ea05bae57479a58db6b54947f4a76111c323388fa4d079b236fe3"
+    },
+    {
       "id": "alternating-solver",
       "path": "runner/alternating_solver.py",
       "media_type": "text/x-python",
@@ -384,7 +426,7 @@
       "path": "runner/retrieval_runner.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "482a3ed2f5253bd73fc8c60ecb0021c6700c9245ead19409f5b44c5355837310"
+      "sha256": "d1a946b3a3a7b1512440f2b3603c5cace6d1fda6b3bcfa0d82553af52bbf679b"
     },
     {
       "id": "retrieval-runner-tests",
@@ -503,7 +545,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "d51b433c32f0501caee41696e59f26f4d7a1a6fb26a523f865ccfd9f05ce840b"
+      "sha256": "939dd3dc617a1fc6a92e37b7dd06a01fb910f319289c9e116ee96b59b8e87c2d"
     },
     {
       "id": "manifest-finalizer",
@@ -545,14 +587,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "c26fa7c399e68d7c793101e858ea606181d06aee9e0068f111248d89f768dc95"
+      "sha256": "8a2bdf1fd12b83639e6de674a55b89a5f1519b81e2a9691dbd2de7cb374e1eda"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "f38f5b0d8bf718d7d6ae3bcaa825be596e7d2094cbacca1a53fabd718a26eacd"
+      "sha256": "df2bc0149ad2b9c692c0e0523ab2efe3f071283006c2d1ac0f8030247e8562a1"
     },
     {
       "id": "ptd-five-day-evaluation",
