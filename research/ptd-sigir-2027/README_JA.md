@@ -20,7 +20,7 @@ Python 3.10+ と Tectonic（または `acmart` を含む TeX Live）が必要で
 make all
 ```
 
-LaTeX の表・図を再生成し、依存なしの PTD 参照実装テストと synthetic smoke check、引用、JSON/CSV、hash、claim status を検証した後、2種類の PDF をビルドします。`paper/main.pdf` は SIGIR 投稿用の匿名査読版、`paper/main-author.pdf` は **TOMITA NAOYUKI** を紙面に表示する著者版です。個別には `make generate`、`make test`、`make smoke`、`make validate`、`make paper-review`、`make paper-author` を使います。
+LaTeX の表・図を再生成し、依存なしの PTD 参照実装テストと synthetic smoke check、引用、JSON/CSV、hash、claim status を検証した後、2種類の PDF をビルドします。`paper/main.pdf` は SIGIR 投稿用の匿名査読版、`paper/main-author.pdf` は **NAOYUKI TOMITA**（名前 NAOYUKI、家族名 TOMITA）を紙面に表示する著者版です。個別には `make generate`、`make test`、`make smoke`、`make validate`、`make paper-review`、`make paper-author` を使います。
 
 Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、同一入力からの反復ビルドで PDF hash が一致するようにしています。新しい artifact epoch を意図的に発行するときだけ上書きします。
 
@@ -38,4 +38,4 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 この開発リポジトリは所有者を特定できるため、匿名査読原稿から直接リンクできません。証跡 gate 通過後に匿名 snapshot を作ります。所属、謝辞、公開 artifact URL は review/camera-ready の移行まで非表示または placeholder のままです。
 
-原稿ソースの著者名は **TOMITA NAOYUKI** として記録しています。review build は ACM の `anonymous=true` を維持するため `paper/main.pdf` では実名が非表示ですが、`paper/main-author.pdf` では表示されます。所属は未提示のため推測せず省略しています。
+原稿ソースの著者名は、名前を NAOYUKI、家族名を TOMITA として **NAOYUKI TOMITA** と記録しています。review build は ACM の `anonymous=true` を維持するため `paper/main.pdf` では実名が非表示ですが、`paper/main-author.pdf` では表示されます。所属は未提示のため推測せず省略しています。

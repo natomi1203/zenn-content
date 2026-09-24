@@ -13,7 +13,7 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "77bce8f2ca1d79f4000cd26c45f22eed933ae74ad28d926c47c9899eec8728bd"
+      "sha256": "e01689b22c7b66fc37350042438552e24226572a10e87023184d97e76cb9927d"
     },
     {
       "id": "paper-pdf",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "1625b5c9290d9f2affc6a7aad10946bff2f5e1a82ed76739490beb960786ceed"
+      "sha256": "89ac1daff7d467a5cbe4f2e05cb2d2fa41f0fdcd43fc18c73321bfb5be922b54"
     },
     {
       "id": "preregistration",
