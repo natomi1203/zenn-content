@@ -34,9 +34,9 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 
 `artifact/preregistered_method.json` is the exact pre-result method contract (SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`). It records the no-time-encoding two-stream HSTU-style model, matched-input multiwindow-DIN ablation, binary depth-13 tree, eligibility masks, optimizer/sampling budget, and L4 runtime. Cloud execution is intentionally not launched by this repository workflow without explicit cost authorization.
 
-`artifact/verified/execution_readiness_audit.json` hashes the recovered one-day TDM runner and records why it cannot be relabelled as PTD. All six core components have deterministic synthetic implementation evidence: frozen teacher materialization; the real 5,584-item catalog and date masks; the shared two-stream HSTU-style/multiwindow-DIN trainer; exact train-only anchored reassignment; five-date/three-seed beam retrieval and latency measurement; and the paired evaluation emitter. `runner/build_training_examples.py` now joins row-aligned raw and frozen-teacher rows, verifies every train/validation candidate set against its locked date mask, emits one complete depth-13 group per observed purchase, and opens no outcome column from test shards. `runner/train_ptd.py` consumes that immutable artifact for one registered variant/seed, enforces batch size 64 and exactly two epochs, and emits a no-clobber checkpoint plus validation-loss audit. `runner/build_assignment_queries.py` and `runner/materialize_assignment_weights.py` isolate the three train dates and emit the complete float64 train-item by free-leaf matrix accepted by the exact anchored solver. `runner/run_alternating_cycles.py` completes cycles 0--3 for one alternating variant/seed, warm-starts model parameters while resetting both optimizers, selects by validation purchase NDCG@50 with a lower-cycle exact-tie rule, and locks the selected bundle without opening test queries. `runner/build_retrieval_queries.py` and `runner/retrieval_runner.py` cover the test-side handoff and locked 24-cell beam/latency matrix. These are implementation checks, not efficacy, real-tree, or production-latency evidence.
+`artifact/verified/execution_readiness_audit.json` hashes the recovered one-day TDM runner and records why it cannot be relabelled as PTD. All six core components have deterministic synthetic implementation evidence: frozen teacher materialization; the real 5,584-item catalog and date masks; the shared two-stream HSTU-style/multiwindow-DIN trainer; exact train-only anchored reassignment; five-date/three-seed beam retrieval and latency measurement; and the paired evaluation emitter. `runner/build_training_examples.py` now joins row-aligned raw and frozen-teacher rows, verifies every train/validation candidate set against its locked date mask, emits one complete depth-13 group per observed purchase, and opens no outcome column from test shards. `runner/train_ptd.py` consumes that immutable artifact for one registered variant/seed, enforces batch size 64 and exactly two epochs, and emits a no-clobber checkpoint plus validation-loss audit. `runner/build_assignment_queries.py` and `runner/materialize_assignment_weights.py` isolate the three train dates and emit the complete float64 train-item by free-leaf matrix accepted by the exact anchored solver. `runner/run_alternating_cycles.py` completes cycles 0--3 for one alternating variant/seed, warm-starts model parameters while resetting both optimizers, selects by validation purchase NDCG@50 with a lower-cycle exact-tie rule, and locks the selected bundle without opening test queries. `runner/build_fit_schedule.py` fixes the complete 65-fit staged DAG and hash-links all pre-test inputs. `runner/assemble_run_bundle.py` verifies the 15 fixed-tree fits and six alternating selections, locks the exact 24-cell retrieval plan before opening test-query payloads, and finalizes the run manifest only after complete retrieval metrics exist. `runner/build_retrieval_queries.py` and `runner/retrieval_runner.py` cover the test-side handoff and beam/latency execution. These are implementation checks, not efficacy, real-tree, or production-latency evidence.
 
-A paid launch is not ready yet. Validation selection, train-only assignment-weight materialization, and validation-only alternating-cycle orchestration are implemented. The remaining code gates are complete fit scheduling plus run-manifest/retrieval-plan assembly and a fresh deterministic bundle from that finished revision. Explicit Vertex AI cost authorization is a separate final gate.
+A paid launch is not ready yet. Validation selection, train-only assignment-weight materialization, alternating-cycle orchestration, the complete fit schedule, pre-test retrieval lock, and post-retrieval run-manifest finalization are implemented. The remaining engineering gate is a fresh deterministic bundle from the completed pipeline revision. Explicit Vertex AI cost authorization is a separate final gate.
 
 `artifact/verified/launch_bundle_evidence.json` records a byte-identical two-run `git archive`/`gzip -n` bundle for revision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` (SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`). The extracted bundle passes all dependency-available tests, citation checks, and artifact validation. It remains local and has not been uploaded or submitted to Vertex AI.
 
@@ -112,6 +112,43 @@ uv run --with torch --with pyarrow --with numpy --with scipy \
 
 The individual fit and solver commands are component-level entry points. The cycle orchestrator performs the registered four-fit chain for one alternating variant/seed, not the complete prospective experiment. The hyperparameter selector still requires all 27 combined-grid manifests plus item-only and node-only manifests at the selected tuple before all six alternating chains are scheduled.
 
+The full execution boundary is materialized in three fail-closed stages. The lock command requires exactly 15 final fixed-tree fit manifests and six alternating-cycle manifests; repeat the corresponding flags for every registered cell.
+
+```bash
+python3 runner/build_fit_schedule.py \
+  --code-revision <40-hex-revision> \
+  --output-root /restricted/ptd-run \
+  --teacher-scores-manifest /restricted/teacher/manifest.json \
+  --training-examples-manifest /restricted/training/manifest.json \
+  --validation-queries-manifest /restricted/validation/query-manifest.json \
+  --assignment-queries-manifest /restricted/alternating/train-query-manifest.json \
+  --fixed-catalog /restricted/catalog/catalog.parquet \
+  --fixed-date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --output /restricted/ptd-run/fit-schedule.json
+
+uv run --with pyarrow python runner/assemble_run_bundle.py lock \
+  --code-revision <40-hex-revision> \
+  --created-at <ISO-8601> --locked-at <ISO-8601> \
+  --fit-schedule /restricted/ptd-run/fit-schedule.json \
+  --validation-selection /restricted/validation/selection.json \
+  --teacher-scores-manifest /restricted/teacher/manifest.json \
+  --retrieval-queries-manifest /restricted/test/query-manifest.json \
+  --fixed-catalog /restricted/catalog/catalog.parquet \
+  --fixed-date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --fit-manifest <repeat-15-times> \
+  --alternating-cycle-manifest <repeat-6-times> \
+  --device cuda --hardware <matched-hardware> \
+  --software <locked-runtime> --timer <synchronized-timer> \
+  --output /restricted/ptd-run/retrieval-plan.json
+
+uv run --with pyarrow python runner/assemble_run_bundle.py finalize \
+  --retrieval-plan /restricted/ptd-run/retrieval-plan.json \
+  --retrieval-metrics-manifest /restricted/ptd-run/retrieval-metrics-manifest.json \
+  --run-id <run-id> --test-scoring-started-at <ISO-8601> \
+  --completed-at <ISO-8601> \
+  --output /restricted/ptd-run/run-manifest.json
+```
+
 `artifact/vertex_preflight_job_spec.json` is a non-launchable Vertex `CustomJobSpec` template for synthetic runtime compatibility checks. It fixes the registered L4 machine and container, exact bundle hash, empty-output/no-clobber checks, and an in-container `PTD_COST_AUTHORIZED=true` gate; service account and GCS locations remain placeholders and authorization defaults to false. Validate it safely with `make vertex-preflight-validate`. `scripts/validate_vertex_preflight.py` can render a spec only with the explicit `--authorize-cost` flag and concrete service-account/GCS values; it never calls `gcloud` or submits a job. No rendered launchable spec currently exists.
 
 The optional restricted-data checks are:
@@ -123,6 +160,7 @@ uv run --with torch --with numpy python -m unittest tests.test_ptd_model -v
 uv run --with numpy --with scipy --with pyarrow python scripts/run_alternating_solver_smoke.py
 uv run --with numpy --with scipy --with pyarrow python -m unittest tests.test_alternating_solver -v
 uv run --with torch --with pyarrow --with numpy --with scipy --with jsonschema python -m unittest tests.test_alternating_cycles tests.test_train_ptd -v
+uv run --with pyarrow --with jsonschema python -m unittest tests.test_run_bundle_assembler -v
 python3 scripts/run_evaluation_emitter_smoke.py
 python3 -m unittest tests.test_evaluation_emitter -v
 uv run --with torch --with pyarrow --with numpy python scripts/run_retrieval_runner_smoke.py

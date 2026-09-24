@@ -72,18 +72,21 @@
     "alternating_cycle_selection_schema_sha256": "022a9137bd0f50dfddd0a7d958582c00976decb2a9d58d5f29480b0f87a00680",
     "alternating_cycle_orchestrator_sha256": "967be12a795bc7fd642d5389fc4bf5c95f82ee80c07dbb0cc94ea9a77c4ac36a",
     "alternating_cycle_orchestrator_tests_sha256": "d25719cde655c112435ba564c61590c4507bc366f7df429d8432f8bbe9eabae4",
+    "fit_schedule_schema_sha256": "ec7250c5e4173b7ab1cdd2cc156d9c011cd1bc9687f405feefefe30d0b4bf676",
+    "fit_schedule_builder_sha256": "3f7f1e15f9c0ca2bf891fe48ad0be4ac4dc5203bd0893ff772940e16fdd51b6c",
+    "run_bundle_assembler_sha256": "a40b5c0c75a2ef9c2f5f055b6a722a9360e74e013dc6815885b3917522e30ed0",
+    "run_bundle_assembler_tests_sha256": "4372ac2def408367e2815f93cc8c63c08ca0e989c3a6d911d0f32f0b2a037af8",
     "evaluation_emitter_sha256": "db57236470e1bbc7e0f88a1f9e2d88231452f4d10ed91fe538e4a4f12010d052",
-    "evaluation_emitter_smoke_sha256": "c10f292ebb7359e37d1272f68f519df1e9a10b053c6057f6e2ee39f22f3c4a01",
+    "evaluation_emitter_smoke_sha256": "a08f556e8eb873cfdc348acb8bf3426d32cd2801b1cdb570dcc8993028db9407",
     "retrieval_query_builder_sha256": "db221ac9dcb9a3f0ce7c53e1acc7ce275dac4ad50dae9f3397c93272a2475a34",
-    "retrieval_runner_sha256": "d1a946b3a3a7b1512440f2b3603c5cace6d1fda6b3bcfa0d82553af52bbf679b",
+    "retrieval_runner_sha256": "9eeb36b6136c84e8e74affab8b6a3c416fc495825d54d80dfeca15dfdeade0ca",
     "retrieval_runner_smoke_sha256": "ab125a13543afcfa8c51a0c6b2b874aae2ea49aa9bc5923ead3fec897394c039"
   },
-  "production_pipeline_ready": false,
+  "production_pipeline_ready": true,
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
     "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence; raw/teacher rows can be materialized into depth-13 train/validation paths, consumed by an immutable single-fit runner, selected with an exact 27-cell validation purchase-NDCG gate, and converted into a complete train-item by free-leaf assignment matrix accepted by the exact anchored solver. The alternating orchestrator completes cycles 0--3 for each alternating variant/seed, warm-starts model parameters while resetting optimizers, selects on validation purchase NDCG@50 with a lower-cycle exact-tie rule, and locks the selected bundle without reading test queries. A complete paid launch is still blocked by full run-manifest/retrieval-plan assembly (including fit scheduling), a fresh deterministic bundle, and explicit Vertex AI cost authorization. This is not real reassignment, efficacy, or production-latency evidence."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence; raw/teacher rows can be materialized into depth-13 train/validation paths, consumed by an immutable single-fit runner, selected with an exact 27-cell validation purchase-NDCG gate, and converted into a complete train-item by free-leaf assignment matrix accepted by the exact anchored solver. The alternating orchestrator completes cycles 0--3 for each alternating variant/seed, warm-starts model parameters while resetting optimizers, selects on validation purchase NDCG@50 with a lower-cycle exact-tie rule, and locks the selected bundle without reading test queries. The full 65-fit DAG now hash-links every pre-test input; the run-bundle assembler verifies the 15 fixed-tree and six alternating artifacts, locks all 24 retrieval cells before test scoring, and finalizes the run manifest only after complete retrieval metrics exist. The production pipeline is locally complete, but a paid launch remains blocked by a fresh deterministic bundle and explicit Vertex AI cost authorization. This is not real reassignment, efficacy, or production-latency evidence."
 }

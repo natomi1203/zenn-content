@@ -140,3 +140,17 @@ Changes:
 5. Required the selected catalog, date masks, fit manifest, checkpoint, and their combined bundle hash to be locked before test scoring.
 
 Rationale: the prior registration allowed up to three cycles and validation-only selection but did not specify warm-start/reset behavior, residual ties, or how two alternating variants map into one run manifest. This amendment removes those ambiguities without reading a PTD outcome.
+
+## A11 - 2026-09-25 JST - staged fit DAG and pre-test bundle lock
+
+This amendment was made while no prospective five-day PTD result existed and every PTD efficacy, ablation, and latency claim remained `PENDING`. The complete assembly path was exercised only with synthetic text artifacts and synthetic retrieval/evaluation records.
+
+Changes:
+
+1. Fixed the staged execution DAG to 27 combined-grid fits at seed 16630, two selected-tuple single-level fits, 12 additional final fixed-tree fits after reusing the three applicable seed-16630 selection fits, and six four-fit alternating chains. This is 65 fit executions and 21 final tree-model artifacts.
+2. Required the fit schedule to hash-link the frozen-teacher, fixed training examples, validation queries, train-only assignment queries, fixed catalog, and fixed date-eligibility artifacts before fitting.
+3. Required the pre-test retrieval plan to cover exactly eight variants by three seeds and to bind every model manifest, checkpoint, catalog, date mask, query artifact, code revision, hardware/software/timer description, and selected alternating cycle in one combined lock hash.
+4. Required the lock timestamp to precede test scoring. The lock phase may inspect manifests and hashes but not the test-query payload or any test outcome.
+5. Required the final run manifest to be created only after a complete retrieval-metrics manifest exists, to hash-link the fit schedule, retrieval plan, and retrieval metrics manifest, and to record ordered creation, lock, test-start, and completion timestamps.
+
+Rationale: the earlier contracts specified every component but left the full fit count, reuse rules, and pre-test/post-test assembly boundary implicit. This amendment makes the paid execution graph and evidence handoff auditable without changing a model, comparison, threshold, or observed result.

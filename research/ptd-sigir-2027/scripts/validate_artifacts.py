@@ -209,6 +209,18 @@ def validate_execution_readiness() -> None:
         "alternating_cycle_orchestrator_tests_sha256": sha256(
             ROOT / "tests" / "test_alternating_cycles.py"
         ),
+        "fit_schedule_schema_sha256": sha256(
+            ROOT / "artifact" / "fit_schedule.schema.json"
+        ),
+        "fit_schedule_builder_sha256": sha256(
+            ROOT / "runner" / "build_fit_schedule.py"
+        ),
+        "run_bundle_assembler_sha256": sha256(
+            ROOT / "runner" / "assemble_run_bundle.py"
+        ),
+        "run_bundle_assembler_tests_sha256": sha256(
+            ROOT / "tests" / "test_run_bundle_assembler.py"
+        ),
         "evaluation_emitter_sha256": sha256(ROOT / "runner" / "emit_evaluation.py"),
         "evaluation_emitter_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "evaluation_emitter_smoke.json"
@@ -221,9 +233,8 @@ def validate_execution_readiness() -> None:
             ROOT / "artifact" / "smoke" / "retrieval_runner_smoke.json"
         ),
     }
-    assert audit["production_pipeline_ready"] is False
+    assert audit["production_pipeline_ready"] is True
     assert audit["launch_blockers"] == [
-        "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
         "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
         "obtain_explicit_authorization_for_Vertex_AI_cost",
     ]
@@ -501,10 +512,31 @@ def validate_production_component_evidence() -> None:
         "no_overwrite",
     }
     plan_schema = load("artifact/retrieval_run_plan.schema.json")
+    fit_schedule_schema = load("artifact/fit_schedule.schema.json")
+    assert fit_schedule_schema["additionalProperties"] is False
+    assert fit_schedule_schema["properties"]["grid_fits"]["minItems"] == 27
+    assert fit_schedule_schema["properties"]["grid_fits"]["maxItems"] == 27
+    assert fit_schedule_schema["properties"]["single_level_fits"]["minItems"] == 2
+    assert fit_schedule_schema["properties"]["final_fixed_tree_models"]["minItems"] == 15
+    assert fit_schedule_schema["properties"]["alternating_chains"]["minItems"] == 6
+    assert fit_schedule_schema["properties"]["counts"]["const"]["total_fit_executions"] == 65
+    assert fit_schedule_schema["properties"]["counts"]["const"]["locked_tree_model_artifacts"] == 21
     assert plan_schema["properties"]["entries"]["minItems"] == 24
     assert plan_schema["properties"]["entries"]["maxItems"] == 24
     assert plan_schema["properties"]["beam_width"]["const"] == 600
     assert plan_schema["properties"]["top_k"]["const"] == 600
+    assert {
+        "model_artifact",
+        "checkpoint",
+        "selected_cycle",
+    } <= set(plan_schema["properties"]["entries"]["items"]["required"])
+    assert {
+        "fit_schedule",
+        "validation_selection",
+        "teacher_scores_manifest",
+        "locked_bundle_sha256",
+        "checks",
+    } <= set(plan_schema["required"])
 
 
 def validate_ledger() -> None:
@@ -593,6 +625,12 @@ def validate_evidence_contracts() -> None:
     )
     assert run_schema["properties"]["tree"]["properties"]["depth"]["const"] == 13
     assert run_schema["properties"]["tree"]["properties"]["beam_width"]["const"] == 600
+    assert "completed_at" in run_schema["required"]
+    assert set(run_schema["properties"]["execution"]["required"]) == {
+        "fit_schedule",
+        "retrieval_plan",
+        "retrieval_metrics_manifest",
+    }
     assert set(paired_row_schema["properties"]["scores"]["required"]) == {
         "fixed_tdm",
         "ptd_item",

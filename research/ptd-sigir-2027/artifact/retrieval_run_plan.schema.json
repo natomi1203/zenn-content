@@ -6,6 +6,13 @@
   "required": [
     "contract_version",
     "status",
+    "created_at",
+    "locked_at",
+    "code_revision",
+    "fit_schedule",
+    "validation_selection",
+    "teacher_scores_manifest",
+    "locked_bundle_sha256",
     "test_dates",
     "seeds",
     "beam_width",
@@ -14,12 +21,24 @@
     "minimum_measured_queries_per_variant",
     "concurrency",
     "device",
+    "hardware",
+    "software",
+    "timer",
     "queries",
-    "entries"
+    "entries",
+    "checks",
+    "scope_note"
   ],
   "properties": {
     "contract_version": {"const": "ptd-retrieval-run-plan/v1"},
     "status": {"const": "locked"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "locked_at": {"type": "string", "format": "date-time"},
+    "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "fit_schedule": {"$ref": "#/$defs/artifact"},
+    "validation_selection": {"$ref": "#/$defs/artifact"},
+    "teacher_scores_manifest": {"$ref": "#/$defs/artifact"},
+    "locked_bundle_sha256": {"$ref": "#/$defs/sha256"},
     "test_dates": {"const": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"]},
     "seeds": {"const": [16630, 16631, 16632]},
     "beam_width": {"const": 600},
@@ -28,6 +47,9 @@
     "minimum_measured_queries_per_variant": {"type": "integer", "minimum": 1000},
     "concurrency": {"const": 1},
     "device": {"type": "string", "minLength": 1},
+    "hardware": {"type": "string", "minLength": 1},
+    "software": {"type": "string", "minLength": 1},
+    "timer": {"type": "string", "minLength": 1},
     "queries": {"$ref": "#/$defs/artifact"},
     "entries": {
       "type": "array",
@@ -35,7 +57,15 @@
       "maxItems": 24,
       "items": {
         "type": "object",
-        "required": ["variant", "seed", "catalog", "date_eligibility", "checkpoint"],
+        "required": [
+          "variant",
+          "seed",
+          "catalog",
+          "date_eligibility",
+          "model_artifact",
+          "checkpoint",
+          "selected_cycle"
+        ],
         "properties": {
           "variant": {
             "enum": [
@@ -52,24 +82,59 @@
           "seed": {"enum": [16630, 16631, 16632]},
           "catalog": {"$ref": "#/$defs/artifact"},
           "date_eligibility": {"$ref": "#/$defs/artifact"},
+          "model_artifact": {"$ref": "#/$defs/artifact"},
           "checkpoint": {
             "oneOf": [
               {"$ref": "#/$defs/artifact"},
+              {"type": "null"}
+            ]
+          },
+          "selected_cycle": {
+            "oneOf": [
+              {"type": "integer", "minimum": 0, "maximum": 3},
               {"type": "null"}
             ]
           }
         },
         "additionalProperties": false
       }
-    }
+    },
+    "checks": {
+      "type": "object",
+      "required": [
+        "fit_schedule_complete",
+        "validation_selection_complete",
+        "all_24_variant_seed_entries",
+        "all_artifact_hashes_match",
+        "selected_hyperparameters_match",
+        "alternating_cycles_validation_selected",
+        "tree_models_locked_before_test",
+        "test_queries_not_read_during_lock",
+        "no_overwrite"
+      ],
+      "properties": {
+        "fit_schedule_complete": {"const": true},
+        "validation_selection_complete": {"const": true},
+        "all_24_variant_seed_entries": {"const": true},
+        "all_artifact_hashes_match": {"const": true},
+        "selected_hyperparameters_match": {"const": true},
+        "alternating_cycles_validation_selected": {"const": true},
+        "tree_models_locked_before_test": {"const": true},
+        "test_queries_not_read_during_lock": {"const": true},
+        "no_overwrite": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "scope_note": {"type": "string", "minLength": 1}
   },
   "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "artifact": {
       "type": "object",
       "required": ["path", "sha256"],
       "properties": {
         "path": {"type": "string", "minLength": 1},
-        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        "sha256": {"$ref": "#/$defs/sha256"}
       },
       "additionalProperties": false
     }

@@ -31,6 +31,7 @@ from runner.retrieval_runner import (  # noqa: E402
     TorchSiblingBackend,
     beam_retrieve,
     load_queries,
+    plan_lock_sha256,
     run_from_plan,
     sha256,
 )
@@ -162,14 +163,27 @@ def write_plan(
                     "seed": seed,
                     "catalog": _artifact(catalog),
                     "date_eligibility": _artifact(eligibility),
+                    "model_artifact": _artifact(
+                        queries if variant == "teacher_oracle" else checkpoint
+                    ),
                     "checkpoint": None
                     if variant == "teacher_oracle"
                     else _artifact(checkpoint),
+                    "selected_cycle": 0
+                    if variant in {"alternating_tdm", "alternating_ptd"}
+                    else None,
                 }
             )
     plan = {
         "contract_version": "ptd-retrieval-run-plan/v1",
         "status": "locked",
+        "created_at": "2026-09-25T10:00:00+09:00",
+        "locked_at": "2026-09-25T10:01:00+09:00",
+        "code_revision": "a" * 40,
+        "fit_schedule": _artifact(queries),
+        "validation_selection": _artifact(queries),
+        "teacher_scores_manifest": _artifact(queries),
+        "locked_bundle_sha256": "0" * 64,
         "test_dates": EXPECTED_SPLIT["test"],
         "seeds": EXPECTED_SEEDS,
         "beam_width": 600,
@@ -178,9 +192,25 @@ def write_plan(
         "minimum_measured_queries_per_variant": 1000,
         "concurrency": 1,
         "device": "synthetic-cpu",
+        "hardware": "synthetic CPU smoke",
+        "software": "synthetic retrieval runtime",
+        "timer": "deterministic synthetic nanosecond clock",
         "queries": _artifact(queries),
         "entries": entries,
+        "checks": {
+            "fit_schedule_complete": True,
+            "validation_selection_complete": True,
+            "all_24_variant_seed_entries": True,
+            "all_artifact_hashes_match": True,
+            "selected_hyperparameters_match": True,
+            "alternating_cycles_validation_selected": True,
+            "tree_models_locked_before_test": True,
+            "test_queries_not_read_during_lock": True,
+            "no_overwrite": True,
+        },
+        "scope_note": "Synthetic locked retrieval plan only.",
     }
+    plan["locked_bundle_sha256"] = plan_lock_sha256(plan)
     path.write_text(json.dumps(plan, indent=2, sort_keys=True) + "\n")
 
 

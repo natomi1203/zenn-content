@@ -47,6 +47,7 @@ def synthetic_run_manifest() -> dict:
         "run_id": "synthetic-emitter-smoke",
         "created_at": "2026-09-25T09:00:00+09:00",
         "test_scoring_started_at": "2026-09-25T11:00:00+09:00",
+        "completed_at": "2026-09-25T11:30:00+09:00",
         "code_revision": "a" * 40,
         "source_contract": {
             "contract_version": "shared_bottom_esmm_v2_source",
@@ -130,6 +131,11 @@ def synthetic_run_manifest() -> dict:
             "hardware": "synthetic CPU smoke",
             "software": "synthetic emitter runtime",
             "timer": "synthetic monotonic durations",
+        },
+        "execution": {
+            "fit_schedule": artifact,
+            "retrieval_plan": artifact,
+            "retrieval_metrics_manifest": artifact,
         },
         "deviations": [],
     }

@@ -91,6 +91,7 @@ def valid_run() -> dict:
         "run_id": "prospective-five-day-example",
         "created_at": "2026-09-24T00:00:00Z",
         "test_scoring_started_at": "2026-09-24T02:00:00Z",
+        "completed_at": "2026-09-24T03:00:00Z",
         "code_revision": "a" * 40,
         "source_contract": {
             "contract_version": "shared_bottom_esmm_v2_source",
@@ -165,6 +166,11 @@ def valid_run() -> dict:
             "hardware": "documented test CPU",
             "software": "documented runtime",
             "timer": "monotonic wall clock",
+        },
+        "execution": {
+            "fit_schedule": artifact,
+            "retrieval_plan": artifact,
+            "retrieval_metrics_manifest": artifact,
         },
         "deviations": [],
     }
@@ -352,6 +358,20 @@ class EvidenceGateTest(unittest.TestCase):
         report = self.check(mutate_run=lambda value: value.__setitem__("created_at", "2026-09-24T00:00:00"))
         self.assertFalse(report["admissible"])
         self.assertTrue(any("timestamps" in error for error in report["errors"]))
+
+    def test_missing_execution_link_fails_closed(self) -> None:
+        report = self.check(mutate_run=lambda value: value.pop("execution"))
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("run.execution" in error for error in report["errors"]))
+
+    def test_completion_before_test_start_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value.__setitem__(
+                "completed_at", "2026-09-24T01:30:00Z"
+            )
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("timestamps are out of order" in error for error in report["errors"]))
 
     def test_unregistered_hyperparameter_fails_closed(self) -> None:
         report = self.check(

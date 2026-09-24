@@ -9,6 +9,7 @@
     "run_id",
     "created_at",
     "test_scoring_started_at",
+    "completed_at",
     "code_revision",
     "source_contract",
     "method_contract",
@@ -21,6 +22,7 @@
     "validation_selection",
     "tree",
     "latency_protocol",
+    "execution",
     "deviations"
   ],
   "properties": {
@@ -29,6 +31,7 @@
     "run_id": {"type": "string", "minLength": 1},
     "created_at": {"type": "string", "format": "date-time"},
     "test_scoring_started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
     "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "source_contract": {
       "type": "object",
@@ -218,6 +221,16 @@
         "hardware": {"type": "string", "minLength": 1},
         "software": {"type": "string", "minLength": 1},
         "timer": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "required": ["fit_schedule", "retrieval_plan", "retrieval_metrics_manifest"],
+      "properties": {
+        "fit_schedule": {"$ref": "#/$defs/artifact"},
+        "retrieval_plan": {"$ref": "#/$defs/artifact"},
+        "retrieval_metrics_manifest": {"$ref": "#/$defs/artifact"}
       },
       "additionalProperties": false
     },

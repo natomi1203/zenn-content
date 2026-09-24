@@ -11,6 +11,7 @@ import os
 import tempfile
 import time
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Mapping, Protocol, Sequence
 
@@ -523,8 +524,81 @@ def _artifact(value: Any, label: str) -> tuple[Path, str]:
     return path, digest
 
 
+def _timestamp(value: Any, label: str) -> datetime:
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{label} must be a non-empty timestamp")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"{label} is not ISO-8601") from exc
+    if parsed.tzinfo is None:
+        raise ValueError(f"{label} must include a timezone")
+    return parsed
+
+
+def plan_lock_sha256(plan: Mapping[str, Any]) -> str:
+    entries = []
+    for entry in sorted(
+        plan.get("entries", []), key=lambda value: (value["variant"], value["seed"])
+    ):
+        checkpoint = entry.get("checkpoint")
+        entries.append(
+            {
+                "variant": entry["variant"],
+                "seed": entry["seed"],
+                "catalog_sha256": entry["catalog"]["sha256"],
+                "date_eligibility_sha256": entry["date_eligibility"]["sha256"],
+                "model_artifact_sha256": entry["model_artifact"]["sha256"],
+                "checkpoint_sha256": None if checkpoint is None else checkpoint["sha256"],
+                "selected_cycle": entry["selected_cycle"],
+            }
+        )
+    payload = {
+        "code_revision": plan.get("code_revision"),
+        "fit_schedule_sha256": plan.get("fit_schedule", {}).get("sha256"),
+        "validation_selection_sha256": plan.get("validation_selection", {}).get(
+            "sha256"
+        ),
+        "teacher_scores_manifest_sha256": plan.get(
+            "teacher_scores_manifest", {}
+        ).get("sha256"),
+        "queries_sha256": plan.get("queries", {}).get("sha256"),
+        "entries": entries,
+    }
+    canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256((canonical + "\n").encode()).hexdigest()
+
+
 def load_plan(path: Path) -> dict[str, Any]:
     plan = json.loads(path.read_text())
+    expected_fields = {
+        "contract_version",
+        "status",
+        "created_at",
+        "locked_at",
+        "code_revision",
+        "fit_schedule",
+        "validation_selection",
+        "teacher_scores_manifest",
+        "locked_bundle_sha256",
+        "test_dates",
+        "seeds",
+        "beam_width",
+        "top_k",
+        "warmup_queries_per_variant_seed",
+        "minimum_measured_queries_per_variant",
+        "concurrency",
+        "device",
+        "hardware",
+        "software",
+        "timer",
+        "queries",
+        "entries",
+        "checks",
+        "scope_note",
+    }
+    if not isinstance(plan, dict) or set(plan) != expected_fields:
+        raise ValueError("retrieval plan fields differ from the locked contract")
     if (
         plan.get("contract_version") != "ptd-retrieval-run-plan/v1"
         or plan.get("status") != "locked"
@@ -547,6 +621,17 @@ def load_plan(path: Path) -> dict[str, Any]:
         value = plan.get(key)
         if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
             raise ValueError(f"retrieval plan {key} must be at least {minimum}")
+    created_at = _timestamp(plan.get("created_at"), "retrieval plan created_at")
+    locked_at = _timestamp(plan.get("locked_at"), "retrieval plan locked_at")
+    if created_at > locked_at:
+        raise ValueError("retrieval plan must be created no later than it is locked")
+    revision = plan.get("code_revision")
+    if not isinstance(revision, str) or len(revision) != 40 or any(
+        value not in "0123456789abcdef" for value in revision
+    ):
+        raise ValueError("retrieval plan code revision is invalid")
+    for key in ("fit_schedule", "validation_selection", "teacher_scores_manifest"):
+        _artifact(plan.get(key), key.replace("_", " "))
     _artifact(plan.get("queries"), "queries")
     entries = plan.get("entries")
     if not isinstance(entries, list) or len(entries) != len(EXPECTED_VARIANTS) * len(
@@ -555,7 +640,15 @@ def load_plan(path: Path) -> dict[str, Any]:
         raise ValueError("retrieval plan must contain all 24 variant-seed entries")
     seen: set[tuple[str, int]] = set()
     for entry in entries:
-        required = {"variant", "seed", "catalog", "date_eligibility", "checkpoint"}
+        required = {
+            "variant",
+            "seed",
+            "catalog",
+            "date_eligibility",
+            "model_artifact",
+            "checkpoint",
+            "selected_cycle",
+        }
         if not isinstance(entry, dict) or set(entry) != required:
             raise ValueError("retrieval plan entry fields mismatch")
         variant = entry["variant"]
@@ -567,11 +660,20 @@ def load_plan(path: Path) -> dict[str, Any]:
         seen.add((variant, seed))
         _artifact(entry["catalog"], f"{variant}/{seed} catalog")
         _artifact(entry["date_eligibility"], f"{variant}/{seed} eligibility")
+        _artifact(entry["model_artifact"], f"{variant}/{seed} model artifact")
         if variant == "teacher_oracle":
             if entry["checkpoint"] is not None:
                 raise ValueError("teacher oracle must not have a tree-model checkpoint")
+            if entry["selected_cycle"] is not None:
+                raise ValueError("teacher oracle must not have an alternating cycle")
         else:
             _artifact(entry["checkpoint"], f"{variant}/{seed} checkpoint")
+            if variant in {"alternating_tdm", "alternating_ptd"}:
+                cycle = entry["selected_cycle"]
+                if isinstance(cycle, bool) or not isinstance(cycle, int) or not 0 <= cycle <= 3:
+                    raise ValueError("alternating entry has an invalid selected cycle")
+            elif entry["selected_cycle"] is not None:
+                raise ValueError("fixed-tree entry must not have an alternating cycle")
     expected_pairs = {
         (variant, seed) for variant in EXPECTED_VARIANTS for seed in EXPECTED_SEEDS
     }
@@ -579,6 +681,14 @@ def load_plan(path: Path) -> dict[str, Any]:
         raise ValueError("retrieval plan does not cover the registered matrix")
     if not isinstance(plan.get("device"), str) or not plan["device"]:
         raise ValueError("retrieval plan device is missing")
+    for key in ("hardware", "software", "timer", "scope_note"):
+        if not isinstance(plan.get(key), str) or not plan[key]:
+            raise ValueError(f"retrieval plan {key} is missing")
+    checks = plan.get("checks")
+    if not isinstance(checks, dict) or not checks or not all(checks.values()):
+        raise ValueError("retrieval plan checks are incomplete")
+    if plan.get("locked_bundle_sha256") != plan_lock_sha256(plan):
+        raise ValueError("retrieval plan locked bundle hash mismatch")
     return plan
 
 

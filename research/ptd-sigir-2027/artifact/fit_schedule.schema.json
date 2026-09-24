@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/fit-schedule.schema.json",
+  "title": "PTD staged fit schedule",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "status",
+    "code_revision",
+    "selection_seed",
+    "seeds",
+    "output_root",
+    "inputs",
+    "grid_fits",
+    "single_level_fits",
+    "final_fixed_tree_models",
+    "alternating_chains",
+    "counts",
+    "checks",
+    "scope_note"
+  ],
+  "properties": {
+    "contract_version": {"const": "ptd-fit-schedule/v1"},
+    "status": {"const": "locked"},
+    "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "selection_seed": {"const": 16630},
+    "seeds": {"const": [16630, 16631, 16632]},
+    "output_root": {"type": "string", "minLength": 1},
+    "inputs": {
+      "type": "object",
+      "required": [
+        "teacher_scores_manifest",
+        "training_examples_manifest",
+        "validation_queries_manifest",
+        "assignment_queries_manifest",
+        "fixed_catalog",
+        "fixed_date_eligibility"
+      ],
+      "properties": {
+        "teacher_scores_manifest": {"$ref": "#/$defs/artifact"},
+        "training_examples_manifest": {"$ref": "#/$defs/artifact"},
+        "validation_queries_manifest": {"$ref": "#/$defs/artifact"},
+        "assignment_queries_manifest": {"$ref": "#/$defs/artifact"},
+        "fixed_catalog": {"$ref": "#/$defs/artifact"},
+        "fixed_date_eligibility": {"$ref": "#/$defs/artifact"}
+      },
+      "additionalProperties": false
+    },
+    "grid_fits": {
+      "type": "array",
+      "minItems": 27,
+      "maxItems": 27,
+      "items": {"$ref": "#/$defs/grid_fit"}
+    },
+    "single_level_fits": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/dynamic_fit"}
+    },
+    "final_fixed_tree_models": {
+      "type": "array",
+      "minItems": 15,
+      "maxItems": 15,
+      "items": {"$ref": "#/$defs/final_model"}
+    },
+    "alternating_chains": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/alternating_chain"}
+    },
+    "counts": {
+      "const": {
+        "grid_fit_executions": 27,
+        "single_level_fit_executions": 2,
+        "additional_fixed_tree_fit_executions": 12,
+        "alternating_chains": 6,
+        "fits_per_alternating_chain": 4,
+        "alternating_fit_executions": 24,
+        "total_fit_executions": 65,
+        "locked_tree_model_artifacts": 21,
+        "retrieval_variant_seed_entries": 24
+      }
+    },
+    "checks": {
+      "type": "object",
+      "required": [
+        "exact_27_cell_grid",
+        "selection_seed_only_for_grid",
+        "single_levels_after_grid_selection",
+        "all_five_fixed_tree_variants_and_three_seeds",
+        "selected_seed_fits_reused",
+        "all_two_alternating_variants_and_three_seeds",
+        "four_fits_per_alternating_chain",
+        "no_test_stage_dependency",
+        "deterministic_paths",
+        "no_overwrite"
+      ],
+      "properties": {
+        "exact_27_cell_grid": {"const": true},
+        "selection_seed_only_for_grid": {"const": true},
+        "single_levels_after_grid_selection": {"const": true},
+        "all_five_fixed_tree_variants_and_three_seeds": {"const": true},
+        "selected_seed_fits_reused": {"const": true},
+        "all_two_alternating_variants_and_three_seeds": {"const": true},
+        "four_fits_per_alternating_chain": {"const": true},
+        "no_test_stage_dependency": {"const": true},
+        "deterministic_paths": {"const": true},
+        "no_overwrite": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "scope_note": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "hyperparameters": {
+      "type": "object",
+      "required": ["temperature", "lambda_item", "lambda_node"],
+      "properties": {
+        "temperature": {"enum": [1.0, 2.0, 4.0]},
+        "lambda_item": {"enum": [0.1, 0.3, 1.0]},
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]}
+      },
+      "additionalProperties": false
+    },
+    "output_paths": {
+      "type": "object",
+      "required": ["checkpoint", "manifest"],
+      "properties": {
+        "checkpoint": {"type": "string", "minLength": 1},
+        "manifest": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "grid_fit": {
+      "type": "object",
+      "required": ["task_id", "variant", "seed", "hyperparameters", "outputs"],
+      "properties": {
+        "task_id": {"type": "string", "pattern": "^selection-grid-[0-9]{2}$"},
+        "variant": {"const": "ptd_combined"},
+        "seed": {"const": 16630},
+        "hyperparameters": {"$ref": "#/$defs/hyperparameters"},
+        "outputs": {"$ref": "#/$defs/output_paths"}
+      },
+      "additionalProperties": false
+    },
+    "dynamic_fit": {
+      "type": "object",
+      "required": [
+        "task_id",
+        "variant",
+        "seed",
+        "hyperparameters_from",
+        "depends_on",
+        "outputs"
+      ],
+      "properties": {
+        "task_id": {"type": "string", "minLength": 1},
+        "variant": {"enum": ["ptd_item", "ptd_node"]},
+        "seed": {"const": 16630},
+        "hyperparameters_from": {"const": "grid_validation_winner"},
+        "depends_on": {"const": "all_27_grid_fits_scored_on_validation"},
+        "outputs": {"$ref": "#/$defs/output_paths"}
+      },
+      "additionalProperties": false
+    },
+    "final_model": {
+      "type": "object",
+      "required": ["variant", "seed", "action", "hyperparameters_from", "output_dir"],
+      "properties": {
+        "variant": {
+          "enum": [
+            "fixed_tdm",
+            "ptd_item",
+            "ptd_node",
+            "ptd_combined",
+            "ptd_combined_baseline_encoder"
+          ]
+        },
+        "seed": {"enum": [16630, 16631, 16632]},
+        "action": {
+          "enum": [
+            "run_selected_hyperparameters",
+            "reuse_selected_grid_fit",
+            "reuse_single_level_fit"
+          ]
+        },
+        "hyperparameters_from": {"const": "validation_selection"},
+        "output_dir": {
+          "oneOf": [
+            {"type": "string", "minLength": 1},
+            {"type": "null"}
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "alternating_chain": {
+      "type": "object",
+      "required": [
+        "variant",
+        "seed",
+        "cycles",
+        "hyperparameters_from",
+        "depends_on",
+        "output_dir"
+      ],
+      "properties": {
+        "variant": {"enum": ["alternating_tdm", "alternating_ptd"]},
+        "seed": {"enum": [16630, 16631, 16632]},
+        "cycles": {"const": [0, 1, 2, 3]},
+        "hyperparameters_from": {"const": "validation_selection"},
+        "depends_on": {"const": "fixed_tree_and_validation_selection"},
+        "output_dir": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

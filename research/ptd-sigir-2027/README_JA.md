@@ -34,9 +34,9 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
 
-`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つのcore component、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_training_examples.py` はraw/frozen-teacher rowをkey一致させ、train/validationのcandidate setを固定date maskと照合し、観測purchaseごとに完全なdepth-13 groupを出力します。test shardではoutcome列を開きません。`runner/train_ptd.py` はこのimmutable artifactから登録済みvariant/seedの単一fitを実行し、batch size 64、exact 2 epoch、no-clobber checkpoint、validation-loss auditを強制します。`runner/build_assignment_queries.py`と`runner/materialize_assignment_weights.py`は3つのtrain日だけを隔離し、exact anchored solverが受理する完全なfloat64 train-item×free-leaf行列を生成します。`runner/run_alternating_cycles.py`は一つのalternating variant/seedについてcycle 0--3を完走し、model parameterをwarm-startする一方で両optimizerをresetし、validation purchase NDCG@50とlower-cycle exact-tie ruleで選択して、test queryを開かずに選択bundleを固定します。test側は`runner/build_retrieval_queries.py`と`runner/retrieval_runner.py`が固定24-cell beam/latency matrixまで担当します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。
+`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つのcore component、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_training_examples.py` はraw/frozen-teacher rowをkey一致させ、train/validationのcandidate setを固定date maskと照合し、観測purchaseごとに完全なdepth-13 groupを出力します。test shardではoutcome列を開きません。`runner/train_ptd.py` はこのimmutable artifactから登録済みvariant/seedの単一fitを実行し、batch size 64、exact 2 epoch、no-clobber checkpoint、validation-loss auditを強制します。`runner/build_assignment_queries.py`と`runner/materialize_assignment_weights.py`は3つのtrain日だけを隔離し、exact anchored solverが受理する完全なfloat64 train-item×free-leaf行列を生成します。`runner/run_alternating_cycles.py`は一つのalternating variant/seedについてcycle 0--3を完走し、model parameterをwarm-startする一方で両optimizerをresetし、validation purchase NDCG@50とlower-cycle exact-tie ruleで選択して、test queryを開かずに選択bundleを固定します。`runner/build_fit_schedule.py`はpre-test inputをhash-linkした完全な65-fit staged DAGを固定します。`runner/assemble_run_bundle.py`は15個のfixed-tree fitと6個のalternating selectionを検証し、test-query payloadを開く前に正確な24-cell retrieval planをlockし、complete retrieval metricsの後だけrun manifestを確定します。test側は`runner/build_retrieval_queries.py`と`runner/retrieval_runner.py`がbeam/latency実行を担当します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。
 
-有料launchはまだreadyではありません。validation selection、train-only assignment-weight materialization、validation-only alternating-cycle orchestrationは実装済みです。残るcode gateは、完全なfit scheduling・run manifest・retrieval planの組み立てと、完成revisionからの新しい決定論的bundleです。Vertex AI費用の明示承認は、それらとは別の最終gateです。
+有料launchはまだreadyではありません。validation selection、train-only assignment-weight materialization、alternating-cycle orchestration、完全なfit schedule、pre-test retrieval lock、post-retrieval run-manifest finalizationは実装済みです。残るengineering gateは、完成pipeline revisionからの新しい決定論的bundleです。Vertex AI費用の明示承認は、それとは別の最終gateです。
 
 `artifact/verified/launch_bundle_evidence.json` はrevision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` から2回独立生成してbyte一致した `git archive` / `gzip -n` bundle（SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`）を記録します。展開後bundleは利用可能な全テスト、引用検査、artifact検証を通過しました。bundleはlocalにのみ存在し、uploadもVertex AI submitもしていません。
 
@@ -112,6 +112,43 @@ uv run --with torch --with pyarrow --with numpy --with scipy \
 
 個別fitとsolver commandはcomponent単位のentry pointです。cycle orchestratorは一つのalternating variant/seedについて登録済み4-fit chainを実行しますが、prospective実験全体ではありません。6本すべてのalternating chainをscheduleする前に、selectorには27個すべてのcombined-grid manifestと、選択tupleを使ったitem-only/node-only manifestが必要です。
 
+完全な実行境界は、次の3つのfail-closed stageでmaterializeします。lock commandには15個すべてのfinal fixed-tree fit manifestと6個すべてのalternating-cycle manifestを、それぞれflagを繰り返して渡します。
+
+```bash
+python3 runner/build_fit_schedule.py \
+  --code-revision <40-hex-revision> \
+  --output-root /restricted/ptd-run \
+  --teacher-scores-manifest /restricted/teacher/manifest.json \
+  --training-examples-manifest /restricted/training/manifest.json \
+  --validation-queries-manifest /restricted/validation/query-manifest.json \
+  --assignment-queries-manifest /restricted/alternating/train-query-manifest.json \
+  --fixed-catalog /restricted/catalog/catalog.parquet \
+  --fixed-date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --output /restricted/ptd-run/fit-schedule.json
+
+uv run --with pyarrow python runner/assemble_run_bundle.py lock \
+  --code-revision <40-hex-revision> \
+  --created-at <ISO-8601> --locked-at <ISO-8601> \
+  --fit-schedule /restricted/ptd-run/fit-schedule.json \
+  --validation-selection /restricted/validation/selection.json \
+  --teacher-scores-manifest /restricted/teacher/manifest.json \
+  --retrieval-queries-manifest /restricted/test/query-manifest.json \
+  --fixed-catalog /restricted/catalog/catalog.parquet \
+  --fixed-date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --fit-manifest <15回繰り返す> \
+  --alternating-cycle-manifest <6回繰り返す> \
+  --device cuda --hardware <matched-hardware> \
+  --software <locked-runtime> --timer <synchronized-timer> \
+  --output /restricted/ptd-run/retrieval-plan.json
+
+uv run --with pyarrow python runner/assemble_run_bundle.py finalize \
+  --retrieval-plan /restricted/ptd-run/retrieval-plan.json \
+  --retrieval-metrics-manifest /restricted/ptd-run/retrieval-metrics-manifest.json \
+  --run-id <run-id> --test-scoring-started-at <ISO-8601> \
+  --completed-at <ISO-8601> \
+  --output /restricted/ptd-run/run-manifest.json
+```
+
 `artifact/vertex_preflight_job_spec.json` はsynthetic runtime互換性検査用で、まだlaunch不能なVertex `CustomJobSpec` templateです。登録済みL4 machine/container、正確なbundle hash、空output/no-clobber検査、container内の `PTD_COST_AUTHORIZED=true` gateを固定し、service accountとGCS locationはplaceholder、authorization既定値はfalseです。`make vertex-preflight-validate` は安全なlocal検証だけを行います。`scripts/validate_vertex_preflight.py` は明示的な `--authorize-cost` と具体的なservice-account/GCS値がある場合だけspecをrenderでき、`gcloud`呼び出しやjob submitは一切行いません。現在、launch可能なrender済みspecは存在しません。
 
 制限付きデータ環境での任意チェックは次です。
@@ -123,6 +160,7 @@ uv run --with torch --with numpy python -m unittest tests.test_ptd_model -v
 uv run --with numpy --with scipy --with pyarrow python scripts/run_alternating_solver_smoke.py
 uv run --with numpy --with scipy --with pyarrow python -m unittest tests.test_alternating_solver -v
 uv run --with torch --with pyarrow --with numpy --with scipy --with jsonschema python -m unittest tests.test_alternating_cycles tests.test_train_ptd -v
+uv run --with pyarrow --with jsonschema python -m unittest tests.test_run_bundle_assembler -v
 python3 scripts/run_evaluation_emitter_smoke.py
 python3 -m unittest tests.test_evaluation_emitter -v
 uv run --with torch --with pyarrow --with numpy python scripts/run_retrieval_runner_smoke.py

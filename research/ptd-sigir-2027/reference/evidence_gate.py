@@ -214,6 +214,17 @@ def validate_evidence(
             if teacher["artifact"].get("sha256") != TEACHER_CHECKPOINT_SHA256:
                 errors.append("teacher checkpoint hash mismatch")
 
+    execution = run.get("execution")
+    if not isinstance(execution, dict) or set(execution) != {
+        "fit_schedule",
+        "retrieval_plan",
+        "retrieval_metrics_manifest",
+    }:
+        errors.append("run.execution must link the schedule, plan, and retrieval manifest")
+    else:
+        for key in ("fit_schedule", "retrieval_plan", "retrieval_metrics_manifest"):
+            _check_artifact(execution.get(key), f"run.execution.{key}", errors)
+
     _check_exact_assertions(run.get("assertions"), "run.assertions", errors)
     _check_exact_assertions(evaluation.get("assertions"), "evaluation.assertions", errors)
 
@@ -502,11 +513,17 @@ def validate_evidence(
 
     created_at = _timestamp(run.get("created_at"))
     test_started_at = _timestamp(run.get("test_scoring_started_at"))
+    completed_at = _timestamp(run.get("completed_at"))
     tree_locked_at = _timestamp(tree.get("locked_at")) if isinstance(tree, dict) else None
-    if created_at is None or test_started_at is None or tree_locked_at is None:
+    if (
+        created_at is None
+        or test_started_at is None
+        or completed_at is None
+        or tree_locked_at is None
+    ):
         errors.append("run timestamps must be valid ISO-8601 values")
-    elif not (created_at <= tree_locked_at <= test_started_at):
-        errors.append("run manifest and tree lock must precede test scoring")
+    elif not (created_at <= tree_locked_at <= test_started_at <= completed_at):
+        errors.append("run creation/tree lock/test start/completion timestamps are out of order")
 
     for payload, label in ((run, "run"), (evaluation, "evaluation")):
         deviations = payload.get("deviations")

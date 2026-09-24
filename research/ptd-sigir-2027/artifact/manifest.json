@@ -41,14 +41,14 @@
       "path": "artifact/preregistration.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "118a8800e898716bd2be462dc10e58847b9b7ed51796c3ff22430c64cf6a2566"
+      "sha256": "88b4ee8bbce717ee3085fb271f791990007e59c341e6f300b60a508424f5be3d"
     },
     {
       "id": "preregistration-amendments",
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "8920b80915708d6bf0b5ba9b78c5695bdf5e37340fe273271e7b8ce8272c1589"
+      "sha256": "f3a030baf05634d387986a3a7c5fd6977e01b5b5d756f56ceb348708cf697377"
     },
     {
       "id": "artifact-manifest-schema",
@@ -62,7 +62,7 @@
       "path": "artifact/run_manifest.schema.json",
       "media_type": "application/schema+json",
       "status": "PREREGISTERED",
-      "sha256": "a79cdd4641ad3fc271845ae69ddf29700bcd5567f75523d2c27225707f874ed3"
+      "sha256": "d14de2e527c9e2f37be7bdca493089da6d73cebe61f0105925fc27d440557529"
     },
     {
       "id": "paired-observation-row-schema",
@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "6398266b1846d9332b6d2d48d666a448867c3e83136fd5bdd86b6cbf2d6d023f"
+      "sha256": "e5502804d8df2c2b289cbcf1fca2ca5fa39cfc08d1456901f6be67318aaf26f8"
     },
     {
       "id": "launch-bundle-evidence",
@@ -415,6 +415,34 @@
       "sha256": "d25719cde655c112435ba564c61590c4507bc366f7df429d8432f8bbe9eabae4"
     },
     {
+      "id": "fit-schedule-schema",
+      "path": "artifact/fit_schedule.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "ec7250c5e4173b7ab1cdd2cc156d9c011cd1bc9687f405feefefe30d0b4bf676"
+    },
+    {
+      "id": "fit-schedule-builder",
+      "path": "runner/build_fit_schedule.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "3f7f1e15f9c0ca2bf891fe48ad0be4ac4dc5203bd0893ff772940e16fdd51b6c"
+    },
+    {
+      "id": "run-bundle-assembler",
+      "path": "runner/assemble_run_bundle.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "a40b5c0c75a2ef9c2f5f055b6a722a9360e74e013dc6815885b3917522e30ed0"
+    },
+    {
+      "id": "run-bundle-assembler-tests",
+      "path": "tests/test_run_bundle_assembler.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "4372ac2def408367e2815f93cc8c63c08ca0e989c3a6d911d0f32f0b2a037af8"
+    },
+    {
       "id": "retrieval-observation-row-schema",
       "path": "artifact/retrieval_observation_row.schema.json",
       "media_type": "application/schema+json",
@@ -440,14 +468,14 @@
       "path": "scripts/run_evaluation_emitter_smoke.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "cf2efac89d6f59bf6991bb901f14c5c0d01b57350ef5a907d94789866a317b60"
+      "sha256": "5a1ac797caefe93ab2d2831bf522e84de9a22d85f29d804e903a30afffdd1a64"
     },
     {
       "id": "evaluation-emitter-smoke",
       "path": "artifact/smoke/evaluation_emitter_smoke.json",
       "media_type": "application/json",
       "status": "GENERATED",
-      "sha256": "c10f292ebb7359e37d1272f68f519df1e9a10b053c6057f6e2ee39f22f3c4a01"
+      "sha256": "a08f556e8eb873cfdc348acb8bf3426d32cd2801b1cdb570dcc8993028db9407"
     },
     {
       "id": "retrieval-query-row-schema",
@@ -461,7 +489,7 @@
       "path": "artifact/retrieval_run_plan.schema.json",
       "media_type": "application/schema+json",
       "status": "PREREGISTERED",
-      "sha256": "507c2ed9f17ba8f5c028794a99bf0f3b75d464a98912e90bbe175bdf0fc68650"
+      "sha256": "a53a0142a9a3e3786bd84eea34365d66c6514028b5c7fe98398d211e2483821b"
     },
     {
       "id": "retrieval-query-builder",
@@ -482,7 +510,7 @@
       "path": "runner/retrieval_runner.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "d1a946b3a3a7b1512440f2b3603c5cace6d1fda6b3bcfa0d82553af52bbf679b"
+      "sha256": "9eeb36b6136c84e8e74affab8b6a3c416fc495825d54d80dfeca15dfdeade0ca"
     },
     {
       "id": "retrieval-runner-tests",
@@ -496,7 +524,7 @@
       "path": "scripts/run_retrieval_runner_smoke.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "d26acb0761926e126f4223eba18b555250df30a0bd2364d6acd4cf40bc4bfd20"
+      "sha256": "8aa19dc9352bae660d0ad300fa7f431c4d1bc96a388f98f842729522d76f218e"
     },
     {
       "id": "retrieval-runner-smoke",
@@ -538,7 +566,7 @@
       "path": "reference/evidence_gate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "4f16d4ef8c32e4521e7d7b42e2aa898fed2f8ba62ecac214f8dc627c2ba46993"
+      "sha256": "91250e37e3a43be601125ecb636aa40493ef415c549831a3447d5658abdc774a"
     },
     {
       "id": "evidence-gate-cli",
@@ -552,7 +580,7 @@
       "path": "tests/test_evidence_gate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "ea7f51214ab07f08e45b1ecbfe1b8d0f616f0176ffefe65c05276332b431ee04"
+      "sha256": "3e102670ea46d641079c16516fdc24b047befeed29f2b2dcdbb6aeed82272320"
     },
     {
       "id": "reference-smoke",
@@ -601,7 +629,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "ece725e60f9a44d08b75e2ebfd47280a2864229601487a96535b9c23f8b980d0"
+      "sha256": "bed21127158bd6fd6fda077a04edee4f3fa6ba50a81890c6f38cdac71b28c317"
     },
     {
       "id": "manifest-finalizer",
@@ -643,14 +671,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "3b50a21ed991493b495eaf8e73346c77cb51502f15f1f48f5ea5ed1cf36f1acb"
+      "sha256": "8b6d87d4bfb0640c119f3730dc90ef933ed43c12e12d574ebcad17b940dfd226"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "d44cdb3c354f25a61b3fcd3b02afb4f4bb1c6a9d1790a92af2b4dbb95dd07b5c"
+      "sha256": "75fd1988f03c0b46c54d74ab79cad792f85be0e8ec739858b7ff743337ee63e4"
     },
     {
       "id": "ptd-five-day-evaluation",
