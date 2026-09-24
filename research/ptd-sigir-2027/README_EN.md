@@ -36,6 +36,8 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 
 `artifact/verified/execution_readiness_audit.json` hashes the recovered one-day TDM runner and records why it cannot be relabelled as PTD. All six production components now have deterministic synthetic implementation evidence: frozen teacher materialization; the real 5,584-item catalog and date masks; the shared two-stream HSTU-style/multiwindow-DIN trainer; exact train-only anchored reassignment; five-date/three-seed beam retrieval and latency measurement; and the paired evaluation emitter. `runner/build_retrieval_queries.py` joins row-aligned raw candidates and frozen teacher scores while proving key equality. `runner/retrieval_runner.py` executes the locked 24-cell matrix with eligible-descendant masking, sibling-softmax path scores, beam/top-K 600, serial warm-up/timing, and teacher isolation. Its smoke emits 8,040 rows and loads actual small-bucket PyTorch checkpoints for both encoders. These are implementation checks, not efficacy, real-tree, or production-latency evidence. Paid launch remains fail-closed until an immutable no-clobber code/job bundle is minted and explicit Vertex AI cost authorization is obtained.
 
+`artifact/verified/launch_bundle_evidence.json` records a byte-identical two-run `git archive`/`gzip -n` bundle for revision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` (SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`). The extracted bundle passes all dependency-available tests, citation checks, and artifact validation. It remains local and has not been uploaded or submitted to Vertex AI.
+
 The optional restricted-data checks are:
 
 ```bash

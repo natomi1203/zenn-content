@@ -187,6 +187,31 @@ def validate_execution_readiness() -> None:
     }
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
 
+    bundle = load("artifact/verified/launch_bundle_evidence.json")
+    assert bundle["contract_version"] == "ptd-launch-bundle-evidence/v1"
+    assert bundle["status"] == "VERIFIED"
+    assert re.fullmatch(r"[0-9a-f]{40}", bundle["code_revision"])
+    assert bundle["code_revision"] == "f8158afdc84b8831c1dac6c5c7893e0bec0d5e51"
+    assert bundle["bundle"] == {
+        "filename": "ptd-sigir-2027-f8158af.tar.gz",
+        "sha256": "ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9",
+        "size_bytes": 379782,
+        "tar_entries": 91,
+    }
+    assert bundle["checks"] == {
+        "independent_rerun_byte_identical": True,
+        "revision_is_full_commit_sha": True,
+        "no_git_metadata": True,
+        "no_python_cache": True,
+        "unit_tests_passed": True,
+        "unit_tests_run": 54,
+        "unit_tests_skipped_optional_torch": 5,
+        "citation_check_passed": True,
+        "artifact_validation_passed": True,
+        "external_upload_performed": False,
+        "paid_cloud_job_launched": False,
+    }
+
 
 def validate_production_component_evidence() -> None:
     smoke = load("artifact/smoke/frozen_teacher_score_smoke.json")

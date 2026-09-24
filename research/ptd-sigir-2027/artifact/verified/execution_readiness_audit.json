@@ -66,8 +66,8 @@
   },
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "mint_an_immutable_no_clobber_code_bundle_and_dry_run_job_spec",
+    "validate_a_no_clobber_dry_run_Vertex_job_spec",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six registered production components now have deterministic synthetic implementation evidence, including real PyTorch checkpoint-to-beam compatibility. This is not real reassignment, efficacy, or production-latency evidence. Launch remains fail-closed until an immutable dry-run bundle is minted and explicit Vertex AI cost authorization is obtained."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six registered production components now have deterministic synthetic implementation evidence, including real PyTorch checkpoint-to-beam compatibility. A deterministic code bundle is verified separately. This is not real reassignment, efficacy, or production-latency evidence. Launch remains fail-closed until the Vertex job spec is validated and explicit cost authorization is obtained."
 }

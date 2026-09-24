@@ -1,0 +1,31 @@
+{
+  "contract_version": "ptd-launch-bundle-evidence/v1",
+  "status": "VERIFIED",
+  "code_revision": "f8158afdc84b8831c1dac6c5c7893e0bec0d5e51",
+  "source_subtree": "research/ptd-sigir-2027",
+  "bundle": {
+    "filename": "ptd-sigir-2027-f8158af.tar.gz",
+    "sha256": "ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9",
+    "size_bytes": 379782,
+    "tar_entries": 91
+  },
+  "generation": {
+    "archive": "git archive --format=tar <revision> research/ptd-sigir-2027",
+    "compression": "gzip -n",
+    "prefix_note": "The archive retains research/ptd-sigir-2027 so commit timestamp metadata remains deterministic."
+  },
+  "checks": {
+    "independent_rerun_byte_identical": true,
+    "revision_is_full_commit_sha": true,
+    "no_git_metadata": true,
+    "no_python_cache": true,
+    "unit_tests_passed": true,
+    "unit_tests_run": 54,
+    "unit_tests_skipped_optional_torch": 5,
+    "citation_check_passed": true,
+    "artifact_validation_passed": true,
+    "external_upload_performed": false,
+    "paid_cloud_job_launched": false
+  },
+  "scope_note": "This proves a reproducible no-clobber code archive for the fixed revision. The bundle has not been uploaded, no Vertex AI job was created, and no prospective PTD result is present."
+}

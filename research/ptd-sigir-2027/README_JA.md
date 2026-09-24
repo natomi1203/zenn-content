@@ -36,6 +36,8 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つの production componentすべて、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_retrieval_queries.py` はraw candidateとfrozen teacher scoreをrow key一致を検証しながら結合します。`runner/retrieval_runner.py` はeligible descendant mask、sibling-softmax path score、beam/top-K 600、直列warm-up/timing、teacher隔離を伴う固定24-cell matrixを実行します。smokeは8,040行を出力し、両encoderの実small-bucket PyTorch checkpointも読み込んでbeam推論しました。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。有料launchはimmutable no-clobber code/job bundleの発行とVertex AI費用の明示承認までfail-closedです。
 
+`artifact/verified/launch_bundle_evidence.json` はrevision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` から2回独立生成してbyte一致した `git archive` / `gzip -n` bundle（SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`）を記録します。展開後bundleは利用可能な全テスト、引用検査、artifact検証を通過しました。bundleはlocalにのみ存在し、uploadもVertex AI submitもしていません。
+
 制限付きデータ環境での任意チェックは次です。
 
 ```bash
