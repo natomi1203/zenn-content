@@ -169,6 +169,14 @@ def validate_execution_readiness() -> None:
         "ptd_trainer_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "trainer_smoke.json"
         ),
+        "training_example_builder_sha256": sha256(
+            ROOT / "runner" / "build_training_examples.py"
+        ),
+        "training_example_builder_tests_sha256": sha256(
+            ROOT / "tests" / "test_build_training_examples.py"
+        ),
+        "single_fit_runner_sha256": sha256(ROOT / "runner" / "train_ptd.py"),
+        "single_fit_runner_tests_sha256": sha256(ROOT / "tests" / "test_train_ptd.py"),
         "alternating_solver_sha256": sha256(ROOT / "runner" / "alternating_solver.py"),
         "alternating_solver_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "alternating_solver_smoke.json"
@@ -185,6 +193,14 @@ def validate_execution_readiness() -> None:
             ROOT / "artifact" / "smoke" / "retrieval_runner_smoke.json"
         ),
     }
+    assert audit["production_pipeline_ready"] is False
+    assert audit["launch_blockers"] == [
+        "implement_validation_purchase_NDCG_hyperparameter_and_single_sibling_selection",
+        "implement_alternating_cycle_weight_materialization_and_orchestration",
+        "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
+        "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
+        "obtain_explicit_authorization_for_Vertex_AI_cost",
+    ]
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
 
     bundle = load("artifact/verified/launch_bundle_evidence.json")

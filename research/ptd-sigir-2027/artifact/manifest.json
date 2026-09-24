@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "67b205afb7692df810bfcc12c9baffbfae81622c1fbe89cbfb7e8e04e858d3db"
+      "sha256": "00f979f68e0e22b31fde090593508c4f02adeec0cd7c5034a44e454cbfdd636c"
     },
     {
       "id": "launch-bundle-evidence",
@@ -181,7 +181,7 @@
       "path": "runner/materialize_teacher_scores.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "0688ebb97167a85170687a13cd5cd9d46c9c6d3409318c99058dd52f81685bc3"
+      "sha256": "f9473cc659a82fdfdff93e34595ea74fe22e2abdecfba8301ae63b9ebaf6a79f"
     },
     {
       "id": "frozen-teacher-materializer-tests",
@@ -259,6 +259,34 @@
       "media_type": "application/json",
       "status": "GENERATED",
       "sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8"
+    },
+    {
+      "id": "training-example-builder",
+      "path": "runner/build_training_examples.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "843413f6df598ee6b4d536533c49ecbb3ab05a27c406e9afaccfb8d50ca37d14"
+    },
+    {
+      "id": "training-example-builder-tests",
+      "path": "tests/test_build_training_examples.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "8ee9936a58cd112c490b3048127efe74ffc517e4d542a2f29f86ee8fdc92837d"
+    },
+    {
+      "id": "single-fit-runner",
+      "path": "runner/train_ptd.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "19b394f8a358375db7b497ebee163901ac340dda76fc50d90f4bd2b8d63ae383"
+    },
+    {
+      "id": "single-fit-runner-tests",
+      "path": "tests/test_train_ptd.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "2ae7708663ac8db01f32b1419e29de89a7c110d7c21c19fbc96f2f6a75765861"
     },
     {
       "id": "alternating-solver",
@@ -475,7 +503,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "50d46d656abc1217e60a39250229dcfab72b19d76eedcc33526128f23432b1d8"
+      "sha256": "d51b433c32f0501caee41696e59f26f4d7a1a6fb26a523f865ccfd9f05ce840b"
     },
     {
       "id": "manifest-finalizer",
@@ -517,14 +545,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "263bcb61c7ea2412dfada319934c1b1b113754283e506e8112000e1dac861a73"
+      "sha256": "c26fa7c399e68d7c793101e858ea606181d06aee9e0068f111248d89f768dc95"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "a2eef0d5957d5ae86bccb8a01d26573c54e59f23c1ccc9fc2a22caba78511ebb"
+      "sha256": "f38f5b0d8bf718d7d6ae3bcaa825be596e7d2094cbacca1a53fabd718a26eacd"
     },
     {
       "id": "ptd-five-day-evaluation",
