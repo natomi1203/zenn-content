@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/run-manifest.schema.json",
+  "title": "Admissible prospective PTD run manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "run_id",
+    "created_at",
+    "test_scoring_started_at",
+    "code_revision",
+    "source_contract",
+    "teacher",
+    "split",
+    "seeds",
+    "assertions",
+    "variants",
+    "selected_hyperparameters",
+    "tree",
+    "latency_protocol",
+    "deviations"
+  ],
+  "properties": {
+    "schema_version": {"const": "ptd-run-manifest/v1"},
+    "status": {"const": "complete"},
+    "run_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "test_scoring_started_at": {"type": "string", "format": "date-time"},
+    "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "source_contract": {
+      "type": "object",
+      "required": ["contract_version", "manifest_uri", "manifest_sha256", "source_contract_sha256"],
+      "properties": {
+        "contract_version": {"const": "shared_bottom_esmm_v2_source"},
+        "manifest_uri": {"type": "string", "minLength": 1},
+        "manifest_sha256": {"const": "33e97c72a3925b5b1ffe5550fbf625e82cacf78f18e073c0be9a2718b4fa1748"},
+        "source_contract_sha256": {"const": "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91"}
+      },
+      "additionalProperties": false
+    },
+    "teacher": {
+      "type": "object",
+      "required": ["teacher_id", "frozen", "score", "artifact"],
+      "properties": {
+        "teacher_id": {"const": "legacy_loss_shared_bottom_esmm_v2"},
+        "frozen": {"const": true},
+        "score": {"const": "pCTR*pCVR"},
+        "artifact": {"$ref": "#/$defs/artifact"}
+      },
+      "additionalProperties": false
+    },
+    "split": {"$ref": "#/$defs/split"},
+    "seeds": {"const": [16630, 16631, 16632]},
+    "assertions": {"$ref": "#/$defs/assertions"},
+    "variants": {
+      "type": "object",
+      "required": [
+        "fixed_tdm",
+        "ptd_item",
+        "ptd_node",
+        "ptd_combined",
+        "alternating_tdm",
+        "alternating_ptd",
+        "ptd_combined_baseline_encoder",
+        "teacher_oracle"
+      ],
+      "properties": {
+        "fixed_tdm": {"$ref": "#/$defs/run_variant"},
+        "ptd_item": {"$ref": "#/$defs/run_variant"},
+        "ptd_node": {"$ref": "#/$defs/run_variant"},
+        "ptd_combined": {"$ref": "#/$defs/run_variant"},
+        "alternating_tdm": {"$ref": "#/$defs/run_variant"},
+        "alternating_ptd": {"$ref": "#/$defs/run_variant"},
+        "ptd_combined_baseline_encoder": {"$ref": "#/$defs/run_variant"},
+        "teacher_oracle": {"$ref": "#/$defs/run_variant"}
+      },
+      "additionalProperties": false
+    },
+    "selected_hyperparameters": {
+      "type": "object",
+      "required": ["selection_seed", "temperature", "lambda_item", "lambda_node"],
+      "properties": {
+        "selection_seed": {"const": 16630},
+        "temperature": {"enum": [1.0, 2.0, 4.0]},
+        "lambda_item": {"enum": [0.1, 0.3, 1.0]},
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]}
+      },
+      "additionalProperties": false
+    },
+    "tree": {
+      "type": "object",
+      "required": [
+        "branching_factor",
+        "depth",
+        "leaf_capacity",
+        "beam_width",
+        "alternating_cycles_selected",
+        "locked_before_test",
+        "locked_at",
+        "locked_tree_sha256"
+      ],
+      "properties": {
+        "branching_factor": {"type": "integer", "minimum": 2},
+        "depth": {"type": "integer", "minimum": 1},
+        "leaf_capacity": {"type": "integer", "minimum": 1},
+        "beam_width": {"type": "integer", "minimum": 1},
+        "alternating_cycles_selected": {"type": "integer", "minimum": 0, "maximum": 2},
+        "locked_before_test": {"const": true},
+        "locked_at": {"type": "string", "format": "date-time"},
+        "locked_tree_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "latency_protocol": {
+      "type": "object",
+      "required": [
+        "baseline_variant",
+        "p95_relative_ceiling",
+        "warmup_queries",
+        "measured_queries",
+        "concurrency",
+        "hardware",
+        "software",
+        "timer"
+      ],
+      "properties": {
+        "baseline_variant": {"const": "fixed_tdm"},
+        "p95_relative_ceiling": {"const": 1.2},
+        "warmup_queries": {"type": "integer", "minimum": 100},
+        "measured_queries": {"type": "integer", "minimum": 1000},
+        "concurrency": {"const": 1},
+        "hardware": {"type": "string", "minLength": 1},
+        "software": {"type": "string", "minLength": 1},
+        "timer": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "deviations": {"type": "array", "maxItems": 0}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "required": ["uri", "sha256"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "split": {
+      "type": "object",
+      "required": ["train", "validation", "test"],
+      "properties": {
+        "train": {"const": ["2026-07-18", "2026-07-19", "2026-07-20"]},
+        "validation": {"const": ["2026-07-21"]},
+        "test": {"const": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"]}
+      },
+      "additionalProperties": false
+    },
+    "assertions": {
+      "type": "object",
+      "required": [
+        "point_in_time_safe",
+        "candidate_universe_match",
+        "unique_keys",
+        "finite_scores",
+        "tree_locked_before_test",
+        "teacher_frozen",
+        "code_hash_match"
+      ],
+      "properties": {
+        "point_in_time_safe": {"const": true},
+        "candidate_universe_match": {"const": true},
+        "unique_keys": {"const": true},
+        "finite_scores": {"const": true},
+        "tree_locked_before_test": {"const": true},
+        "teacher_frozen": {"const": true},
+        "code_hash_match": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "run_variant": {
+      "type": "object",
+      "required": ["status", "seed_artifacts"],
+      "properties": {
+        "status": {"const": "complete"},
+        "seed_artifacts": {
+          "type": "object",
+          "required": ["16630", "16631", "16632"],
+          "properties": {
+            "16630": {"$ref": "#/$defs/artifact"},
+            "16631": {"$ref": "#/$defs/artifact"},
+            "16632": {"$ref": "#/$defs/artifact"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

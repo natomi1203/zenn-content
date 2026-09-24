@@ -47,9 +47,14 @@ The fixed tree is a deterministic balanced hierarchy built from train-only item 
 - **Primary:** macro user purchase NDCG@50, pooled across the five dates, averaged over the three seeds.
 - **Secondary:** Recall@50, NDCG@10/100, purchase AUC, click NDCG@50, category coverage@50, max category share@50, p50/p95 retrieval latency, and candidates scored.
 - **Inference:** date-stratified paired user bootstrap with 10,000 resamples. Report mean delta and 95% percentile interval. The primary success criterion is CI lower bound above zero versus the fixed-tree no-distillation baseline, with no registered guardrail failure.
+- **Bootstrap determinism:** the bootstrap seed is `20260925`. RQ2 compares combined PTD against the better single-level variant selected on validation seed 16630 only; that denominator is locked before any test readout.
 - **Multiplicity:** Holm correction across the four RQ1--RQ4 primary contrasts; uncorrected intervals remain descriptive.
-- **Guardrails:** no decrease greater than 5% relative in click NDCG@50 or category coverage@50; no increase greater than 5% relative in max category share@50; p95 latency must remain within the registered serving budget (to be filled before execution and then locked in the run manifest).
+- **Guardrails:** no decrease greater than 5% relative in click NDCG@50 or category coverage@50; no increase greater than 5% relative in max category share@50; p95 retrieval latency must be at most 1.20 times the fixed-tree TDM baseline measured on identical hardware/software with concurrency one, at least 100 warm-up queries, and at least 1,000 measured queries. This is a relative experimental guardrail, not a production SLO.
+
+The admissible evidence shape is frozen in `run_manifest.schema.json` and `evaluation.schema.json`. Automatic claim promotion additionally requires `scripts/check_evidence_candidate.py` to return `admissible: true`; any listed deviation forces manual review and leaves claims pending.
 
 ## Exclusions and deviations
 
 Runs with failed point-in-time assertions, duplicate keys, incomplete candidate coverage, non-finite scores, code/hash mismatch, or post-test tree changes are invalid. Every deviation must be listed in the evaluation JSON before interpretation. Missing or invalid variants stay `pending`; they are not silently omitted.
+
+See `preregistration_amendments.md` for the dated amendment record. Git history is the immutable ordering record.

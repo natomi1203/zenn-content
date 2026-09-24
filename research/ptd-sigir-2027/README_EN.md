@@ -31,10 +31,19 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 To promote PTD results from `PENDING` to `VERIFIED`, all of the following are required:
 
 1. An immutable evaluation JSON conforming to `artifact/evaluation.schema.json`.
-2. An artifact manifest conforming to `artifact/manifest.schema.json` with SHA-256 hashes.
+2. A prospective run manifest conforming to `artifact/run_manifest.schema.json`, plus the research artifact manifest conforming to `artifact/manifest.schema.json`, with SHA-256 hashes.
 3. The preregistered five-date split, three fixed seeds, and no test-driven tree rebuilding or hyperparameter selection.
 4. Point-in-time assertions and candidate-universe checks passing.
-5. The ledger updated with exact JSON pointers and the manuscript regenerated.
+5. All eight variants, per-seed/per-date metrics, four registered contrasts, and matched latency protocol present; non-empty deviations require manual review.
+6. The fail-closed checker returning `admissible: true`, followed by ledger updates with exact JSON pointers and manuscript regeneration.
+
+Run the read-only admission check with:
+
+```bash
+make check-evidence RUN_MANIFEST=/path/to/run_manifest.json EVALUATION=/path/to/evaluation.json
+```
+
+The checker verifies immutable hash linkage, code revision, source/teacher identity, exact splits and seeds, tree-lock timing, metric completeness, bootstrap settings, Holm-adjusted contrasts, and quality/diversity/latency guardrails. It never edits the ledger or manuscript.
 
 ## Submission hygiene
 

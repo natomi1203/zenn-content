@@ -3,7 +3,7 @@ TECTONIC ?= tectonic
 TECTONIC_BUNDLE ?= https://data1.fullyjustified.net/tlextras-2022.0r0.tar
 SOURCE_DATE_EPOCH ?= 1790262000
 
-.PHONY: all generate test smoke finalize validate paper paper-review paper-author clean
+.PHONY: all generate test smoke finalize validate check-evidence paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -23,6 +23,11 @@ finalize:
 
 validate: generate
 	$(PYTHON) scripts/validate_artifacts.py
+
+check-evidence:
+	@test -n "$(RUN_MANIFEST)" || (echo "RUN_MANIFEST is required" >&2; exit 2)
+	@test -n "$(EVALUATION)" || (echo "EVALUATION is required" >&2; exit 2)
+	$(PYTHON) scripts/check_evidence_candidate.py --run-manifest "$(RUN_MANIFEST)" --evaluation "$(EVALUATION)"
 
 paper: paper-review paper-author
 

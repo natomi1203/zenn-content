@@ -1,15 +1,105 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/ptd/evaluation.schema.json",
-  "title": "Prospective PTD five-day evaluation",
+  "title": "Admissible prospective PTD five-day evaluation",
   "type": "object",
-  "required": ["schema_version", "status", "code_revision", "artifact_manifest_uri", "artifact_manifest_sha256", "split", "seeds", "assertions", "variants", "primary_contrasts", "deviations"],
+  "required": [
+    "schema_version",
+    "status",
+    "generated_at",
+    "code_revision",
+    "run_manifest_uri",
+    "run_manifest_sha256",
+    "split",
+    "seeds",
+    "assertions",
+    "variants",
+    "primary_contrasts",
+    "guardrails",
+    "deviations"
+  ],
   "properties": {
     "schema_version": {"const": "ptd-evaluation/v1"},
-    "status": {"enum": ["complete", "invalid"]},
+    "status": {"const": "complete"},
+    "generated_at": {"type": "string", "format": "date-time"},
     "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
-    "artifact_manifest_uri": {"type": "string", "minLength": 1},
-    "artifact_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "run_manifest_uri": {"type": "string", "minLength": 1},
+    "run_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "split": {"$ref": "#/$defs/split"},
+    "seeds": {"const": [16630, 16631, 16632]},
+    "assertions": {"$ref": "#/$defs/assertions"},
+    "variants": {
+      "type": "object",
+      "required": [
+        "fixed_tdm",
+        "ptd_item",
+        "ptd_node",
+        "ptd_combined",
+        "alternating_tdm",
+        "alternating_ptd",
+        "ptd_combined_baseline_encoder",
+        "teacher_oracle"
+      ],
+      "properties": {
+        "fixed_tdm": {"$ref": "#/$defs/evaluation_variant"},
+        "ptd_item": {"$ref": "#/$defs/evaluation_variant"},
+        "ptd_node": {"$ref": "#/$defs/evaluation_variant"},
+        "ptd_combined": {"$ref": "#/$defs/evaluation_variant"},
+        "alternating_tdm": {"$ref": "#/$defs/evaluation_variant"},
+        "alternating_ptd": {"$ref": "#/$defs/evaluation_variant"},
+        "ptd_combined_baseline_encoder": {"$ref": "#/$defs/evaluation_variant"},
+        "teacher_oracle": {"$ref": "#/$defs/evaluation_variant"}
+      },
+      "additionalProperties": false
+    },
+    "primary_contrasts": {
+      "type": "object",
+      "required": [
+        "rq1_combined_vs_tdm",
+        "rq2_combined_vs_best_single",
+        "rq3_alternating_vs_fixed",
+        "rq4_hstu_vs_baseline_encoder"
+      ],
+      "properties": {
+        "rq1_combined_vs_tdm": {
+          "allOf": [
+            {"$ref": "#/$defs/contrast"},
+            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "fixed_tdm"}}}
+          ]
+        },
+        "rq2_combined_vs_best_single": {
+          "allOf": [
+            {"$ref": "#/$defs/contrast"},
+            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "best_single_validation_selected"}}}
+          ]
+        },
+        "rq3_alternating_vs_fixed": {
+          "allOf": [
+            {"$ref": "#/$defs/contrast"},
+            {"properties": {"numerator": {"const": "alternating_ptd"}, "denominator": {"const": "ptd_combined"}}}
+          ]
+        },
+        "rq4_hstu_vs_baseline_encoder": {
+          "allOf": [
+            {"$ref": "#/$defs/contrast"},
+            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "ptd_combined_baseline_encoder"}}}
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "guardrails": {
+      "const": {
+        "click_ndcg_relative_floor": 0.95,
+        "category_coverage_relative_floor": 0.95,
+        "max_category_share_relative_ceiling": 1.05,
+        "latency_p95_relative_ceiling": 1.2
+      }
+    },
+    "deviations": {"type": "array", "maxItems": 0}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "split": {
       "type": "object",
       "required": ["train", "validation", "test"],
@@ -20,29 +110,126 @@
       },
       "additionalProperties": false
     },
-    "seeds": {"const": [16630, 16631, 16632]},
     "assertions": {
       "type": "object",
-      "required": ["point_in_time_safe", "candidate_universe_match", "unique_keys", "finite_scores", "tree_locked_before_test"],
-      "additionalProperties": {"type": "boolean"}
+      "required": [
+        "point_in_time_safe",
+        "candidate_universe_match",
+        "unique_keys",
+        "finite_scores",
+        "tree_locked_before_test",
+        "teacher_frozen",
+        "code_hash_match"
+      ],
+      "properties": {
+        "point_in_time_safe": {"const": true},
+        "candidate_universe_match": {"const": true},
+        "unique_keys": {"const": true},
+        "finite_scores": {"const": true},
+        "tree_locked_before_test": {"const": true},
+        "teacher_frozen": {"const": true},
+        "code_hash_match": {"const": true}
+      },
+      "additionalProperties": false
     },
-    "variants": {"type": "object", "minProperties": 6},
-    "primary_contrasts": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name", "metric", "mean_delta", "ci95", "holm_adjusted_p"],
-        "properties": {
-          "name": {"type": "string"},
-          "metric": {"const": "purchase_ndcg_at_50"},
-          "mean_delta": {"type": "number"},
-          "ci95": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "minItems": 2, "maxItems": 2},
-          "holm_adjusted_p": {"type": "number", "minimum": 0, "maximum": 1}
+    "metrics": {
+      "type": "object",
+      "required": [
+        "purchase_ndcg_at_50",
+        "purchase_recall_at_50",
+        "purchase_ndcg_at_10",
+        "purchase_ndcg_at_100",
+        "purchase_auc",
+        "click_ndcg_at_50",
+        "category_coverage_at_50",
+        "max_category_share_at_50",
+        "latency_p50_ms",
+        "latency_p95_ms",
+        "candidates_scored_mean"
+      ],
+      "properties": {
+        "purchase_ndcg_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "purchase_recall_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "purchase_ndcg_at_10": {"type": "number", "minimum": 0, "maximum": 1},
+        "purchase_ndcg_at_100": {"type": "number", "minimum": 0, "maximum": 1},
+        "purchase_auc": {"type": "number", "minimum": 0, "maximum": 1},
+        "click_ndcg_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "category_coverage_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "max_category_share_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+        "latency_p50_ms": {"type": "number", "minimum": 0},
+        "latency_p95_ms": {"type": "number", "minimum": 0},
+        "candidates_scored_mean": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "evaluation_variant": {
+      "type": "object",
+      "required": ["status", "n_users", "metrics", "by_seed", "by_date"],
+      "properties": {
+        "status": {"const": "complete"},
+        "n_users": {"type": "integer", "minimum": 1},
+        "metrics": {"$ref": "#/$defs/metrics"},
+        "by_seed": {
+          "type": "object",
+          "required": ["16630", "16631", "16632"],
+          "properties": {
+            "16630": {"$ref": "#/$defs/metrics"},
+            "16631": {"$ref": "#/$defs/metrics"},
+            "16632": {"$ref": "#/$defs/metrics"}
+          },
+          "additionalProperties": false
         },
-        "additionalProperties": true
-      }
+        "by_date": {
+          "type": "object",
+          "required": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"],
+          "properties": {
+            "2026-08-12": {"$ref": "#/$defs/metrics"},
+            "2026-08-14": {"$ref": "#/$defs/metrics"},
+            "2026-08-25": {"$ref": "#/$defs/metrics"},
+            "2026-08-26": {"$ref": "#/$defs/metrics"},
+            "2026-08-28": {"$ref": "#/$defs/metrics"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     },
-    "deviations": {"type": "array", "items": {"type": "string"}}
+    "contrast": {
+      "type": "object",
+      "required": [
+        "numerator",
+        "denominator",
+        "metric",
+        "mean_delta",
+        "ci95",
+        "raw_p",
+        "holm_adjusted_p",
+        "bootstrap_resamples",
+        "bootstrap_seed",
+        "guardrails_pass"
+      ],
+      "properties": {
+        "numerator": {"type": "string"},
+        "denominator": {"type": "string"},
+        "metric": {"const": "purchase_ndcg_at_50"},
+        "mean_delta": {"type": "number", "minimum": -1, "maximum": 1},
+        "ci95": {
+          "type": "array",
+          "prefixItems": [
+            {"type": "number", "minimum": -1, "maximum": 1},
+            {"type": "number", "minimum": -1, "maximum": 1}
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "raw_p": {"type": "number", "minimum": 0, "maximum": 1},
+        "holm_adjusted_p": {"type": "number", "minimum": 0, "maximum": 1},
+        "bootstrap_resamples": {"const": 10000},
+        "bootstrap_seed": {"const": 20260925},
+        "guardrails_pass": {"const": true}
+      },
+      "additionalProperties": false
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

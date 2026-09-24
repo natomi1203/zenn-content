@@ -26,11 +26,15 @@ def validate_manifest() -> None:
     assert manifest["paper_id"] == "ptd-sigir-2027"
     assert re.fullmatch(r"[0-9a-f]{40}", manifest["git"]["base_revision"])
     assert {item["status"] for item in manifest["artifacts"]} <= {"VERIFIED", "PREREGISTERED", "PENDING", "GENERATED"}
+    assert len({item["id"] for item in manifest["artifacts"]}) == len(manifest["artifacts"])
+    assert len({item["path"] for item in manifest["artifacts"]}) == len(manifest["artifacts"])
     for item in manifest["artifacts"]:
+        relative = Path(item["path"])
+        assert not relative.is_absolute() and ".." not in relative.parts, item["path"]
         if item["status"] == "PENDING":
             assert item["sha256"] is None
             continue
-        path = ROOT / item["path"]
+        path = ROOT / relative
         assert path.is_file(), item["path"]
         assert item["sha256"] == sha256(path), item["id"]
 
@@ -83,14 +87,33 @@ def validate_reference_smoke() -> None:
     assert smoke["objective"]["total"] >= smoke["objective"]["supervised"]
 
 
+def validate_evidence_contracts() -> None:
+    artifact_schema = load("artifact/manifest.schema.json")
+    run_schema = load("artifact/run_manifest.schema.json")
+    evaluation_schema = load("artifact/evaluation.schema.json")
+    for schema in (artifact_schema, run_schema, evaluation_schema):
+        assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"
+        assert schema["additionalProperties"] is False
+    assert run_schema["properties"]["seeds"]["const"] == [16630, 16631, 16632]
+    assert run_schema["properties"]["latency_protocol"]["properties"]["p95_relative_ceiling"]["const"] == 1.2
+    assert evaluation_schema["properties"]["guardrails"]["const"]["latency_p95_relative_ceiling"] == 1.2
+    assert evaluation_schema["$defs"]["contrast"]["properties"]["bootstrap_resamples"]["const"] == 10_000
+    preregistration = (ROOT / "artifact" / "preregistration.md").read_text()
+    assert "to be filled" not in preregistration
+    assert "scripts/check_evidence_candidate.py" in preregistration
+    assert (ROOT / "artifact" / "preregistration_amendments.md").is_file()
+
+
 if __name__ == "__main__":
     validate_manifest()
     validate_verified_evidence()
     validate_ledger()
     validate_generated()
     validate_reference_smoke()
+    validate_evidence_contracts()
     tracked = [
         ROOT / "artifact" / "preregistration.md",
+        ROOT / "artifact" / "preregistration_amendments.md",
         ROOT / "artifact" / "claim_evidence_ledger.csv",
         ROOT / "artifact" / "verified" / "legacy_esmm_evidence.json",
     ]

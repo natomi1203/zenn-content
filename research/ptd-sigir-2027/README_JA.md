@@ -29,10 +29,19 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 ## PTD 結果を取り込む条件
 
 1. `artifact/evaluation.schema.json` 準拠の immutable evaluation JSON。
-2. SHA-256 を含む `artifact/manifest.schema.json` 準拠 manifest。
+2. `artifact/run_manifest.schema.json` 準拠の prospective run manifest と、SHA-256 を含む `artifact/manifest.schema.json` 準拠の研究 artifact manifest。
 3. preregistered five-date split、固定 3 seed、test を使った tree 再構築・選択がないこと。
 4. point-in-time assertion と candidate-universe check の通過。
-5. JSON pointer 付き ledger 更新と原稿再生成。
+5. 8 variants、seed/date 別 metrics、4 registered contrasts、matched latency protocol が揃い、deviation がある場合は自動昇格せず手動監査すること。
+6. fail-closed checker が `admissible: true` を返した後、JSON pointer 付き ledger 更新と原稿再生成を行うこと。
+
+読み取り専用の admission check は次で実行します。
+
+```bash
+make check-evidence RUN_MANIFEST=/path/to/run_manifest.json EVALUATION=/path/to/evaluation.json
+```
+
+checker は immutable hash link、code revision、source/teacher identity、split/seeds、tree-lock timing、metric completeness、bootstrap、Holm 補正 contrast、quality/diversity/latency guardrail を検証します。ledger や原稿は自動編集しません。
 
 ## 投稿時の匿名性
 
