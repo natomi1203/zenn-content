@@ -149,8 +149,62 @@ def validate_execution_readiness() -> None:
     assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
     assert all(audit["registered_inputs_ready"].values())
     assert audit["ready_for_paid_launch"] is False
-    assert not any(audit["production_components_ready"].values())
+    assert sum(audit["production_components_ready"].values()) == 2
+    assert audit["production_components_ready"]["per_row_frozen_teacher_score_materializer"] is True
+    assert audit["production_components_ready"]["catalog_envelope_and_date_mask_builder"] is True
+    assert audit["implemented_component_evidence"] == {
+        "frozen_teacher_materializer_sha256": sha256(ROOT / "runner" / "materialize_teacher_scores.py"),
+        "frozen_teacher_smoke_sha256": sha256(
+            ROOT / "artifact" / "smoke" / "frozen_teacher_score_smoke.json"
+        ),
+        "catalog_bundle_builder_sha256": sha256(ROOT / "runner" / "build_catalog_bundle.py"),
+        "catalog_bundle_evidence_sha256": sha256(
+            ROOT / "artifact" / "verified" / "catalog_bundle_evidence.json"
+        ),
+    }
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
+
+
+def validate_production_component_evidence() -> None:
+    smoke = load("artifact/smoke/frozen_teacher_score_smoke.json")
+    assert smoke["contract_version"] == "ptd-frozen-teacher-smoke/v1"
+    assert smoke["status"] == "SMOKE_ONLY"
+    assert smoke["empirical_claim_allowed"] is False
+    assert smoke["checkpoint_sha256"] == (
+        "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+    )
+    assert smoke["rows"] == 2
+    assert smoke["checks"] == {
+        "factorization_matches": True,
+        "labels_read": False,
+        "no_overwrite": True,
+    }
+    expected = [0.33971071243286133, 0.00027223789948038757]
+    assert all(abs(observed - value) <= smoke["absolute_tolerance"] for observed, value in zip(
+        smoke["teacher_purchase"], expected, strict=True
+    ))
+
+    catalog = load("artifact/verified/catalog_bundle_evidence.json")
+    assert catalog["contract_version"] == "ptd-catalog-bundle-evidence/v1"
+    assert catalog["status"] == "VERIFIED"
+    assert catalog["raw_input_inventory_sha256"] == sha256(
+        ROOT / "artifact" / "verified" / "raw_input_inventory.json"
+    )
+    assert catalog["builder_sha256"] == sha256(ROOT / "runner" / "build_catalog_bundle.py")
+    assert catalog["item_count"] == 5584
+    assert catalog["depth"] == 13
+    assert catalog["padding_leaf_count"] == 2608
+    assert catalog["rows_scanned"] == 23_761_140
+    assert catalog["test_only_vs_pretest"] == 2339
+    assert catalog["catalog_order_sha256"] == (
+        "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61"
+    )
+    assert catalog["internal_artifacts"]["catalog"]["rows"] == 5584
+    assert catalog["internal_artifacts"]["complete_binary_nodes"]["rows"] == 16383
+    assert catalog["internal_artifacts"]["date_eligibility"]["rows"] == 25394
+    assert catalog["deterministic_rerun_verified"] is True
+    assert catalog["user_or_outcome_columns_read"] == []
+    assert catalog["identifiers_persisted_in_this_evidence"] is False
 
 
 def validate_ledger() -> None:
@@ -250,6 +304,7 @@ if __name__ == "__main__":
     validate_verified_evidence()
     validate_raw_input_inventory()
     validate_sequence_and_item_contracts()
+    validate_production_component_evidence()
     validate_execution_readiness()
     validate_ledger()
     validate_generated()

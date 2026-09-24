@@ -1,0 +1,72 @@
+{
+  "builder_sha256": "b8de2dbde42d217cb14138b19329521841557239c34ad41c97e78eb36af957f7",
+  "catalog_order_sha256": "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61",
+  "checks": {
+    "category_conflicts": 0,
+    "date_masks_fixed": true,
+    "one_item_per_leaf": true,
+    "registered_contract_match": true,
+    "users_or_outcomes_read": false
+  },
+  "columns_read": [
+    "snapshot_date",
+    "product_id",
+    "first_category"
+  ],
+  "contract_version": "ptd-catalog-bundle-evidence/v1",
+  "date_eligibility_sha256": {
+    "2026-07-18": "b989f2147fd6b31498e50c1a58ebd1a7a4b2760901a391140bef64f030c11586",
+    "2026-07-19": "2122897fbaee8c18284d4375231af2153c88324211983cd7cf940b78c95e1f36",
+    "2026-07-20": "3989b880ff98c5babe13f2893c0534de9863a84d737fb6a8e02f2d287e6b58d6",
+    "2026-07-21": "4c84fc3319cd6231568d0bbabe400ec3aeae16d90c274348422a6f3e38fc6313",
+    "2026-08-12": "5e71dc506230819f22f35527310c5c241a705300c0e61bfb5a6ee5ef537a03d4",
+    "2026-08-14": "5600039a543faa8235b26b3a052f870acb2e64ecdbd36c950390f65519367927",
+    "2026-08-25": "e1fc0e68422812a637a6ba1eb46b25c0e7cbe9ac1460b71096712910ba156dd8",
+    "2026-08-26": "bb63904e1b8863f0632381a26d1f5917feabdeacbbbb3625886a6980826f7861",
+    "2026-08-28": "fcc577e51c932f81b5f7c99f7f8a1a754c8013e8dd329c338be195919b7ab46a"
+  },
+  "depth": 13,
+  "deterministic_rerun_verified": true,
+  "eligible_items_by_date": {
+    "2026-07-18": 2792,
+    "2026-07-19": 2815,
+    "2026-07-20": 2795,
+    "2026-07-21": 2815,
+    "2026-08-12": 2823,
+    "2026-08-14": 2824,
+    "2026-08-25": 2822,
+    "2026-08-26": 2846,
+    "2026-08-28": 2862
+  },
+  "identifiers_persisted_in_this_evidence": false,
+  "internal_artifacts": {
+    "catalog": {
+      "rows": 5584,
+      "sha256": "3b26cce473d780edec8d0e4fd53ea25719c45a277ae8b84f2304bb698e19b8cf"
+    },
+    "complete_binary_nodes": {
+      "rows": 16383,
+      "sha256": "3f14f373da5e6721044496793584822ce1cd75ce9a9ee54db846b4d5c14cf324"
+    },
+    "date_eligibility": {
+      "rows": 25394,
+      "sha256": "8a3dc0d91fe9008873ec2c2563be6e27ae56e219a5e03650d8572bcf4ce1824c"
+    }
+  },
+  "internal_bundle_manifest_sha256": "4558898bfab3901778a2f23763d290d466e7c6ef68d46498b9ab80b6a77aef39",
+  "item_count": 5584,
+  "padding_leaf_count": 2608,
+  "physical_leaf_count": 8192,
+  "pretest_unique_items": 3245,
+  "raw_input_inventory_sha256": "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3",
+  "rows_scanned": 23761140,
+  "scope_note": "This public evidence contains only counts and hashes. The keyed catalog/mask bundle remains access-controlled and is not part of the anonymous artifact.",
+  "split_unique_items": {
+    "test": 4592,
+    "train": 3126,
+    "valid": 2815
+  },
+  "status": "VERIFIED",
+  "test_only_vs_pretest": 2339,
+  "user_or_outcome_columns_read": []
+}

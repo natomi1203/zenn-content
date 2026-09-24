@@ -20,7 +20,7 @@
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "1a912d73ecdf20898d3a70fa61181043807f263acfb8bc1b3646552ef8671640"
+      "sha256": "deded64ac18dcba2c5f2dfd408055c08a32d12a76cb3a8867fdcaf1a5a1fe180"
     },
     {
       "id": "paper-author-source",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "0d5f4c39fb314fd8e040905ad29d35e5e6ea4b60d9c41fa0175baa014ec414b5"
+      "sha256": "df9adf69ba7003949e784b7976bfa65ab0fded128b2260843b73a635ae9f20dd"
     },
     {
       "id": "preregistration",
@@ -83,7 +83,7 @@
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "8083e0a775eeaa61f0c3998ffb6eb6557ef4290388d324118dd90910b2e18849"
+      "sha256": "2c7a1a1f8ae74540041fd7a4d81ccca7e003106bdec418aa9a34bf544eeba095"
     },
     {
       "id": "legacy-esmm-anchor",
@@ -139,7 +139,63 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "9b83988dd4e07bf7f140777c6a252f0f5e8ecf76da02bbd721c7d7f61a004cd6"
+      "sha256": "5d5f8f9484ef6a14b5e3dea67cd1bd9df64fd64ad0545443558dec2678160ce6"
+    },
+    {
+      "id": "frozen-teacher-materializer",
+      "path": "runner/materialize_teacher_scores.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "0688ebb97167a85170687a13cd5cd9d46c9c6d3409318c99058dd52f81685bc3"
+    },
+    {
+      "id": "frozen-teacher-materializer-tests",
+      "path": "tests/test_teacher_scores.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "012b6d4835b8ba5f1057716f5d57d9ed40b79247b1bf6520b1b0b31d02b021d0"
+    },
+    {
+      "id": "frozen-teacher-smoke-runner",
+      "path": "scripts/run_teacher_score_smoke.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "97aa84951009df60e3d6b03aef5f27dd6575917ae23cd98d388834e0f1f1620c"
+    },
+    {
+      "id": "frozen-teacher-smoke",
+      "path": "artifact/smoke/frozen_teacher_score_smoke.json",
+      "media_type": "application/json",
+      "status": "GENERATED",
+      "sha256": "bc2a09b5ecdba259671a6e7fbbfc661d19025e22f28b659fa239cde8177ca0a1"
+    },
+    {
+      "id": "catalog-bundle-builder",
+      "path": "runner/build_catalog_bundle.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "b8de2dbde42d217cb14138b19329521841557239c34ad41c97e78eb36af957f7"
+    },
+    {
+      "id": "catalog-bundle-tests",
+      "path": "tests/test_catalog_bundle.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "6ef38f09c40e50dc1f15902e92c3687d22ecf90dbe719b5a96eaecde25dfba7b"
+    },
+    {
+      "id": "catalog-bundle-evidence-recorder",
+      "path": "scripts/record_catalog_bundle_evidence.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "75c2695febd2bfc2eaa55b89b182239cebb6ae54f1abc6b9bbfc2269c5a20330"
+    },
+    {
+      "id": "catalog-bundle-evidence",
+      "path": "artifact/verified/catalog_bundle_evidence.json",
+      "media_type": "application/json",
+      "status": "VERIFIED",
+      "sha256": "cd7711a6c2bdba269427d46361f5392b191bfb516813a0f5aa977ae4ef2d4f48"
     },
     {
       "id": "reference-implementation",
@@ -237,7 +293,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "f1a3df1155e9c5eea117fbf8ba66ca7a6977b7a54a88075136b0f78cf4ea1334"
+      "sha256": "92afc31e3fa25232f1474216e82bb0d65f71b1376832d44f2339bce3e8023a16"
     },
     {
       "id": "manifest-finalizer",
@@ -272,21 +328,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "7be65fc4afe5f49fc37b690f64a2bb58469ffca1b5a4b77433a30d933238fd52"
+      "sha256": "51a25a5386a75d4d1db32438364ef45d6634ace02d0b0dd965cf8eaedc671d6e"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "eb669adbe0e91fef44ef4273cdab18bcbed6f8715733bc01624862adf396adf4"
+      "sha256": "02155fd1f59c06f660682a564d0a0a985267a964b3bdc09866a6d8441649425d"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "b53c198743b5f294f6b9c0e24efa71c742ae6555adad3dfd65ed954f0c1122b3"
+      "sha256": "cd23d8f621876f21fa81658e5c2b337b44621ab2d57e43dea3c5307342de66d4"
     },
     {
       "id": "ptd-five-day-evaluation",

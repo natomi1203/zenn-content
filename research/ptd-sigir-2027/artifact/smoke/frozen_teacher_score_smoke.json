@@ -1,0 +1,24 @@
+{
+  "absolute_tolerance": 1e-06,
+  "checkpoint_sha256": "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540",
+  "checks": {
+    "factorization_matches": true,
+    "labels_read": false,
+    "no_overwrite": true
+  },
+  "contract_version": "ptd-frozen-teacher-smoke/v1",
+  "empirical_claim_allowed": false,
+  "rows": 2,
+  "runtime": {
+    "platform": "Darwin",
+    "python": "3.11.12",
+    "torch": "2.14.0"
+  },
+  "scope_note": "Synthetic compatibility check only; it is not PTD efficacy evidence.",
+  "status": "SMOKE_ONLY",
+  "synthetic_input_sha256": "03d7aa7f1a0ef093aa09476d09080baaad65c392be88b820afd792ec46c2eea1",
+  "teacher_purchase": [
+    0.33971071243286133,
+    0.00027223789948038757
+  ]
+}

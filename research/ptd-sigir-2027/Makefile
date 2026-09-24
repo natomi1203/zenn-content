@@ -3,8 +3,11 @@ PYARROW_RUN ?= uv run --with pyarrow python
 TECTONIC ?= tectonic
 TECTONIC_BUNDLE ?= https://data1.fullyjustified.net/tlextras-2022.0r0.tar
 SOURCE_DATE_EPOCH ?= 1790262000
+TEACHER_CHECKPOINT ?=
+CATALOG_BUNDLE_DIR ?=
+CATALOG_BUNDLE_RERUN_DIR ?=
 
-.PHONY: all generate test smoke audit-source finalize validate check-evidence paper paper-review paper-author clean
+.PHONY: all generate test smoke teacher-smoke audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -19,9 +22,20 @@ test:
 smoke:
 	$(PYTHON) scripts/run_reference_smoke.py
 
+teacher-smoke:
+	@test -n "$(TEACHER_CHECKPOINT)" || (echo "TEACHER_CHECKPOINT is required" >&2; exit 2)
+	uv run --with torch --with pyarrow --with numpy python scripts/run_teacher_score_smoke.py --checkpoint "$(TEACHER_CHECKPOINT)"
+
 audit-source:
 	$(PYARROW_RUN) scripts/inventory_raw_inputs.py
 	$(PYARROW_RUN) scripts/audit_item_universe.py
+
+catalog-bundle:
+	@test -n "$(CATALOG_BUNDLE_DIR)" || (echo "CATALOG_BUNDLE_DIR is required" >&2; exit 2)
+	@test -n "$(CATALOG_BUNDLE_RERUN_DIR)" || (echo "CATALOG_BUNDLE_RERUN_DIR is required" >&2; exit 2)
+	$(PYARROW_RUN) runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir "$(CATALOG_BUNDLE_DIR)"
+	$(PYARROW_RUN) runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir "$(CATALOG_BUNDLE_RERUN_DIR)"
+	$(PYTHON) scripts/record_catalog_bundle_evidence.py --bundle-dir "$(CATALOG_BUNDLE_DIR)" --rerun-bundle-dir "$(CATALOG_BUNDLE_RERUN_DIR)"
 
 finalize:
 	$(PYTHON) scripts/finalize_manifest.py
