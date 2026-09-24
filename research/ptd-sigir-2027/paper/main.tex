@@ -1,4 +1,8 @@
-\documentclass[sigconf,natbib=true,anonymous=true]{acmart}
+\ifdefined\PTDAuthorVersion
+  \documentclass[sigconf,natbib=true]{acmart}
+\else
+  \documentclass[sigconf,natbib=true,anonymous=true]{acmart}
+\fi
 
 \usepackage{amsmath,booktabs,tabularx}
 \usepackage{algorithm}
@@ -18,9 +22,13 @@
 
 \title{Purchase-aware Tree Distillation for Home-feed Retrieval}
 
-% Author identity is retained in source; anonymous=true suppresses it in the review PDF.
+% The review build suppresses this identity; main-author.tex displays it.
 \author{TOMITA NAOYUKI}
-\affiliation{\institution{Affiliation withheld for anonymous review}}
+\ifdefined\PTDAuthorVersion
+  % Affiliation is intentionally omitted until the author supplies it.
+\else
+  \affiliation{\institution{Affiliation withheld for anonymous review}}
+\fi
 
 \begin{abstract}
 Large-scale home feeds commonly separate candidate retrieval from a purchase-oriented ranker. This division creates an objective gap: a retriever is optimized from sparse interactions while the downstream ranker estimates a denser purchase utility. We formulate Purchase-aware Tree Distillation (\ptd), a preregistered tree-retrieval method that transfers a frozen Entire Space Multi-Task Model (ESMM) teacher into local sibling decisions of a balanced item tree. \ptd combines item-sibling and internal-node-sibling distillation, an HSTU-style action-sequence encoder, and a train-only alternating tree update related to TDM/JTM. The evaluation contract fixes a point-in-time-safe evidence universe, a five-date temporal test, three random seeds, paired user bootstrap inference, and explicit quality, diversity, and latency guardrails. A verified legacy artifact establishes the common evidence universe and teacher anchor (12,844,800 test pairs; ESMM purchase NDCG@50 0.17626), but it contains no \ptd result. The prospective five-day tree-family results are pending; consequently this draft makes no efficacy or novelty claim beyond the registered method and its distinctions from prior work. The accompanying artifact provides schemas, a claim--evidence ledger, deterministic table/figure generation, and fail-closed validation so that empirical claims can be promoted only after immutable manifests, hashes, and evaluation JSON are available.

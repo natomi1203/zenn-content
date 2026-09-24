@@ -3,5 +3,10 @@ paper/main.bbl
 paper/main.blg
 paper/main.log
 paper/main.out
+paper/main-author.aux
+paper/main-author.bbl
+paper/main-author.blg
+paper/main-author.log
+paper/main-author.out
 __pycache__/
 *.py[cod]

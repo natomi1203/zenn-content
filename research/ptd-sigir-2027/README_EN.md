@@ -20,7 +20,7 @@ Requirements: Python 3.10+ and Tectonic (or a TeX Live installation containing `
 make all
 ```
 
-This regenerates all LaTeX tables and figures, runs the dependency-free PTD reference tests and synthetic smoke check, validates citations, JSON/CSV contracts, hashes, and claim status, then compiles `paper/main.pdf` with Tectonic. Run the stages separately with `make generate`, `make test`, `make smoke`, `make validate`, and `make paper`.
+This regenerates all LaTeX tables and figures, runs the dependency-free PTD reference tests and synthetic smoke check, validates citations, JSON/CSV contracts, hashes, and claim status, then compiles both PDFs with Tectonic. `paper/main.pdf` is the anonymous SIGIR review build; `paper/main-author.pdf` visibly identifies **TOMITA NAOYUKI**. Run the stages separately with `make generate`, `make test`, `make smoke`, `make validate`, `make paper-review`, and `make paper-author`.
 
 The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repeated builds from identical inputs produce the same PDF hash. Override it only when intentionally minting a new artifact epoch.
 
@@ -40,4 +40,4 @@ To promote PTD results from `PENDING` to `VERIFIED`, all of the following are re
 
 This development repository identifies its owner and therefore cannot be linked from an anonymous SIGIR submission. Create an anonymous snapshot only after the evidence gate passes. Affiliations, acknowledgements, and public artifact links remain withheld or placeholders until the review/camera-ready transition.
 
-The paper source records the author as **TOMITA NAOYUKI**. The review build keeps ACM's `anonymous=true`, which suppresses that identity in the generated review PDF. Affiliation remains withheld because it has not yet been supplied.
+The paper source records the author as **TOMITA NAOYUKI**. The review build keeps ACM's `anonymous=true`, which suppresses that identity in `paper/main.pdf`; `paper/main-author.pdf` displays it. Affiliation remains omitted because it has not yet been supplied.

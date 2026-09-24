@@ -3,7 +3,7 @@ TECTONIC ?= tectonic
 TECTONIC_BUNDLE ?= https://data1.fullyjustified.net/tlextras-2022.0r0.tar
 SOURCE_DATE_EPOCH ?= 1790262000
 
-.PHONY: all generate test smoke finalize validate paper clean
+.PHONY: all generate test smoke finalize validate paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -24,9 +24,16 @@ finalize:
 validate: generate
 	$(PYTHON) scripts/validate_artifacts.py
 
-paper: generate
+paper: paper-review paper-author
+
+paper-review: generate
 	cd paper && SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) $(TECTONIC) --bundle $(TECTONIC_BUNDLE) --keep-logs --keep-intermediates main.tex
 	$(PYTHON) scripts/normalize_pdf.py paper/main.pdf --source-date-epoch $(SOURCE_DATE_EPOCH)
 
+paper-author: generate
+	cd paper && SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) $(TECTONIC) --bundle $(TECTONIC_BUNDLE) --keep-logs --keep-intermediates main-author.tex
+	$(PYTHON) scripts/normalize_pdf.py paper/main-author.pdf --source-date-epoch $(SOURCE_DATE_EPOCH)
+
 clean:
 	rm -f paper/main.aux paper/main.bbl paper/main.blg paper/main.log paper/main.out paper/main.pdf
+	rm -f paper/main-author.aux paper/main-author.bbl paper/main-author.blg paper/main-author.log paper/main-author.out paper/main-author.pdf
