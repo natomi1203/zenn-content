@@ -46,7 +46,7 @@
     "two_stream_HSTU_and_multiwindow_DIN_trainer": true,
     "catalog_envelope_and_date_mask_builder": true,
     "train_only_anchored_alternating_solver": true,
-    "five_day_three_seed_retrieval_and_latency_runner": false,
+    "five_day_three_seed_retrieval_and_latency_runner": true,
     "paired_JSONL_and_evaluation_emitter": true
   },
   "implemented_component_evidence": {
@@ -59,13 +59,15 @@
     "alternating_solver_sha256": "e7c88e9eaca523ab5d76ae2c456efc64bfc8366de62287927624f16234526c69",
     "alternating_solver_smoke_sha256": "d7779d0b41c1e47255b7d28455f20bf074f92b99de000e8d06ecc92a3370afbb",
     "evaluation_emitter_sha256": "db57236470e1bbc7e0f88a1f9e2d88231452f4d10ed91fe538e4a4f12010d052",
-    "evaluation_emitter_smoke_sha256": "1a72e3f9c039a647d0d285acf288e80a61cd589d840474a460fed8041d431a0f"
+    "evaluation_emitter_smoke_sha256": "1a72e3f9c039a647d0d285acf288e80a61cd589d840474a460fed8041d431a0f",
+    "retrieval_query_builder_sha256": "db221ac9dcb9a3f0ce7c53e1acc7ce275dac4ad50dae9f3397c93272a2475a34",
+    "retrieval_runner_sha256": "482a3ed2f5253bd73fc8c60ecb0021c6700c9245ead19409f5b44c5355837310",
+    "retrieval_runner_smoke_sha256": "ab125a13543afcfa8c51a0c6b2b874aae2ea49aa9bc5923ead3fec897394c039"
   },
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "implement_and_synthetic_test_the_remaining_retrieval_and_latency_runner",
     "mint_an_immutable_no_clobber_code_bundle_and_dry_run_job_spec",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. The registered model/trainer, exact train-only anchored solver, and paired evaluation emitter now have deterministic synthetic implementation evidence, not real reassignment, efficacy, or latency evidence. Launch is fail-closed until the retrieval/latency runner, immutable launch bundle, and authorization checks pass."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six registered production components now have deterministic synthetic implementation evidence, including real PyTorch checkpoint-to-beam compatibility. This is not real reassignment, efficacy, or production-latency evidence. Launch remains fail-closed until an immutable dry-run bundle is minted and explicit Vertex AI cost authorization is obtained."
 }

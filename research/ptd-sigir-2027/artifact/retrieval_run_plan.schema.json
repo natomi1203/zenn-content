@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/retrieval-run-plan.schema.json",
+  "title": "Locked PTD five-day retrieval and latency plan",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "status",
+    "test_dates",
+    "seeds",
+    "beam_width",
+    "top_k",
+    "warmup_queries_per_variant_seed",
+    "minimum_measured_queries_per_variant",
+    "concurrency",
+    "device",
+    "queries",
+    "entries"
+  ],
+  "properties": {
+    "contract_version": {"const": "ptd-retrieval-run-plan/v1"},
+    "status": {"const": "locked"},
+    "test_dates": {"const": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"]},
+    "seeds": {"const": [16630, 16631, 16632]},
+    "beam_width": {"const": 600},
+    "top_k": {"const": 600},
+    "warmup_queries_per_variant_seed": {"type": "integer", "minimum": 100},
+    "minimum_measured_queries_per_variant": {"type": "integer", "minimum": 1000},
+    "concurrency": {"const": 1},
+    "device": {"type": "string", "minLength": 1},
+    "queries": {"$ref": "#/$defs/artifact"},
+    "entries": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "required": ["variant", "seed", "catalog", "date_eligibility", "checkpoint"],
+        "properties": {
+          "variant": {
+            "enum": [
+              "fixed_tdm",
+              "ptd_item",
+              "ptd_node",
+              "ptd_combined",
+              "alternating_tdm",
+              "alternating_ptd",
+              "ptd_combined_baseline_encoder",
+              "teacher_oracle"
+            ]
+          },
+          "seed": {"enum": [16630, 16631, 16632]},
+          "catalog": {"$ref": "#/$defs/artifact"},
+          "date_eligibility": {"$ref": "#/$defs/artifact"},
+          "checkpoint": {
+            "oneOf": [
+              {"$ref": "#/$defs/artifact"},
+              {"type": "null"}
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

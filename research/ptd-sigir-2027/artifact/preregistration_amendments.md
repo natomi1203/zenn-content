@@ -83,3 +83,18 @@ Changes:
 5. Required the emitter to regenerate canonical paired JSONL, all four 10,000-resample contrasts, Holm values, and guardrail flags, then pass the existing evidence-admission checker before atomically publishing outputs.
 
 Rationale: the earlier schemas fixed final evidence but left the retrieval-to-evaluation handoff implicit. The new contract removes discretion in slicing and aggregation and prevents partially paired runs from being promoted. It changes no date, seed, variant, threshold, or observed result.
+
+## A7 - 2026-09-25 JST - executable beam retrieval and secondary metrics
+
+This amendment was made while no prospective five-day PTD evaluation existed and all PTD efficacy, ablation, and latency claims remained `PENDING`. The complete matrix was exercised only with synthetic scorers, labels, clocks, and small-bucket random checkpoints.
+
+Changes:
+
+1. Fixed internal-node identity to `node:<heap_node_id>`, padding identity to `padding:<heap_node_id>`, internal/padding category sentinels to `__internal__`/`__padding__`, and leaf identity/category to the locked product and canonical category. All identities use the preregistered shared hash tables.
+2. Fixed beam traversal to binary sibling softmax with every child lacking an eligible descendant masked before normalization, accumulated root-to-leaf log probability, deterministic node-ID tie-breaking, and beam/top-K 600. The HSTU-style user state is cached once per query; the registered DIN baseline remains node-conditioned.
+3. Fixed purchase/click NDCG ideals and purchase-recall denominators over all eligible items, not only retrieved items. Purchase AUC uses retrieval rank over every eligible item, with all unretrieved items tied below top-K and value 0.5 for a single-class query.
+4. Fixed category coverage@50 to the number of distinct top-50 categories divided by `min(50, eligible distinct categories)`, and max category share@50 to the largest category frequency divided by the returned top-50 length.
+5. Required at least 100 serial warm-up queries per variant--seed, timing around retrieval with device synchronization and concurrency one, and at least 1,000 measured rows per variant across the three seeds.
+6. Added hash-locked query and 24-entry run-plan schemas. Frozen teacher scores are available to the explicit teacher oracle only; outcome labels are accessed only after retrieval for metric computation.
+
+Rationale: the earlier registration fixed the model, beam width, metric names, and latency thresholds but not every serving and secondary-metric convention. These choices make the runner executable and fail closed without changing an outcome, comparison, or threshold.

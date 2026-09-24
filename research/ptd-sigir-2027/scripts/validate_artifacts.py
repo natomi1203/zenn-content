@@ -149,12 +149,13 @@ def validate_execution_readiness() -> None:
     assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
     assert all(audit["registered_inputs_ready"].values())
     assert audit["ready_for_paid_launch"] is False
-    assert sum(audit["production_components_ready"].values()) == 5
+    assert sum(audit["production_components_ready"].values()) == 6
     assert audit["production_components_ready"]["per_row_frozen_teacher_score_materializer"] is True
     assert audit["production_components_ready"]["catalog_envelope_and_date_mask_builder"] is True
     assert audit["production_components_ready"]["two_stream_HSTU_and_multiwindow_DIN_trainer"] is True
     assert audit["production_components_ready"]["train_only_anchored_alternating_solver"] is True
     assert audit["production_components_ready"]["paired_JSONL_and_evaluation_emitter"] is True
+    assert audit["production_components_ready"]["five_day_three_seed_retrieval_and_latency_runner"] is True
     assert audit["implemented_component_evidence"] == {
         "frozen_teacher_materializer_sha256": sha256(ROOT / "runner" / "materialize_teacher_scores.py"),
         "frozen_teacher_smoke_sha256": sha256(
@@ -175,6 +176,13 @@ def validate_execution_readiness() -> None:
         "evaluation_emitter_sha256": sha256(ROOT / "runner" / "emit_evaluation.py"),
         "evaluation_emitter_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "evaluation_emitter_smoke.json"
+        ),
+        "retrieval_query_builder_sha256": sha256(
+            ROOT / "runner" / "build_retrieval_queries.py"
+        ),
+        "retrieval_runner_sha256": sha256(ROOT / "runner" / "retrieval_runner.py"),
+        "retrieval_runner_smoke_sha256": sha256(
+            ROOT / "artifact" / "smoke" / "retrieval_runner_smoke.json"
         ),
     }
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
@@ -308,6 +316,35 @@ def validate_production_component_evidence() -> None:
     }
     assert set(retrieval_schema["properties"]["seed"]["enum"]) == {16630, 16631, 16632}
     assert len(retrieval_schema["properties"]["variant"]["enum"]) == 8
+
+    retrieval_runner = load("artifact/smoke/retrieval_runner_smoke.json")
+    assert retrieval_runner["contract_version"] == "ptd-retrieval-runner-smoke/v1"
+    assert retrieval_runner["status"] == "SMOKE_ONLY"
+    assert retrieval_runner["empirical_claim_allowed"] is False
+    assert retrieval_runner["synthetic_counts"] == {
+        "dates": 5,
+        "measured_rows_per_variant": 1005,
+        "queries": 335,
+        "retrieval_metric_rows": 8040,
+        "seeds": 3,
+        "users": 67,
+        "variants": 8,
+        "warmup_queries_per_variant_seed": 100,
+    }
+    assert all(retrieval_runner["checks"].values())
+    assert retrieval_runner["checks"]["torch_hstu_checkpoint_loaded"] is True
+    assert retrieval_runner["checks"]["torch_din_checkpoint_loaded"] is True
+    assert retrieval_runner["checks"]["torch_hstu_user_state_cached_across_levels"] is True
+
+    query_schema = load("artifact/retrieval_query_row.schema.json")
+    assert query_schema["additionalProperties"] is False
+    assert query_schema["properties"]["click_history_most_recent_first"]["maxItems"] == 30
+    assert query_schema["properties"]["purchase_history_most_recent_first"]["maxItems"] == 30
+    plan_schema = load("artifact/retrieval_run_plan.schema.json")
+    assert plan_schema["properties"]["entries"]["minItems"] == 24
+    assert plan_schema["properties"]["entries"]["maxItems"] == 24
+    assert plan_schema["properties"]["beam_width"]["const"] == 600
+    assert plan_schema["properties"]["top_k"]["const"] == 600
 
 
 def validate_ledger() -> None:

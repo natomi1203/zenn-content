@@ -7,7 +7,7 @@ TEACHER_CHECKPOINT ?=
 CATALOG_BUNDLE_DIR ?=
 CATALOG_BUNDLE_RERUN_DIR ?=
 
-.PHONY: all generate test smoke teacher-smoke trainer-smoke alternating-smoke evaluation-smoke audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
+.PHONY: all generate test smoke teacher-smoke trainer-smoke alternating-smoke retrieval-smoke evaluation-smoke audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -33,6 +33,10 @@ trainer-smoke:
 alternating-smoke:
 	uv run --with numpy --with scipy --with pyarrow python scripts/run_alternating_solver_smoke.py
 	uv run --with numpy --with scipy --with pyarrow python -m unittest tests.test_alternating_solver -v
+
+retrieval-smoke:
+	uv run --with torch --with pyarrow --with numpy python scripts/run_retrieval_runner_smoke.py
+	uv run --with torch --with pyarrow --with numpy python -m unittest tests.test_build_retrieval_queries tests.test_retrieval_runner -v
 
 evaluation-smoke:
 	$(PYTHON) scripts/run_evaluation_emitter_smoke.py

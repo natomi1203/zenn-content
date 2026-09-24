@@ -34,7 +34,7 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
 
-`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つの production component のうち5つ、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、paired evaluation emitterを実装済みです。`runner/emit_evaluation.py` は完全なdate--user--seed--variant metric行を要求し、canonical paired JSONLと全evaluation JSONを生成し、10,000回bootstrap、Holm補正、guardrailを再計算してからfail-closed admission gateを自己適用し、合格時だけ出力を確定します。smokeは8,040合成行とvariantごと1,000件以上のlatency観測を使い、正のfixture差分が実験結果でないことを明記します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。有料起動の提案前にはfive-day three-seed retrieval/latency runnerが残っています。
+`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つの production componentすべて、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_retrieval_queries.py` はraw candidateとfrozen teacher scoreをrow key一致を検証しながら結合します。`runner/retrieval_runner.py` はeligible descendant mask、sibling-softmax path score、beam/top-K 600、直列warm-up/timing、teacher隔離を伴う固定24-cell matrixを実行します。smokeは8,040行を出力し、両encoderの実small-bucket PyTorch checkpointも読み込んでbeam推論しました。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。有料launchはimmutable no-clobber code/job bundleの発行とVertex AI費用の明示承認までfail-closedです。
 
 制限付きデータ環境での任意チェックは次です。
 
@@ -46,6 +46,8 @@ uv run --with numpy --with scipy --with pyarrow python scripts/run_alternating_s
 uv run --with numpy --with scipy --with pyarrow python -m unittest tests.test_alternating_solver -v
 python3 scripts/run_evaluation_emitter_smoke.py
 python3 -m unittest tests.test_evaluation_emitter -v
+uv run --with torch --with pyarrow --with numpy python scripts/run_retrieval_runner_smoke.py
+uv run --with torch --with pyarrow --with numpy python -m unittest tests.test_build_retrieval_queries tests.test_retrieval_runner -v
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle-rerun
 python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/output/catalog-bundle --rerun-bundle-dir /restricted/output/catalog-bundle-rerun

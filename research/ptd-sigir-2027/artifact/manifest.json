@@ -48,7 +48,7 @@
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "19042ee0e73396d89f863ef8e49ef9c884957f841cbb1b16de0aaa0d8d867d01"
+      "sha256": "aac17ce15466d3421b7b65d8ecceb39bc2da8a4beeb54402e2377e06f1337654"
     },
     {
       "id": "artifact-manifest-schema",
@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "dfa4a4284cfdb61ce7e09ca73450090334bf9456435e38c32ee8c090645a4fc7"
+      "sha256": "9a313505a8fd2e0ae4d7086e53334cd9e3b19fa8467b9daaf36f4ad9300f601c"
     },
     {
       "id": "frozen-teacher-materializer",
@@ -289,6 +289,62 @@
       "sha256": "1a72e3f9c039a647d0d285acf288e80a61cd589d840474a460fed8041d431a0f"
     },
     {
+      "id": "retrieval-query-row-schema",
+      "path": "artifact/retrieval_query_row.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "17c50f8cc1d58c65376490dd0bdb6feb269d9a9353e5db6476dc3b53fdaff715"
+    },
+    {
+      "id": "retrieval-run-plan-schema",
+      "path": "artifact/retrieval_run_plan.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "507c2ed9f17ba8f5c028794a99bf0f3b75d464a98912e90bbe175bdf0fc68650"
+    },
+    {
+      "id": "retrieval-query-builder",
+      "path": "runner/build_retrieval_queries.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "db221ac9dcb9a3f0ce7c53e1acc7ce275dac4ad50dae9f3397c93272a2475a34"
+    },
+    {
+      "id": "retrieval-query-builder-tests",
+      "path": "tests/test_build_retrieval_queries.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "47176d44877d342072f325bed39474d2dfe535e20c133584a2c3bb369dde3222"
+    },
+    {
+      "id": "retrieval-runner",
+      "path": "runner/retrieval_runner.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "482a3ed2f5253bd73fc8c60ecb0021c6700c9245ead19409f5b44c5355837310"
+    },
+    {
+      "id": "retrieval-runner-tests",
+      "path": "tests/test_retrieval_runner.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "e7936a350e00085dda1b728da5d7d1dde95f776379ca1d9a3d269a56b6ecd05d"
+    },
+    {
+      "id": "retrieval-runner-smoke-runner",
+      "path": "scripts/run_retrieval_runner_smoke.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "d26acb0761926e126f4223eba18b555250df30a0bd2364d6acd4cf40bc4bfd20"
+    },
+    {
+      "id": "retrieval-runner-smoke",
+      "path": "artifact/smoke/retrieval_runner_smoke.json",
+      "media_type": "application/json",
+      "status": "GENERATED",
+      "sha256": "ab125a13543afcfa8c51a0c6b2b874aae2ea49aa9bc5923ead3fec897394c039"
+    },
+    {
       "id": "reference-implementation",
       "path": "reference/ptd.py",
       "media_type": "text/x-python",
@@ -384,7 +440,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "06d0a427297887b7f52b38eda0191fa030f2bfbaf58c0a7a18fa40bd2312980a"
+      "sha256": "d9eb08f3c9105e8a82391f4e09299a3e70946eb33ab97dc52a38470d5b25717c"
     },
     {
       "id": "manifest-finalizer",
@@ -419,21 +475,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "e5fb97ca8341899f824bb84f0103f4302751ce2779a2971b092efeabe235f8ce"
+      "sha256": "5e7205fdeec446fbb59bae1e14c2be8e2dc87c6a9b59aa8fc4350811de992aa1"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "4717a8ec3107ef8d50b8fc38f8cf0208b2f7a363d087f4004cd59cbdd13b9696"
+      "sha256": "78705ebd1769fe332a44bb24365444a6d7b90b0a6c8c63447b49255456c6cfe9"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "152ecc7b49cd7e1d362dd41eeaa0347cce2de26604c232923f04a57be6b6d932"
+      "sha256": "d97b201b6e6a0a8e19f5270dd9d3a5ecfac321067ff5aa5123234a0dde40b190"
     },
     {
       "id": "ptd-five-day-evaluation",
