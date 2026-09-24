@@ -149,10 +149,11 @@ def validate_execution_readiness() -> None:
     assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
     assert all(audit["registered_inputs_ready"].values())
     assert audit["ready_for_paid_launch"] is False
-    assert sum(audit["production_components_ready"].values()) == 3
+    assert sum(audit["production_components_ready"].values()) == 4
     assert audit["production_components_ready"]["per_row_frozen_teacher_score_materializer"] is True
     assert audit["production_components_ready"]["catalog_envelope_and_date_mask_builder"] is True
     assert audit["production_components_ready"]["two_stream_HSTU_and_multiwindow_DIN_trainer"] is True
+    assert audit["production_components_ready"]["train_only_anchored_alternating_solver"] is True
     assert audit["implemented_component_evidence"] == {
         "frozen_teacher_materializer_sha256": sha256(ROOT / "runner" / "materialize_teacher_scores.py"),
         "frozen_teacher_smoke_sha256": sha256(
@@ -165,6 +166,10 @@ def validate_execution_readiness() -> None:
         "ptd_model_trainer_sha256": sha256(ROOT / "runner" / "ptd_model.py"),
         "ptd_trainer_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "trainer_smoke.json"
+        ),
+        "alternating_solver_sha256": sha256(ROOT / "runner" / "alternating_solver.py"),
+        "alternating_solver_smoke_sha256": sha256(
+            ROOT / "artifact" / "smoke" / "alternating_solver_smoke.json"
         ),
     }
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
@@ -245,6 +250,28 @@ def validate_production_component_evidence() -> None:
     ]
     assert all(all(run["checks"].values()) for run in trainer["runs"])
     assert all(run["final_loss"]["total"] < run["initial_loss"]["total"] for run in trainer["runs"])
+
+    alternating = load("artifact/smoke/alternating_solver_smoke.json")
+    assert alternating["contract_version"] == "ptd-alternating-solver-smoke/v1"
+    assert alternating["status"] == "SMOKE_ONLY"
+    assert alternating["empirical_claim_allowed"] is False
+    assert alternating["synthetic_tree"] == {
+        "anchored_items": 2,
+        "depth": 3,
+        "items": 6,
+        "physical_leaves": 8,
+        "train_seen_items": 4,
+    }
+    assert alternating["objective"] == {
+        "absolute_gain": 40.0,
+        "brute_force_optimum": 40.0,
+        "fixed_objective": 0.0,
+        "optimized_objective": 40.0,
+    }
+    assert all(alternating["checks"].values())
+    assert alternating["checks"]["anchored_items_unchanged"] is True
+    assert alternating["checks"]["matches_brute_force_optimum"] is True
+    assert alternating["checks"]["rejects_test_date_weight_manifest"] is True
 
 
 def validate_ledger() -> None:

@@ -1,0 +1,41 @@
+{
+  "assignment_sha256": "f04c9412737f63be21e2c025d3471e9622ef87d239cb9ba82f2b08a242351c6a",
+  "checks": {
+    "anchored_items_unchanged": true,
+    "deterministic_parquet_hashes": true,
+    "deterministic_rerun": true,
+    "fixed_assignment_feasible": true,
+    "matches_brute_force_optimum": true,
+    "no_overwrite": true,
+    "one_item_per_leaf": true,
+    "optimized_objective_not_below_fixed": true,
+    "rejects_test_date_weight_manifest": true,
+    "subtree_capacities_respected": true,
+    "train_only_weight_manifest": true,
+    "validation_or_test_outcomes_or_teacher_scores_not_read": true
+  },
+  "contract_version": "ptd-alternating-solver-smoke/v1",
+  "empirical_claim_allowed": false,
+  "objective": {
+    "absolute_gain": 40.0,
+    "brute_force_optimum": 40.0,
+    "fixed_objective": 0.0,
+    "optimized_objective": 40.0
+  },
+  "runtime": {
+    "numpy": "2.4.6",
+    "platform": "Darwin",
+    "pyarrow": "25.0.1",
+    "python": "3.11.12",
+    "scipy": "1.17.1"
+  },
+  "scope_note": "Synthetic solver evidence only; no PTD metric, real assignment, or efficacy claim is present.",
+  "status": "SMOKE_ONLY",
+  "synthetic_tree": {
+    "anchored_items": 2,
+    "depth": 3,
+    "items": 6,
+    "physical_leaves": 8,
+    "train_seen_items": 4
+  }
+}

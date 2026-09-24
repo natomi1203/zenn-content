@@ -45,7 +45,7 @@
     "per_row_frozen_teacher_score_materializer": true,
     "two_stream_HSTU_and_multiwindow_DIN_trainer": true,
     "catalog_envelope_and_date_mask_builder": true,
-    "train_only_anchored_alternating_solver": false,
+    "train_only_anchored_alternating_solver": true,
     "five_day_three_seed_retrieval_and_latency_runner": false,
     "paired_JSONL_and_evaluation_emitter": false
   },
@@ -55,13 +55,15 @@
     "catalog_bundle_builder_sha256": "b8de2dbde42d217cb14138b19329521841557239c34ad41c97e78eb36af957f7",
     "catalog_bundle_evidence_sha256": "cd7711a6c2bdba269427d46361f5392b191bfb516813a0f5aa977ae4ef2d4f48",
     "ptd_model_trainer_sha256": "a9832d8573484cd4102611fb412d3fc9333cb887275fc699df2cd3a3fa563d92",
-    "ptd_trainer_smoke_sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8"
+    "ptd_trainer_smoke_sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8",
+    "alternating_solver_sha256": "e7c88e9eaca523ab5d76ae2c456efc64bfc8366de62287927624f16234526c69",
+    "alternating_solver_smoke_sha256": "d7779d0b41c1e47255b7d28455f20bf074f92b99de000e8d06ecc92a3370afbb"
   },
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "implement_and_synthetic_test_the_three_remaining_production_components",
+    "implement_and_synthetic_test_the_two_remaining_production_components",
     "mint_an_immutable_no_clobber_code_bundle_and_dry_run_job_spec",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. The registered two-stream model/trainer now has deterministic synthetic implementation evidence, not efficacy or latency evidence. Launch is fail-closed until the missing implementation and authorization checks pass."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. The registered model/trainer and exact train-only anchored solver now have deterministic synthetic implementation evidence, not real reassignment, efficacy, or latency evidence. Launch is fail-closed until the missing implementation and authorization checks pass."
 }
