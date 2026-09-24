@@ -2,13 +2,22 @@
 
 from __future__ import annotations
 
+import json
 import math
 import random
 from dataclasses import dataclass
+from pathlib import Path
 from statistics import fmean
-from typing import Iterable, Mapping, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
-from reference.evidence_gate import EXPECTED_SEEDS, EXPECTED_SPLIT
+from reference.evidence_gate import EXPECTED_SEEDS, EXPECTED_SPLIT, EXPECTED_VARIANTS
+
+PRIMARY_CONTRASTS = {
+    "rq1_combined_vs_tdm": ("ptd_combined", "fixed_tdm"),
+    "rq2_combined_vs_best_single": ("ptd_combined", "best_single_validation_selected"),
+    "rq3_alternating_vs_fixed": ("alternating_ptd", "ptd_combined"),
+    "rq4_hstu_vs_baseline_encoder": ("ptd_combined", "ptd_combined_baseline_encoder"),
+}
 
 
 def dcg_at_k(relevances: Sequence[float], k: int) -> float:
@@ -70,6 +79,122 @@ class PairedObservation:
     baseline: float
 
 
+@dataclass(frozen=True)
+class PairedScoreRow:
+    """One immutable date-user-seed row containing every registered variant."""
+
+    date: str
+    user_id: str
+    seed: int
+    scores: Mapping[str, float]
+
+
+def load_paired_score_rows(path: Path) -> list[PairedScoreRow]:
+    """Load and strictly validate the canonical JSONL primary-metric evidence."""
+    rows: list[PairedScoreRow] = []
+    seen: set[tuple[str, str, int]] = set()
+    expected_dates = set(EXPECTED_SPLIT["test"])
+    expected_seeds = set(EXPECTED_SEEDS)
+    expected_variants = set(EXPECTED_VARIANTS)
+    with path.open() as handle:
+        for line_number, raw_line in enumerate(handle, start=1):
+            if not raw_line.strip():
+                raise ValueError(f"blank JSONL record at line {line_number}")
+            try:
+                value: Any = json.loads(raw_line)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"invalid JSON at line {line_number}: {exc.msg}") from exc
+            if not isinstance(value, dict) or set(value) != {"date", "user_id", "seed", "scores"}:
+                raise ValueError(f"line {line_number} must contain exactly date, user_id, seed, and scores")
+            date = value["date"]
+            user_id = value["user_id"]
+            seed = value["seed"]
+            scores = value["scores"]
+            if date not in expected_dates:
+                raise ValueError(f"unexpected date at line {line_number}: {date}")
+            if not isinstance(user_id, str) or not user_id:
+                raise ValueError(f"user_id must be non-empty at line {line_number}")
+            if seed not in expected_seeds:
+                raise ValueError(f"unexpected seed at line {line_number}: {seed}")
+            if not isinstance(scores, dict) or set(scores) != expected_variants:
+                raise ValueError(f"line {line_number} must contain exactly the eight registered variant scores")
+            normalized: dict[str, float] = {}
+            for variant, score in scores.items():
+                if isinstance(score, bool) or not isinstance(score, (int, float)) or not math.isfinite(score):
+                    raise ValueError(f"non-finite score for {variant} at line {line_number}")
+                if not 0.0 <= score <= 1.0:
+                    raise ValueError(f"score outside [0, 1] for {variant} at line {line_number}")
+                normalized[variant] = float(score)
+            key = (date, user_id, seed)
+            if key in seen:
+                raise ValueError(f"duplicate date-user-seed at line {line_number}: {date}/{user_id}/{seed}")
+            seen.add(key)
+            rows.append(PairedScoreRow(date=date, user_id=user_id, seed=seed, scores=normalized))
+    if not rows:
+        raise ValueError("paired score evidence must not be empty")
+    return rows
+
+
+def registered_primary_contrasts(
+    rows: Sequence[PairedScoreRow],
+    *,
+    best_single_variant: str,
+    resamples: int = 10_000,
+    seed: int = 20_260_925,
+) -> dict[str, dict[str, object]]:
+    """Recompute all four preregistered primary contrasts from paired rows."""
+    if best_single_variant not in {"ptd_item", "ptd_node"}:
+        raise ValueError("best_single_variant must be ptd_item or ptd_node")
+    results: dict[str, dict[str, object]] = {}
+    for name, (numerator, registered_denominator) in PRIMARY_CONTRASTS.items():
+        denominator = best_single_variant if registered_denominator == "best_single_validation_selected" else registered_denominator
+        observations = [
+            PairedObservation(
+                date=row.date,
+                user_id=row.user_id,
+                seed=row.seed,
+                treatment=row.scores[numerator],
+                baseline=row.scores[denominator],
+            )
+            for row in rows
+        ]
+        statistics = date_stratified_paired_bootstrap(observations, resamples=resamples, seed=seed)
+        results[name] = {
+            "numerator": numerator,
+            "denominator": registered_denominator,
+            "resolved_denominator": denominator,
+            "metric": "purchase_ndcg_at_50",
+            **statistics,
+        }
+    adjusted = holm_adjust({name: float(result["raw_p"]) for name, result in results.items()})
+    for name, value in adjusted.items():
+        results[name]["holm_adjusted_p"] = value
+    return results
+
+
+def primary_metric_summaries(rows: Sequence[PairedScoreRow]) -> dict[str, dict[str, object]]:
+    """Aggregate purchase NDCG@50 exactly as required by the evaluation JSON."""
+    if not rows:
+        raise ValueError("paired score evidence must not be empty")
+    summaries: dict[str, dict[str, object]] = {}
+    for variant in EXPECTED_VARIANTS:
+        by_seed = {
+            str(seed): fmean(row.scores[variant] for row in rows if row.seed == seed)
+            for seed in EXPECTED_SEEDS
+        }
+        by_date = {
+            date: fmean(row.scores[variant] for row in rows if row.date == date)
+            for date in EXPECTED_SPLIT["test"]
+        }
+        summaries[variant] = {
+            "n_users": len({row.user_id for row in rows}),
+            "metrics": fmean(row.scores[variant] for row in rows),
+            "by_seed": by_seed,
+            "by_date": by_date,
+        }
+    return summaries
+
+
 def paired_unit_deltas(
     observations: Iterable[PairedObservation],
     *,
@@ -100,7 +225,7 @@ def paired_unit_deltas(
     for (date, user_id), seed_deltas in sorted(grouped.items()):
         if set(seed_deltas) != expected_seed_set:
             raise ValueError(f"incomplete seed pairing for {date}/{user_id}")
-        deltas[date].append(fmean(seed_deltas.values()))
+        deltas[date].append(fmean(seed_deltas[seed] for seed in expected_seeds))
     missing_dates = [date for date, values in deltas.items() if not values]
     if missing_dates:
         raise ValueError(f"missing date strata: {missing_dates}")

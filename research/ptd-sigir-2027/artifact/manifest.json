@@ -13,14 +13,14 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "61ce74e95733c9072749f43084f7fe5058b0a7e481424fe90d8bb994886bc29b"
+      "sha256": "059c08cc8a1d03190dd02fd6ab008482a4535a61d11a7ee9e9153a8a3a5635f8"
     },
     {
       "id": "paper-pdf",
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "9e581dfa087d95ae682df063284b223d6a88eae873047374765090a8f4f4950e"
+      "sha256": "b0c4363e70c12393187ae4784e97dca9580ad96494961b9f986fe18ad2bf097d"
     },
     {
       "id": "paper-author-source",
@@ -34,21 +34,21 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "ac66ec6d0a58566626c2dbed24271888fb62af22b8f90361ede2767109c47202"
+      "sha256": "10174a18e985bc78908706f341c1996bf7588917531d42814172117083791c7b"
     },
     {
       "id": "preregistration",
       "path": "artifact/preregistration.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "8623e807787a7679e1d8450f68a5458b12820edd5df9788dfe5c65bc2c3420b6"
+      "sha256": "74108be573fb789353424a8c5f3555d29803e06c626849c8c3cd3cd4fe78e99e"
     },
     {
       "id": "preregistration-amendments",
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "adeb150444fd7d0da0621329ab0ae6485fc5e10ab0c78ec6e6cb1d8c9b918bf0"
+      "sha256": "27398766b2f9917ea890fb30e013143735d6e9d22cdb4b606da5c61bbbb215a9"
     },
     {
       "id": "artifact-manifest-schema",
@@ -62,21 +62,28 @@
       "path": "artifact/run_manifest.schema.json",
       "media_type": "application/schema+json",
       "status": "PREREGISTERED",
-      "sha256": "5445512ea8a3f17a028bf83bbb0a6b12f00e124da51e7db65f10d94307964876"
+      "sha256": "346b1ebba231bf7fd8ad1c02e74e25d4e2a0ce32927613fab38a3780adcadd7c"
+    },
+    {
+      "id": "paired-observation-row-schema",
+      "path": "artifact/paired_observation_row.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "f6b5e92a91bb39630ba6085658db8f0f9f2c788724a4b6e07d447c027c3b2a51"
     },
     {
       "id": "evaluation-schema",
       "path": "artifact/evaluation.schema.json",
       "media_type": "application/schema+json",
       "status": "PREREGISTERED",
-      "sha256": "e14f666d4b7607e7e5aafedc2271481c246f1709db27875a22144d0d47bd54a4"
+      "sha256": "ee88f6506d81c40b29a2280e8a624f10bcda1f82a198df66aa4aad597da1b17d"
     },
     {
       "id": "claim-ledger",
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "99e11ff5740877d17e4745c066ef6ce746ff934ae7b1062a41d975cbbc971fdc"
+      "sha256": "b96bf1e069926583d90d49f40b17022aa5e74e9f37b6f1eb5a960d9f62601a04"
     },
     {
       "id": "legacy-esmm-anchor",
@@ -104,35 +111,35 @@
       "path": "reference/evaluation.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "4de5f628e06c981d738512dfd63f94eaf0e1399b8247ddbb6941c5cba9cf355e"
+      "sha256": "c140ebc18a1cbc275c7f29f3fb97898b45e822c6da4401fde6dfc6c1e566287a"
     },
     {
       "id": "reference-evaluation-tests",
       "path": "tests/test_reference_evaluation.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "38c74d0cbd325fe781c09876a996ca70601f32b41fed06fd32fa4ff5c89c3d9f"
+      "sha256": "f7eefeea3b6846025a7ce86dc09cf9ea44dc3613cb7ddece9bea4e552bb36288"
     },
     {
       "id": "evidence-gate",
       "path": "reference/evidence_gate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "9ad0eaab77c6f2e4ba7ce6b25b938769c413987519b96fe3fcd97f9a91779813"
+      "sha256": "1036edd05b4b01070f426971f7069fe3ef92a37266ff56be3d6070a5a8634632"
     },
     {
       "id": "evidence-gate-cli",
       "path": "scripts/check_evidence_candidate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "aa1463a4e6b559de28ac74984158cac42e55ae1274d6b030629c00b8b0857e9f"
+      "sha256": "d6ce2575440063b99e180091af611f499b07490812e263763063b2cf3f385aea"
     },
     {
       "id": "evidence-gate-tests",
       "path": "tests/test_evidence_gate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "0bbe546a521cb0c6795d2cab5c96266f0721fbba850cae536b3dd2ada8e4a042"
+      "sha256": "69de670f76dac91b61b8887cf063471cbbf7861a06102cb2d9e466c1663f7d5b"
     },
     {
       "id": "reference-smoke",
@@ -174,14 +181,14 @@
       "path": "scripts/generate_figures.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "15c87e816dbf13195f2476715cdd370b3d75c6acb23f98e03ca16a5031a0ed73"
+      "sha256": "b168c1ea961581c798d84e8944c3b30bb239e7a75137eb6f37be2cbf4c5d71f4"
     },
     {
       "id": "artifact-validator",
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "ae5837c520a89a5a859e326bcc96b7c8a8a329eae4b6bca8e3bb02d6783c3904"
+      "sha256": "0514f35100e4a32b138880b277b9c09b19b3262412e6ae7b5e6aa6b6be4e9e7a"
     },
     {
       "id": "manifest-finalizer",
@@ -216,21 +223,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "347f798b09d723b98843d70fce3dbe0c55bee3c5bcf2cd760fb8108a5e8e7bf1"
+      "sha256": "a08c4ef36075613a3bef596197cd53165611fec61632f71bb7c47384ba2aa0c1"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "4dfe303d64c2169378ac3ffc6e439467e3a66d8bac604d445408ad4da09bf44f"
+      "sha256": "c7afd68eefacf2c0354fc0e64d25ca53d9fad8d775f8316741c4d821591346f1"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "b3b610f27b0d811a2efa9a7b0f6b9f770f3abe0b6aa544a67353c75f47f67126"
+      "sha256": "e24435d9faaf86edd43cc5a0deeee5a56e0acd285280b203f3c8ff66dc856e80"
     },
     {
       "id": "ptd-five-day-evaluation",

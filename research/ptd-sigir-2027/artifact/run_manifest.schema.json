@@ -17,6 +17,7 @@
     "assertions",
     "variants",
     "selected_hyperparameters",
+    "validation_selection",
     "tree",
     "latency_protocol",
     "deviations"
@@ -86,7 +87,8 @@
         "lambda_node",
         "epsilon_item",
         "epsilon_node",
-        "assignment_weight"
+        "assignment_weight",
+        "selection_artifact"
       ],
       "properties": {
         "selection_seed": {"const": 16630},
@@ -95,7 +97,19 @@
         "lambda_node": {"enum": [0.1, 0.3, 1.0]},
         "epsilon_item": {"const": 0.000001},
         "epsilon_node": {"const": 0.000000000001},
-        "assignment_weight": {"const": "y_plus_teacher_times_path_log_probability"}
+        "assignment_weight": {"const": "y_plus_teacher_times_path_log_probability"},
+        "selection_artifact": {"$ref": "#/$defs/artifact"}
+      },
+      "additionalProperties": false
+    },
+    "validation_selection": {
+      "type": "object",
+      "required": ["selection_seed", "selection_metric", "best_single_variant", "artifact"],
+      "properties": {
+        "selection_seed": {"const": 16630},
+        "selection_metric": {"const": "purchase_ndcg_at_50"},
+        "best_single_variant": {"enum": ["ptd_item", "ptd_node"]},
+        "artifact": {"$ref": "#/$defs/artifact"}
       },
       "additionalProperties": false
     },
@@ -116,7 +130,7 @@
         "depth": {"type": "integer", "minimum": 1},
         "leaf_capacity": {"type": "integer", "minimum": 1},
         "beam_width": {"type": "integer", "minimum": 1},
-        "alternating_cycles_selected": {"type": "integer", "minimum": 0, "maximum": 2},
+        "alternating_cycles_selected": {"type": "integer", "minimum": 0, "maximum": 3},
         "locked_before_test": {"const": true},
         "locked_at": {"type": "string", "format": "date-time"},
         "locked_tree_sha256": {"$ref": "#/$defs/sha256"}

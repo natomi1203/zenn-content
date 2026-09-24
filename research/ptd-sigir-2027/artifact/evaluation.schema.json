@@ -14,6 +14,7 @@
     "seeds",
     "assertions",
     "variants",
+    "paired_observations",
     "primary_contrasts",
     "inference",
     "guardrails",
@@ -29,6 +30,7 @@
     "split": {"$ref": "#/$defs/split"},
     "seeds": {"const": [16630, 16631, 16632]},
     "assertions": {"$ref": "#/$defs/assertions"},
+    "paired_observations": {"$ref": "#/$defs/paired_observations"},
     "variants": {
       "type": "object",
       "required": [
@@ -65,25 +67,25 @@
         "rq1_combined_vs_tdm": {
           "allOf": [
             {"$ref": "#/$defs/contrast"},
-            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "fixed_tdm"}}}
+            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "fixed_tdm"}, "resolved_denominator": {"const": "fixed_tdm"}}}
           ]
         },
         "rq2_combined_vs_best_single": {
           "allOf": [
             {"$ref": "#/$defs/contrast"},
-            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "best_single_validation_selected"}}}
+            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "best_single_validation_selected"}, "resolved_denominator": {"enum": ["ptd_item", "ptd_node"]}}}
           ]
         },
         "rq3_alternating_vs_fixed": {
           "allOf": [
             {"$ref": "#/$defs/contrast"},
-            {"properties": {"numerator": {"const": "alternating_ptd"}, "denominator": {"const": "ptd_combined"}}}
+            {"properties": {"numerator": {"const": "alternating_ptd"}, "denominator": {"const": "ptd_combined"}, "resolved_denominator": {"const": "ptd_combined"}}}
           ]
         },
         "rq4_hstu_vs_baseline_encoder": {
           "allOf": [
             {"$ref": "#/$defs/contrast"},
-            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "ptd_combined_baseline_encoder"}}}
+            {"properties": {"numerator": {"const": "ptd_combined"}, "denominator": {"const": "ptd_combined_baseline_encoder"}, "resolved_denominator": {"const": "ptd_combined_baseline_encoder"}}}
           ]
         }
       },
@@ -112,6 +114,18 @@
   },
   "$defs": {
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "paired_observations": {
+      "type": "object",
+      "required": ["uri", "sha256", "row_count", "format", "row_schema"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "row_count": {"type": "integer", "minimum": 1},
+        "format": {"const": "jsonl"},
+        "row_schema": {"const": "ptd-paired-observation-row/v1"}
+      },
+      "additionalProperties": false
+    },
     "split": {
       "type": "object",
       "required": ["train", "validation", "test"],
@@ -211,6 +225,7 @@
       "required": [
         "numerator",
         "denominator",
+        "resolved_denominator",
         "metric",
         "mean_delta",
         "ci95",
@@ -224,6 +239,7 @@
       "properties": {
         "numerator": {"type": "string"},
         "denominator": {"type": "string"},
+        "resolved_denominator": {"type": "string"},
         "metric": {"const": "purchase_ndcg_at_50"},
         "mean_delta": {"type": "number", "minimum": -1, "maximum": 1},
         "ci95": {
@@ -240,7 +256,7 @@
         "bootstrap_resamples": {"const": 10000},
         "bootstrap_seed": {"const": 20260925},
         "paired_units": {"type": "integer", "minimum": 1},
-        "guardrails_pass": {"const": true}
+        "guardrails_pass": {"type": "boolean"}
       },
       "additionalProperties": false
     }

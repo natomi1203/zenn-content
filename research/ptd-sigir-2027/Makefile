@@ -27,7 +27,8 @@ validate: generate
 check-evidence:
 	@test -n "$(RUN_MANIFEST)" || (echo "RUN_MANIFEST is required" >&2; exit 2)
 	@test -n "$(EVALUATION)" || (echo "EVALUATION is required" >&2; exit 2)
-	$(PYTHON) scripts/check_evidence_candidate.py --run-manifest "$(RUN_MANIFEST)" --evaluation "$(EVALUATION)"
+	@test -n "$(PAIRED_OBSERVATIONS)" || (echo "PAIRED_OBSERVATIONS is required" >&2; exit 2)
+	$(PYTHON) scripts/check_evidence_candidate.py --run-manifest "$(RUN_MANIFEST)" --evaluation "$(EVALUATION)" --paired-observations "$(PAIRED_OBSERVATIONS)"
 
 paper: paper-review paper-author
 

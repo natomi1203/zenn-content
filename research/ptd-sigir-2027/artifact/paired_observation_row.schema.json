@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/paired-observation-row.schema.json",
+  "title": "PTD paired primary-metric JSONL row",
+  "description": "Each line contains one test-date, user, and seed unit with purchase NDCG@50 for every registered variant.",
+  "type": "object",
+  "required": ["date", "user_id", "seed", "scores"],
+  "properties": {
+    "date": {
+      "enum": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"]
+    },
+    "user_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seed": {
+      "enum": [16630, 16631, 16632]
+    },
+    "scores": {
+      "type": "object",
+      "required": [
+        "fixed_tdm",
+        "ptd_item",
+        "ptd_node",
+        "ptd_combined",
+        "alternating_tdm",
+        "alternating_ptd",
+        "ptd_combined_baseline_encoder",
+        "teacher_oracle"
+      ],
+      "properties": {
+        "fixed_tdm": {"type": "number", "minimum": 0, "maximum": 1},
+        "ptd_item": {"type": "number", "minimum": 0, "maximum": 1},
+        "ptd_node": {"type": "number", "minimum": 0, "maximum": 1},
+        "ptd_combined": {"type": "number", "minimum": 0, "maximum": 1},
+        "alternating_tdm": {"type": "number", "minimum": 0, "maximum": 1},
+        "alternating_ptd": {"type": "number", "minimum": 0, "maximum": 1},
+        "ptd_combined_baseline_encoder": {"type": "number", "minimum": 0, "maximum": 1},
+        "teacher_oracle": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

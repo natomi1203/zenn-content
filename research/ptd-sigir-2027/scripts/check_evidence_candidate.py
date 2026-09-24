@@ -18,8 +18,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-manifest", required=True, type=Path)
     parser.add_argument("--evaluation", required=True, type=Path)
+    parser.add_argument("--paired-observations", required=True, type=Path)
     args = parser.parse_args()
-    report = admission_report(args.run_manifest, args.evaluation)
+    report = admission_report(args.run_manifest, args.evaluation, args.paired_observations)
     print(json.dumps(report, indent=2, sort_keys=True))
     if not report["admissible"]:
         raise SystemExit(1)

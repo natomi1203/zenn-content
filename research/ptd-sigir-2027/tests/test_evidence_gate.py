@@ -7,9 +7,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from reference.evaluation import (
+    PairedScoreRow,
+    guardrail_report,
+    primary_metric_summaries,
+    registered_primary_contrasts,
+)
 from reference.evidence_gate import (
     ASSERTIONS,
-    EXPECTED_CONTRASTS,
     EXPECTED_SEEDS,
     EXPECTED_SPLIT,
     EXPECTED_VARIANTS,
@@ -25,6 +30,46 @@ def metrics() -> dict[str, float]:
         name: 10.0 if name.startswith("latency_") or name == "candidates_scored_mean" else 0.2
         for name in METRIC_BOUNDS
     }
+
+
+def paired_score_rows() -> list[dict]:
+    rows: list[dict] = []
+    for date in EXPECTED_SPLIT["test"]:
+        for user_index, user in enumerate(("u1", "u2")):
+            for seed in EXPECTED_SEEDS:
+                baseline = 0.20 + user_index * 0.01 + (seed - EXPECTED_SEEDS[0]) * 0.001
+                rows.append(
+                    {
+                        "date": date,
+                        "user_id": user,
+                        "seed": seed,
+                        "scores": {
+                            "fixed_tdm": baseline,
+                            "ptd_item": baseline + 0.01,
+                            "ptd_node": baseline + 0.015,
+                            "ptd_combined": baseline + 0.02,
+                            "alternating_tdm": baseline + 0.005,
+                            "alternating_ptd": baseline + 0.025,
+                            "ptd_combined_baseline_encoder": baseline + 0.012,
+                            "teacher_oracle": baseline + 0.04,
+                        },
+                    }
+                )
+    return rows
+
+
+def write_paired_score_rows(path: Path) -> list[PairedScoreRow]:
+    values = paired_score_rows()
+    path.write_text("".join(json.dumps(value, sort_keys=True) + "\n" for value in values))
+    return [
+        PairedScoreRow(
+            date=value["date"],
+            user_id=value["user_id"],
+            seed=value["seed"],
+            scores=value["scores"],
+        )
+        for value in values
+    ]
 
 
 def valid_run() -> dict:
@@ -66,6 +111,13 @@ def valid_run() -> dict:
             "epsilon_item": 1e-6,
             "epsilon_node": 1e-12,
             "assignment_weight": "y_plus_teacher_times_path_log_probability",
+            "selection_artifact": artifact,
+        },
+        "validation_selection": {
+            "selection_seed": 16630,
+            "selection_metric": "purchase_ndcg_at_50",
+            "best_single_variant": "ptd_node",
+            "artifact": artifact,
         },
         "tree": {
             "branching_factor": 2,
@@ -91,34 +143,36 @@ def valid_run() -> dict:
     }
 
 
-def valid_evaluation(run_manifest_sha256: str) -> dict:
+def valid_evaluation(
+    run_manifest_sha256: str,
+    paired_observations_sha256: str,
+    paired_rows: list[PairedScoreRow],
+) -> dict:
     metric_values = metrics()
     variants = {
         variant: {
             "status": "complete",
             "n_users": 1109,
-            "metrics": metric_values,
-            "by_seed": {str(seed): metric_values for seed in EXPECTED_SEEDS},
-            "by_date": {date: metric_values for date in EXPECTED_SPLIT["test"]},
+            "metrics": dict(metric_values),
+            "by_seed": {str(seed): dict(metric_values) for seed in EXPECTED_SEEDS},
+            "by_date": {date: dict(metric_values) for date in EXPECTED_SPLIT["test"]},
         }
         for variant in EXPECTED_VARIANTS
     }
-    contrasts = {
-        name: {
-            "numerator": numerator,
-            "denominator": denominator,
-            "metric": "purchase_ndcg_at_50",
-            "mean_delta": 0.01,
-            "ci95": [0.001, 0.02],
-            "raw_p": 0.01,
-            "holm_adjusted_p": 0.04,
-            "bootstrap_resamples": 10_000,
-            "bootstrap_seed": 20_260_925,
-            "paired_units": 1109,
-            "guardrails_pass": True,
-        }
-        for name, (numerator, denominator) in EXPECTED_CONTRASTS.items()
-    }
+    summaries = primary_metric_summaries(paired_rows)
+    for variant, summary in summaries.items():
+        variants[variant]["n_users"] = summary["n_users"]
+        variants[variant]["metrics"]["purchase_ndcg_at_50"] = summary["metrics"]
+        for seed, value in summary["by_seed"].items():
+            variants[variant]["by_seed"][seed]["purchase_ndcg_at_50"] = value
+        for date, value in summary["by_date"].items():
+            variants[variant]["by_date"][date]["purchase_ndcg_at_50"] = value
+    contrasts = registered_primary_contrasts(paired_rows, best_single_variant="ptd_node")
+    for contrast in contrasts.values():
+        contrast["guardrails_pass"] = guardrail_report(
+            variants[contrast["numerator"]]["metrics"],
+            variants["fixed_tdm"]["metrics"],
+        )["passed"]
     return {
         "schema_version": "ptd-evaluation/v1",
         "status": "complete",
@@ -130,6 +184,13 @@ def valid_evaluation(run_manifest_sha256: str) -> dict:
         "seeds": list(EXPECTED_SEEDS),
         "assertions": {name: True for name in ASSERTIONS},
         "variants": variants,
+        "paired_observations": {
+            "uri": "gs://example.invalid/run/paired_observations.jsonl",
+            "sha256": paired_observations_sha256,
+            "row_count": len(paired_rows),
+            "format": "jsonl",
+            "row_schema": "ptd-paired-observation-row/v1",
+        },
         "primary_contrasts": contrasts,
         "inference": {
             "unit": "date_user_after_seed_average",
@@ -160,12 +221,15 @@ class EvidenceGateTest(unittest.TestCase):
             run_path = root / "run.json"
             run_path.write_text(json.dumps(run, sort_keys=True))
             run_hash = hashlib.sha256(run_path.read_bytes()).hexdigest()
-            evaluation = valid_evaluation(run_hash)
+            paired_path = root / "paired_observations.jsonl"
+            paired_rows = write_paired_score_rows(paired_path)
+            paired_hash = hashlib.sha256(paired_path.read_bytes()).hexdigest()
+            evaluation = valid_evaluation(run_hash, paired_hash, paired_rows)
             if mutate_evaluation:
                 mutate_evaluation(evaluation)
             evaluation_path = root / "evaluation.json"
             evaluation_path.write_text(json.dumps(evaluation, sort_keys=True))
-            return admission_report(run_path, evaluation_path)
+            return admission_report(run_path, evaluation_path, paired_path)
 
     def test_complete_registered_pair_is_admissible(self) -> None:
         report = self.check()
@@ -180,6 +244,31 @@ class EvidenceGateTest(unittest.TestCase):
         report = self.check(mutate_evaluation=lambda value: value.__setitem__("run_manifest_sha256", "0" * 64))
         self.assertFalse(report["admissible"])
         self.assertTrue(any("run_manifest_sha256" in error for error in report["errors"]))
+
+    def test_paired_observation_hash_mismatch_fails_closed(self) -> None:
+        report = self.check(
+            mutate_evaluation=lambda value: value["paired_observations"].__setitem__("sha256", "0" * 64)
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("paired observation hash" in error for error in report["errors"]))
+
+    def test_tampered_contrast_fails_recomputation(self) -> None:
+        report = self.check(
+            mutate_evaluation=lambda value: value["primary_contrasts"]["rq1_combined_vs_tdm"].__setitem__(
+                "mean_delta", 0.99
+            )
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("paired-observation recomputation" in error for error in report["errors"]))
+
+    def test_tampered_aggregate_metric_fails_recomputation(self) -> None:
+        report = self.check(
+            mutate_evaluation=lambda value: value["variants"]["ptd_combined"]["metrics"].__setitem__(
+                "purchase_ndcg_at_50", 0.99
+            )
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("purchase NDCG does not match paired observations" in error for error in report["errors"]))
 
     def test_missing_variant_fails_closed(self) -> None:
         report = self.check(mutate_evaluation=lambda value: value["variants"].pop("ptd_node"))
@@ -202,6 +291,19 @@ class EvidenceGateTest(unittest.TestCase):
         )
         self.assertFalse(report["admissible"])
         self.assertTrue(any("temperature" in error for error in report["errors"]))
+
+    def test_complete_guardrail_failure_is_admissible_evidence(self) -> None:
+        def fail_latency_guardrail(value: dict) -> None:
+            value["variants"]["ptd_combined"]["metrics"]["latency_p95_ms"] = 13.0
+            for name in (
+                "rq1_combined_vs_tdm",
+                "rq2_combined_vs_best_single",
+                "rq4_hstu_vs_baseline_encoder",
+            ):
+                value["primary_contrasts"][name]["guardrails_pass"] = False
+
+        report = self.check(mutate_evaluation=fail_latency_guardrail)
+        self.assertTrue(report["admissible"], report["errors"])
 
 
 if __name__ == "__main__":

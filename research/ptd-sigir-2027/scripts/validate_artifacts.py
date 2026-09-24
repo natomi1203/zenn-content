@@ -91,15 +91,28 @@ def validate_evidence_contracts() -> None:
     artifact_schema = load("artifact/manifest.schema.json")
     run_schema = load("artifact/run_manifest.schema.json")
     evaluation_schema = load("artifact/evaluation.schema.json")
-    for schema in (artifact_schema, run_schema, evaluation_schema):
+    paired_row_schema = load("artifact/paired_observation_row.schema.json")
+    for schema in (artifact_schema, run_schema, evaluation_schema, paired_row_schema):
         assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"
         assert schema["additionalProperties"] is False
     assert run_schema["properties"]["seeds"]["const"] == [16630, 16631, 16632]
     assert run_schema["properties"]["latency_protocol"]["properties"]["p95_relative_ceiling"]["const"] == 1.2
     assert evaluation_schema["properties"]["guardrails"]["const"]["latency_p95_relative_ceiling"] == 1.2
     assert evaluation_schema["$defs"]["contrast"]["properties"]["bootstrap_resamples"]["const"] == 10_000
+    assert evaluation_schema["$defs"]["contrast"]["properties"]["guardrails_pass"]["type"] == "boolean"
     assert evaluation_schema["properties"]["inference"]["const"]["unit"] == "date_user_after_seed_average"
     assert run_schema["properties"]["selected_hyperparameters"]["properties"]["epsilon_item"]["const"] == 1e-6
+    assert run_schema["properties"]["tree"]["properties"]["alternating_cycles_selected"]["maximum"] == 3
+    assert set(paired_row_schema["properties"]["scores"]["required"]) == {
+        "fixed_tdm",
+        "ptd_item",
+        "ptd_node",
+        "ptd_combined",
+        "alternating_tdm",
+        "alternating_ptd",
+        "ptd_combined_baseline_encoder",
+        "teacher_oracle",
+    }
     preregistration = (ROOT / "artifact" / "preregistration.md").read_text()
     assert "to be filled" not in preregistration
     assert "scripts/check_evidence_candidate.py" in preregistration

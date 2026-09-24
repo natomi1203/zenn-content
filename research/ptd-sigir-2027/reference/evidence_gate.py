@@ -58,6 +58,7 @@ SOURCE_MANIFEST_SHA256 = "33e97c72a3925b5b1ffe5550fbf625e82cacf78f18e073c0be9a27
 SOURCE_CONTRACT_SHA256 = "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91"
 SHA256_RE = re.compile(r"[0-9a-f]{64}")
 REVISION_RE = re.compile(r"[0-9a-f]{40}")
+FLOAT_ABS_TOLERANCE = 1e-12
 
 
 def canonical_sha256(path: Path) -> str:
@@ -115,7 +116,20 @@ def _check_split_and_seeds(payload: dict[str, Any], label: str, errors: list[str
         errors.append(f"{label}.seeds must equal {EXPECTED_SEEDS}")
 
 
-def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[str]:
+def _same_number(observed: Any, expected: float) -> bool:
+    return (
+        not isinstance(observed, bool)
+        and isinstance(observed, (int, float))
+        and math.isfinite(observed)
+        and math.isclose(float(observed), expected, rel_tol=0.0, abs_tol=FLOAT_ABS_TOLERANCE)
+    )
+
+
+def validate_evidence(
+    run_manifest_path: Path,
+    evaluation_path: Path,
+    paired_observations_path: Path | None = None,
+) -> list[str]:
     """Return every admission error; an empty list means automatic admission is allowed."""
     errors: list[str] = []
     try:
@@ -214,6 +228,77 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
                 for date, metrics in by_date.items():
                     _check_metrics(metrics, f"evaluation.variants.{variant}.by_date.{date}", errors)
 
+    best_single_variant: str | None = None
+    selection = run.get("validation_selection")
+    if not isinstance(selection, dict):
+        errors.append("run.validation_selection must be an object")
+    else:
+        if selection.get("selection_seed") != 16630:
+            errors.append("best-single selection seed must equal 16630")
+        if selection.get("selection_metric") != "purchase_ndcg_at_50":
+            errors.append("best-single selection metric must be purchase_ndcg_at_50")
+        if selection.get("best_single_variant") not in {"ptd_item", "ptd_node"}:
+            errors.append("best-single variant must be ptd_item or ptd_node")
+        else:
+            best_single_variant = selection["best_single_variant"]
+        _check_artifact(selection.get("artifact"), "run.validation_selection.artifact", errors)
+
+    paired_rows = None
+    paired_record = evaluation.get("paired_observations")
+    if not isinstance(paired_record, dict):
+        errors.append("evaluation.paired_observations must be an object")
+    else:
+        if set(paired_record) != {"uri", "sha256", "row_count", "format", "row_schema"}:
+            errors.append("evaluation.paired_observations must contain exactly the registered fields")
+        _check_artifact(paired_record, "evaluation.paired_observations", errors)
+        if paired_record.get("format") != "jsonl" or paired_record.get("row_schema") != "ptd-paired-observation-row/v1":
+            errors.append("paired observations must use the registered JSONL row schema")
+        if not isinstance(paired_record.get("row_count"), int) or paired_record["row_count"] <= 0:
+            errors.append("paired observation row_count must be positive")
+    if paired_observations_path is None:
+        errors.append("paired observation evidence path is required for recomputation")
+    elif not paired_observations_path.is_file():
+        errors.append("paired observation evidence file does not exist")
+    elif isinstance(paired_record, dict):
+        if paired_record.get("sha256") != canonical_sha256(paired_observations_path):
+            errors.append("paired observation hash does not match the supplied file")
+        try:
+            from reference.evaluation import load_paired_score_rows
+
+            paired_rows = load_paired_score_rows(paired_observations_path)
+            if paired_record.get("row_count") != len(paired_rows):
+                errors.append("paired observation row_count does not match the supplied file")
+        except (OSError, ValueError) as exc:
+            errors.append(f"invalid paired observation evidence: {exc}")
+
+    recomputed_contrasts = None
+    if paired_rows is not None and best_single_variant is not None:
+        try:
+            from reference.evaluation import primary_metric_summaries, registered_primary_contrasts
+
+            recomputed_contrasts = registered_primary_contrasts(
+                paired_rows,
+                best_single_variant=best_single_variant,
+            )
+            summaries = primary_metric_summaries(paired_rows)
+            if isinstance(eval_variants, dict) and set(eval_variants) == set(EXPECTED_VARIANTS):
+                for variant, summary in summaries.items():
+                    record = eval_variants[variant]
+                    if record.get("n_users") != summary["n_users"]:
+                        errors.append(f"evaluation variant {variant}.n_users does not match paired observations")
+                    if not _same_number(record.get("metrics", {}).get("purchase_ndcg_at_50"), float(summary["metrics"])):
+                        errors.append(f"evaluation variant {variant}.metrics purchase NDCG does not match paired observations")
+                    for seed, expected_value in summary["by_seed"].items():
+                        observed = record.get("by_seed", {}).get(seed, {}).get("purchase_ndcg_at_50")
+                        if not _same_number(observed, float(expected_value)):
+                            errors.append(f"evaluation variant {variant}.by_seed.{seed} purchase NDCG mismatch")
+                    for date, expected_value in summary["by_date"].items():
+                        observed = record.get("by_date", {}).get(date, {}).get("purchase_ndcg_at_50")
+                        if not _same_number(observed, float(expected_value)):
+                            errors.append(f"evaluation variant {variant}.by_date.{date} purchase NDCG mismatch")
+        except ValueError as exc:
+            errors.append(f"cannot recompute primary contrasts: {exc}")
+
     contrasts = evaluation.get("primary_contrasts")
     if not isinstance(contrasts, dict) or set(contrasts) != set(EXPECTED_CONTRASTS):
         errors.append("evaluation.primary_contrasts must contain exactly RQ1--RQ4")
@@ -226,6 +311,7 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
             expected = {
                 "numerator": numerator,
                 "denominator": denominator,
+                "resolved_denominator": best_single_variant if denominator == "best_single_validation_selected" else denominator,
                 "metric": "purchase_ndcg_at_50",
                 "bootstrap_resamples": 10_000,
                 "bootstrap_seed": 20_260_925,
@@ -252,8 +338,40 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
                     errors.append(f"contrast {name} has Holm p below raw p")
             if not isinstance(contrast.get("paired_units"), int) or contrast["paired_units"] <= 0:
                 errors.append(f"contrast {name}.paired_units must be positive")
-            if contrast.get("guardrails_pass") is not True:
-                errors.append(f"contrast {name}.guardrails_pass must be true for automatic admission")
+            if not isinstance(contrast.get("guardrails_pass"), bool):
+                errors.append(f"contrast {name}.guardrails_pass must be boolean")
+            if recomputed_contrasts is not None:
+                recomputed = recomputed_contrasts[name]
+                for key in ("mean_delta", "raw_p", "holm_adjusted_p"):
+                    if not _same_number(contrast.get(key), float(recomputed[key])):
+                        errors.append(f"contrast {name}.{key} does not match paired-observation recomputation")
+                observed_ci = contrast.get("ci95")
+                expected_ci = recomputed["ci95"]
+                if (
+                    not isinstance(observed_ci, list)
+                    or len(observed_ci) != 2
+                    or not all(_same_number(observed_ci[index], float(expected_ci[index])) for index in range(2))
+                ):
+                    errors.append(f"contrast {name}.ci95 does not match paired-observation recomputation")
+                if contrast.get("paired_units") != recomputed["paired_units"]:
+                    errors.append(f"contrast {name}.paired_units does not match paired-observation recomputation")
+            if (
+                isinstance(eval_variants, dict)
+                and set(eval_variants) == set(EXPECTED_VARIANTS)
+                and isinstance(contrast.get("resolved_denominator"), str)
+                and contrast.get("numerator") in eval_variants
+                and contrast["resolved_denominator"] in eval_variants
+            ):
+                from reference.evaluation import guardrail_report
+
+                treatment_metrics = eval_variants[contrast["numerator"]].get("metrics", {})
+                baseline_metrics = eval_variants["fixed_tdm"].get("metrics", {})
+                try:
+                    expected_guardrail_pass = guardrail_report(treatment_metrics, baseline_metrics)["passed"]
+                    if contrast.get("guardrails_pass") is not expected_guardrail_pass:
+                        errors.append(f"contrast {name}.guardrails_pass does not match aggregate metrics")
+                except (KeyError, ValueError) as exc:
+                    errors.append(f"cannot recompute contrast {name} guardrails: {exc}")
 
     guardrails = evaluation.get("guardrails")
     expected_guardrails = {
@@ -286,6 +404,10 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
         errors.append("tree must be locked before test")
     elif not isinstance(tree.get("locked_tree_sha256"), str) or not SHA256_RE.fullmatch(tree["locked_tree_sha256"]):
         errors.append("locked tree hash is missing")
+    if isinstance(tree, dict):
+        cycles = tree.get("alternating_cycles_selected")
+        if isinstance(cycles, bool) or not isinstance(cycles, int) or not 0 <= cycles <= 3:
+            errors.append("alternating_cycles_selected must be an integer in [0, 3]")
 
     hyperparameters = run.get("selected_hyperparameters")
     if not isinstance(hyperparameters, dict):
@@ -302,6 +424,11 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
             errors.append("teacher-target epsilon values do not match the registration")
         if hyperparameters.get("assignment_weight") != "y_plus_teacher_times_path_log_probability":
             errors.append("assignment weight definition mismatch")
+        _check_artifact(
+            hyperparameters.get("selection_artifact"),
+            "run.selected_hyperparameters.selection_artifact",
+            errors,
+        )
 
     expected_inference = {
         "unit": "date_user_after_seed_average",
@@ -331,13 +458,22 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
     return errors
 
 
-def admission_report(run_manifest_path: Path, evaluation_path: Path) -> dict[str, Any]:
-    errors = validate_evidence(run_manifest_path, evaluation_path)
+def admission_report(
+    run_manifest_path: Path,
+    evaluation_path: Path,
+    paired_observations_path: Path | None = None,
+) -> dict[str, Any]:
+    errors = validate_evidence(run_manifest_path, evaluation_path, paired_observations_path)
     return {
         "contract_version": "ptd-evidence-admission/v1",
         "admissible": not errors,
-        "automatic_claim_promotion_allowed": not errors,
+        "automatic_evidence_admission_allowed": not errors,
         "run_manifest_sha256": canonical_sha256(run_manifest_path) if run_manifest_path.is_file() else None,
         "evaluation_sha256": canonical_sha256(evaluation_path) if evaluation_path.is_file() else None,
+        "paired_observations_sha256": (
+            canonical_sha256(paired_observations_path)
+            if paired_observations_path is not None and paired_observations_path.is_file()
+            else None
+        ),
         "errors": errors,
     }

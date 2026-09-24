@@ -38,7 +38,7 @@ For a sibling set `S`, temperature `tau`, frozen teacher logits `a_T`, and stude
 
 `L_tree` is the sum of negative log sibling probabilities along the positive item's root-to-leaf path for purchase-positive training pairs. Item probabilities are clipped with `epsilon_item = 1e-6`; internal descendant masses use `epsilon_node = 1e-12`. A zero-mass child remains in the sibling support with finite near-zero mass.
 
-The primary hyperparameters are selected once on validation from a predeclared grid: `tau in {1,2,4}`, `lambda_item in {0.1,0.3,1.0}`, and `lambda_node in {0.1,0.3,1.0}`. The grid is evaluated only for seed 16630; the selected tuple is then rerun for all three seeds. Ties within 0.001 validation NDCG@50 use the lower total distillation weight, then lower temperature.
+The primary hyperparameters are selected once on validation from a predeclared grid: `tau in {1,2,4}`, `lambda_item in {0.1,0.3,1.0}`, and `lambda_node in {0.1,0.3,1.0}`. The grid is evaluated only for seed 16630; the selected tuple is then rerun for all three seeds. Ties within 0.001 validation NDCG@50 use the lower total distillation weight, then lower temperature. The complete validation-selection record and its hash must be fixed before test scoring.
 
 ## Tree optimization
 
@@ -51,9 +51,9 @@ The fixed tree is a deterministic balanced hierarchy built from train-only item 
 - **Inference:** first average paired treatment-minus-baseline metric differences over the three seeds for each date--user unit. Then resample those units with replacement within each test date, preserving each date's unit count, for 10,000 replicates. Pool the resampled units using their original count weights. Report mean delta, the 2.5th/97.5th percentile interval, and a two-sided bootstrap sign p-value. A user appearing on multiple dates contributes one unit per date. The primary success criterion is an interval lower bound above zero and Holm-adjusted `p < 0.05`, with no registered guardrail failure.
 - **Bootstrap determinism:** the bootstrap seed is `20260925`. RQ2 compares combined PTD against the better single-level variant selected on validation seed 16630 only; that denominator is locked before any test readout.
 - **Multiplicity:** Holm correction across the four RQ1--RQ4 primary contrasts; uncorrected intervals remain descriptive.
-- **Guardrails:** no decrease greater than 5% relative in click NDCG@50 or category coverage@50; no increase greater than 5% relative in max category share@50; p95 retrieval latency must be at most 1.20 times the fixed-tree TDM baseline measured on identical hardware/software with concurrency one, at least 100 warm-up queries, and at least 1,000 measured queries. This is a relative experimental guardrail, not a production SLO.
+- **Guardrails:** every candidate is compared with the fixed-tree TDM baseline. There may be no decrease greater than 5% relative in click NDCG@50 or category coverage@50, no increase greater than 5% relative in max category share@50, and p95 retrieval latency must be at most 1.20 times the baseline measured on identical hardware/software with concurrency one, at least 100 warm-up queries, and at least 1,000 measured queries. This is a relative experimental guardrail, not a production SLO.
 
-The admissible evidence shape is frozen in `run_manifest.schema.json` and `evaluation.schema.json`. Automatic claim promotion additionally requires `scripts/check_evidence_candidate.py` to return `admissible: true`; any listed deviation forces manual review and leaves claims pending.
+The admissible evidence shape is frozen in `run_manifest.schema.json`, `evaluation.schema.json`, and `paired_observation_row.schema.json`. The primary contrasts and Holm values must reproduce from a hash-linked JSONL containing one complete eight-variant score vector per date--user--seed. `scripts/check_evidence_candidate.py` must return `admissible: true`; any listed deviation forces manual review. Evidence admission is deliberately independent of the result direction: a valid null result or guardrail failure is verified evidence but cannot support a positive efficacy claim.
 
 ## Exclusions and deviations
 
