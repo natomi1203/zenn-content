@@ -1,0 +1,22 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[node distance=7mm and 9mm, every node/.style={font=\small}, box/.style={draw,rounded corners,align=center,minimum height=8mm,minimum width=25mm}, arr/.style={-Latex,thick}]
+\node[box] (seq) {Point-in-time\\action sequence};
+\node[box,right=of seq] (hstu) {HSTU-style\\user encoder};
+\node[box,right=of hstu] (tree) {Balanced tree\\node scorer};
+\node[box,right=of tree] (beam) {Top-down\\beam retrieval};
+\node[box,below=of hstu] (teacher) {Frozen legacy ESMM\\$p_{CTR}\,p_{CVR}$};
+\node[box,below=of tree] (siblings) {Item and node\\sibling targets};
+\node[box,below=of beam] (alt) {Train-only capacity-\\balanced reassignment};
+\draw[arr] (seq) -- (hstu);
+\draw[arr] (hstu) -- (tree);
+\draw[arr] (tree) -- (beam);
+\draw[arr] (teacher) -- (siblings);
+\draw[arr] (siblings) -- node[right]{KL} (tree);
+\draw[arr,dashed] (tree) -- (alt);
+\draw[arr,dashed] (alt) -- (tree);
+\node[align=center,below=2mm of alt,font=\footnotesize] {Tree locked before test scoring};
+\end{tikzpicture}
+\caption{Registered PTD design. Solid arrows are model/data flow; dashed arrows occur only during train-side alternating optimization. The teacher is frozen.}
+\label{fig:architecture}
+\end{figure*}

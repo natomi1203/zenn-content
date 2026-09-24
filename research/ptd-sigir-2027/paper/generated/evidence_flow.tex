@@ -1,0 +1,13 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[node distance=5mm, every node/.style={font=\footnotesize}, box/.style={draw,rounded corners,align=center,minimum width=38mm}, arr/.style={-Latex}]
+\node[box] (run) {Run outputs};
+\node[box,below=of run] (manifest) {Manifest + SHA-256};
+\node[box,below=of manifest] (eval) {Schema-valid evaluation JSON};
+\node[box,below=of eval] (ledger) {Claim--evidence ledger};
+\node[box,below=of ledger] (paper) {Generated tables and prose};
+\draw[arr] (run)--(manifest);\draw[arr] (manifest)--(eval);\draw[arr] (eval)--(ledger);\draw[arr] (ledger)--(paper);
+\end{tikzpicture}
+\caption{Evidence promotion path. Missing any gate leaves a claim pending.}
+\label{fig:evidence-flow}
+\end{figure}

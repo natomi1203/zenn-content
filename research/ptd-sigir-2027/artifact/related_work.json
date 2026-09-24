@@ -1,0 +1,74 @@
+[
+  {
+    "work": "TDM",
+    "citation": "zhu2018tdm",
+    "retrieval_unit": "tree node / item leaf",
+    "teacher": "none",
+    "tree_update": "optional learned tree",
+    "user_model": "arbitrary DNN; attention variant",
+    "relation": "PTD retains coarse-to-fine beam retrieval but changes supervision to purchase-aware sibling distributions."
+  },
+  {
+    "work": "JTM",
+    "citation": "zhu2019jtm",
+    "retrieval_unit": "tree node / item leaf",
+    "teacher": "none",
+    "tree_update": "alternating joint optimization",
+    "user_model": "hierarchical preference representation",
+    "relation": "PTD adopts only train-side alternating structure learning and adds a frozen external purchase teacher."
+  },
+  {
+    "work": "OTM",
+    "citation": "zhuo2020otm",
+    "retrieval_unit": "beam-visited nodes",
+    "teacher": "estimated optimal pseudo-target",
+    "tree_update": "not PTD's focus",
+    "user_model": "node scorer",
+    "relation": "OTM targets beam-search calibration; PTD targets transfer of a downstream purchase model."
+  },
+  {
+    "work": "DTR/TDR",
+    "citation": "liu2024dtr",
+    "retrieval_unit": "same-level competing nodes",
+    "teacher": "none",
+    "tree_update": "learned tree / forest",
+    "user_model": "deep preference model",
+    "relation": "Both use horizontal competition; PTD's soft targets come from fixed purchase scores over sibling groups."
+  },
+  {
+    "work": "ESMM",
+    "citation": "ma2018esmm",
+    "retrieval_unit": "impression/item score",
+    "teacher": "not applicable",
+    "tree_update": "none",
+    "user_model": "shared embeddings, CTR/CVR towers",
+    "relation": "PTD freezes ESMM pCTR x pCVR as teacher rather than proposing a new conversion model."
+  },
+  {
+    "work": "Ranking KD / RankDistil",
+    "citation": "reddi2021rankdistil",
+    "retrieval_unit": "ranked list",
+    "teacher": "high-capacity ranker",
+    "tree_update": "none",
+    "user_model": "ranking model",
+    "relation": "PTD specializes listwise transfer to local tree siblings and evaluates candidate retrieval."
+  },
+  {
+    "work": "RocketQAv2",
+    "citation": "ren2021rocketqav2",
+    "retrieval_unit": "passages",
+    "teacher": "dynamic reranker/retriever",
+    "tree_update": "none",
+    "user_model": "dual/cross encoders",
+    "relation": "Both connect ranking and retrieval; PTD uses a frozen purchase teacher and a hierarchical item index."
+  },
+  {
+    "work": "HSTU",
+    "citation": "zhai2024hstu",
+    "retrieval_unit": "sequential recommendation tokens",
+    "teacher": "none",
+    "tree_update": "none",
+    "user_model": "HSTU sequence transducer",
+    "relation": "PTD uses an HSTU-style encoder as a component; it does not claim the HSTU architecture."
+  }
+]

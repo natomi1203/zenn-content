@@ -1,0 +1,34 @@
+{
+  "evidence_id": "EV_LEGACY_ESMM",
+  "status": "VERIFIED",
+  "accessed_at": "2026-09-25T00:00:00+09:00",
+  "access_class": "restricted_internal",
+  "source_revision": "f065bd20db568ee440569e65627b1598256bd079",
+  "manifest": {
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/shared_bottom_esmm_v2/source/manifest.json",
+    "sha256": "33e97c72a3925b5b1ffe5550fbf625e82cacf78f18e073c0be9a2718b4fa1748",
+    "contract_version": "shared_bottom_esmm_v2_source",
+    "source_contract_sha256": "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91"
+  },
+  "evaluation": {
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/output/offline_evidence.json",
+    "sha256": "3ebd22ede0c716593bf97f01ca42a715bc7c5522fa73cbcb5d5464cac1394dfc"
+  },
+  "split": {
+    "train": ["2026-07-18", "2026-07-19", "2026-07-20"],
+    "validation": ["2026-07-21"],
+    "test": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"],
+    "test_span_days": 16
+  },
+  "summary": {
+    "test_rows": 12844800,
+    "test_positive_pairs": 1136,
+    "test_users_with_purchase": 1109,
+    "legacy_esmm": {
+      "purchase_ndcg_at_50": 0.1762586881279632,
+      "purchase_auc": 0.7938028540052517,
+      "purchase_recall_at_50": 0.42064923354373307
+    }
+  },
+  "scope_note": "Verified context and teacher anchor only. This record contains no PTD outcome."
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "ptd-artifact-manifest/v1",
+  "paper_id": "ptd-sigir-2027",
+  "generated_at": "2026-09-25T00:00:00+09:00",
+  "git": {
+    "branch": "research/ptd-sigir-2027",
+    "base_revision": "63f230c8cef2d04e5dfe90d9a72af6608ee534b8"
+  },
+  "evidence_policy": "verified-only-with-explicit-pending",
+  "artifacts": [
+    {"id": "paper-source", "path": "paper/main.tex", "media_type": "application/x-tex", "status": "GENERATED", "sha256": "dbbb38d4df82f329215d14fe4561e4b82997afc46051b62655ec5f1bf01bd4f0"},
+    {"id": "paper-pdf", "path": "paper/main.pdf", "media_type": "application/pdf", "status": "GENERATED", "sha256": "594da8afa46b2708450b0a624b7b167f00360c33065b17f0fa8a48d987e785a7"},
+    {"id": "preregistration", "path": "artifact/preregistration.md", "media_type": "text/markdown", "status": "PREREGISTERED", "sha256": "196dc7b34c66baad292582c8b62ba9a5db339b0eef9e23727130001dd62e0c99"},
+    {"id": "claim-ledger", "path": "artifact/claim_evidence_ledger.csv", "media_type": "text/csv", "status": "VERIFIED", "sha256": "d323b03ca43de05e248f7f8e701a22b37f8e3c2824c729cc1e2e02c7be59bc06"},
+    {"id": "legacy-esmm-anchor", "path": "artifact/verified/legacy_esmm_evidence.json", "media_type": "application/json", "status": "VERIFIED", "sha256": "2fdcb4e43ceb32cb86f0f930268e94d1b7f99fd12403c0c3ede89343a06c3e76"},
+    {"id": "ptd-five-day-evaluation", "path": "artifact/pending/ptd_five_day_evaluation.json", "media_type": "application/json", "status": "PENDING", "sha256": null}
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/artifact-manifest.schema.json",
+  "title": "PTD research artifact manifest",
+  "type": "object",
+  "required": ["schema_version", "paper_id", "generated_at", "git", "evidence_policy", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "ptd-artifact-manifest/v1"},
+    "paper_id": {"const": "ptd-sigir-2027"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "git": {
+      "type": "object",
+      "required": ["branch", "base_revision"],
+      "properties": {
+        "branch": {"type": "string"},
+        "base_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      },
+      "additionalProperties": false
+    },
+    "evidence_policy": {"enum": ["verified-only-with-explicit-pending"]},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "media_type", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "path": {"type": "string"},
+          "media_type": {"type": "string"},
+          "status": {"enum": ["VERIFIED", "PREREGISTERED", "PENDING", "GENERATED"]},
+          "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

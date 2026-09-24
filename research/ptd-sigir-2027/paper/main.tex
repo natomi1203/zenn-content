@@ -1,0 +1,165 @@
+\documentclass[sigconf,natbib=true,anonymous=true]{acmart}
+
+\usepackage{amsmath,booktabs,tabularx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{placeins}
+\usetikzlibrary{arrows.meta,positioning}
+
+\setcopyright{none}
+\settopmatter{printacmref=false,printccs=true,printfolios=true}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\acmConference[SIGIR '27]{The 50th International ACM SIGIR Conference on Research and Development in Information Retrieval}{July 18--24, 2027}{San Jose, CA, USA}
+\acmYear{2027}
+
+\newcommand{\ptd}{\textsc{PTD}}
+\newcommand{\pending}[1]{\textbf{[Pending: #1]}}
+
+\title{Purchase-aware Tree Distillation for Home-feed Retrieval}
+
+\author{Anonymous Author(s)}
+\affiliation{\institution{Anonymous institution}}
+
+\begin{abstract}
+Large-scale home feeds commonly separate candidate retrieval from a purchase-oriented ranker. This division creates an objective gap: a retriever is optimized from sparse interactions while the downstream ranker estimates a denser purchase utility. We formulate Purchase-aware Tree Distillation (\ptd), a preregistered tree-retrieval method that transfers a frozen Entire Space Multi-Task Model (ESMM) teacher into local sibling decisions of a balanced item tree. \ptd combines item-sibling and internal-node-sibling distillation, an HSTU-style action-sequence encoder, and a train-only alternating tree update related to TDM/JTM. The evaluation contract fixes a point-in-time-safe evidence universe, a five-date temporal test, three random seeds, paired user bootstrap inference, and explicit quality, diversity, and latency guardrails. A verified legacy artifact establishes the common evidence universe and teacher anchor (12,844,800 test pairs; ESMM purchase NDCG@50 0.17626), but it contains no \ptd result. The prospective five-day tree-family results are pending; consequently this draft makes no efficacy or novelty claim beyond the registered method and its distinctions from prior work. The accompanying artifact provides schemas, a claim--evidence ledger, deterministic table/figure generation, and fail-closed validation so that empirical claims can be promoted only after immutable manifests, hashes, and evaluation JSON are available.
+\end{abstract}
+
+\ccsdesc[500]{Information systems~Recommender systems}
+\ccsdesc[500]{Information systems~Retrieval models and ranking}
+\ccsdesc[300]{Computing methodologies~Knowledge representation and reasoning}
+
+\keywords{candidate retrieval, recommender systems, tree-based retrieval, knowledge distillation, conversion modeling, sequential recommendation}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Industrial recommendation pipelines must retrieve a small candidate set before an expressive ranker can evaluate it. Two-tower retrieval makes this stage compatible with maximum-inner-product indexes, but constrains the interaction function. Tree-based deep models instead place items at leaves and evaluate user--node compatibility from root to leaf, supporting expressive scorers with logarithmic dependence on corpus size under fixed branching and beam assumptions~\citep{zhu2018tdm}. Their supervision, however, is usually derived from observed positive paths and sampled negatives. The downstream purchase ranker may encode a richer ordering than those binary path labels.
+
+This paper studies a deliberately narrow question: can a fixed purchase model teach the local decisions made by a tree retriever? We call the registered method Purchase-aware Tree Distillation (\ptd). The teacher is a frozen ESMM-style model whose purchase score factors as predicted click-through rate times predicted post-click conversion rate~\citep{ma2018esmm}. The student learns distributions over item siblings and internal-node siblings. Local normalization matches the decision geometry of top-down retrieval and avoids requiring the teacher to define a globally normalized distribution over the complete catalog.
+
+Three components are integrated. First, an HSTU-style encoder represents the user's point-in-time action sequence~\citep{zhai2024hstu}. Second, a balanced tree constrains serving work and makes sibling groups explicit. Third, an optional JTM-style alternating phase updates item assignments from training evidence only and locks the tree before test scoring~\citep{zhu2019jtm}. Figure~\ref{fig:architecture} summarizes the design.
+
+This is an evidence-bounded draft. We contribute (i) a precise method and training algorithm, (ii) a preregistered temporal evaluation and ablation plan, and (iii) a reproducible artifact contract that separates verified, preregistered, and pending statements. We do \emph{not} claim that the combination is the first of its kind or that it improves retrieval: those judgments require the pending prospective evaluation and a broader novelty audit.
+
+\input{generated/ptd_architecture}
+
+\section{Problem Formulation}
+Let $u$ denote a request with a history $H_u$ available strictly before snapshot time $t$, and let $\mathcal{I}_t$ be eligible items. A balanced $b$-ary tree $\mathcal{T}$ maps each item $i$ to a leaf. At depth $h$, beam search keeps $B$ nodes according to a student score $s_\theta(u,n)$. The serving objective is to retrieve a set $R_K(u)$ with high future purchase utility while bounding the number of node evaluations.
+
+For each eligible pair, the frozen teacher produces
+\begin{equation}
+q_T^{\mathrm{purchase}}(u,i)
+= \widehat{p}_{T}(\mathrm{click}\mid u,i)
+  \widehat{p}_{T}(\mathrm{purchase}\mid \mathrm{click},u,i),
+\label{eq:teacher}
+\end{equation}
+following the ESMM factorization. This score is a training signal, not ground truth. It can inherit calibration, exposure, and representation biases from the legacy model.
+
+The observed label $y_{ui}$ is one only when a home-feed click-to-purchase event occurs in $[t,t+24\mathrm{h})$. All sequence, item, teacher-feature, and tree-construction inputs must precede $t$. Our primary metric is macro user purchase NDCG@50 over users with an observed purchase.
+
+\section{Purchase-aware Tree Distillation}
+\subsection{Point-in-time HSTU-style user encoder}
+Each action token combines item, action-type, and time-gap embeddings. A causal HSTU-style stack maps the ordered history to $z_u$. We use the term ``HSTU-style'' because the registered implementation adopts the gated sequential-transduction pattern and relative temporal bias, but does not claim to reproduce the trillion-parameter generative system of \citet{zhai2024hstu}. A node embedding $e_n$ and contextual features enter an MLP scorer $s_\theta(z_u,e_n,x_{un})$.
+
+\subsection{Sibling teacher distributions}
+For a leaf-parent sibling set $S_i$, item-level teacher logits are
+\begin{equation}
+a_T(u,j)=\operatorname{logit}\!\left(
+\operatorname{clip}(q_T^{\mathrm{purchase}}(u,j),\epsilon,1-\epsilon)
+\right), \quad j\in S_i.
+\end{equation}
+For an internal child $c$, the teacher mass aggregates eligible descendant items from the training candidate universe,
+\begin{equation}
+m_T(u,c)=\sum_{j\in \operatorname{desc}(c)\cap C_u}
+q_T^{\mathrm{purchase}}(u,j),
+\end{equation}
+and sibling logits are $a_T(u,c)=\log(m_T(u,c)+\epsilon)$. This aggregation is explicitly candidate-universe dependent; changing $C_u$ is an experimental deviation.
+
+At temperature $\tau$, teacher and student sibling distributions are
+\begin{align}
+Q_T(v\mid u,S)&=\frac{\exp(a_T(u,v)/\tau)}{\sum_{w\in S}\exp(a_T(u,w)/\tau)},\\
+P_\theta(v\mid u,S)&=\frac{\exp(s_\theta(u,v)/\tau)}{\sum_{w\in S}\exp(s_\theta(u,w)/\tau)}.
+\end{align}
+The complete objective is
+\begin{align}
+\mathcal{L}(\theta;\mathcal{T})
+&=\mathcal{L}_{\mathrm{tree}}
++\lambda_i\tau^2\!\sum_{S_i}\mathrm{KL}(Q_T^i\Vert P_\theta^i) \nonumber\\
+&\quad+\lambda_n\tau^2\!\sum_{h<S_H}\sum_{S_h}
+\mathrm{KL}(Q_T^h\Vert P_\theta^h),
+\label{eq:loss}
+\end{align}
+where $\mathcal{L}_{\mathrm{tree}}$ is the matched supervised path objective. Item-only, node-only, combined, and no-distillation variants isolate the terms in Eq.~\ref{eq:loss}.
+
+\subsection{Train-only alternating optimization}
+The fixed-tree experiment uses a deterministic capacity-balanced hierarchy. The alternating variant follows JTM's broad model/index co-optimization pattern but imposes a strict evidence boundary: only training interactions and frozen training teacher scores contribute assignment weights. Validation selects at most one of three cycles; the selected tree is then immutable for test scoring.
+
+\begin{algorithm}[t]
+\caption{Registered PTD training and tree lock}
+\label{alg:ptd}
+\begin{algorithmic}[1]
+\Require train $D_{tr}$, validation $D_{va}$, initial tree $\mathcal{T}_0$, frozen teacher $T$
+\State Verify point-in-time and candidate-universe assertions
+\For{$r=0,\ldots,R$ with $R\leq 2$}
+  \State Fit $\theta_r$ on $D_{tr}$ using Eq.~\ref{eq:loss}
+  \State Record validation NDCG@50 without changing $T$
+  \If{$r<R$}
+    \State Compute train-only item--node assignment weights
+    \State $\mathcal{T}_{r+1}\gets$ capacity-constrained reassignment
+  \EndIf
+\EndFor
+\State Select $r^*$ using validation only; lock $(\theta_{r^*},\mathcal{T}_{r^*})$
+\State Score each test date once; emit manifest and evaluation JSON
+\end{algorithmic}
+\end{algorithm}
+
+This procedure is not equivalent to end-to-end differentiable tree learning. It is also not teacher-free JTM: the fixed purchase model influences local student targets and, in the alternating variant, train-side assignment weights.
+
+\section{Experimental Design}
+\subsection{Evidence universe and splits}
+The verified source manifest fixes training to 2026-07-18--20, validation to 2026-07-21, and test to five dates from 2026-08-12 through 2026-08-28. The test spans 16 days. Every feature ends before its snapshot and labels occupy the next 24 hours. The prospective PTD run must reproduce row keys, eligibility, and candidate counts from this contract.
+
+\input{generated/legacy_evidence_table}
+
+Table~\ref{tab:legacy} is the only empirical result currently admitted. The source manifest and evaluation JSON were independently retrieved; their SHA-256 hashes are recorded in the artifact. The table establishes a teacher/context anchor, not a PTD comparison.
+
+\subsection{Baselines, ablations, and metrics}
+The registered family contains fixed-tree TDM-style supervision, item-only PTD, node-only PTD, combined PTD, train-only alternating supervision, alternating PTD, and a matched encoder ablation. We also retain an ESMM reranking oracle over the same candidate universe as a diagnostic upper anchor. TDM~\citep{zhu2018tdm}, JTM~\citep{zhu2019jtm}, beam-calibrated OTM~\citep{zhuo2020otm}, and same-level competition in DTR/TDR~\citep{liu2024dtr} motivate distinct baseline dimensions rather than interchangeable names.
+
+The primary outcome is purchase NDCG@50 averaged over seeds 16630--16632. Secondary outcomes include Recall@50, NDCG@10/100, purchase AUC, click NDCG@50, diversity, candidate count, and p50/p95 latency. Date-stratified paired user bootstrap intervals use 10,000 resamples. Four primary contrasts use Holm correction. Hyperparameters and tie-breaking rules are fixed in the preregistration.
+
+\input{generated/pending_results_table}
+\FloatBarrier
+
+The dashes in Table~\ref{tab:ptd-results} are intentional. One-day tree-family runs are diagnostics and cannot populate this table. A value is generated only from a schema-valid five-day evaluation, an immutable manifest, and matching hashes.
+
+\subsection{Reproducibility and claim promotion}
+The artifact contains a JSON Schema for the run manifest and evaluation, the exact preregistration, a CSV claim--evidence ledger, deterministic generators for every manuscript table/figure, and a fail-closed validator. Figure~\ref{fig:evidence-flow} shows the promotion path. A claim remains pending if any evidence edge is absent.
+
+\input{generated/evidence_flow}
+\input{generated/claim_status_table}
+
+\section{Related Work}
+TDM introduced expressive top-down tree retrieval for recommendation and considered tree learning~\citep{zhu2018tdm}. JTM formalized alternating optimization of index and preference model with hierarchical user representations~\citep{zhu2019jtm}. OTM analyzed mismatch between node-wise training and beam-search inference~\citep{zhuo2020otm}, while more recent DTR/TDR work emphasizes same-level multi-class competition and sampled softmax~\citep{liu2024dtr}. PTD's local softmax is related to this horizontal competition, but its target is supplied by a frozen downstream purchase model.
+
+Knowledge distillation transfers behavior from a teacher into a deployable student~\citep{hinton2015kd}. Ranking-specific work studies listwise or top-ranked transfer~\citep{tang2018ranking,reddi2021rankdistil}. In text retrieval, RocketQAv2 dynamically couples a dense retriever and reranker with listwise distillation~\citep{ren2021rocketqav2}. PTD differs operationally by using a frozen, purchase-oriented teacher and restricting each transfer event to siblings in a hierarchical item index. These differences do not establish novelty by themselves.
+
+ESMM addresses click-conditioned conversion estimation with entire-space multi-task learning~\citep{ma2018esmm}; PTD does not modify ESMM and uses only its frozen $pCTR\times pCVR$ output. HSTU is a scalable sequential recommendation architecture~\citep{zhai2024hstu}; here it is a user-encoder component rather than the object of the methodological claim.
+
+\input{generated/related_work_table}
+
+\section{Limitations}
+First, the five test dates were used previously for legacy model evaluation. The PTD analysis is prospective only with respect to the PTD readout, not blind to legacy outcomes. Second, the ESMM teacher reflects exposure and conversion processes in historical logs; distillation can reproduce its bias and calibration error. Third, internal-node targets approximate descendant utility within a finite candidate universe and are not catalog-wide probabilities. Fourth, offline purchase NDCG does not establish online causal lift, welfare, satisfaction, or long-term effects. Fifth, balanced trees and beam widths impose a quality--latency tradeoff that may not transfer to other catalogs. Finally, until the registered five-day artifact is complete, this draft cannot support acceptance-level empirical conclusions.
+
+\section{Ethics and Societal Considerations}
+Purchase optimization can over-emphasize high-propensity users or products, amplify exposure inequality, and encourage consumption. The study therefore records category concentration and cold-start cohorts and forbids silent removal of failing slices. Logs must be aggregated or pseudonymized; the paper artifact contains no user identifiers or row-level behavior. Access-controlled URIs are recorded for internal audit but must be replaced by an anonymous, policy-compliant artifact for double-anonymous review. Deployment requires a separate online experiment with user-safety, business, and rollback review; an offline ``candidate'' decision never changes a production flag automatically.
+
+\section{Conclusion}
+We specified Purchase-aware Tree Distillation as a testable integration of a frozen ESMM purchase teacher, sibling-level tree supervision, an HSTU-style sequence encoder, and train-only alternating tree optimization. The main value of the current draft is methodological and procedural: equations, algorithm, preregistered contrasts, and a machine-checkable evidence boundary are complete. \pending{The five-day PTD effect sizes, confidence intervals, latency measurements, and ablation conclusions await a valid artifact.} The conclusion will be revised only after those records pass the declared evidence gate.
+
+\FloatBarrier
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+\end{document}

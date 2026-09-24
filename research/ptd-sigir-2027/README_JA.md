@@ -1,0 +1,35 @@
+# PTD SIGIR 2027 研究進捗
+
+## 現在地（2026-09-25 JST）
+
+リポジトリ規約確認、独立 worktree、論文 scaffold、preregistration、claim--evidence ledger、関連研究比較表、artifact 契約、証跡境界を守った初稿まで完了しています。PTD の one-day tree-family 診断と prospective five-day 評価は **pending** であり、効果の結論には使っていません。
+
+SIGIR 2027 full-paper の公式要項は公開済みです。英語 PDF、最新 ACM `sigconf` 二段組、参考文献を除く最大 9 ページ、匿名査読、CCS concepts と keywords が必要です。確認日時点で日程には "PROPOSED" と表示されています。詳細は `artifact/venue_requirements.md` に固定しています。
+
+## 証跡ポリシー
+
+`VERIFIED` は、固定 URI、manifest、content hash、機械可読 evaluation record がすべて存在する状態です。`PREREGISTERED` は PTD five-day 結果を見る前に固定した方法・分析です。`PENDING` は abstract、結論、結果表、効果主張へ昇格させません。正本は `artifact/claim_evidence_ledger.csv` です。
+
+収録した legacy ESMM anchor は社内制限付き証跡です。teacher 定義と point-in-time-safe な共通評価母集団の固定には使えますが、PTD の有効性を示すものではありません。匿名投稿前に、内容ハッシュを維持した匿名 artifact mirror を作り、組織を特定できる URI は置換します。
+
+## 再現手順
+
+Python 3.10+ と Tectonic（または `acmart` を含む TeX Live）が必要です。
+
+```bash
+make all
+```
+
+LaTeX の表・図を再生成し、JSON/CSV と claim status を検証した後、`paper/main.pdf` をビルドします。個別には `make generate`、`make validate`、`make paper` を使います。
+
+## PTD 結果を取り込む条件
+
+1. `artifact/evaluation.schema.json` 準拠の immutable evaluation JSON。
+2. SHA-256 を含む `artifact/manifest.schema.json` 準拠 manifest。
+3. preregistered five-date split、固定 3 seed、test を使った tree 再構築・選択がないこと。
+4. point-in-time assertion と candidate-universe check の通過。
+5. JSON pointer 付き ledger 更新と原稿再生成。
+
+## 投稿時の匿名性
+
+この開発リポジトリは所有者を特定できるため、匿名査読原稿から直接リンクできません。証跡 gate 通過後に匿名 snapshot を作ります。著者、所属、謝辞、公開 artifact URL は review/camera-ready の移行まで placeholder のままです。

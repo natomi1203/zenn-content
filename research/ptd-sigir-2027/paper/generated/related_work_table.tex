@@ -1,0 +1,19 @@
+\begin{table*}[!t]
+\caption{Positioning against primary adjacent work. PTD statements describe the registered design, not empirical superiority.}
+\label{tab:related}
+\small
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+Work & Prior mechanism & Registered PTD distinction \\
+\midrule
+TDM~\cite{zhu2018tdm} & tree node / item leaf; teacher: none; tree: optional learned tree. & PTD retains coarse-to-fine beam retrieval but changes supervision to purchase-aware sibling distributions. \\
+JTM~\cite{zhu2019jtm} & tree node / item leaf; teacher: none; tree: alternating joint optimization. & PTD adopts only train-side alternating structure learning and adds a frozen external purchase teacher. \\
+OTM~\cite{zhuo2020otm} & beam-visited nodes; teacher: estimated optimal pseudo-target; tree: not PTD's focus. & OTM targets beam-search calibration; PTD targets transfer of a downstream purchase model. \\
+DTR/TDR~\cite{liu2024dtr} & same-level competing nodes; teacher: none; tree: learned tree / forest. & Both use horizontal competition; PTD's soft targets come from fixed purchase scores over sibling groups. \\
+ESMM~\cite{ma2018esmm} & impression/item score; teacher: not applicable; tree: none. & PTD freezes ESMM pCTR x pCVR as teacher rather than proposing a new conversion model. \\
+Ranking KD / RankDistil~\cite{reddi2021rankdistil} & ranked list; teacher: high-capacity ranker; tree: none. & PTD specializes listwise transfer to local tree siblings and evaluates candidate retrieval. \\
+RocketQAv2~\cite{ren2021rocketqav2} & passages; teacher: dynamic reranker/retriever; tree: none. & Both connect ranking and retrieval; PTD uses a frozen purchase teacher and a hierarchical item index. \\
+HSTU~\cite{zhai2024hstu} & sequential recommendation tokens; teacher: none; tree: none. & PTD uses an HSTU-style encoder as a component; it does not claim the HSTU architecture. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

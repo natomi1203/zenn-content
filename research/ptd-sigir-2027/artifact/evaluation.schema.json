@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/evaluation.schema.json",
+  "title": "Prospective PTD five-day evaluation",
+  "type": "object",
+  "required": ["schema_version", "status", "code_revision", "artifact_manifest_uri", "artifact_manifest_sha256", "split", "seeds", "assertions", "variants", "primary_contrasts", "deviations"],
+  "properties": {
+    "schema_version": {"const": "ptd-evaluation/v1"},
+    "status": {"enum": ["complete", "invalid"]},
+    "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "artifact_manifest_uri": {"type": "string", "minLength": 1},
+    "artifact_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "split": {
+      "type": "object",
+      "required": ["train", "validation", "test"],
+      "properties": {
+        "train": {"const": ["2026-07-18", "2026-07-19", "2026-07-20"]},
+        "validation": {"const": ["2026-07-21"]},
+        "test": {"const": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"]}
+      },
+      "additionalProperties": false
+    },
+    "seeds": {"const": [16630, 16631, 16632]},
+    "assertions": {
+      "type": "object",
+      "required": ["point_in_time_safe", "candidate_universe_match", "unique_keys", "finite_scores", "tree_locked_before_test"],
+      "additionalProperties": {"type": "boolean"}
+    },
+    "variants": {"type": "object", "minProperties": 6},
+    "primary_contrasts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "metric", "mean_delta", "ci95", "holm_adjusted_p"],
+        "properties": {
+          "name": {"type": "string"},
+          "metric": {"const": "purchase_ndcg_at_50"},
+          "mean_delta": {"type": "number"},
+          "ci95": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "minItems": 2, "maxItems": 2},
+          "holm_adjusted_p": {"type": "number", "minimum": 0, "maximum": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "deviations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}
