@@ -58,7 +58,7 @@ This is an evidence-bounded draft. We contribute (i) a precise method and traini
 \section{Problem Formulation}
 Let $u$ denote a request with a history $H_u$ available strictly before snapshot time $t$, and let $\mathcal{I}_t$ be eligible items. A balanced $b$-ary tree $\mathcal{T}$ maps each item $i$ to a leaf. At depth $h$, beam search keeps $B$ nodes according to a student score $s_\theta(u,n)$. The serving objective is to retrieve a set $R_K(u)$ with high future purchase utility while bounding the number of node evaluations.
 
-Write the root-to-leaf code for item $i$ as $\pi_{\mathcal{T}}(i)=(n_0,\ldots,n_H)$ and the children competing with $n_h$ as $S_h(i)$. With a balanced tree, $H=\lceil\log_b |\mathcal{I}_t|\rceil$ up to capacity padding. After encoding the user once, beam retrieval evaluates at most $b+B b(H-1)$ child nodes before leaf truncation, or $O(BbH)$ scorer calls. This bound motivates a local decision objective: the student need only order siblings encountered by the beam, rather than score every eligible item online.
+Write the root-to-leaf code for item $i$ as $\pi_{\mathcal{T}}(i)=(n_0,\ldots,n_H)$ and the children competing with $n_h$ as $S_h(i)$. With a balanced tree, $H=\lceil\log_b |\mathcal{I}_t|\rceil$ up to capacity padding. The HSTU-style variant encodes the user once, after which beam retrieval evaluates at most $b+B b(H-1)$ child nodes before leaf truncation, or $O(BbH)$ scorer calls; the node-conditioned DIN ablation is timed separately. This bound motivates a local decision objective: the student need only order siblings encountered by the beam, rather than score every eligible item online.
 
 For each eligible pair, the frozen teacher produces
 \begin{equation}
@@ -128,7 +128,7 @@ W(i,\ell)=\sum_{u:(u,i)\in D_{tr}}
 \sum_{h=1}^{H}\log P_\theta(\ell_h\mid u,S_h(\ell))\big|_{\tau=1}.
 \label{eq:assignment}
 \end{equation}
-The reassignment maximizes $\sum_i W(i,A(i))$ subject to one leaf per item and the declared subtree capacities. Equation~\ref{eq:assignment} lets observed purchases and frozen soft utility weight the same model-path affinity; neither test labels nor test teacher scores enter it. The executable reference supplies deterministic tie-breaking and a capacity-checking greedy solver for small examples; a production exact solver may replace it only if it optimizes the same recorded weights and constraints.
+The reassignment maximizes $\sum_i W(i,A(i))$ subject to one leaf per item and the declared subtree capacities. Equation~\ref{eq:assignment} lets observed purchases and frozen soft utility weight the same model-path affinity; neither test labels nor test teacher scores enter it. The artifact includes a deterministic small-instance reference and an exact rectangular maximum-weight solver. The latter removes leaves occupied by anchored non-training items, matches every train-seen item to one remaining physical leaf, and verifies all capacity constraints.
 
 \begin{algorithm}[t]
 \caption{Registered PTD training and tree lock}
@@ -152,7 +152,7 @@ The reassignment maximizes $\sum_i W(i,A(i))$ subject to one leaf per item and t
 This procedure is not equivalent to end-to-end differentiable tree learning. It is also not teacher-free JTM: the fixed purchase model influences local student targets and, in the alternating variant, train-side assignment weights.
 
 \subsection{Serving and training cost}
-Teacher inference, descendant aggregation, and capacity-constrained reassignment are offline operations. Online serving evaluates the user encoder once and then the $O(BbH)$ tree nodes above. The tree stores $O(|\mathcal{I}|)$ nodes and one $H$-step code per item. Distillation increases training work because teacher scores and sibling targets must be materialized, but it does not add a teacher call or a second-stage reranker to the registered retrieval path. Latency is nevertheless measured rather than inferred from asymptotics, because batching, encoder cost, and hardware kernels can dominate node-count differences.
+Teacher inference, descendant aggregation, and capacity-constrained reassignment are offline operations. At retrieval, each binary sibling set is normalized after masking children with no date-eligible descendant; root-to-leaf log probabilities accumulate before deterministic node-ID tie-breaking and beam truncation. Internal and padding nodes use distinct hash keys, while leaves retain their locked product and category representation. The HSTU-style path caches one user state per query; the DIN ablation remains node-conditioned. Distillation adds neither a teacher call nor a second-stage reranker to these deployable variants. Latency is measured rather than inferred because batching, encoder cost, and hardware kernels can dominate node-count differences.
 
 \section{Experimental Design}
 \subsection{Evidence universe and splits}
@@ -178,7 +178,7 @@ For a date--user unit $(d,u)$, let $M_{dus}^{A}$ and $M_{dus}^{B}$ be purchase N
 \end{equation}
 Only users with an observed purchase for the macro purchase metric enter $N$; a user appearing on two dates contributes two date--user units. Each bootstrap replicate samples date--user units with replacement within each date, preserving that date's original unit count, and then recomputes Eq.~\ref{eq:estimand}. The 2.5th and 97.5th percentiles form the interval. A two-sided sign probability yields the raw $p$-value; Holm's step-down procedure adjusts the four RQ contrasts. Success requires a positive adjusted conclusion, a confidence-interval lower bound above zero, and every registered guardrail to pass. Secondary metrics and all slice analyses remain descriptive.
 
-Purchase NDCG uses binary purchase relevance, logarithmic rank discount, and an ideal ranking over the same eligible list; a zero-positive query has score zero and is excluded only from the registered purchase-positive macro average. Recall uses the complete eligible positive count as denominator. Category coverage and maximum category share are computed on the retrieved top 50. Latency excludes data loading and teacher computation but includes user encoding, tree traversal, and top-$K$ materialization.
+Purchase and click NDCG use binary relevance, logarithmic discount, and an ideal ranking over all eligible items; a zero-positive purchase query scores zero and is excluded only from the registered purchase-positive macro average. Recall uses the complete eligible positive count. Purchase AUC uses retrieval rank over all eligible items, with unretrieved items tied below top-$K$ and single-class queries set to 0.5. Category coverage@50 is distinct retrieved categories divided by $\min(50,$ eligible distinct categories$)$; maximum share is the largest top-50 category frequency divided by returned length. Latency excludes data loading and teacher computation but includes synchronized user encoding, traversal, and top-$K$ materialization after at least 100 serial warm-ups and over at least 1,000 measured queries per variant.
 
 \input{generated/pending_results_table}
 \FloatBarrier

@@ -13,14 +13,14 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "8f80ffeff34aa84e5dc05df812db670ba471ca6d330f2f63ed5b1252666a2a8c"
+      "sha256": "b77c27da94f1951cd16be76526f0a9a7eb67eb2df5d3196d2261e951568d06e5"
     },
     {
       "id": "paper-pdf",
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "deded64ac18dcba2c5f2dfd408055c08a32d12a76cb3a8867fdcaf1a5a1fe180"
+      "sha256": "ae0eb3c77a8876dbaf247244a60dd9b33e2d4aba02bbb7a85c10a718e63ac967"
     },
     {
       "id": "paper-author-source",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "df9adf69ba7003949e784b7976bfa65ab0fded128b2260843b73a635ae9f20dd"
+      "sha256": "1d2fc4973744d0692da712051cd6138c7d4749a82530202561e69840e19fb5a2"
     },
     {
       "id": "preregistration",
