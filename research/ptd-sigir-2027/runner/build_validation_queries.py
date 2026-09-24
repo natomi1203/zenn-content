@@ -9,7 +9,7 @@ import math
 import os
 import tempfile
 from pathlib import Path
-from typing import Any, Iterator, Mapping
+from typing import Any, Iterator, Mapping, Sequence
 
 from reference.evidence_gate import EXPECTED_SPLIT
 from runner.build_retrieval_queries import KEY_COLUMNS, TEACHER_COLUMNS, _records
@@ -31,8 +31,8 @@ RAW_COLUMNS = (
 )
 
 
-def _validation_records(
-    teacher_manifest: Mapping[str, Any], *, batch_size: int
+def _selected_records(
+    teacher_manifest: Mapping[str, Any], *, selected_dates: Sequence[str], batch_size: int
 ) -> tuple[Iterator[tuple[dict[str, Any], dict[str, Any]]], list[dict[str, Any]]]:
     source_files = teacher_manifest.get("source_files")
     if not isinstance(source_files, list) or not source_files:
@@ -55,7 +55,7 @@ def _validation_records(
                 "sha256": source["sha256"],
                 "rows": rows,
                 "snapshot_date": snapshot_date,
-                "included": snapshot_date in VALIDATION_DATES,
+                "included": snapshot_date in selected_dates,
             }
         )
 
@@ -89,17 +89,34 @@ def _validation_records(
     return iterator(), sources
 
 
-def build_validation_queries(
+def build_split_queries(
     *,
     teacher_manifest_path: Path,
     catalog_path: Path,
     date_eligibility_path: Path,
     output_path: Path,
     output_manifest_path: Path,
+    selected_dates: Sequence[str],
+    contract_version: str,
+    split_label: str,
     batch_size: int = 65_536,
 ) -> dict[str, Any]:
+    selected_dates = tuple(selected_dates)
+    registered_dates = tuple(
+        EXPECTED_SPLIT["train"]
+        + EXPECTED_SPLIT["validation"]
+        + EXPECTED_SPLIT["test"]
+    )
+    if (
+        not selected_dates
+        or len(set(selected_dates)) != len(selected_dates)
+        or not set(selected_dates) <= set(registered_dates)
+    ):
+        raise ValueError("query materialization needs unique registered dates")
+    if not contract_version or not split_label:
+        raise ValueError("query materialization contract/split labels are required")
     if output_path.exists() or output_manifest_path.exists():
-        raise FileExistsError("refusing to overwrite validation-query outputs")
+        raise FileExistsError(f"refusing to overwrite {split_label}-query outputs")
     teacher_manifest = json.loads(teacher_manifest_path.read_text())
     if teacher_manifest.get("contract_version") != "ptd-frozen-teacher-scores/v1":
         raise ValueError("frozen teacher score manifest contract mismatch")
@@ -108,7 +125,9 @@ def build_validation_queries(
     if teacher_manifest.get("label_columns_read") != []:
         raise ValueError("teacher materialization must not read labels")
     catalog = LockedCatalog(catalog_path, date_eligibility_path)
-    paired, sources = _validation_records(teacher_manifest, batch_size=batch_size)
+    paired, sources = _selected_records(
+        teacher_manifest, selected_dates=selected_dates, batch_size=batch_size
+    )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_manifest_path.parent.mkdir(parents=True, exist_ok=True)
@@ -122,7 +141,7 @@ def build_validation_queries(
     candidate_rows = 0
 
     with tempfile.TemporaryDirectory() as directory:
-        staged_output = Path(directory) / "validation_queries.jsonl"
+        staged_output = Path(directory) / f"{split_label}_queries.jsonl"
         with staged_output.open("x") as handle:
 
             def flush() -> None:
@@ -133,12 +152,12 @@ def build_validation_queries(
                 products = [candidate["product_id"] for _, candidate in candidates]
                 ranks = [rank for rank, _ in candidates]
                 if len(set(products)) != len(products) or len(set(ranks)) != len(ranks):
-                    raise ValueError("validation query has duplicate products or ranks")
+                    raise ValueError(f"{split_label} query has duplicate products or ranks")
                 if set(products) != catalog.eligible_products[snapshot_date]:
-                    raise ValueError("validation candidates differ from the locked date mask")
+                    raise ValueError(f"{split_label} candidates differ from the locked date mask")
                 for _, candidate in candidates:
                     if catalog.category_by_product[candidate["product_id"]] != candidate["category"]:
-                        raise ValueError("validation category differs from the locked catalog")
+                        raise ValueError(f"{split_label} category differs from the locked catalog")
                 value = {
                     "date": snapshot_date,
                     "user_id": user_id,
@@ -157,10 +176,10 @@ def build_validation_queries(
 
             for raw, teacher in paired:
                 snapshot_date = _date(raw["snapshot_date"])
-                if snapshot_date not in VALIDATION_DATES:
-                    raise ValueError("non-validation row entered validation materialization")
+                if snapshot_date not in selected_dates:
+                    raise ValueError(f"non-{split_label} row entered query materialization")
                 if not raw["snapshot_id"] or not raw["user_id"]:
-                    raise ValueError("validation row has null/empty snapshot or user ID")
+                    raise ValueError(f"{split_label} row has null/empty snapshot or user ID")
                 key = (snapshot_date, str(raw["user_id"]), str(raw["snapshot_id"]))
                 click = _history(raw["click_seq_product_id"], "click")
                 purchase = _history(raw["purchase_seq_product_id"], "purchase")
@@ -169,25 +188,25 @@ def build_validation_queries(
                         flush()
                         finalized.add(current_key)
                     if key in finalized:
-                        raise ValueError("raw rows are not contiguous by validation query")
+                        raise ValueError(f"raw rows are not contiguous by {split_label} query")
                     if (key[0], key[1]) in date_users:
-                        raise ValueError("multiple validation snapshots exist for one date-user")
+                        raise ValueError(f"multiple {split_label} snapshots exist for one date-user")
                     date_users.add((key[0], key[1]))
                     current_key = key
                     current_click = click
                     current_purchase = purchase
                     candidates = []
                 elif click != current_click or purchase != current_purchase:
-                    raise ValueError("history fields differ within one validation query")
+                    raise ValueError(f"history fields differ within one {split_label} query")
                 product = raw["product_id"]
                 rank = raw["candidate_rank"]
                 click_label = raw["label_click"]
                 purchase_label = raw["label_purchase"]
                 teacher_score = teacher["teacher_purchase"]
                 if product is None or rank is None:
-                    raise ValueError("validation candidate key is null")
+                    raise ValueError(f"{split_label} candidate key is null")
                 if click_label not in (0, 1) or purchase_label not in (0, 1):
-                    raise ValueError("validation labels must be binary")
+                    raise ValueError(f"{split_label} labels must be binary")
                 if (
                     teacher_score is None
                     or not math.isfinite(float(teacher_score))
@@ -210,12 +229,12 @@ def build_validation_queries(
             if current_key is not None:
                 flush()
         if query_count == 0:
-            raise ValueError("validation query materialization produced no queries")
+            raise ValueError(f"{split_label} query materialization produced no queries")
         output_hash = sha256(staged_output)
         manifest = {
-            "contract_version": "ptd-validation-queries/v1",
+            "contract_version": contract_version,
             "status": "complete",
-            "dates": list(VALIDATION_DATES),
+            "dates": list(selected_dates),
             "queries": query_count,
             "candidate_rows": candidate_rows,
             "teacher_manifest_sha256": sha256(teacher_manifest_path),
@@ -237,9 +256,8 @@ def build_validation_queries(
                 "raw_teacher_keys_match": True,
                 "candidate_sets_match_locked_date_mask": True,
                 "unique_date_user_units": True,
-                "train_outcome_columns_excluded": True,
-                "test_outcome_columns_excluded": True,
-                "validation_only": True,
+                "non_selected_outcome_columns_excluded": True,
+                f"{split_label}_only": True,
                 "no_overwrite": True,
             },
         }
@@ -248,6 +266,28 @@ def build_validation_queries(
         os.replace(staged_output, output_path)
         os.replace(staged_manifest, output_manifest_path)
     return manifest
+
+
+def build_validation_queries(
+    *,
+    teacher_manifest_path: Path,
+    catalog_path: Path,
+    date_eligibility_path: Path,
+    output_path: Path,
+    output_manifest_path: Path,
+    batch_size: int = 65_536,
+) -> dict[str, Any]:
+    return build_split_queries(
+        teacher_manifest_path=teacher_manifest_path,
+        catalog_path=catalog_path,
+        date_eligibility_path=date_eligibility_path,
+        output_path=output_path,
+        output_manifest_path=output_manifest_path,
+        selected_dates=VALIDATION_DATES,
+        contract_version="ptd-validation-queries/v1",
+        split_label="validation",
+        batch_size=batch_size,
+    )
 
 
 def main() -> None:

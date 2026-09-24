@@ -112,3 +112,17 @@ Changes:
 5. Required an immutable validation-query artifact that reads outcome columns only for the validation shard, plus a hash-linked selection artifact fixed before any PTD test scoring.
 
 Rationale: the original registration declared the grid, seed, 0.001 tie window, and first two tie-break dimensions but did not completely order residual ties or define the executable query artifact. This amendment removes those degrees of freedom without inspecting or changing a PTD result.
+
+## A9 - 2026-09-25 JST - train-only assignment-weight materialization
+
+This amendment was made while no prospective five-day PTD evaluation or real alternating-tree result existed and every efficacy, ablation, and latency claim remained `PENDING`. Only synthetic train queries, a uniform scorer, and a four-item depth-13 tree were used to test the path-to-solver handoff.
+
+Changes:
+
+1. Added an immutable assignment-query artifact covering exactly the three training dates. Outcome columns from validation/test shards are never opened; no validation/test teacher score enters the artifact.
+2. Fixed candidate assignment positions to every physical leaf except leaves occupied by anchored non-training items. Currently unused capacity leaves remain valid positions.
+3. Fixed assignment path affinity to complete-tree binary sibling softmax at temperature one, without date-eligibility masking. Date masks continue to apply to validation/test retrieval, not to structural candidate leaf positions during reassignment.
+4. Required a complete `train_seen_item x available_leaf` rectangular matrix accumulated in float64 from `(purchase_label + frozen_teacher_purchase) * root_to_leaf_log_probability`.
+5. Required the matrix manifest to pass the exact anchored solver's existing hash, split, formula, coverage, and no-validation/test checks before reassignment.
+
+Rationale: the registered equation fixed the weight but did not fully specify whether unused leaves were candidates or whether date masks applied to structural paths. These choices make the exact solver handoff reproducible without inspecting an alternating result or changing the registered objective.

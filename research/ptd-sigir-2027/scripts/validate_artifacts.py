@@ -187,6 +187,15 @@ def validate_execution_readiness() -> None:
         "validation_selector_tests_sha256": sha256(
             ROOT / "tests" / "test_select_validation.py"
         ),
+        "assignment_query_builder_sha256": sha256(
+            ROOT / "runner" / "build_assignment_queries.py"
+        ),
+        "assignment_weight_materializer_sha256": sha256(
+            ROOT / "runner" / "materialize_assignment_weights.py"
+        ),
+        "assignment_weight_tests_sha256": sha256(
+            ROOT / "tests" / "test_assignment_weights.py"
+        ),
         "alternating_solver_sha256": sha256(ROOT / "runner" / "alternating_solver.py"),
         "alternating_solver_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "alternating_solver_smoke.json"
@@ -205,7 +214,7 @@ def validate_execution_readiness() -> None:
     }
     assert audit["production_pipeline_ready"] is False
     assert audit["launch_blockers"] == [
-        "implement_alternating_cycle_weight_materialization_and_orchestration",
+        "implement_alternating_cycle_orchestration_and_validation_cycle_selection",
         "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
         "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
         "obtain_explicit_authorization_for_Vertex_AI_cost",
@@ -433,6 +442,20 @@ def validate_production_component_evidence() -> None:
         ["properties"]["tie_window_absolute_ndcg"]["const"]
         == 0.001
     )
+    assignment_query_schema = load("artifact/assignment_query_row.schema.json")
+    assert assignment_query_schema["additionalProperties"] is False
+    assert assignment_query_schema["properties"]["date"]["enum"] == [
+        "2026-07-18",
+        "2026-07-19",
+        "2026-07-20",
+    ]
+    assignment_weights_schema = load("artifact/assignment_weights.schema.json")
+    assert assignment_weights_schema["additionalProperties"] is False
+    assert (
+        assignment_weights_schema["properties"]["candidate_leaf_policy"]["const"]
+        == "all_physical_leaves_except_anchored"
+    )
+    assert assignment_weights_schema["properties"]["accumulation_dtype"]["const"] == "float64"
     plan_schema = load("artifact/retrieval_run_plan.schema.json")
     assert plan_schema["properties"]["entries"]["minItems"] == 24
     assert plan_schema["properties"]["entries"]["maxItems"] == 24

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/assignment-weights.schema.json",
+  "title": "PTD train-only alternating assignment-weight manifest",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "status",
+    "source_split",
+    "source_dates",
+    "formula",
+    "candidate_leaf_policy",
+    "validation_or_test_fields_read",
+    "assignment_queries_manifest_sha256",
+    "assignment_queries_sha256",
+    "fit_manifest_sha256",
+    "checkpoint_sha256",
+    "variant",
+    "seed",
+    "catalog_sha256",
+    "date_eligibility_sha256",
+    "train_request_count",
+    "train_product_count",
+    "available_leaf_count",
+    "matrix_shape",
+    "accumulation_dtype",
+    "weights",
+    "checks",
+    "scope_note"
+  ],
+  "properties": {
+    "contract_version": {"const": "ptd-assignment-weights/v1"},
+    "status": {"const": "complete"},
+    "source_split": {"const": "train"},
+    "source_dates": {"const": ["2026-07-18", "2026-07-19", "2026-07-20"]},
+    "formula": {
+      "const": "sum_train_requests((purchase_label+teacher_purchase)*path_log_probability)"
+    },
+    "candidate_leaf_policy": {"const": "all_physical_leaves_except_anchored"},
+    "validation_or_test_fields_read": {"const": []},
+    "assignment_queries_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "assignment_queries_sha256": {"$ref": "#/$defs/sha256"},
+    "fit_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "checkpoint_sha256": {"$ref": "#/$defs/sha256"},
+    "variant": {"enum": ["alternating_tdm", "alternating_ptd"]},
+    "seed": {"enum": [16630, 16631, 16632]},
+    "catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "date_eligibility_sha256": {"$ref": "#/$defs/sha256"},
+    "train_request_count": {"type": "integer", "minimum": 1},
+    "train_product_count": {"type": "integer", "minimum": 1},
+    "available_leaf_count": {"type": "integer", "minimum": 1},
+    "matrix_shape": {
+      "type": "array",
+      "prefixItems": [
+        {"type": "integer", "minimum": 1},
+        {"type": "integer", "minimum": 1}
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "accumulation_dtype": {"const": "float64"},
+    "weights": {"$ref": "#/$defs/artifact"},
+    "checks": {
+      "type": "object",
+      "required": [
+        "train_dates_only",
+        "validation_or_test_fields_excluded",
+        "all_train_products_present",
+        "all_free_leaves_present",
+        "complete_rectangular_matrix",
+        "finite_weights",
+        "temperature_one_path_probabilities",
+        "no_overwrite"
+      ],
+      "properties": {
+        "train_dates_only": {"const": true},
+        "validation_or_test_fields_excluded": {"const": true},
+        "all_train_products_present": {"const": true},
+        "all_free_leaves_present": {"const": true},
+        "complete_rectangular_matrix": {"const": true},
+        "finite_weights": {"const": true},
+        "temperature_one_path_probabilities": {"const": true},
+        "no_overwrite": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "scope_note": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

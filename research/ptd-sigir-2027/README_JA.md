@@ -34,9 +34,9 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
 
-`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つのcore component、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_training_examples.py` はraw/frozen-teacher rowをkey一致させ、train/validationのcandidate setを固定date maskと照合し、観測purchaseごとに完全なdepth-13 groupを出力します。test shardではoutcome列を開きません。`runner/train_ptd.py` はこのimmutable artifactから登録済みvariant/seedの単一fitを実行し、batch size 64、exact 2 epoch、no-clobber checkpoint、validation-loss auditを強制します。test側は`runner/build_retrieval_queries.py`と`runner/retrieval_runner.py`が固定24-cell beam/latency matrixまで担当します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。
+`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つのcore component、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_training_examples.py` はraw/frozen-teacher rowをkey一致させ、train/validationのcandidate setを固定date maskと照合し、観測purchaseごとに完全なdepth-13 groupを出力します。test shardではoutcome列を開きません。`runner/train_ptd.py` はこのimmutable artifactから登録済みvariant/seedの単一fitを実行し、batch size 64、exact 2 epoch、no-clobber checkpoint、validation-loss auditを強制します。`runner/build_assignment_queries.py`と`runner/materialize_assignment_weights.py`は3つのtrain日だけを隔離し、exact anchored solverが受理する完全なfloat64 train-item×free-leaf行列を生成します。test側は`runner/build_retrieval_queries.py`と`runner/retrieval_runner.py`が固定24-cell beam/latency matrixまで担当します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。
 
-有料launchはまだreadyではありません。validation queryの隔離と、exact 27-cell purchase-NDCG/single-sibling selectorは実装済みです。残るcode gateは、alternating cycleのassignment-weight materializationとorchestration、完全なfit scheduling・run manifest・retrieval planの組み立て、および完成revisionからの新しい決定論的bundleです。Vertex AI費用の明示承認は、それらとは別の最終gateです。
+有料launchはまだreadyではありません。validation selectionとtrain-only assignment-weight materializationは実装済みです。残るcode gateは、validation-only cycle stoppingを含むalternating-cycle orchestration、完全なfit scheduling・run manifest・retrieval planの組み立て、および完成revisionからの新しい決定論的bundleです。Vertex AI費用の明示承認は、それらとは別の最終gateです。
 
 `artifact/verified/launch_bundle_evidence.json` はrevision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` から2回独立生成してbyte一致した `git archive` / `gzip -n` bundle（SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`）を記録します。展開後bundleは利用可能な全テスト、引用検査、artifact検証を通過しました。bundleはlocalにのみ存在し、uploadもVertex AI submitもしていません。
 
@@ -72,6 +72,30 @@ uv run --with torch --with pyarrow --with numpy python runner/select_validation.
   --fit-manifest-glob '/restricted/fits/*/manifest.json' \
   --output /restricted/validation/selection.json \
   --device cuda
+
+uv run --with pyarrow --with numpy python runner/build_assignment_queries.py \
+  --teacher-manifest /restricted/teacher/manifest.json \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --output /restricted/alternating/train-queries.jsonl \
+  --manifest /restricted/alternating/train-query-manifest.json
+
+uv run --with torch --with pyarrow --with numpy --with scipy \
+  python runner/materialize_assignment_weights.py \
+  --assignment-queries-manifest /restricted/alternating/train-query-manifest.json \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --fit-manifest /restricted/fits/alternating_ptd-16630/manifest.json \
+  --output /restricted/alternating/weights.parquet \
+  --manifest /restricted/alternating/weight-manifest.json \
+  --device cuda
+
+uv run --with numpy --with scipy --with pyarrow python runner/alternating_solver.py \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --weights /restricted/alternating/weights.parquet \
+  --weight-manifest /restricted/alternating/weight-manifest.json \
+  --output-dir /restricted/alternating/tree-cycle-1
 ```
 
 fit commandは1回のfitであり、prospective実験全体ではありません。selectorには27個すべてのcombined-grid manifestと、選択tupleを使ったitem-only/node-only manifestが必要です。

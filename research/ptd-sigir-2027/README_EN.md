@@ -34,9 +34,9 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 
 `artifact/preregistered_method.json` is the exact pre-result method contract (SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`). It records the no-time-encoding two-stream HSTU-style model, matched-input multiwindow-DIN ablation, binary depth-13 tree, eligibility masks, optimizer/sampling budget, and L4 runtime. Cloud execution is intentionally not launched by this repository workflow without explicit cost authorization.
 
-`artifact/verified/execution_readiness_audit.json` hashes the recovered one-day TDM runner and records why it cannot be relabelled as PTD. All six core components have deterministic synthetic implementation evidence: frozen teacher materialization; the real 5,584-item catalog and date masks; the shared two-stream HSTU-style/multiwindow-DIN trainer; exact train-only anchored reassignment; five-date/three-seed beam retrieval and latency measurement; and the paired evaluation emitter. `runner/build_training_examples.py` now joins row-aligned raw and frozen-teacher rows, verifies every train/validation candidate set against its locked date mask, emits one complete depth-13 group per observed purchase, and opens no outcome column from test shards. `runner/train_ptd.py` consumes that immutable artifact for one registered variant/seed, enforces batch size 64 and exactly two epochs, and emits a no-clobber checkpoint plus validation-loss audit. `runner/build_retrieval_queries.py` and `runner/retrieval_runner.py` cover the test-side handoff and locked 24-cell beam/latency matrix. These are implementation checks, not efficacy, real-tree, or production-latency evidence.
+`artifact/verified/execution_readiness_audit.json` hashes the recovered one-day TDM runner and records why it cannot be relabelled as PTD. All six core components have deterministic synthetic implementation evidence: frozen teacher materialization; the real 5,584-item catalog and date masks; the shared two-stream HSTU-style/multiwindow-DIN trainer; exact train-only anchored reassignment; five-date/three-seed beam retrieval and latency measurement; and the paired evaluation emitter. `runner/build_training_examples.py` now joins row-aligned raw and frozen-teacher rows, verifies every train/validation candidate set against its locked date mask, emits one complete depth-13 group per observed purchase, and opens no outcome column from test shards. `runner/train_ptd.py` consumes that immutable artifact for one registered variant/seed, enforces batch size 64 and exactly two epochs, and emits a no-clobber checkpoint plus validation-loss audit. `runner/build_assignment_queries.py` and `runner/materialize_assignment_weights.py` isolate the three train dates and emit the complete float64 train-item by free-leaf matrix accepted by the exact anchored solver. `runner/build_retrieval_queries.py` and `runner/retrieval_runner.py` cover the test-side handoff and locked 24-cell beam/latency matrix. These are implementation checks, not efficacy, real-tree, or production-latency evidence.
 
-A paid launch is not ready yet. Validation query isolation and the exact 27-cell purchase-NDCG/single-sibling selector are implemented. The remaining code gates are alternating-cycle assignment-weight materialization and orchestration, complete fit scheduling plus run-manifest/retrieval-plan assembly, and a fresh deterministic bundle from that finished revision. Explicit Vertex AI cost authorization is a separate final gate.
+A paid launch is not ready yet. Validation selection and train-only assignment-weight materialization are implemented. The remaining code gates are alternating-cycle orchestration with validation-only cycle stopping, complete fit scheduling plus run-manifest/retrieval-plan assembly, and a fresh deterministic bundle from that finished revision. Explicit Vertex AI cost authorization is a separate final gate.
 
 `artifact/verified/launch_bundle_evidence.json` records a byte-identical two-run `git archive`/`gzip -n` bundle for revision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` (SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`). The extracted bundle passes all dependency-available tests, citation checks, and artifact validation. It remains local and has not been uploaded or submitted to Vertex AI.
 
@@ -72,6 +72,30 @@ uv run --with torch --with pyarrow --with numpy python runner/select_validation.
   --fit-manifest-glob '/restricted/fits/*/manifest.json' \
   --output /restricted/validation/selection.json \
   --device cuda
+
+uv run --with pyarrow --with numpy python runner/build_assignment_queries.py \
+  --teacher-manifest /restricted/teacher/manifest.json \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --output /restricted/alternating/train-queries.jsonl \
+  --manifest /restricted/alternating/train-query-manifest.json
+
+uv run --with torch --with pyarrow --with numpy --with scipy \
+  python runner/materialize_assignment_weights.py \
+  --assignment-queries-manifest /restricted/alternating/train-query-manifest.json \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --fit-manifest /restricted/fits/alternating_ptd-16630/manifest.json \
+  --output /restricted/alternating/weights.parquet \
+  --manifest /restricted/alternating/weight-manifest.json \
+  --device cuda
+
+uv run --with numpy --with scipy --with pyarrow python runner/alternating_solver.py \
+  --catalog /restricted/catalog/catalog.parquet \
+  --date-eligibility /restricted/catalog/date_eligibility.parquet \
+  --weights /restricted/alternating/weights.parquet \
+  --weight-manifest /restricted/alternating/weight-manifest.json \
+  --output-dir /restricted/alternating/tree-cycle-1
 ```
 
 The fit command is one fit, not the complete prospective experiment. The selector requires all 27 combined-grid manifests plus item-only and node-only manifests at the selected tuple.
