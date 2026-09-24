@@ -149,9 +149,10 @@ def validate_execution_readiness() -> None:
     assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
     assert all(audit["registered_inputs_ready"].values())
     assert audit["ready_for_paid_launch"] is False
-    assert sum(audit["production_components_ready"].values()) == 2
+    assert sum(audit["production_components_ready"].values()) == 3
     assert audit["production_components_ready"]["per_row_frozen_teacher_score_materializer"] is True
     assert audit["production_components_ready"]["catalog_envelope_and_date_mask_builder"] is True
+    assert audit["production_components_ready"]["two_stream_HSTU_and_multiwindow_DIN_trainer"] is True
     assert audit["implemented_component_evidence"] == {
         "frozen_teacher_materializer_sha256": sha256(ROOT / "runner" / "materialize_teacher_scores.py"),
         "frozen_teacher_smoke_sha256": sha256(
@@ -160,6 +161,10 @@ def validate_execution_readiness() -> None:
         "catalog_bundle_builder_sha256": sha256(ROOT / "runner" / "build_catalog_bundle.py"),
         "catalog_bundle_evidence_sha256": sha256(
             ROOT / "artifact" / "verified" / "catalog_bundle_evidence.json"
+        ),
+        "ptd_model_trainer_sha256": sha256(ROOT / "runner" / "ptd_model.py"),
+        "ptd_trainer_smoke_sha256": sha256(
+            ROOT / "artifact" / "smoke" / "trainer_smoke.json"
         ),
     }
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
@@ -205,6 +210,41 @@ def validate_production_component_evidence() -> None:
     assert catalog["deterministic_rerun_verified"] is True
     assert catalog["user_or_outcome_columns_read"] == []
     assert catalog["identifiers_persisted_in_this_evidence"] is False
+
+    trainer = load("artifact/smoke/trainer_smoke.json")
+    assert trainer["contract_version"] == "ptd-trainer-smoke/v1"
+    assert trainer["status"] == "SMOKE_ONLY"
+    assert trainer["empirical_claim_allowed"] is False
+    assert trainer["seed"] == 16630
+    assert trainer["registered_architecture_retained"] == {
+        "din_windows_most_recent_first": [1, 2, 3, 4, 5, 5, 10],
+        "hidden_dim": 64,
+        "hstu_style_heads": 4,
+        "hstu_style_layers": 2,
+        "maximum_length": 30,
+        "position_buckets": 64,
+        "stream_type_embedding_dim": 8,
+        "time_encoding": False,
+    }
+    assert trainer["checks"] == {
+        "both_encoders_exercised": True,
+        "complete_depth_13_path_groups": True,
+        "exact_two_epoch_budget": True,
+        "identical_rerun_loss_histories": True,
+        "identical_rerun_state_hashes": True,
+        "item_and_node_kl_exercised": True,
+        "serving_forward_excludes_teacher": True,
+    }
+    assert [run["variant"] for run in trainer["runs"]] == [
+        "ptd_combined",
+        "ptd_combined_baseline_encoder",
+    ]
+    assert [run["trainable_parameters_production_buckets"] for run in trainer["runs"]] == [
+        77_637_777,
+        77_611_986,
+    ]
+    assert all(all(run["checks"].values()) for run in trainer["runs"])
+    assert all(run["final_loss"]["total"] < run["initial_loss"]["total"] for run in trainer["runs"])
 
 
 def validate_ledger() -> None:

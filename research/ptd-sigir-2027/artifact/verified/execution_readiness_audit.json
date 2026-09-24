@@ -43,7 +43,7 @@
   },
   "production_components_ready": {
     "per_row_frozen_teacher_score_materializer": true,
-    "two_stream_HSTU_and_multiwindow_DIN_trainer": false,
+    "two_stream_HSTU_and_multiwindow_DIN_trainer": true,
     "catalog_envelope_and_date_mask_builder": true,
     "train_only_anchored_alternating_solver": false,
     "five_day_three_seed_retrieval_and_latency_runner": false,
@@ -53,13 +53,15 @@
     "frozen_teacher_materializer_sha256": "0688ebb97167a85170687a13cd5cd9d46c9c6d3409318c99058dd52f81685bc3",
     "frozen_teacher_smoke_sha256": "bc2a09b5ecdba259671a6e7fbbfc661d19025e22f28b659fa239cde8177ca0a1",
     "catalog_bundle_builder_sha256": "b8de2dbde42d217cb14138b19329521841557239c34ad41c97e78eb36af957f7",
-    "catalog_bundle_evidence_sha256": "cd7711a6c2bdba269427d46361f5392b191bfb516813a0f5aa977ae4ef2d4f48"
+    "catalog_bundle_evidence_sha256": "cd7711a6c2bdba269427d46361f5392b191bfb516813a0f5aa977ae4ef2d4f48",
+    "ptd_model_trainer_sha256": "a9832d8573484cd4102611fb412d3fc9333cb887275fc699df2cd3a3fa563d92",
+    "ptd_trainer_smoke_sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8"
   },
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "implement_and_synthetic_test_the_four_remaining_production_components",
+    "implement_and_synthetic_test_the_three_remaining_production_components",
     "mint_an_immutable_no_clobber_code_bundle_and_dry_run_job_spec",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. Launch is fail-closed until the missing implementation and authorization checks pass."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. The registered two-stream model/trainer now has deterministic synthetic implementation evidence, not efficacy or latency evidence. Launch is fail-closed until the missing implementation and authorization checks pass."
 }

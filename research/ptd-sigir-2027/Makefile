@@ -7,7 +7,7 @@ TEACHER_CHECKPOINT ?=
 CATALOG_BUNDLE_DIR ?=
 CATALOG_BUNDLE_RERUN_DIR ?=
 
-.PHONY: all generate test smoke teacher-smoke audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
+.PHONY: all generate test smoke teacher-smoke trainer-smoke audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -25,6 +25,10 @@ smoke:
 teacher-smoke:
 	@test -n "$(TEACHER_CHECKPOINT)" || (echo "TEACHER_CHECKPOINT is required" >&2; exit 2)
 	uv run --with torch --with pyarrow --with numpy python scripts/run_teacher_score_smoke.py --checkpoint "$(TEACHER_CHECKPOINT)"
+
+trainer-smoke:
+	uv run --with torch --with numpy python scripts/run_trainer_smoke.py
+	uv run --with torch --with numpy python -m unittest tests.test_ptd_model -v
 
 audit-source:
 	$(PYARROW_RUN) scripts/inventory_raw_inputs.py

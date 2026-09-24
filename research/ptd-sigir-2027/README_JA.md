@@ -34,12 +34,14 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
 
-`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。既存実装は node 固定の teacher 値、単一 KD、単一 history stream であり、登録済み catalog mask と five-day paired-evidence emitter もありません。6つの production component のうち2つは実装済みです。`runner/materialize_teacher_scores.py` は正確な frozen checkpoint を label-free batch に適用し、`artifact/smoke/frozen_teacher_score_smoke.json` が実weight互換性を記録します。`runner/build_catalog_bundle.py` は実データから5,584商品treeと25,394行の日別eligibilityを生成し、identifierを含まない証跡を `artifact/verified/catalog_bundle_evidence.json` に保存しました。有料起動の提案前に残り4 componentの実装が必要です。
+`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。既存実装は node 固定の teacher 値、単一 KD、単一 history stream であり、登録済み catalog mask と five-day paired-evidence emitter もありません。6つの production component のうち3つは実装済みです。`runner/materialize_teacher_scores.py` は正確な frozen checkpoint を label-free batch に適用し、`artifact/smoke/frozen_teacher_score_smoke.json` が実weight互換性を記録します。`runner/build_catalog_bundle.py` は実データから5,584商品treeと25,394行の日別eligibilityを生成し、identifierを含まない証跡を `artifact/verified/catalog_bundle_evidence.json` に保存しました。`runner/ptd_model.py` は共有二系列HSTU-style encoder、node条件付き7窓DIN baseline、共通tree scorer、root-to-leaf合計を保つitem/node別KL、登録済みsparse/dense optimizer loopを実装します。`artifact/smoke/trainer_smoke.json` は、小さなhash bucketと完全なdepth-13合成pathを使って両encoderの決定論的な2 epoch更新を検証しますが、効果や本番latencyの証跡ではありません。有料起動の提案前に残り3 componentの実装が必要です。
 
 制限付きデータ環境での任意チェックは次です。
 
 ```bash
 uv run --with torch --with pyarrow --with numpy python scripts/run_teacher_score_smoke.py --checkpoint /path/to/checkpoint-valid_loss.pt
+uv run --with torch --with numpy python scripts/run_trainer_smoke.py
+uv run --with torch --with numpy python -m unittest tests.test_ptd_model -v
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle-rerun
 python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/output/catalog-bundle --rerun-bundle-dir /restricted/output/catalog-bundle-rerun

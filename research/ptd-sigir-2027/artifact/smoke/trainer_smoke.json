@@ -1,0 +1,147 @@
+{
+  "checks": {
+    "both_encoders_exercised": true,
+    "complete_depth_13_path_groups": true,
+    "exact_two_epoch_budget": true,
+    "identical_rerun_loss_histories": true,
+    "identical_rerun_state_hashes": true,
+    "item_and_node_kl_exercised": true,
+    "serving_forward_excludes_teacher": true
+  },
+  "contract_version": "ptd-trainer-smoke/v1",
+  "empirical_claim_allowed": false,
+  "registered_architecture_retained": {
+    "din_windows_most_recent_first": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      10
+    ],
+    "hidden_dim": 64,
+    "hstu_style_heads": 4,
+    "hstu_style_layers": 2,
+    "maximum_length": 30,
+    "position_buckets": 64,
+    "stream_type_embedding_dim": 8,
+    "time_encoding": false
+  },
+  "runs": [
+    {
+      "checks": {
+        "checkpoint_no_overwrite": true,
+        "finite_losses": true,
+        "loss_decreased": true,
+        "padding_suffix_ignored": true,
+        "teacher_not_serving_feature": true
+      },
+      "encoder": "hstu",
+      "epoch_history": [
+        {
+          "epoch": 1.0,
+          "item_kl": 0.13073024153709412,
+          "item_term": 0.15687629580497742,
+          "node_kl": 1.5723118782043457,
+          "node_term": 1.8867743015289307,
+          "supervised": 9.020856857299805,
+          "total": 11.064507484436035
+        },
+        {
+          "epoch": 2.0,
+          "item_kl": 0.1283881664276123,
+          "item_term": 0.154065802693367,
+          "node_kl": 1.5564637184143066,
+          "node_term": 1.8677564859390259,
+          "supervised": 8.948097229003906,
+          "total": 10.96992015838623
+        }
+      ],
+      "final_loss": {
+        "item_kl": 0.12569287419319153,
+        "item_term": 0.1508314609527588,
+        "node_kl": 1.5387024879455566,
+        "node_term": 1.8464430570602417,
+        "supervised": 8.866271018981934,
+        "total": 10.863545417785645
+      },
+      "initial_loss": {
+        "item_kl": 0.13073024153709412,
+        "item_term": 0.15687629580497742,
+        "node_kl": 1.5723118782043457,
+        "node_term": 1.8867743015289307,
+        "supervised": 9.020856857299805,
+        "total": 11.064507484436035
+      },
+      "state_sha256": "f477a07fbf85fdc8f616b5e77e05aadd2415aab69653046de84962c9cb6bbcf0",
+      "trainable_parameters_production_buckets": 77637777,
+      "trainable_parameters_synthetic_buckets": 204945,
+      "variant": "ptd_combined"
+    },
+    {
+      "checks": {
+        "checkpoint_no_overwrite": true,
+        "finite_losses": true,
+        "loss_decreased": true,
+        "padding_suffix_ignored": true,
+        "teacher_not_serving_feature": true
+      },
+      "encoder": "din",
+      "epoch_history": [
+        {
+          "epoch": 1.0,
+          "item_kl": 0.13080565631389618,
+          "item_term": 0.15696679055690765,
+          "node_kl": 1.5654866695404053,
+          "node_term": 1.8785840272903442,
+          "supervised": 8.993857383728027,
+          "total": 11.02940845489502
+        },
+        {
+          "epoch": 2.0,
+          "item_kl": 0.1286507248878479,
+          "item_term": 0.15438087284564972,
+          "node_kl": 1.5452280044555664,
+          "node_term": 1.8542736768722534,
+          "supervised": 8.904203414916992,
+          "total": 10.912858009338379
+        }
+      ],
+      "final_loss": {
+        "item_kl": 0.1259995847940445,
+        "item_term": 0.15119950473308563,
+        "node_kl": 1.5190298557281494,
+        "node_term": 1.822835922241211,
+        "supervised": 8.788806915283203,
+        "total": 10.762842178344727
+      },
+      "initial_loss": {
+        "item_kl": 0.13080565631389618,
+        "item_term": 0.15696679055690765,
+        "node_kl": 1.5654866695404053,
+        "node_term": 1.8785840272903442,
+        "supervised": 8.993857383728027,
+        "total": 11.02940845489502
+      },
+      "state_sha256": "514b6234aed104b42af985aaf0faea2262e4697bc57324eaaaca2435fed263ad",
+      "trainable_parameters_production_buckets": 77611986,
+      "trainable_parameters_synthetic_buckets": 179154,
+      "variant": "ptd_combined_baseline_encoder"
+    }
+  ],
+  "runtime": {
+    "device": "cpu",
+    "platform": "Darwin",
+    "python": "3.11.12",
+    "torch": "2.14.0"
+  },
+  "scope_note": "Synthetic implementation evidence only. Bucket counts are reduced for the smoke test; this artifact is not retrieval, latency, or PTD efficacy evidence.",
+  "seed": 16630,
+  "status": "SMOKE_ONLY",
+  "synthetic_bucket_override": {
+    "category_hash_bucket_size": 16,
+    "item_hash_bucket_size": 64,
+    "user_hash_bucket_size": 32
+  }
+}

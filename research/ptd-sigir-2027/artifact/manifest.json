@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "5d5f8f9484ef6a14b5e3dea67cd1bd9df64fd64ad0545443558dec2678160ce6"
+      "sha256": "18cf0ae77052a8bd805bdf0de01a4894b40beda90a06d842b3e36bcf90250e66"
     },
     {
       "id": "frozen-teacher-materializer",
@@ -196,6 +196,34 @@
       "media_type": "application/json",
       "status": "VERIFIED",
       "sha256": "cd7711a6c2bdba269427d46361f5392b191bfb516813a0f5aa977ae4ef2d4f48"
+    },
+    {
+      "id": "ptd-model-trainer",
+      "path": "runner/ptd_model.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "a9832d8573484cd4102611fb412d3fc9333cb887275fc699df2cd3a3fa563d92"
+    },
+    {
+      "id": "ptd-model-trainer-tests",
+      "path": "tests/test_ptd_model.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "51013ecadf127cf81521b4948f416ae6dc25ac8dd446183a910e96dc55385d64"
+    },
+    {
+      "id": "ptd-trainer-smoke-runner",
+      "path": "scripts/run_trainer_smoke.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "adb6a8760a6ca898e196eb5c9446abd2a485b43bec0fb2c084fa43ef72c7547d"
+    },
+    {
+      "id": "ptd-trainer-smoke",
+      "path": "artifact/smoke/trainer_smoke.json",
+      "media_type": "application/json",
+      "status": "GENERATED",
+      "sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8"
     },
     {
       "id": "reference-implementation",
@@ -293,7 +321,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "92afc31e3fa25232f1474216e82bb0d65f71b1376832d44f2339bce3e8023a16"
+      "sha256": "24876fd895dc9cd3d492d389172200643a310ce11b131536cbaf87d1f06b8b1e"
     },
     {
       "id": "manifest-finalizer",
@@ -328,21 +356,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "51a25a5386a75d4d1db32438364ef45d6634ace02d0b0dd965cf8eaedc671d6e"
+      "sha256": "e099b0262422f446ec868e947d1e00268cf17fb225d37b1f18ffc580edfad958"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "02155fd1f59c06f660682a564d0a0a985267a964b3bdc09866a6d8441649425d"
+      "sha256": "8306d125bf84d72497aa4bc647f95e5dcb3877979a007cede588554f1b7a1e30"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "cd23d8f621876f21fa81658e5c2b337b44621ab2d57e43dea3c5307342de66d4"
+      "sha256": "d6ef606d04b91ef60ada9e3f4639c3dff002d342cf97f5ca8c46d636f35a4f87"
     },
     {
       "id": "ptd-five-day-evaluation",
