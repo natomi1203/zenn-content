@@ -73,11 +73,22 @@ def validate_generated() -> None:
         assert path.is_file() and path.stat().st_size > 50, name
 
 
+def validate_reference_smoke() -> None:
+    smoke = load("artifact/smoke/reference_smoke_evaluation.json")
+    assert smoke["contract_version"] == "ptd-reference-smoke/v1"
+    assert smoke["status"] == "SMOKE_ONLY"
+    assert smoke["empirical_claim_allowed"] is False
+    assert abs(sum(smoke["item_sibling_distribution"].values()) - 1.0) < 1e-9
+    assert abs(sum(smoke["node_sibling_distribution"].values()) - 1.0) < 1e-9
+    assert smoke["objective"]["total"] >= smoke["objective"]["supervised"]
+
+
 if __name__ == "__main__":
     validate_manifest()
     validate_verified_evidence()
     validate_ledger()
     validate_generated()
+    validate_reference_smoke()
     tracked = [
         ROOT / "artifact" / "preregistration.md",
         ROOT / "artifact" / "claim_evidence_ledger.csv",

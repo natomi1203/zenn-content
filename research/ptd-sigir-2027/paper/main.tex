@@ -18,8 +18,9 @@
 
 \title{Purchase-aware Tree Distillation for Home-feed Retrieval}
 
-\author{Anonymous Author(s)}
-\affiliation{\institution{Anonymous institution}}
+% Author identity is retained in source; anonymous=true suppresses it in the review PDF.
+\author{TOMITA NAOYUKI}
+\affiliation{\institution{Affiliation withheld for anonymous review}}
 
 \begin{abstract}
 Large-scale home feeds commonly separate candidate retrieval from a purchase-oriented ranker. This division creates an objective gap: a retriever is optimized from sparse interactions while the downstream ranker estimates a denser purchase utility. We formulate Purchase-aware Tree Distillation (\ptd), a preregistered tree-retrieval method that transfers a frozen Entire Space Multi-Task Model (ESMM) teacher into local sibling decisions of a balanced item tree. \ptd combines item-sibling and internal-node-sibling distillation, an HSTU-style action-sequence encoder, and a train-only alternating tree update related to TDM/JTM. The evaluation contract fixes a point-in-time-safe evidence universe, a five-date temporal test, three random seeds, paired user bootstrap inference, and explicit quality, diversity, and latency guardrails. A verified legacy artifact establishes the common evidence universe and teacher anchor (12,844,800 test pairs; ESMM purchase NDCG@50 0.17626), but it contains no \ptd result. The prospective five-day tree-family results are pending; consequently this draft makes no efficacy or novelty claim beyond the registered method and its distinctions from prior work. The accompanying artifact provides schemas, a claim--evidence ledger, deterministic table/figure generation, and fail-closed validation so that empirical claims can be promoted only after immutable manifests, hashes, and evaluation JSON are available.
@@ -136,7 +137,7 @@ The primary outcome is purchase NDCG@50 averaged over seeds 16630--16632. Second
 The dashes in Table~\ref{tab:ptd-results} are intentional. One-day tree-family runs are diagnostics and cannot populate this table. A value is generated only from a schema-valid five-day evaluation, an immutable manifest, and matching hashes.
 
 \subsection{Reproducibility and claim promotion}
-The artifact contains a JSON Schema for the run manifest and evaluation, the exact preregistration, a CSV claim--evidence ledger, deterministic generators for every manuscript table/figure, and a fail-closed validator. Figure~\ref{fig:evidence-flow} shows the promotion path. A claim remains pending if any evidence edge is absent.
+The artifact contains a JSON Schema for the run manifest and evaluation, the exact preregistration, a CSV claim--evidence ledger, deterministic generators for every manuscript table/figure, and a fail-closed validator. A dependency-free executable specification tests sibling normalization, descendant-mass aggregation, the temperature-scaled KL objective, balanced paths, and capacity constraints on synthetic inputs. Its output is marked \texttt{SMOKE\_ONLY} and cannot support an empirical claim. Figure~\ref{fig:evidence-flow} shows the promotion path. A claim remains pending if any evidence edge is absent.
 
 \input{generated/evidence_flow}
 \input{generated/claim_status_table}

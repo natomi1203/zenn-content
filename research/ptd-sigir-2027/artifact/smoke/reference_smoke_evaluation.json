@@ -1,0 +1,71 @@
+{
+  "assignments": [
+    {
+      "item": "i1",
+      "node": "n0",
+      "weight": 3.0
+    },
+    {
+      "item": "i2",
+      "node": "n0",
+      "weight": 2.0
+    },
+    {
+      "item": "i3",
+      "node": "n1",
+      "weight": 2.0
+    },
+    {
+      "item": "i4",
+      "node": "n1",
+      "weight": 3.0
+    }
+  ],
+  "balanced_paths": {
+    "i1": [
+      0,
+      0
+    ],
+    "i2": [
+      0,
+      1
+    ],
+    "i3": [
+      1,
+      0
+    ],
+    "i4": [
+      1,
+      1
+    ]
+  },
+  "contract_version": "ptd-reference-smoke/v1",
+  "empirical_claim_allowed": false,
+  "item_sibling_distribution": {
+    "i1": 0.7533939444035329,
+    "i2": 0.2466060555964672
+  },
+  "node_sibling_distribution": {
+    "n0": 0.7499999999991666,
+    "n1": 0.25000000000083333
+  },
+  "note": "Synthetic arithmetic check only; it cannot populate a manuscript result table.",
+  "objective": {
+    "item_kl": 0.07901522855196424,
+    "item_term": 0.09481827426235709,
+    "node_kl": 0.05854701079934457,
+    "node_term": 0.07025641295921349,
+    "supervised": 0.4,
+    "total": 0.5650746872215706
+  },
+  "status": "SMOKE_ONLY",
+  "teacher": {
+    "factorization": "pCTR*pCVR",
+    "purchase_probabilities": {
+      "i1": 0.7,
+      "i2": 0.2,
+      "i3": 0.08,
+      "i4": 0.02
+    }
+  }
+}

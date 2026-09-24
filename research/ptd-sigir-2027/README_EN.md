@@ -20,7 +20,11 @@ Requirements: Python 3.10+ and Tectonic (or a TeX Live installation containing `
 make all
 ```
 
-This regenerates all LaTeX tables and figures, validates JSON/CSV contracts and claim status, then compiles `paper/main.pdf` with Tectonic. Run the stages separately with `make generate`, `make validate`, and `make paper`.
+This regenerates all LaTeX tables and figures, runs the dependency-free PTD reference tests and synthetic smoke check, validates citations, JSON/CSV contracts, hashes, and claim status, then compiles `paper/main.pdf` with Tectonic. Run the stages separately with `make generate`, `make test`, `make smoke`, `make validate`, and `make paper`.
+
+The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repeated builds from identical inputs produce the same PDF hash. Override it only when intentionally minting a new artifact epoch.
+
+`reference/ptd.py` is an executable specification of the paper's local sibling distributions, internal-node teacher aggregation, temperature-scaled KL objective, deterministic balanced paths, and capacity-constrained reassignment. It does not replace the production trainer or constitute empirical evidence.
 
 ## Evidence-ingestion gate
 
@@ -34,4 +38,6 @@ To promote PTD results from `PENDING` to `VERIFIED`, all of the following are re
 
 ## Submission hygiene
 
-This development repository identifies its owner and therefore cannot be linked from an anonymous SIGIR submission. Create an anonymous snapshot only after the evidence gate passes. Author names, affiliations, acknowledgements, and public artifact links remain placeholders until the review/camera-ready transition.
+This development repository identifies its owner and therefore cannot be linked from an anonymous SIGIR submission. Create an anonymous snapshot only after the evidence gate passes. Affiliations, acknowledgements, and public artifact links remain withheld or placeholders until the review/camera-ready transition.
+
+The paper source records the author as **TOMITA NAOYUKI**. The review build keeps ACM's `anonymous=true`, which suppresses that identity in the generated review PDF. Affiliation remains withheld because it has not yet been supplied.

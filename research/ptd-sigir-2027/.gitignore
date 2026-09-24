@@ -3,3 +3,5 @@ paper/main.bbl
 paper/main.blg
 paper/main.log
 paper/main.out
+__pycache__/
+*.py[cod]

@@ -20,7 +20,11 @@ Python 3.10+ と Tectonic（または `acmart` を含む TeX Live）が必要で
 make all
 ```
 
-LaTeX の表・図を再生成し、JSON/CSV と claim status を検証した後、`paper/main.pdf` をビルドします。個別には `make generate`、`make validate`、`make paper` を使います。
+LaTeX の表・図を再生成し、依存なしの PTD 参照実装テストと synthetic smoke check、引用、JSON/CSV、hash、claim status を検証した後、`paper/main.pdf` をビルドします。個別には `make generate`、`make test`、`make smoke`、`make validate`、`make paper` を使います。
+
+Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、同一入力からの反復ビルドで PDF hash が一致するようにしています。新しい artifact epoch を意図的に発行するときだけ上書きします。
+
+`reference/ptd.py` は sibling distribution、internal-node teacher 集約、temperature-scaled KL objective、deterministic balanced path、capacity-constrained reassignment の実行可能仕様です。production trainer の代替でも、実験結果でもありません。
 
 ## PTD 結果を取り込む条件
 
@@ -32,4 +36,6 @@ LaTeX の表・図を再生成し、JSON/CSV と claim status を検証した後
 
 ## 投稿時の匿名性
 
-この開発リポジトリは所有者を特定できるため、匿名査読原稿から直接リンクできません。証跡 gate 通過後に匿名 snapshot を作ります。著者、所属、謝辞、公開 artifact URL は review/camera-ready の移行まで placeholder のままです。
+この開発リポジトリは所有者を特定できるため、匿名査読原稿から直接リンクできません。証跡 gate 通過後に匿名 snapshot を作ります。所属、謝辞、公開 artifact URL は review/camera-ready の移行まで非表示または placeholder のままです。
+
+原稿ソースの著者名は **TOMITA NAOYUKI** として記録しています。review build は ACM の `anonymous=true` を維持するため、生成 PDF では実名が非表示です。所属は未提示のため推測せず保留しています。

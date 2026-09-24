@@ -8,11 +8,89 @@
   },
   "evidence_policy": "verified-only-with-explicit-pending",
   "artifacts": [
-    {"id": "paper-source", "path": "paper/main.tex", "media_type": "application/x-tex", "status": "GENERATED", "sha256": "dbbb38d4df82f329215d14fe4561e4b82997afc46051b62655ec5f1bf01bd4f0"},
-    {"id": "paper-pdf", "path": "paper/main.pdf", "media_type": "application/pdf", "status": "GENERATED", "sha256": "594da8afa46b2708450b0a624b7b167f00360c33065b17f0fa8a48d987e785a7"},
-    {"id": "preregistration", "path": "artifact/preregistration.md", "media_type": "text/markdown", "status": "PREREGISTERED", "sha256": "196dc7b34c66baad292582c8b62ba9a5db339b0eef9e23727130001dd62e0c99"},
-    {"id": "claim-ledger", "path": "artifact/claim_evidence_ledger.csv", "media_type": "text/csv", "status": "VERIFIED", "sha256": "d323b03ca43de05e248f7f8e701a22b37f8e3c2824c729cc1e2e02c7be59bc06"},
-    {"id": "legacy-esmm-anchor", "path": "artifact/verified/legacy_esmm_evidence.json", "media_type": "application/json", "status": "VERIFIED", "sha256": "2fdcb4e43ceb32cb86f0f930268e94d1b7f99fd12403c0c3ede89343a06c3e76"},
-    {"id": "ptd-five-day-evaluation", "path": "artifact/pending/ptd_five_day_evaluation.json", "media_type": "application/json", "status": "PENDING", "sha256": null}
+    {
+      "id": "paper-source",
+      "path": "paper/main.tex",
+      "media_type": "application/x-tex",
+      "status": "GENERATED",
+      "sha256": "0767e1c50babd1f8250e0c5c2797deeac4d5eb6d559854c3152c37e9a7ecec0f"
+    },
+    {
+      "id": "paper-pdf",
+      "path": "paper/main.pdf",
+      "media_type": "application/pdf",
+      "status": "GENERATED",
+      "sha256": "c6ea10920365d3d3faf320cf7f647695f8f6e591375e5caaff26134f999a1dc9"
+    },
+    {
+      "id": "preregistration",
+      "path": "artifact/preregistration.md",
+      "media_type": "text/markdown",
+      "status": "PREREGISTERED",
+      "sha256": "196dc7b34c66baad292582c8b62ba9a5db339b0eef9e23727130001dd62e0c99"
+    },
+    {
+      "id": "claim-ledger",
+      "path": "artifact/claim_evidence_ledger.csv",
+      "media_type": "text/csv",
+      "status": "VERIFIED",
+      "sha256": "d323b03ca43de05e248f7f8e701a22b37f8e3c2824c729cc1e2e02c7be59bc06"
+    },
+    {
+      "id": "legacy-esmm-anchor",
+      "path": "artifact/verified/legacy_esmm_evidence.json",
+      "media_type": "application/json",
+      "status": "VERIFIED",
+      "sha256": "2fdcb4e43ceb32cb86f0f930268e94d1b7f99fd12403c0c3ede89343a06c3e76"
+    },
+    {
+      "id": "reference-implementation",
+      "path": "reference/ptd.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "3ad15e01890dd7ba6d5c0df503588c3a46226875267e494864090b616ce86d14"
+    },
+    {
+      "id": "reference-tests",
+      "path": "tests/test_reference_ptd.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "2331147c375d7263fcf5696ad73963c3eabdafa806e0a40ad80ea56687de3cb2"
+    },
+    {
+      "id": "reference-smoke",
+      "path": "artifact/smoke/reference_smoke_evaluation.json",
+      "media_type": "application/json",
+      "status": "GENERATED",
+      "sha256": "7ab10c8e0215efc48940c644c027440a7ec01295bbacfd2c22ee660e975f4319"
+    },
+    {
+      "id": "citation-check",
+      "path": "scripts/check_citations.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "eaea8bffc1705182b36afeed80149f72ed622167d68bb34c7e8c0cd3450342a4"
+    },
+    {
+      "id": "smoke-runner",
+      "path": "scripts/run_reference_smoke.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "e8ac34f2a0627ce62714a19404c836a3beddb603722d960cf5607808c4d72c67"
+    },
+    {
+      "id": "pdf-normalizer",
+      "path": "scripts/normalize_pdf.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "407c57af3005281bd81f795aea90053aa04658b37922c2007484ab6e72ef23eb"
+    },
+    {
+      "id": "ptd-five-day-evaluation",
+      "path": "artifact/pending/ptd_five_day_evaluation.json",
+      "media_type": "application/json",
+      "status": "PENDING",
+      "sha256": null
+    }
   ]
 }
