@@ -1,13 +1,13 @@
 {
   "contract_version": "ptd-launch-bundle-evidence/v1",
   "status": "VERIFIED",
-  "code_revision": "f8158afdc84b8831c1dac6c5c7893e0bec0d5e51",
+  "code_revision": "c6c507060a8c90e5e65d6d8478e55b1012e4c860",
   "source_subtree": "research/ptd-sigir-2027",
   "bundle": {
-    "filename": "ptd-sigir-2027-f8158af.tar.gz",
-    "sha256": "ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9",
-    "size_bytes": 379782,
-    "tar_entries": 91
+    "filename": "ptd-sigir-2027-c6c5070.tar.gz",
+    "sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
+    "size_bytes": 437432,
+    "tar_entries": 118
   },
   "generation": {
     "archive": "git archive --format=tar <revision> research/ptd-sigir-2027",
@@ -20,8 +20,8 @@
     "no_git_metadata": true,
     "no_python_cache": true,
     "unit_tests_passed": true,
-    "unit_tests_run": 54,
-    "unit_tests_skipped_optional_torch": 5,
+    "unit_tests_run": 70,
+    "unit_tests_skipped_optional_dependencies": 0,
     "citation_check_passed": true,
     "artifact_validation_passed": true,
     "external_upload_performed": false,

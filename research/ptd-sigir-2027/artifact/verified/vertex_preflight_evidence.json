@@ -1,10 +1,10 @@
 {
   "contract_version": "ptd-vertex-preflight-evidence/v1",
   "status": "VERIFIED",
-  "spec_sha256": "1cb3b7a179304a2bc4399f88ffbe38ad6c7c439f45bc4e3961f9d6a3605a41eb",
-  "validator_sha256": "a3d1da06605faab1d1278b82748d1f4ae9a0b8412be36bae806bc0c2cbd80efc",
+  "spec_sha256": "c66365e16a38275a2634b0e1ba45e5ccee944e13272e181ef00e96c9b1dc3262",
+  "validator_sha256": "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a",
   "tests_sha256": "10f23a52e66df6c6a1819aea424da5d621a6de74def5f7dd4509d71487257184",
-  "bundle_sha256": "ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9",
+  "bundle_sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
   "gcloud_cli_version_inspected": "Google Cloud SDK 562.0.0",
   "gcloud_help_contract": "--config accepts a YAML CustomJobSpec; JSON is valid YAML",
   "runtime": {

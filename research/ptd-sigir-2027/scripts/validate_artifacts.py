@@ -235,7 +235,6 @@ def validate_execution_readiness() -> None:
     }
     assert audit["production_pipeline_ready"] is True
     assert audit["launch_blockers"] == [
-        "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
         "obtain_explicit_authorization_for_Vertex_AI_cost",
     ]
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
@@ -244,12 +243,12 @@ def validate_execution_readiness() -> None:
     assert bundle["contract_version"] == "ptd-launch-bundle-evidence/v1"
     assert bundle["status"] == "VERIFIED"
     assert re.fullmatch(r"[0-9a-f]{40}", bundle["code_revision"])
-    assert bundle["code_revision"] == "f8158afdc84b8831c1dac6c5c7893e0bec0d5e51"
+    assert bundle["code_revision"] == "c6c507060a8c90e5e65d6d8478e55b1012e4c860"
     assert bundle["bundle"] == {
-        "filename": "ptd-sigir-2027-f8158af.tar.gz",
-        "sha256": "ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9",
-        "size_bytes": 379782,
-        "tar_entries": 91,
+        "filename": "ptd-sigir-2027-c6c5070.tar.gz",
+        "sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
+        "size_bytes": 437432,
+        "tar_entries": 118,
     }
     assert bundle["checks"] == {
         "independent_rerun_byte_identical": True,
@@ -257,8 +256,8 @@ def validate_execution_readiness() -> None:
         "no_git_metadata": True,
         "no_python_cache": True,
         "unit_tests_passed": True,
-        "unit_tests_run": 54,
-        "unit_tests_skipped_optional_torch": 5,
+        "unit_tests_run": 70,
+        "unit_tests_skipped_optional_dependencies": 0,
         "citation_check_passed": True,
         "artifact_validation_passed": True,
         "external_upload_performed": False,

@@ -139,35 +139,35 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "e5502804d8df2c2b289cbcf1fca2ca5fa39cfc08d1456901f6be67318aaf26f8"
+      "sha256": "6b0836f9e761a768fcacdeb7733e9349e8731e9b73c3a294821339330c8f38cc"
     },
     {
       "id": "launch-bundle-evidence",
       "path": "artifact/verified/launch_bundle_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "7200c594c8f5a2a40aeb6960073d72d50c8d9038ed22df4e22a91355d9afc59e"
+      "sha256": "5a776604ac4580baa99a162d7b93fd397ab80f54b5599e5b64cc4898d890ed6f"
     },
     {
       "id": "vertex-preflight-job-spec",
       "path": "artifact/vertex_preflight_job_spec.json",
       "media_type": "application/json",
       "status": "PREREGISTERED",
-      "sha256": "1cb3b7a179304a2bc4399f88ffbe38ad6c7c439f45bc4e3961f9d6a3605a41eb"
+      "sha256": "c66365e16a38275a2634b0e1ba45e5ccee944e13272e181ef00e96c9b1dc3262"
     },
     {
       "id": "vertex-preflight-evidence",
       "path": "artifact/verified/vertex_preflight_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "cbe7abbca2f7201acc94d82582277974a9df25d62c975e2ff8276ab11d076479"
+      "sha256": "5192be9a67a0b2abf9e9a061e9a1ac44ae762bf6b3dee72872cf5e6fb8e836fa"
     },
     {
       "id": "vertex-preflight-validator",
       "path": "scripts/validate_vertex_preflight.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "a3d1da06605faab1d1278b82748d1f4ae9a0b8412be36bae806bc0c2cbd80efc"
+      "sha256": "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a"
     },
     {
       "id": "vertex-preflight-tests",
@@ -629,7 +629,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "bed21127158bd6fd6fda077a04edee4f3fa6ba50a81890c6f38cdac71b28c317"
+      "sha256": "db9771fad0d605004a3dcca8c0ed6c8025a48619145b3fe59d5c903acb55adda"
     },
     {
       "id": "manifest-finalizer",
@@ -671,14 +671,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "8b6d87d4bfb0640c119f3730dc90ef933ed43c12e12d574ebcad17b940dfd226"
+      "sha256": "7e2ff5db262fdbdecce88a89b94a278edb57029bc7575126782e407705e97938"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "75fd1988f03c0b46c54d74ab79cad792f85be0e8ec739858b7ff743337ee63e4"
+      "sha256": "765f0916f4087678756702f250a8e96d74d02a7991071dd9bf69fc0c58f9226a"
     },
     {
       "id": "ptd-five-day-evaluation",
