@@ -26,6 +26,8 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 
 `reference/ptd.py` is an executable specification of the paper's local sibling distributions, internal-node teacher aggregation, temperature-scaled KL objective, deterministic balanced paths, and capacity-constrained reassignment. It does not replace the production trainer or constitute empirical evidence.
 
+`reference/evaluation.py` fixes binary NDCG/Recall, the date-stratified paired bootstrap, percentile interval, two-sided bootstrap sign test, Holm adjustment, and quality/diversity/latency guardrails. Its tests use synthetic values only and cannot populate a manuscript result table.
+
 ## Evidence-ingestion gate
 
 To promote PTD results from `PENDING` to `VERIFIED`, all of the following are required:

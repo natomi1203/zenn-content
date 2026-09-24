@@ -36,17 +36,19 @@ For a sibling set `S`, temperature `tau`, frozen teacher logits `a_T`, and stude
 
 `L = L_tree + lambda_item tau^2 KL(q_T_item || p_theta_item) + lambda_node tau^2 KL(q_T_node || p_theta_node)`.
 
+`L_tree` is the sum of negative log sibling probabilities along the positive item's root-to-leaf path for purchase-positive training pairs. Item probabilities are clipped with `epsilon_item = 1e-6`; internal descendant masses use `epsilon_node = 1e-12`. A zero-mass child remains in the sibling support with finite near-zero mass.
+
 The primary hyperparameters are selected once on validation from a predeclared grid: `tau in {1,2,4}`, `lambda_item in {0.1,0.3,1.0}`, and `lambda_node in {0.1,0.3,1.0}`. The grid is evaluated only for seed 16630; the selected tuple is then rerun for all three seeds. Ties within 0.001 validation NDCG@50 use the lower total distillation weight, then lower temperature.
 
 ## Tree optimization
 
-The fixed tree is a deterministic balanced hierarchy built from train-only item representations. Alternating optimization runs at most three cycles: optimize model parameters, compute train-only assignment weights, solve capacity-constrained item reassignment, then refit. Validation chooses the cycle; the tree is locked before test scoring. No test label, test teacher score, or test metric may affect tree construction, stopping, or model selection.
+The fixed tree is a deterministic balanced hierarchy built from train-only item representations. Alternating optimization runs at most three cycles: optimize model parameters, compute train-only assignment weights, solve capacity-constrained item reassignment, then refit. For item `i` and candidate leaf `l`, the assignment weight is the sum over eligible training requests of `(y_ui + q_T_purchase(u,i))` times the model log probability of the candidate leaf path at temperature one. The assignment maximizes total recorded weight subject to one leaf per item and declared subtree capacities. Validation chooses the cycle; the tree is locked before test scoring. No test label, test teacher score, or test metric may affect tree construction, stopping, or model selection.
 
 ## Outcomes and tests
 
 - **Primary:** macro user purchase NDCG@50, pooled across the five dates, averaged over the three seeds.
 - **Secondary:** Recall@50, NDCG@10/100, purchase AUC, click NDCG@50, category coverage@50, max category share@50, p50/p95 retrieval latency, and candidates scored.
-- **Inference:** date-stratified paired user bootstrap with 10,000 resamples. Report mean delta and 95% percentile interval. The primary success criterion is CI lower bound above zero versus the fixed-tree no-distillation baseline, with no registered guardrail failure.
+- **Inference:** first average paired treatment-minus-baseline metric differences over the three seeds for each date--user unit. Then resample those units with replacement within each test date, preserving each date's unit count, for 10,000 replicates. Pool the resampled units using their original count weights. Report mean delta, the 2.5th/97.5th percentile interval, and a two-sided bootstrap sign p-value. A user appearing on multiple dates contributes one unit per date. The primary success criterion is an interval lower bound above zero and Holm-adjusted `p < 0.05`, with no registered guardrail failure.
 - **Bootstrap determinism:** the bootstrap seed is `20260925`. RQ2 compares combined PTD against the better single-level variant selected on validation seed 16630 only; that denominator is locked before any test readout.
 - **Multiplicity:** Holm correction across the four RQ1--RQ4 primary contrasts; uncorrected intervals remain descriptive.
 - **Guardrails:** no decrease greater than 5% relative in click NDCG@50 or category coverage@50; no increase greater than 5% relative in max category share@50; p95 retrieval latency must be at most 1.20 times the fixed-tree TDM baseline measured on identical hardware/software with concurrency one, at least 100 warm-up queries, and at least 1,000 measured queries. This is a relative experimental guardrail, not a production SLO.

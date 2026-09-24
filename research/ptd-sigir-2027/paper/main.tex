@@ -58,6 +58,8 @@ This is an evidence-bounded draft. We contribute (i) a precise method and traini
 \section{Problem Formulation}
 Let $u$ denote a request with a history $H_u$ available strictly before snapshot time $t$, and let $\mathcal{I}_t$ be eligible items. A balanced $b$-ary tree $\mathcal{T}$ maps each item $i$ to a leaf. At depth $h$, beam search keeps $B$ nodes according to a student score $s_\theta(u,n)$. The serving objective is to retrieve a set $R_K(u)$ with high future purchase utility while bounding the number of node evaluations.
 
+Write the root-to-leaf code for item $i$ as $\pi_{\mathcal{T}}(i)=(n_0,\ldots,n_H)$ and the children competing with $n_h$ as $S_h(i)$. With a balanced tree, $H=\lceil\log_b |\mathcal{I}_t|\rceil$ up to capacity padding. After encoding the user once, beam retrieval evaluates at most $b+B b(H-1)$ child nodes before leaf truncation, or $O(BbH)$ scorer calls. This bound motivates a local decision objective: the student need only order siblings encountered by the beam, rather than score every eligible item online.
+
 For each eligible pair, the frozen teacher produces
 \begin{equation}
 q_T^{\mathrm{purchase}}(u,i)
@@ -73,6 +75,8 @@ The observed label $y_{ui}$ is one only when a home-feed click-to-purchase event
 \subsection{Point-in-time HSTU-style user encoder}
 Each action token combines item, action-type, and time-gap embeddings. A causal HSTU-style stack maps the ordered history to $z_u$. We use the term ``HSTU-style'' because the registered implementation adopts the gated sequential-transduction pattern and relative temporal bias, but does not claim to reproduce the trillion-parameter generative system of \citet{zhai2024hstu}. A node embedding $e_n$ and contextual features enter an MLP scorer $s_\theta(z_u,e_n,x_{un})$.
 
+The encoder consumes only the last $L$ events available before $t$, retains event order, and masks every future position. Item, action, and logarithmically bucketed time-gap embeddings are summed before the causal stack. A learned gate modulates each block's transformed value stream, and a relative-time term enters the sequence interaction score. The request representation is the final valid event state; empty histories use a dedicated token. The matched encoder ablation preserves embedding width, parameter budget, scorer, tree, optimizer, and inputs while replacing the gated sequential stack with the registered baseline encoder. Thus RQ4 changes the sequence operator rather than the evidence available to it.
+
 \subsection{Sibling teacher distributions}
 For a leaf-parent sibling set $S_i$, item-level teacher logits are
 \begin{equation}
@@ -87,11 +91,22 @@ q_T^{\mathrm{purchase}}(u,j),
 \end{equation}
 and sibling logits are $a_T(u,c)=\log(m_T(u,c)+\epsilon)$. This aggregation is explicitly candidate-universe dependent; changing $C_u$ is an experimental deviation.
 
+The registered clipping constants are $10^{-6}$ for item logits and $10^{-12}$ for descendant mass. A child with no eligible descendant therefore receives finite, near-zero mass rather than being silently removed. Internal targets are recomputed only from the frozen training candidate universe. Multiplying every child mass in one sibling group by a common positive constant leaves its node target unchanged; the transfer is local, while the item target still reflects the teacher's calibrated log-odds.
+
 At temperature $\tau$, teacher and student sibling distributions are
 \begin{align}
 Q_T(v\mid u,S)&=\frac{\exp(a_T(u,v)/\tau)}{\sum_{w\in S}\exp(a_T(u,w)/\tau)},\\
 P_\theta(v\mid u,S)&=\frac{\exp(s_\theta(u,v)/\tau)}{\sum_{w\in S}\exp(s_\theta(u,w)/\tau)}.
 \end{align}
+For a purchase-positive training pair, the matched supervised path loss is
+\begin{equation}
+\mathcal{L}_{\mathrm{tree}}
+=-\sum_{(u,i)\in D_{tr}:y_{ui}=1}\sum_{h=1}^{H}
+\log P_\theta(n_h\mid u,S_h(i))\big|_{\tau=1}.
+\label{eq:tree-loss}
+\end{equation}
+The sibling denominator supplies path-local negatives. Every registered student uses Eq.~\ref{eq:tree-loss}; only the distillation terms, tree update, or encoder named by the ablation changes.
+
 The complete objective is
 \begin{align}
 \mathcal{L}(\theta;\mathcal{T})
@@ -101,10 +116,19 @@ The complete objective is
 \mathrm{KL}(Q_T^h\Vert P_\theta^h),
 \label{eq:loss}
 \end{align}
-where $\mathcal{L}_{\mathrm{tree}}$ is the matched supervised path objective. Item-only, node-only, combined, and no-distillation variants isolate the terms in Eq.~\ref{eq:loss}.
+The $\tau^2$ factors preserve gradient scale under temperature smoothing. Item-only, node-only, combined, and no-distillation variants isolate the terms in Eq.~\ref{eq:loss}. The teacher is evaluated without gradient and never updated from student or test data.
 
 \subsection{Train-only alternating optimization}
 The fixed-tree experiment uses a deterministic capacity-balanced hierarchy. The alternating variant follows JTM's broad model/index co-optimization pattern but imposes a strict evidence boundary: only training interactions and frozen training teacher scores contribute assignment weights. Validation selects at most one of three cycles; the selected tree is then immutable for test scoring.
+
+For a candidate leaf $\ell$ with path $\pi(\ell)$, the registered train-only assignment weight is
+\begin{equation}
+W(i,\ell)=\sum_{u:(u,i)\in D_{tr}}
+\left(y_{ui}+q_T^{\mathrm{purchase}}(u,i)\right)
+\sum_{h=1}^{H}\log P_\theta(\ell_h\mid u,S_h(\ell))\big|_{\tau=1}.
+\label{eq:assignment}
+\end{equation}
+The reassignment maximizes $\sum_i W(i,A(i))$ subject to one leaf per item and the declared subtree capacities. Equation~\ref{eq:assignment} lets observed purchases and frozen soft utility weight the same model-path affinity; neither test labels nor test teacher scores enter it. The executable reference supplies deterministic tie-breaking and a capacity-checking greedy solver for small examples; a production exact solver may replace it only if it optimizes the same recorded weights and constraints.
 
 \begin{algorithm}[t]
 \caption{Registered PTD training and tree lock}
@@ -116,7 +140,7 @@ The fixed-tree experiment uses a deterministic capacity-balanced hierarchy. The 
   \State Fit $\theta_r$ on $D_{tr}$ using Eq.~\ref{eq:loss}
   \State Record validation NDCG@50 without changing $T$
   \If{$r<R$}
-    \State Compute train-only item--node assignment weights
+    \State Compute train-only assignment weights using Eq.~\ref{eq:assignment}
     \State $\mathcal{T}_{r+1}\gets$ capacity-constrained reassignment
   \EndIf
 \EndFor
@@ -126,6 +150,9 @@ The fixed-tree experiment uses a deterministic capacity-balanced hierarchy. The 
 \end{algorithm}
 
 This procedure is not equivalent to end-to-end differentiable tree learning. It is also not teacher-free JTM: the fixed purchase model influences local student targets and, in the alternating variant, train-side assignment weights.
+
+\subsection{Serving and training cost}
+Teacher inference, descendant aggregation, and capacity-constrained reassignment are offline operations. Online serving evaluates the user encoder once and then the $O(BbH)$ tree nodes above. The tree stores $O(|\mathcal{I}|)$ nodes and one $H$-step code per item. Distillation increases training work because teacher scores and sibling targets must be materialized, but it does not add a teacher call or a second-stage reranker to the registered retrieval path. Latency is nevertheless measured rather than inferred from asymptotics, because batching, encoder cost, and hardware kernels can dominate node-count differences.
 
 \section{Experimental Design}
 \subsection{Evidence universe and splits}
@@ -140,13 +167,29 @@ The registered family contains fixed-tree TDM-style supervision, item-only PTD, 
 
 The primary outcome is purchase NDCG@50 averaged over seeds 16630--16632. Secondary outcomes include Recall@50, NDCG@10/100, purchase AUC, click NDCG@50, diversity, candidate count, and p50/p95 latency. Date-stratified paired user bootstrap intervals use 10,000 resamples with seed 20260925. Four primary contrasts use Holm correction; the RQ2 comparator is the better single-level variant chosen on validation seed 16630 and locked before test. Quality and diversity guardrails allow at most 5\% relative degradation, while p95 latency must not exceed 1.20 times fixed-tree TDM under a matched, single-concurrency protocol with at least 100 warm-up and 1,000 measured queries. This relative threshold is not a production SLO.
 
+\subsection{Estimand and statistical procedure}
+For a date--user unit $(d,u)$, let $M_{dus}^{A}$ and $M_{dus}^{B}$ be purchase NDCG@50 for variants $A$ and $B$ under seed $s$. The paired seed-averaged effect is
+\begin{equation}
+\delta_{du}^{A,B}=\frac{1}{3}\sum_{s\in\{16630,16631,16632\}}
+\left(M_{dus}^{A}-M_{dus}^{B}\right),
+\quad
+\widehat{\Delta}^{A,B}=\frac{1}{N}\sum_{d,u}\delta_{du}^{A,B}.
+\label{eq:estimand}
+\end{equation}
+Only users with an observed purchase for the macro purchase metric enter $N$; a user appearing on two dates contributes two date--user units. Each bootstrap replicate samples date--user units with replacement within each date, preserving that date's original unit count, and then recomputes Eq.~\ref{eq:estimand}. The 2.5th and 97.5th percentiles form the interval. A two-sided sign probability yields the raw $p$-value; Holm's step-down procedure adjusts the four RQ contrasts. Success requires a positive adjusted conclusion, a confidence-interval lower bound above zero, and every registered guardrail to pass. Secondary metrics and all slice analyses remain descriptive.
+
+Purchase NDCG uses binary purchase relevance, logarithmic rank discount, and an ideal ranking over the same eligible list; a zero-positive query has score zero and is excluded only from the registered purchase-positive macro average. Recall uses the complete eligible positive count as denominator. Category coverage and maximum category share are computed on the retrieved top 50. Latency excludes data loading and teacher computation but includes user encoding, tree traversal, and top-$K$ materialization.
+
 \input{generated/pending_results_table}
 \FloatBarrier
 
 The dashes in Table~\ref{tab:ptd-results} are intentional. One-day tree-family runs are diagnostics and cannot populate this table. A value is generated only from a schema-valid five-day evaluation, an immutable manifest, and matching hashes.
 
+\subsection{Registered diagnostics and failure analysis}
+Every variant must report all three seeds and all five test dates even when a run loses. The artifact records per-date metrics, cold-start cohorts, category concentration, candidates scored, and latency. Diagnostics may identify implementation defects or explain a failed guardrail, but they cannot choose a different primary variant, test date, seed, cutoff, or tree. A missing seed, non-finite score, duplicate key, candidate-universe mismatch, unlocked tree, or post-test deviation blocks automatic admission and leaves the associated claim pending. No failed slice may be deleted from the machine-readable evaluation.
+
 \subsection{Reproducibility and claim promotion}
-The artifact contains exact JSON Schemas for the run manifest and evaluation, the preregistration and amendment log, a CSV claim--evidence ledger, deterministic generators for every manuscript table/figure, and fail-closed validators. A dependency-free admission checker requires eight registered variants, all seeds and dates, immutable hash linkage, source and frozen-teacher identity, pre-test tree locking, the four registered bootstrap contrasts, and every guardrail. Any deviation blocks automatic claim promotion. Separately, an executable specification tests sibling normalization, descendant-mass aggregation, the temperature-scaled KL objective, balanced paths, and capacity constraints on synthetic inputs. Its output is marked \texttt{SMOKE\_ONLY} and cannot support an empirical claim. Figure~\ref{fig:evidence-flow} shows the promotion path. A claim remains pending if any evidence edge is absent.
+The artifact contains exact JSON Schemas for the run manifest and evaluation, the preregistration and amendment log, a CSV claim--evidence ledger, deterministic generators for every manuscript table/figure, and fail-closed validators. A dependency-free admission checker requires eight registered variants, all seeds and dates, immutable hash linkage, source and frozen-teacher identity, pre-test tree locking, the four registered bootstrap contrasts, and every guardrail. Any deviation blocks automatic claim promotion. Executable specifications cover sibling targets, the objective, balanced assignment, ranking metrics, date-stratified paired bootstrap, Holm adjustment, and guardrails. Their tests use synthetic inputs; the generated record is marked \texttt{SMOKE\_ONLY} and cannot support an empirical claim. Figure~\ref{fig:evidence-flow} shows the promotion path. A claim remains pending if any evidence edge is absent.
 
 \input{generated/evidence_flow}
 \input{generated/claim_status_table}
@@ -160,14 +203,24 @@ ESMM addresses click-conditioned conversion estimation with entire-space multi-t
 
 \input{generated/related_work_table}
 
-\section{Limitations}
-First, the five test dates were used previously for legacy model evaluation. The PTD analysis is prospective only with respect to the PTD readout, not blind to legacy outcomes. Second, the ESMM teacher reflects exposure and conversion processes in historical logs; distillation can reproduce its bias and calibration error. Third, internal-node targets approximate descendant utility within a finite candidate universe and are not catalog-wide probabilities. Fourth, offline purchase NDCG does not establish online causal lift, welfare, satisfaction, or long-term effects. Fifth, balanced trees and beam widths impose a quality--latency tradeoff that may not transfer to other catalogs. Finally, until the registered five-day artifact is complete, this draft cannot support acceptance-level empirical conclusions.
+\section{Limitations and Threats to Validity}
+\paragraph{Construct validity.}
+The ESMM score is a model-based proxy for purchase utility, not ground truth, user satisfaction, or welfare. It reflects historical exposure and can reproduce calibration, popularity, and representation biases. Internal-node mass is defined only over the frozen candidate universe and is not a catalog-wide probability. Purchase NDCG emphasizes short-horizon conversion; the click, diversity, and concentration guardrails reduce but do not eliminate this mismatch.
+
+\paragraph{Internal validity.}
+The five test dates were used previously for legacy model evaluation, so the PTD analysis is prospective only with respect to the PTD readout, not blind to legacy outcomes. Point-in-time assertions, fixed row keys, a frozen teacher, validation-only selection, immutable hashes, and a pre-test tree lock address identifiable leakage paths. They cannot rule out defects in upstream logging or unrecorded feature generation; a hash proves identity, not semantic correctness.
+
+\paragraph{Statistical conclusion validity.}
+Purchases are sparse and five date strata limit temporal replication. Pairing shared requests and seeds reduces variance but does not add dates. Holm correction covers only the four registered primary contrasts. Slice analyses, secondary outcomes, and the teacher oracle are descriptive; absence of significance is not evidence of equivalence.
+
+\paragraph{External validity.}
+One catalog, one historical teacher, a fixed tree family, and one beam/latency protocol limit generalization. Offline NDCG establishes neither online causal lift nor transfer to other catalogs and hardware. Until the five-day artifact is complete, this draft cannot support acceptance-level empirical conclusions; a positive result would still require a separately governed online experiment.
 
 \section{Ethics and Societal Considerations}
-Purchase optimization can over-emphasize high-propensity users or products, amplify exposure inequality, and encourage consumption. The study therefore records category concentration and cold-start cohorts and forbids silent removal of failing slices. Logs must be aggregated or pseudonymized; the paper artifact contains no user identifiers or row-level behavior. Access-controlled URIs are recorded for internal audit but must be replaced by an anonymous, policy-compliant artifact for double-anonymous review. Deployment requires a separate online experiment with user-safety, business, and rollback review; an offline ``candidate'' decision never changes a production flag automatically.
+Purchase optimization can over-emphasize high-propensity users or products, amplify exposure inequality, and encourage consumption. The study records category concentration and cold-start cohorts and forbids silent removal of failing slices. Logs must be aggregated or pseudonymized; the artifact contains no user identifiers or row-level behavior. Access-controlled URIs must be replaced by an anonymous, policy-compliant review artifact. Deployment requires separate user-safety and rollback review; an offline ``candidate'' decision never changes production automatically.
 
 \section{Conclusion}
-We specified Purchase-aware Tree Distillation as a testable integration of a frozen ESMM purchase teacher, sibling-level tree supervision, an HSTU-style sequence encoder, and train-only alternating tree optimization. The main value of the current draft is methodological and procedural: equations, algorithm, preregistered contrasts, and a machine-checkable evidence boundary are complete. \pending{The five-day PTD effect sizes, confidence intervals, latency measurements, and ablation conclusions await a valid artifact.} The conclusion will be revised only after those records pass the declared evidence gate.
+We specified Purchase-aware Tree Distillation as a testable integration of a frozen ESMM purchase teacher, sibling-level tree supervision, an HSTU-style sequence encoder, and train-only alternating tree optimization. The current contribution is methodological and procedural: equations, algorithm, preregistered contrasts, and a machine-checkable evidence boundary. \pending{Five-day PTD effect sizes, confidence intervals, latency measurements, and ablation conclusions await a valid artifact.}
 
 \FloatBarrier
 \bibliographystyle{ACM-Reference-Format}

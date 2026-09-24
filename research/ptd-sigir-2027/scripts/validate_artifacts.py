@@ -98,6 +98,8 @@ def validate_evidence_contracts() -> None:
     assert run_schema["properties"]["latency_protocol"]["properties"]["p95_relative_ceiling"]["const"] == 1.2
     assert evaluation_schema["properties"]["guardrails"]["const"]["latency_p95_relative_ceiling"] == 1.2
     assert evaluation_schema["$defs"]["contrast"]["properties"]["bootstrap_resamples"]["const"] == 10_000
+    assert evaluation_schema["properties"]["inference"]["const"]["unit"] == "date_user_after_seed_average"
+    assert run_schema["properties"]["selected_hyperparameters"]["properties"]["epsilon_item"]["const"] == 1e-6
     preregistration = (ROOT / "artifact" / "preregistration.md").read_text()
     assert "to be filled" not in preregistration
     assert "scripts/check_evidence_candidate.py" in preregistration

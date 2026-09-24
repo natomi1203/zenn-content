@@ -26,6 +26,8 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `reference/ptd.py` は sibling distribution、internal-node teacher 集約、temperature-scaled KL objective、deterministic balanced path、capacity-constrained reassignment の実行可能仕様です。production trainer の代替でも、実験結果でもありません。
 
+`reference/evaluation.py` は binary NDCG/Recall、date-stratified paired bootstrap、percentile interval、two-sided bootstrap sign test、Holm 補正、quality/diversity/latency guardrail を固定します。テストは synthetic 値だけを使い、原稿の結果表には使えません。
+
 ## PTD 結果を取り込む条件
 
 1. `artifact/evaluation.schema.json` 準拠の immutable evaluation JSON。

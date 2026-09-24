@@ -97,7 +97,10 @@ def pending_results() -> None:
         r"PTD item sibling & -- & -- & pending \\",
         r"PTD node sibling & -- & -- & pending \\",
         r"PTD item+node & -- & -- & pending \\",
+        r"Alternating TDM & -- & -- & pending \\",
         r"Alternating PTD & -- & -- & pending \\",
+        r"PTD baseline encoder & -- & -- & pending \\",
+        r"ESMM reranking oracle & -- & -- & pending \\",
         r"\bottomrule\end{tabular}",
         r"\end{table}",
     ]

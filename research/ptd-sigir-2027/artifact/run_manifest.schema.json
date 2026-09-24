@@ -79,12 +79,23 @@
     },
     "selected_hyperparameters": {
       "type": "object",
-      "required": ["selection_seed", "temperature", "lambda_item", "lambda_node"],
+      "required": [
+        "selection_seed",
+        "temperature",
+        "lambda_item",
+        "lambda_node",
+        "epsilon_item",
+        "epsilon_node",
+        "assignment_weight"
+      ],
       "properties": {
         "selection_seed": {"const": 16630},
         "temperature": {"enum": [1.0, 2.0, 4.0]},
         "lambda_item": {"enum": [0.1, 0.3, 1.0]},
-        "lambda_node": {"enum": [0.1, 0.3, 1.0]}
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]},
+        "epsilon_item": {"const": 0.000001},
+        "epsilon_node": {"const": 0.000000000001},
+        "assignment_weight": {"const": "y_plus_teacher_times_path_log_probability"}
       },
       "additionalProperties": false
     },

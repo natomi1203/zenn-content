@@ -63,6 +63,9 @@ def valid_run() -> dict:
             "temperature": 2.0,
             "lambda_item": 0.3,
             "lambda_node": 0.3,
+            "epsilon_item": 1e-6,
+            "epsilon_node": 1e-12,
+            "assignment_weight": "y_plus_teacher_times_path_log_probability",
         },
         "tree": {
             "branching_factor": 2,
@@ -111,6 +114,7 @@ def valid_evaluation(run_manifest_sha256: str) -> dict:
             "holm_adjusted_p": 0.04,
             "bootstrap_resamples": 10_000,
             "bootstrap_seed": 20_260_925,
+            "paired_units": 1109,
             "guardrails_pass": True,
         }
         for name, (numerator, denominator) in EXPECTED_CONTRASTS.items()
@@ -127,6 +131,15 @@ def valid_evaluation(run_manifest_sha256: str) -> dict:
         "assertions": {name: True for name in ASSERTIONS},
         "variants": variants,
         "primary_contrasts": contrasts,
+        "inference": {
+            "unit": "date_user_after_seed_average",
+            "stratification": "test_date",
+            "bootstrap_resamples": 10_000,
+            "bootstrap_seed": 20_260_925,
+            "interval": "percentile_2.5_97.5",
+            "raw_p": "two_sided_bootstrap_sign",
+            "multiplicity": "holm_four_primary_contrasts",
+        },
         "guardrails": {
             "click_ndcg_relative_floor": 0.95,
             "category_coverage_relative_floor": 0.95,
@@ -182,6 +195,13 @@ class EvidenceGateTest(unittest.TestCase):
         report = self.check(mutate_run=lambda value: value.__setitem__("created_at", "2026-09-24T00:00:00"))
         self.assertFalse(report["admissible"])
         self.assertTrue(any("timestamps" in error for error in report["errors"]))
+
+    def test_unregistered_hyperparameter_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value["selected_hyperparameters"].__setitem__("temperature", 3.0)
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("temperature" in error for error in report["errors"]))
 
 
 if __name__ == "__main__":

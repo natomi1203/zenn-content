@@ -15,6 +15,7 @@
     "assertions",
     "variants",
     "primary_contrasts",
+    "inference",
     "guardrails",
     "deviations"
   ],
@@ -87,6 +88,17 @@
         }
       },
       "additionalProperties": false
+    },
+    "inference": {
+      "const": {
+        "unit": "date_user_after_seed_average",
+        "stratification": "test_date",
+        "bootstrap_resamples": 10000,
+        "bootstrap_seed": 20260925,
+        "interval": "percentile_2.5_97.5",
+        "raw_p": "two_sided_bootstrap_sign",
+        "multiplicity": "holm_four_primary_contrasts"
+      }
     },
     "guardrails": {
       "const": {
@@ -206,6 +218,7 @@
         "holm_adjusted_p",
         "bootstrap_resamples",
         "bootstrap_seed",
+        "paired_units",
         "guardrails_pass"
       ],
       "properties": {
@@ -226,6 +239,7 @@
         "holm_adjusted_p": {"type": "number", "minimum": 0, "maximum": 1},
         "bootstrap_resamples": {"const": 10000},
         "bootstrap_seed": {"const": 20260925},
+        "paired_units": {"type": "integer", "minimum": 1},
         "guardrails_pass": {"const": true}
       },
       "additionalProperties": false

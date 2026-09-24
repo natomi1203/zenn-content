@@ -250,6 +250,8 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
             if isinstance(contrast.get("raw_p"), (int, float)) and isinstance(contrast.get("holm_adjusted_p"), (int, float)):
                 if contrast["holm_adjusted_p"] < contrast["raw_p"]:
                     errors.append(f"contrast {name} has Holm p below raw p")
+            if not isinstance(contrast.get("paired_units"), int) or contrast["paired_units"] <= 0:
+                errors.append(f"contrast {name}.paired_units must be positive")
             if contrast.get("guardrails_pass") is not True:
                 errors.append(f"contrast {name}.guardrails_pass must be true for automatic admission")
 
@@ -284,6 +286,34 @@ def validate_evidence(run_manifest_path: Path, evaluation_path: Path) -> list[st
         errors.append("tree must be locked before test")
     elif not isinstance(tree.get("locked_tree_sha256"), str) or not SHA256_RE.fullmatch(tree["locked_tree_sha256"]):
         errors.append("locked tree hash is missing")
+
+    hyperparameters = run.get("selected_hyperparameters")
+    if not isinstance(hyperparameters, dict):
+        errors.append("run.selected_hyperparameters must be an object")
+    else:
+        if hyperparameters.get("selection_seed") != 16630:
+            errors.append("hyperparameter selection seed must equal 16630")
+        if hyperparameters.get("temperature") not in (1.0, 2.0, 4.0):
+            errors.append("temperature is outside the registered grid")
+        for key in ("lambda_item", "lambda_node"):
+            if hyperparameters.get(key) not in (0.1, 0.3, 1.0):
+                errors.append(f"{key} is outside the registered grid")
+        if hyperparameters.get("epsilon_item") != 1e-6 or hyperparameters.get("epsilon_node") != 1e-12:
+            errors.append("teacher-target epsilon values do not match the registration")
+        if hyperparameters.get("assignment_weight") != "y_plus_teacher_times_path_log_probability":
+            errors.append("assignment weight definition mismatch")
+
+    expected_inference = {
+        "unit": "date_user_after_seed_average",
+        "stratification": "test_date",
+        "bootstrap_resamples": 10_000,
+        "bootstrap_seed": 20_260_925,
+        "interval": "percentile_2.5_97.5",
+        "raw_p": "two_sided_bootstrap_sign",
+        "multiplicity": "holm_four_primary_contrasts",
+    }
+    if evaluation.get("inference") != expected_inference:
+        errors.append("evaluation.inference does not match the registered procedure")
 
     created_at = _timestamp(run.get("created_at"))
     test_started_at = _timestamp(run.get("test_scoring_started_at"))
