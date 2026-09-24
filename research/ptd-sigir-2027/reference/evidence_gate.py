@@ -56,6 +56,19 @@ METRIC_BOUNDS = {
 }
 SOURCE_MANIFEST_SHA256 = "33e97c72a3925b5b1ffe5550fbf625e82cacf78f18e073c0be9a2718b4fa1748"
 SOURCE_CONTRACT_SHA256 = "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91"
+RAW_INPUT_INVENTORY_SHA256 = "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3"
+RAW_SEQUENCE_CONTRACT_SHA256 = "c22332825f6baeab6375040f03fad5ed599f893d37e1ba78e215b0016d8ef4b7"
+ITEM_UNIVERSE_AUDIT_SHA256 = "11293abab08c86bf386963d92c27daf116612d590c1a54d65771bdc442147415"
+METHOD_CONTRACT_SHA256 = "8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee"
+TEACHER_CHECKPOINT_SHA256 = "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+CATALOG_ORDER_SHA256 = "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61"
+DATE_ELIGIBILITY_SHA256 = {
+    "2026-08-12": "5e71dc506230819f22f35527310c5c241a705300c0e61bfb5a6ee5ef537a03d4",
+    "2026-08-14": "5600039a543faa8235b26b3a052f870acb2e64ecdbd36c950390f65519367927",
+    "2026-08-25": "e1fc0e68422812a637a6ba1eb46b25c0e7cbe9ac1460b71096712910ba156dd8",
+    "2026-08-26": "bb63904e1b8863f0632381a26d1f5917feabdeacbbbb3625886a6980826f7861",
+    "2026-08-28": "fcc577e51c932f81b5f7c99f7f8a1a754c8013e8dd329c338be195919b7ab46a",
+}
 SHA256_RE = re.compile(r"[0-9a-f]{64}")
 REVISION_RE = re.compile(r"[0-9a-f]{40}")
 FLOAT_ABS_TOLERANCE = 1e-12
@@ -170,6 +183,23 @@ def validate_evidence(
             errors.append("source contract hash mismatch")
         if not isinstance(source.get("manifest_uri"), str) or not source["manifest_uri"]:
             errors.append("source manifest URI is missing")
+        if source.get("raw_input_inventory_sha256") != RAW_INPUT_INVENTORY_SHA256:
+            errors.append("raw input inventory hash mismatch")
+        if not isinstance(source.get("raw_input_inventory_uri"), str) or not source["raw_input_inventory_uri"]:
+            errors.append("raw input inventory URI is missing")
+        if source.get("raw_sequence_contract_sha256") != RAW_SEQUENCE_CONTRACT_SHA256:
+            errors.append("raw sequence contract hash mismatch")
+        if not isinstance(source.get("raw_sequence_contract_uri"), str) or not source["raw_sequence_contract_uri"]:
+            errors.append("raw sequence contract URI is missing")
+        if source.get("item_universe_audit_sha256") != ITEM_UNIVERSE_AUDIT_SHA256:
+            errors.append("item universe audit hash mismatch")
+        if not isinstance(source.get("item_universe_audit_uri"), str) or not source["item_universe_audit_uri"]:
+            errors.append("item universe audit URI is missing")
+
+    method_contract = run.get("method_contract")
+    _check_artifact(method_contract, "run.method_contract", errors)
+    if isinstance(method_contract, dict) and method_contract.get("sha256") != METHOD_CONTRACT_SHA256:
+        errors.append("preregistered method contract hash mismatch")
 
     teacher = run.get("teacher")
     if not isinstance(teacher, dict):
@@ -180,6 +210,9 @@ def validate_evidence(
         if teacher.get("frozen") is not True or teacher.get("score") != "pCTR*pCVR":
             errors.append("teacher must be frozen and use pCTR*pCVR")
         _check_artifact(teacher.get("artifact"), "run.teacher.artifact", errors)
+        if isinstance(teacher.get("artifact"), dict):
+            if teacher["artifact"].get("sha256") != TEACHER_CHECKPOINT_SHA256:
+                errors.append("teacher checkpoint hash mismatch")
 
     _check_exact_assertions(run.get("assertions"), "run.assertions", errors)
     _check_exact_assertions(evaluation.get("assertions"), "evaluation.assertions", errors)
@@ -402,12 +435,30 @@ def validate_evidence(
     tree = run.get("tree")
     if not isinstance(tree, dict) or tree.get("locked_before_test") is not True:
         errors.append("tree must be locked before test")
-    elif not isinstance(tree.get("locked_tree_sha256"), str) or not SHA256_RE.fullmatch(tree["locked_tree_sha256"]):
-        errors.append("locked tree hash is missing")
+    elif not isinstance(tree.get("locked_bundle_sha256"), str) or not SHA256_RE.fullmatch(tree["locked_bundle_sha256"]):
+        errors.append("locked tree bundle hash is missing")
     if isinstance(tree, dict):
-        cycles = tree.get("alternating_cycles_selected")
-        if isinstance(cycles, bool) or not isinstance(cycles, int) or not 0 <= cycles <= 3:
-            errors.append("alternating_cycles_selected must be an integer in [0, 3]")
+        expected_tree_constants = {
+            "branching_factor": 2,
+            "depth": 13,
+            "leaf_capacity": 1,
+            "beam_width": 600,
+            "catalog_order_sha256": CATALOG_ORDER_SHA256,
+            "item_universe_audit_sha256": ITEM_UNIVERSE_AUDIT_SHA256,
+        }
+        for key, expected in expected_tree_constants.items():
+            if tree.get(key) != expected:
+                errors.append(f"tree.{key} does not match the preregistered method")
+        if tree.get("date_eligibility_sha256") != DATE_ELIGIBILITY_SHA256:
+            errors.append("tree date eligibility hashes do not match the fixed candidate sets")
+        cycles_by_seed = tree.get("alternating_cycles_selected_by_seed")
+        expected_seed_keys = {str(seed) for seed in EXPECTED_SEEDS}
+        if not isinstance(cycles_by_seed, dict) or set(cycles_by_seed) != expected_seed_keys:
+            errors.append("alternating cycle selection must cover every seed")
+        else:
+            for seed, cycles in cycles_by_seed.items():
+                if isinstance(cycles, bool) or not isinstance(cycles, int) or not 0 <= cycles <= 3:
+                    errors.append(f"alternating cycles for seed {seed} must be an integer in [0, 3]")
 
     hyperparameters = run.get("selected_hyperparameters")
     if not isinstance(hyperparameters, dict):

@@ -2,7 +2,7 @@
 
 ## 現在地（2026-09-25 JST）
 
-リポジトリ規約確認、独立 worktree、論文 scaffold、preregistration、claim--evidence ledger、関連研究比較表、artifact 契約、証跡境界を守った初稿まで完了しています。PTD の one-day tree-family 診断と prospective five-day 評価は **pending** であり、効果の結論には使っていません。
+リポジトリ規約確認、独立 worktree、論文 scaffold、preregistration、claim--evidence ledger、関連研究比較表、artifact 契約、証跡境界を守った初稿まで完了しています。PTD 実行に必要な raw sequence/category 216 shard と frozen teacher checkpoint に加え、結果列を読まない商品監査と機械可読 method contract により、5,584 商品の catalog envelope、日別 mask、実装可能な二系列 encoder、tree/training 設定も固定しました。PTD の one-day tree-family 診断と prospective five-day 評価は **pending** であり、効果の結論には使っていません。
 
 SIGIR 2027 full-paper の公式要項は公開済みです。英語 PDF、最新 ACM `sigconf` 二段組、参考文献を除く最大 9 ページ、匿名査読、CCS concepts と keywords が必要です。確認日時点で日程には "PROPOSED" と表示されています。詳細は `artifact/venue_requirements.md` に固定しています。
 
@@ -28,10 +28,16 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `reference/evaluation.py` は binary NDCG/Recall、date-stratified paired bootstrap、percentile interval、two-sided bootstrap sign test、Holm 補正、quality/diversity/latency guardrail を固定します。テストは synthetic 値だけを使い、原稿の結果表には使えません。
 
+`artifact/verified/raw_input_inventory.json` は、ユーザー・商品・系列・ラベル本文を保存せず、GCS generation、checksum、Parquet footer schema、行数を記録します。read-only GCS credential と PyArrow がある環境では `uv run --with pyarrow python scripts/inventory_raw_inputs.py` で再生成でき、SHA-256 は `d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3` のままでなければなりません。
+
+`artifact/verified/raw_sequence_contract.json` は生成 SQL を固定し、click/purchase history が別々の直近順・最大30件の商品 ID 列で、event ごとの timestamp を持たないことを証明します。`artifact/verified/item_universe_audit.json` は件数と hash だけを保存し、train/test の unique item が 3,126/4,592、train・validation にない test item が 2,339、固定 envelope が 5,584 item であることを記録します。後者は `uv run --with pyarrow python scripts/audit_item_universe.py` で再生成でき、SHA-256 は `11293abab08c86bf386963d92c27daf116612d590c1a54d65771bdc442147415` です。
+
+`artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
+
 ## PTD 結果を取り込む条件
 
 1. `artifact/evaluation.schema.json` 準拠の immutable evaluation JSON と、`artifact/paired_observation_row.schema.json` に各行が準拠する hash-linked JSONL。
-2. `artifact/run_manifest.schema.json` 準拠の prospective run manifest と、SHA-256 を含む `artifact/manifest.schema.json` 準拠の研究 artifact manifest。
+2. `artifact/run_manifest.schema.json` 準拠の prospective run manifest と、正確な raw-input / sequence / item-universe / method-contract / candidate-mask / frozen-teacher hash および `artifact/manifest.schema.json` 準拠の研究 artifact manifest。
 3. preregistered five-date split、固定 3 seed、test を使った tree 再構築・選択がないこと。
 4. point-in-time assertion と candidate-universe check の通過。
 5. 8 variants、seed/date 別 metrics、4 registered contrasts、matched latency protocol が揃い、deviation がある場合は自動昇格せず手動監査すること。

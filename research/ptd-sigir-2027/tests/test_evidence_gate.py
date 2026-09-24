@@ -15,12 +15,19 @@ from reference.evaluation import (
 )
 from reference.evidence_gate import (
     ASSERTIONS,
+    CATALOG_ORDER_SHA256,
+    DATE_ELIGIBILITY_SHA256,
     EXPECTED_SEEDS,
     EXPECTED_SPLIT,
     EXPECTED_VARIANTS,
+    ITEM_UNIVERSE_AUDIT_SHA256,
+    METHOD_CONTRACT_SHA256,
     METRIC_BOUNDS,
+    RAW_INPUT_INVENTORY_SHA256,
+    RAW_SEQUENCE_CONTRACT_SHA256,
     SOURCE_CONTRACT_SHA256,
     SOURCE_MANIFEST_SHA256,
+    TEACHER_CHECKPOINT_SHA256,
     admission_report,
 )
 
@@ -74,6 +81,10 @@ def write_paired_score_rows(path: Path) -> list[PairedScoreRow]:
 
 def valid_run() -> dict:
     artifact = {"uri": "gs://example.invalid/artifact", "sha256": "b" * 64}
+    teacher_artifact = {
+        "uri": "gs://example.invalid/frozen-teacher.pt",
+        "sha256": TEACHER_CHECKPOINT_SHA256,
+    }
     return {
         "schema_version": "ptd-run-manifest/v1",
         "status": "complete",
@@ -86,12 +97,22 @@ def valid_run() -> dict:
             "manifest_uri": "gs://example.invalid/source/manifest.json",
             "manifest_sha256": SOURCE_MANIFEST_SHA256,
             "source_contract_sha256": SOURCE_CONTRACT_SHA256,
+            "raw_input_inventory_uri": "artifact/verified/raw_input_inventory.json",
+            "raw_input_inventory_sha256": RAW_INPUT_INVENTORY_SHA256,
+            "raw_sequence_contract_uri": "artifact/verified/raw_sequence_contract.json",
+            "raw_sequence_contract_sha256": RAW_SEQUENCE_CONTRACT_SHA256,
+            "item_universe_audit_uri": "artifact/verified/item_universe_audit.json",
+            "item_universe_audit_sha256": ITEM_UNIVERSE_AUDIT_SHA256,
+        },
+        "method_contract": {
+            "uri": "artifact/preregistered_method.json",
+            "sha256": METHOD_CONTRACT_SHA256,
         },
         "teacher": {
             "teacher_id": "legacy_loss_shared_bottom_esmm_v2",
             "frozen": True,
             "score": "pCTR*pCVR",
-            "artifact": artifact,
+            "artifact": teacher_artifact,
         },
         "split": copy.deepcopy(EXPECTED_SPLIT),
         "seeds": list(EXPECTED_SEEDS),
@@ -121,13 +142,18 @@ def valid_run() -> dict:
         },
         "tree": {
             "branching_factor": 2,
-            "depth": 12,
+            "depth": 13,
             "leaf_capacity": 1,
-            "beam_width": 50,
-            "alternating_cycles_selected": 1,
+            "beam_width": 600,
+            "catalog_order_sha256": CATALOG_ORDER_SHA256,
+            "item_universe_audit_sha256": ITEM_UNIVERSE_AUDIT_SHA256,
+            "date_eligibility_sha256": dict(DATE_ELIGIBILITY_SHA256),
+            "alternating_cycles_selected_by_seed": {
+                str(seed): 1 for seed in EXPECTED_SEEDS
+            },
             "locked_before_test": True,
             "locked_at": "2026-09-24T01:00:00Z",
-            "locked_tree_sha256": "c" * 64,
+            "locked_bundle_sha256": "c" * 64,
         },
         "latency_protocol": {
             "baseline_variant": "fixed_tdm",
@@ -244,6 +270,47 @@ class EvidenceGateTest(unittest.TestCase):
         report = self.check(mutate_evaluation=lambda value: value.__setitem__("run_manifest_sha256", "0" * 64))
         self.assertFalse(report["admissible"])
         self.assertTrue(any("run_manifest_sha256" in error for error in report["errors"]))
+
+    def test_raw_input_inventory_hash_mismatch_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value["source_contract"].__setitem__(
+                "raw_input_inventory_sha256", "0" * 64
+            )
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("raw input inventory hash" in error for error in report["errors"]))
+
+    def test_teacher_checkpoint_hash_mismatch_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value["teacher"]["artifact"].__setitem__("sha256", "0" * 64)
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("teacher checkpoint hash" in error for error in report["errors"]))
+
+    def test_sequence_contract_hash_mismatch_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value["source_contract"].__setitem__(
+                "raw_sequence_contract_sha256", "0" * 64
+            )
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("raw sequence contract hash" in error for error in report["errors"]))
+
+    def test_method_contract_hash_mismatch_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value["method_contract"].__setitem__("sha256", "0" * 64)
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("method contract hash" in error for error in report["errors"]))
+
+    def test_candidate_mask_hash_mismatch_fails_closed(self) -> None:
+        report = self.check(
+            mutate_run=lambda value: value["tree"]["date_eligibility_sha256"].__setitem__(
+                "2026-08-12", "0" * 64
+            )
+        )
+        self.assertFalse(report["admissible"])
+        self.assertTrue(any("date eligibility hashes" in error for error in report["errors"]))
 
     def test_paired_observation_hash_mismatch_fails_closed(self) -> None:
         report = self.check(

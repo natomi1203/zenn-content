@@ -1,0 +1,185 @@
+{
+  "contract_version": "ptd-preregistered-method/v1",
+  "status": "PREREGISTERED",
+  "result_readout_present_when_frozen": false,
+  "source": {
+    "raw_input_inventory_sha256": "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3",
+    "raw_sequence_contract_sha256": "c22332825f6baeab6375040f03fad5ed599f893d37e1ba78e215b0016d8ef4b7",
+    "item_universe_audit_sha256": "11293abab08c86bf386963d92c27daf116612d590c1a54d65771bdc442147415",
+    "teacher_checkpoint_sha256": "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+  },
+  "sequence_input": {
+    "streams": [
+      {
+        "name": "click",
+        "field": "click_seq_product_id",
+        "delimiter": ";",
+        "stored_order": "most_recent_first",
+        "model_order": "oldest_to_newest_after_reversal",
+        "maximum_length": 30
+      },
+      {
+        "name": "purchase",
+        "field": "purchase_seq_product_id",
+        "delimiter": ";",
+        "stored_order": "most_recent_first",
+        "model_order": "oldest_to_newest_after_reversal",
+        "maximum_length": 30
+      }
+    ],
+    "per_event_time_encoding": false,
+    "cross_stream_merge": false,
+    "empty_stream": "dedicated_learned_token",
+    "future_mask": "causal_with_padding_mask"
+  },
+  "catalog_and_tree": {
+    "catalog_scope": "union_of_fixed_candidate_items_across_registered_train_valid_test_dates",
+    "catalog_item_count": 5584,
+    "transductive_fields": [
+      "product_id",
+      "first_category"
+    ],
+    "transductive_outcomes_or_teacher_scores": false,
+    "canonical_category_rule": "category_at_earliest_registered_snapshot_then_lexical_tie_break",
+    "catalog_order": "first_category_utf8_then_product_id_lexical",
+    "catalog_order_sha256": "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61",
+    "branching_factor": 2,
+    "depth": 13,
+    "leaf_capacity": 1,
+    "physical_leaf_count": 8192,
+    "padding_leaf_count": 2608,
+    "fixed_assignment": "ordered_item_at_zero_based_position_encoded_as_13_bit_path",
+    "date_eligibility": "mask_every_item_absent_from_that_dates_fixed_candidate_item_set_before_beam_search",
+    "test_only_vs_pretest_items": 2339,
+    "cold_item_rule": "items_without_training rows retain the fixed category-order path and use the shared hash/category representation; they receive no identity-specific outcome update",
+    "alternating_rule": "only train-seen items may be reassigned; validation/test-only items remain anchored; all assignments preserve one item per physical leaf",
+    "tree_lock": "fixed and alternating tree artifacts plus every date eligibility-mask hash are written before test scoring"
+  },
+  "hstu_style_encoder": {
+    "implementation_label": "two_stream_shared_hstu_style_v1",
+    "item_hash_bucket_size": 200000,
+    "item_embedding_dim": 64,
+    "stream_type_embedding_dim": 8,
+    "maximum_length_per_stream": 30,
+    "shared_parameters_across_streams": true,
+    "num_layers": 2,
+    "num_heads": 4,
+    "hidden_dim": 64,
+    "attention_dim": 64,
+    "position_buckets": 64,
+    "time_buckets": 0,
+    "use_time_encoding": false,
+    "use_group_norm": true,
+    "block": "gated_sequential_transduction_unit",
+    "stream_readout": "final_non_padding_state",
+    "user_id_hash_bucket_size": 1000000,
+    "user_id_embedding_dim": 64,
+    "fusion": "concat_user_click_purchase_then_linear_192_to_64_silu_layernorm"
+  },
+  "baseline_encoder": {
+    "implementation_label": "two_stream_multiwindow_din_v1",
+    "shared_item_user_and_stream_embeddings": true,
+    "maximum_length_per_stream": 30,
+    "windows_most_recent_first": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      10
+    ],
+    "attention_mlp_hidden_units": [
+      64
+    ],
+    "stream_fusion_width": 64,
+    "same_input_fields": true,
+    "same_tree_scorer_optimizer_and_training_examples": true,
+    "parameter_equality_claimed": false,
+    "report_trainable_parameter_count_and_measured_latency": true
+  },
+  "tree_scorer": {
+    "product_id_hash_bucket_size": 200000,
+    "product_id_embedding_dim": 64,
+    "category_hash_bucket_size": 10000,
+    "category_embedding_dim": 64,
+    "parent_uses_shared_product_embedding": true,
+    "tree_level_scalar": true,
+    "teacher_score_as_serving_feature": false,
+    "hidden_units": [
+      256,
+      128,
+      64,
+      32
+    ],
+    "output": "one_sibling_logit"
+  },
+  "training": {
+    "seeds": [
+      16630,
+      16631,
+      16632
+    ],
+    "batch_size": 64,
+    "epochs_per_fit": 2,
+    "sparse_optimizer": {
+      "name": "adagrad",
+      "learning_rate": 0.001,
+      "schedule": "constant"
+    },
+    "dense_optimizer": {
+      "name": "adam",
+      "learning_rate": 0.001,
+      "schedule": "constant"
+    },
+    "layer_negative_samples_root_to_leaf": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128
+    ],
+    "beam_width": 600,
+    "retrieval_top_k": 600,
+    "maximum_alternating_cycles": 3
+  },
+  "distillation": {
+    "temperature_grid": [
+      1.0,
+      2.0,
+      4.0
+    ],
+    "lambda_item_grid": [
+      0.1,
+      0.3,
+      1.0
+    ],
+    "lambda_node_grid": [
+      0.1,
+      0.3,
+      1.0
+    ],
+    "epsilon_item": 0.000001,
+    "epsilon_node": 0.000000000001,
+    "selection_seed": 16630,
+    "teacher_usage_at_test": "teacher_oracle_variant_only"
+  },
+  "runtime": {
+    "container_image": "us-central1-docker.pkg.dev/kauche-app-lab/kauche-app/tzrec-mmoe-training:1.3.9-cu130-py312",
+    "machine_type": "g2-standard-16",
+    "accelerator_type": "NVIDIA_L4",
+    "accelerator_count": 1,
+    "framework_family": "TorchEasyRec_1.3.9",
+    "launch_authorization": "required_before_cloud_compute"
+  },
+  "scope_note": "This contract fixes an implementable design before any prospective PTD five-day readout. The catalog envelope is explicitly transductive in item identity and category only; efficacy, latency, and novelty remain pending."
+}

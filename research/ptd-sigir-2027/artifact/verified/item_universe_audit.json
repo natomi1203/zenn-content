@@ -1,0 +1,120 @@
+{
+  "all_unique_items": 5584,
+  "catalog_envelope": {
+    "binary_category_order_sha256": "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61",
+    "canonical_category_rule": "category_at_earliest_registered_snapshot_then_lexical_tie_break",
+    "canonical_mapping_sha256": "1ea56aa87156550d35766e619c1a3cf425a434ad1475984cbeb580947ef78ed1",
+    "item_count": 5584,
+    "scope": "union_of_fixed_candidate_items_across_registered_train_valid_test_dates",
+    "transductive_item_identity_and_category_only": true,
+    "uses_labels": false,
+    "uses_teacher_scores": false
+  },
+  "category_consistency": {
+    "items_with_cross_date_conflict": 0,
+    "items_with_within_date_conflict": 0
+  },
+  "checks": {
+    "identifiers_persisted_locally": false,
+    "outcomes_or_teacher_scores_read": false,
+    "row_count_matches_raw_inventory": true,
+    "row_payloads_persisted_locally": false
+  },
+  "columns_read": [
+    "snapshot_date",
+    "product_id",
+    "is_new_product",
+    "first_category"
+  ],
+  "contract_version": "ptd-item-universe-audit/v1",
+  "outcome_columns_read": [],
+  "overlap": {
+    "test_only_vs_pretest": 2339,
+    "test_only_vs_train": 2399,
+    "test_overlap_pretest": 2253,
+    "validation_only_vs_train": 119
+  },
+  "per_date": {
+    "2026-07-18": {
+      "eligible_item_set_sha256": "b989f2147fd6b31498e50c1a58ebd1a7a4b2760901a391140bef64f030c11586",
+      "new_flag_items": 60,
+      "new_flag_rows": 41111,
+      "rows": 2656800,
+      "unique_items": 2792
+    },
+    "2026-07-19": {
+      "eligible_item_set_sha256": "2122897fbaee8c18284d4375231af2153c88324211983cd7cf940b78c95e1f36",
+      "new_flag_items": 70,
+      "new_flag_rows": 48300,
+      "rows": 2905200,
+      "unique_items": 2815
+    },
+    "2026-07-20": {
+      "eligible_item_set_sha256": "3989b880ff98c5babe13f2893c0534de9863a84d737fb6a8e02f2d287e6b58d6",
+      "new_flag_items": 66,
+      "new_flag_rows": 42936,
+      "rows": 2805000,
+      "unique_items": 2795
+    },
+    "2026-07-21": {
+      "eligible_item_set_sha256": "4c84fc3319cd6231568d0bbabe400ec3aeae16d90c274348422a6f3e38fc6313",
+      "new_flag_items": 67,
+      "new_flag_rows": 41385,
+      "rows": 2549340,
+      "unique_items": 2815
+    },
+    "2026-08-12": {
+      "eligible_item_set_sha256": "5e71dc506230819f22f35527310c5c241a705300c0e61bfb5a6ee5ef537a03d4",
+      "new_flag_items": 73,
+      "new_flag_rows": 46229,
+      "rows": 2578200,
+      "unique_items": 2823
+    },
+    "2026-08-14": {
+      "eligible_item_set_sha256": "5600039a543faa8235b26b3a052f870acb2e64ecdbd36c950390f65519367927",
+      "new_flag_items": 92,
+      "new_flag_rows": 59353,
+      "rows": 2423400,
+      "unique_items": 2824
+    },
+    "2026-08-25": {
+      "eligible_item_set_sha256": "e1fc0e68422812a637a6ba1eb46b25c0e7cbe9ac1460b71096712910ba156dd8",
+      "new_flag_items": 63,
+      "new_flag_rows": 53245,
+      "rows": 2697600,
+      "unique_items": 2822
+    },
+    "2026-08-26": {
+      "eligible_item_set_sha256": "bb63904e1b8863f0632381a26d1f5917feabdeacbbbb3625886a6980826f7861",
+      "new_flag_items": 70,
+      "new_flag_rows": 62020,
+      "rows": 2604600,
+      "unique_items": 2846
+    },
+    "2026-08-28": {
+      "eligible_item_set_sha256": "fcc577e51c932f81b5f7c99f7f8a1a754c8013e8dd329c338be195919b7ab46a",
+      "new_flag_items": 78,
+      "new_flag_rows": 67422,
+      "rows": 2541000,
+      "unique_items": 2862
+    }
+  },
+  "pretest_unique_items": 3245,
+  "raw_input_inventory": {
+    "path": "artifact/verified/raw_input_inventory.json",
+    "sha256": "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3"
+  },
+  "scope_note": "The artifact stores only counts and canonical SHA-256 fingerprints. Product identifiers and categories are held in memory for set auditing and are not emitted; user IDs and outcomes are not read.",
+  "split_item_set_sha256": {
+    "test": "89b63eb5f06c4288d28a0d765f6c45e1e062f8706206d765608f0750cc69fd6c",
+    "train": "f138a88611a95a1e39ffdc8d0f34d4f173259b52460dbf03f0d7c6a349f029b1",
+    "valid": "4c84fc3319cd6231568d0bbabe400ec3aeae16d90c274348422a6f3e38fc6313"
+  },
+  "split_unique_items": {
+    "test": 4592,
+    "train": 3126,
+    "valid": 2815
+  },
+  "status": "VERIFIED",
+  "user_columns_read": []
+}

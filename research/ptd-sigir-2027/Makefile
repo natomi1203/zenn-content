@@ -1,9 +1,10 @@
 PYTHON ?= python3
+PYARROW_RUN ?= uv run --with pyarrow python
 TECTONIC ?= tectonic
 TECTONIC_BUNDLE ?= https://data1.fullyjustified.net/tlextras-2022.0r0.tar
 SOURCE_DATE_EPOCH ?= 1790262000
 
-.PHONY: all generate test smoke finalize validate check-evidence paper paper-review paper-author clean
+.PHONY: all generate test smoke audit-source finalize validate check-evidence paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -17,6 +18,10 @@ test:
 
 smoke:
 	$(PYTHON) scripts/run_reference_smoke.py
+
+audit-source:
+	$(PYARROW_RUN) scripts/inventory_raw_inputs.py
+	$(PYARROW_RUN) scripts/audit_item_universe.py
 
 finalize:
 	$(PYTHON) scripts/finalize_manifest.py

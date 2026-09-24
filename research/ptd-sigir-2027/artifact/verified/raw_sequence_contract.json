@@ -1,0 +1,46 @@
+{
+  "contract_version": "ptd-raw-sequence-contract/v1",
+  "status": "VERIFIED",
+  "source_sql": {
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/build_lab_offline_evidence_f065.sql",
+    "sha256": "cda3ca1312d1060bb9690d3a9da0edd763b178ea4914f107ea58f540b9c98f65"
+  },
+  "history_window_days": 28,
+  "snapshot_exclusive": true,
+  "streams": {
+    "click": {
+      "field": "click_seq_product_id",
+      "delimiter": ";",
+      "maximum_length": 30,
+      "stored_order": "event_timestamp_utc_desc_then_event_id_asc",
+      "per_event_timestamp_persisted": false,
+      "empty_value": ""
+    },
+    "purchase": {
+      "field": "purchase_seq_product_id",
+      "delimiter": ";",
+      "maximum_length": 30,
+      "stored_order": "event_timestamp_utc_desc_then_product_id_asc",
+      "per_event_timestamp_persisted": false,
+      "empty_value": ""
+    }
+  },
+  "available_time_fields": [
+    "snapshot_timestamp_utc",
+    "history_click_max_timestamp_utc",
+    "history_purchase_max_timestamp_utc",
+    "feature_source_max_timestamp_utc"
+  ],
+  "unavailable_for_sequence_encoding": [
+    "per_click_event_timestamp",
+    "per_purchase_event_timestamp",
+    "cross_stream_total_order"
+  ],
+  "checks": {
+    "history_precedes_snapshot": true,
+    "sequence_lengths_bounded": true,
+    "per_event_time_gap_encoding_supported": false,
+    "cross_stream_merge_supported": false
+  },
+  "scope_note": "The immutable SQL proves separate most-recent-first click and purchase identifier streams. It does not retain the event timestamps needed for per-token time gaps or a total order across streams."
+}

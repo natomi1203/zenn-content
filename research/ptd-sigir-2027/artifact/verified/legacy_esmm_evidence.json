@@ -14,6 +14,18 @@
     "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/output/offline_evidence.json",
     "sha256": "3ebd22ede0c716593bf97f01ca42a715bc7c5522fa73cbcb5d5464cac1394dfc"
   },
+  "teacher": {
+    "teacher_id": "legacy_loss_shared_bottom_esmm_v2",
+    "selection_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/shared_bottom_esmm_v2/selection/locked_candidate.json",
+    "checkpoint_metric": "valid_loss",
+    "checkpoint_epoch": 4,
+    "checkpoint": {
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/shared_bottom_esmm_v2/search/legacy_loss/seed-16630/checkpoint-valid_loss.pt",
+      "sha256": "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+    },
+    "score": "pCTR*pCVR",
+    "frozen": true
+  },
   "split": {
     "train": ["2026-07-18", "2026-07-19", "2026-07-20"],
     "validation": ["2026-07-21"],

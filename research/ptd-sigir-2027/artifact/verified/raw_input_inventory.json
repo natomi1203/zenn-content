@@ -1,0 +1,3432 @@
+{
+  "boundary_shard_count": 8,
+  "checks": {
+    "required_columns_present": true,
+    "row_count_matches_verified_source": true,
+    "row_payloads_persisted_locally": false,
+    "split_row_counts_match_verified_source": true,
+    "uniform_schema": true
+  },
+  "contract_version": "ptd-raw-input-inventory/v1",
+  "object_count": 216,
+  "object_identity_sha256": "0190c901cb48f5100e649564e30a6b213cccde125fab13baa36aabb26e0d8348",
+  "objects": [
+    {
+      "crc32c_base64": "rlv3bg==",
+      "generation": "1789796186863917",
+      "md5_base64": "g9hXvqIhDJha1e+eG63VDQ==",
+      "row_groups": 1,
+      "rows": 109200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5321087,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 109200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000000.parquet"
+    },
+    {
+      "crc32c_base64": "GEDWkA==",
+      "generation": "1789796185768935",
+      "md5_base64": "l4D4IpTtuBIwKv4CdgRKTw==",
+      "row_groups": 1,
+      "rows": 96000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4726429,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 96000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000001.parquet"
+    },
+    {
+      "crc32c_base64": "bn3wCw==",
+      "generation": "1789796186988890",
+      "md5_base64": "OjGBzFujcVu8U4TpGu2LJA==",
+      "row_groups": 1,
+      "rows": 125400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6249084,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 125400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000002.parquet"
+    },
+    {
+      "crc32c_base64": "AarDaA==",
+      "generation": "1789796204019602",
+      "md5_base64": "EAuiIuSHziM4yaQmVV/0AQ==",
+      "row_groups": 1,
+      "rows": 108000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5339394,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 108000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000003.parquet"
+    },
+    {
+      "crc32c_base64": "p043UA==",
+      "generation": "1789796185410884",
+      "md5_base64": "0IXRmlEuR5TrRwWa8ZCeAQ==",
+      "row_groups": 1,
+      "rows": 127800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6343037,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 127800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000004.parquet"
+    },
+    {
+      "crc32c_base64": "x9gIwg==",
+      "generation": "1789796184209986",
+      "md5_base64": "VZdHcQOSUK5aId5B1lhxmA==",
+      "row_groups": 1,
+      "rows": 97800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4829843,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 97800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000005.parquet"
+    },
+    {
+      "crc32c_base64": "3nPPNA==",
+      "generation": "1789796185555669",
+      "md5_base64": "+oy2Mcrgvf0nuLSyFnkgzw==",
+      "row_groups": 1,
+      "rows": 92400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4589515,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 92400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000006.parquet"
+    },
+    {
+      "crc32c_base64": "NPpTyw==",
+      "generation": "1789796185984465",
+      "md5_base64": "fYujJmOvVGKTCWG96QoqWA==",
+      "row_groups": 1,
+      "rows": 83400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4095831,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 83400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000007.parquet"
+    },
+    {
+      "crc32c_base64": "c5OrsA==",
+      "generation": "1789796186193108",
+      "md5_base64": "nemc0OKyIf1WMyExyFOtKA==",
+      "row_groups": 1,
+      "rows": 109200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5369250,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 109200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000008.parquet"
+    },
+    {
+      "crc32c_base64": "LO4y7g==",
+      "generation": "1789796185958338",
+      "md5_base64": "j+naeZlewle+4ZJ5cp+low==",
+      "row_groups": 1,
+      "rows": 94800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4687738,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 94800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000009.parquet"
+    },
+    {
+      "crc32c_base64": "HiFdGg==",
+      "generation": "1789796186557566",
+      "md5_base64": "KfltWqB5GldvxTFQgHUbiQ==",
+      "row_groups": 1,
+      "rows": 129000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6364940,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 129000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000010.parquet"
+    },
+    {
+      "crc32c_base64": "c3pMkw==",
+      "generation": "1789796185346025",
+      "md5_base64": "HnWD6xrY0fuEKPQBuVoJ/g==",
+      "row_groups": 1,
+      "rows": 108000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5328775,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 108000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000011.parquet"
+    },
+    {
+      "crc32c_base64": "7E81wQ==",
+      "generation": "1789796185017045",
+      "md5_base64": "Do+ICGAnSnQcy9KQAshUpQ==",
+      "row_groups": 1,
+      "rows": 96600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4783596,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 96600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000012.parquet"
+    },
+    {
+      "crc32c_base64": "7UnZag==",
+      "generation": "1789796201757117",
+      "md5_base64": "pBBt3BzX8lKp6kTTaC93qw==",
+      "row_groups": 1,
+      "rows": 96000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4745365,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 96000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000013.parquet"
+    },
+    {
+      "crc32c_base64": "4nf/yA==",
+      "generation": "1789796185037880",
+      "md5_base64": "oN3G0TZdIcsMj6XVJEnjEQ==",
+      "row_groups": 1,
+      "rows": 125400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6124046,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 125400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000014.parquet"
+    },
+    {
+      "crc32c_base64": "innUvg==",
+      "generation": "1789796186111741",
+      "md5_base64": "+owoxk0NqjsVqbDFi0i01Q==",
+      "row_groups": 1,
+      "rows": 94800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4681601,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 94800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000015.parquet"
+    },
+    {
+      "crc32c_base64": "i2lZMA==",
+      "generation": "1789796204052251",
+      "md5_base64": "/hG6Zd1Zaz96Hv++BvFInQ==",
+      "row_groups": 1,
+      "rows": 118200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5838147,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 118200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000016.parquet"
+    },
+    {
+      "crc32c_base64": "+UT+mA==",
+      "generation": "1789796186870267",
+      "md5_base64": "ENJe0zJQNCg4bCsiYU+1KA==",
+      "row_groups": 1,
+      "rows": 105000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5101163,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 105000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000017.parquet"
+    },
+    {
+      "crc32c_base64": "iyAlEg==",
+      "generation": "1789796185759857",
+      "md5_base64": "GvvZlcRVVT4uPW7DZfblGQ==",
+      "row_groups": 1,
+      "rows": 108000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5327339,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 108000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000018.parquet"
+    },
+    {
+      "crc32c_base64": "Jv3GLA==",
+      "generation": "1789796186559461",
+      "md5_base64": "FM2ZRpP7IQBdXBKA/l7C2A==",
+      "row_groups": 1,
+      "rows": 115200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5674605,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 115200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000019.parquet"
+    },
+    {
+      "crc32c_base64": "BA5efw==",
+      "generation": "1789796201138503",
+      "md5_base64": "fY0Oh6lsfMlGCctPQbZbNg==",
+      "row_groups": 1,
+      "rows": 111600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5528609,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 111600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000020.parquet"
+    },
+    {
+      "crc32c_base64": "zvCNxw==",
+      "generation": "1789796187723678",
+      "md5_base64": "+y0q85hdt7j7NRXjFD3B8g==",
+      "row_groups": 1,
+      "rows": 101400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5029078,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000021.parquet"
+    },
+    {
+      "crc32c_base64": "rECn2Q==",
+      "generation": "1789796186418653",
+      "md5_base64": "x0nGvCLxaey7/eDQ0NJ32g==",
+      "row_groups": 1,
+      "rows": 102600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5050999,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 102600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000022.parquet"
+    },
+    {
+      "crc32c_base64": "qefWlA==",
+      "generation": "1789796186365580",
+      "md5_base64": "fioA+ElEg6OOLgRtBOP9yQ==",
+      "row_groups": 1,
+      "rows": 106200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5227220,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 106200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000023.parquet"
+    },
+    {
+      "crc32c_base64": "LiuZAg==",
+      "generation": "1789796205631252",
+      "md5_base64": "UBc+MOl/ZhsqHlYfwFlh5w==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5244410,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000024.parquet"
+    },
+    {
+      "crc32c_base64": "CeKg+A==",
+      "generation": "1789796186189403",
+      "md5_base64": "ST91f7Xes1DmoPMfDKal0w==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5616528,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000025.parquet"
+    },
+    {
+      "crc32c_base64": "5IrkGA==",
+      "generation": "1789796186269047",
+      "md5_base64": "7x2OWfw75U/H+Srsw7q0LA==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5037648,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000026.parquet"
+    },
+    {
+      "crc32c_base64": "FUSVBQ==",
+      "generation": "1789796186152652",
+      "md5_base64": "TxW7SNibC+JGzCTjNWFymw==",
+      "row_groups": 1,
+      "rows": 117600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5771841,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 117600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000027.parquet"
+    },
+    {
+      "crc32c_base64": "uRKI4Q==",
+      "generation": "1789796186496841",
+      "md5_base64": "VRBEuygTKt45UgnSP7h4GQ==",
+      "row_groups": 1,
+      "rows": 119400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5983024,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 66600,
+        "2026-07-19": 52800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000028.parquet"
+    },
+    {
+      "crc32c_base64": "wDb91g==",
+      "generation": "1789796204476804",
+      "md5_base64": "SzhILIhC0pAjT/qVAdBogQ==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5592611,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000029.parquet"
+    },
+    {
+      "crc32c_base64": "HviC2Q==",
+      "generation": "1789796186144795",
+      "md5_base64": "okFRMs1vdnRA5mF1m4Fs9g==",
+      "row_groups": 1,
+      "rows": 94200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4640815,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 94200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000030.parquet"
+    },
+    {
+      "crc32c_base64": "TqYVYQ==",
+      "generation": "1789796205285729",
+      "md5_base64": "k7NpLXbtKdlaT61SesEj0A==",
+      "row_groups": 1,
+      "rows": 123000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6112007,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 123000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000031.parquet"
+    },
+    {
+      "crc32c_base64": "CB/rdQ==",
+      "generation": "1789796186359204",
+      "md5_base64": "3G8hWEv3jT+x878Q29+nhA==",
+      "row_groups": 1,
+      "rows": 107400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5302585,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 107400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000032.parquet"
+    },
+    {
+      "crc32c_base64": "mspKkQ==",
+      "generation": "1789796187005554",
+      "md5_base64": "rkZYB9/pcgX0GgHc0Gf8AA==",
+      "row_groups": 1,
+      "rows": 133200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6606677,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 133200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000033.parquet"
+    },
+    {
+      "crc32c_base64": "iTn/zg==",
+      "generation": "1789796186713073",
+      "md5_base64": "/08rRZDm+vKFTjhMo7PPJg==",
+      "row_groups": 1,
+      "rows": 115200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5636178,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 115200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000034.parquet"
+    },
+    {
+      "crc32c_base64": "HepY4Q==",
+      "generation": "1789796185919287",
+      "md5_base64": "qRzyKDNWWdiJN7kSLlSWng==",
+      "row_groups": 1,
+      "rows": 98400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4839015,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 98400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000035.parquet"
+    },
+    {
+      "crc32c_base64": "O0OjAg==",
+      "generation": "1789796205050659",
+      "md5_base64": "cYY2I/w9yLB5Xm+//2Igrw==",
+      "row_groups": 1,
+      "rows": 99600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4905579,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 99600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000036.parquet"
+    },
+    {
+      "crc32c_base64": "TBDEdw==",
+      "generation": "1789796185586549",
+      "md5_base64": "xQMHv/L1oZx6p1ZeqJPaEA==",
+      "row_groups": 1,
+      "rows": 98400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4866681,
+      "snapshot_date_max": "2026-07-18",
+      "snapshot_date_min": "2026-07-18",
+      "snapshot_date_rows": {
+        "2026-07-18": 98400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000037.parquet"
+    },
+    {
+      "crc32c_base64": "QdZbZg==",
+      "generation": "1789796185136639",
+      "md5_base64": "HYiF64qVhsRcRkb+4tei+Q==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5140600,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000038.parquet"
+    },
+    {
+      "crc32c_base64": "cclzBA==",
+      "generation": "1789796199448108",
+      "md5_base64": "/g+LqYoFHt9+zGXULsANag==",
+      "row_groups": 1,
+      "rows": 98400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4882063,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 98400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000039.parquet"
+    },
+    {
+      "crc32c_base64": "qqF02Q==",
+      "generation": "1789796185226354",
+      "md5_base64": "CsEi8ypI9zYNLxB0RuvF3A==",
+      "row_groups": 1,
+      "rows": 115200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5723598,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 115200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000040.parquet"
+    },
+    {
+      "crc32c_base64": "Gtw4Ng==",
+      "generation": "1789796186104396",
+      "md5_base64": "+Ec0VcnAgohD8cZvPFr1KA==",
+      "row_groups": 1,
+      "rows": 96600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4789247,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 96600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000041.parquet"
+    },
+    {
+      "crc32c_base64": "jK6FTg==",
+      "generation": "1789796192291210",
+      "md5_base64": "cTVZxYdvPO/QmdlQNMmn+Q==",
+      "row_groups": 1,
+      "rows": 105600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5225475,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 105600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000042.parquet"
+    },
+    {
+      "crc32c_base64": "1mWtqw==",
+      "generation": "1789796186618335",
+      "md5_base64": "GoTJGbczcpFAGFUXD5YEww==",
+      "row_groups": 1,
+      "rows": 105000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5158839,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 105000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000043.parquet"
+    },
+    {
+      "crc32c_base64": "6tcjMA==",
+      "generation": "1789796185815129",
+      "md5_base64": "LZF57G4tSMYrXlqV2gJuew==",
+      "row_groups": 1,
+      "rows": 115800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5730269,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 115800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000044.parquet"
+    },
+    {
+      "crc32c_base64": "ximZqw==",
+      "generation": "1789796195165214",
+      "md5_base64": "egMyvHHn2eL7VB03j2IOhw==",
+      "row_groups": 1,
+      "rows": 111600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5563944,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 111600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000045.parquet"
+    },
+    {
+      "crc32c_base64": "F/DFig==",
+      "generation": "1789796187052354",
+      "md5_base64": "Df+i3b18IE2271nzvRv8dw==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5600525,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000046.parquet"
+    },
+    {
+      "crc32c_base64": "kGueEQ==",
+      "generation": "1789796186028151",
+      "md5_base64": "qazMRJQvsVhD7XXDEFZWEw==",
+      "row_groups": 1,
+      "rows": 128400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6250747,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 128400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000047.parquet"
+    },
+    {
+      "crc32c_base64": "amyWYA==",
+      "generation": "1789796187051413",
+      "md5_base64": "TNiFo/brhD4VBTQ9WNQAtw==",
+      "row_groups": 1,
+      "rows": 114000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5639058,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 114000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000048.parquet"
+    },
+    {
+      "crc32c_base64": "haYn2g==",
+      "generation": "1789796203435273",
+      "md5_base64": "WRsze8WmOCagub2O+T1YQA==",
+      "row_groups": 1,
+      "rows": 127200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6230633,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 127200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000049.parquet"
+    },
+    {
+      "crc32c_base64": "yq4m5w==",
+      "generation": "1789796185932123",
+      "md5_base64": "TTp4hOMiumvoy52NOlbBiA==",
+      "row_groups": 1,
+      "rows": 119400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5910879,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 18000,
+        "2026-07-20": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000050.parquet"
+    },
+    {
+      "crc32c_base64": "cjeo8Q==",
+      "generation": "1789796185580430",
+      "md5_base64": "K8QO2hHooStgIXwB8kn4Lg==",
+      "row_groups": 1,
+      "rows": 96600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4790906,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 96600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000051.parquet"
+    },
+    {
+      "crc32c_base64": "rhDTOQ==",
+      "generation": "1789796207407963",
+      "md5_base64": "hlwCATDYCysOuAvXvBPPeQ==",
+      "row_groups": 1,
+      "rows": 122400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6081763,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 122400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000052.parquet"
+    },
+    {
+      "crc32c_base64": "qGFUAg==",
+      "generation": "1789796185398977",
+      "md5_base64": "nFRnGbgvAr/hoW4YGTioqg==",
+      "row_groups": 1,
+      "rows": 82200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4051613,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 82200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000053.parquet"
+    },
+    {
+      "crc32c_base64": "mfjyIw==",
+      "generation": "1789796187892051",
+      "md5_base64": "lCcq4xiFNT4hZNRnpZjV1Q==",
+      "row_groups": 1,
+      "rows": 142800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 7081364,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 142800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000054.parquet"
+    },
+    {
+      "crc32c_base64": "q8pX3g==",
+      "generation": "1789796206305551",
+      "md5_base64": "nY4iVlo/cvWfojjB9N8kmA==",
+      "row_groups": 1,
+      "rows": 101400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4969561,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000055.parquet"
+    },
+    {
+      "crc32c_base64": "/RJ8HA==",
+      "generation": "1789796187984473",
+      "md5_base64": "0j5Y+ik2XdTo53cPkgdfyA==",
+      "row_groups": 1,
+      "rows": 120600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5923859,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 120600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000056.parquet"
+    },
+    {
+      "crc32c_base64": "PvWBnA==",
+      "generation": "1789796187050306",
+      "md5_base64": "+0mb9Z941yUp4jrIN0Qr1g==",
+      "row_groups": 1,
+      "rows": 97200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4807012,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 97200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000057.parquet"
+    },
+    {
+      "crc32c_base64": "C7dk7A==",
+      "generation": "1789796184735961",
+      "md5_base64": "AdCLx0v6FdXTwNXC8Nswng==",
+      "row_groups": 1,
+      "rows": 85200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4233683,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 85200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000058.parquet"
+    },
+    {
+      "crc32c_base64": "fQhivQ==",
+      "generation": "1789796185821273",
+      "md5_base64": "ZLQEq92GsH1EM8+1kKRtKg==",
+      "row_groups": 1,
+      "rows": 108600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5397167,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 108600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000059.parquet"
+    },
+    {
+      "crc32c_base64": "SMWFTQ==",
+      "generation": "1789796190397407",
+      "md5_base64": "8CvrsRRTmea85+/Yb6wRew==",
+      "row_groups": 1,
+      "rows": 114600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5666685,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 114600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000060.parquet"
+    },
+    {
+      "crc32c_base64": "dvr9zg==",
+      "generation": "1789796189045860",
+      "md5_base64": "g+qSTaPLZyitjvGA9J++Sg==",
+      "row_groups": 1,
+      "rows": 93600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4647351,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 93600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000061.parquet"
+    },
+    {
+      "crc32c_base64": "98h5XA==",
+      "generation": "1789796201990804",
+      "md5_base64": "ckG48MdbBCOUszhd4CqX0w==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5053520,
+      "snapshot_date_max": "2026-07-19",
+      "snapshot_date_min": "2026-07-19",
+      "snapshot_date_rows": {
+        "2026-07-19": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000062.parquet"
+    },
+    {
+      "crc32c_base64": "QaAeqA==",
+      "generation": "1789796186267895",
+      "md5_base64": "qWL20oaIGv50NRGzGrO3RQ==",
+      "row_groups": 1,
+      "rows": 114000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5548186,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 114000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000063.parquet"
+    },
+    {
+      "crc32c_base64": "wN9MhA==",
+      "generation": "1789796201737690",
+      "md5_base64": "RjvR6iAECuJ789FR8FRTRA==",
+      "row_groups": 1,
+      "rows": 99000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4878259,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 99000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000064.parquet"
+    },
+    {
+      "crc32c_base64": "k73Tmw==",
+      "generation": "1789796186270497",
+      "md5_base64": "loRpex9XKU5fmaNvQ8oIeA==",
+      "row_groups": 1,
+      "rows": 103800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5080347,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 103800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000065.parquet"
+    },
+    {
+      "crc32c_base64": "JjD1Sw==",
+      "generation": "1789796202002574",
+      "md5_base64": "MZIrmGP8YoGBML0Vy/itig==",
+      "row_groups": 1,
+      "rows": 124200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6096246,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 124200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000066.parquet"
+    },
+    {
+      "crc32c_base64": "qqjg0w==",
+      "generation": "1789796184868489",
+      "md5_base64": "GXLBFVpIX4aY/LQ0xZB+sw==",
+      "row_groups": 1,
+      "rows": 93600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4632657,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 93600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000067.parquet"
+    },
+    {
+      "crc32c_base64": "B72epA==",
+      "generation": "1789796203175434",
+      "md5_base64": "EDUuz5+XZRTLCFV3IsJtvA==",
+      "row_groups": 1,
+      "rows": 127800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6320516,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 127800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000068.parquet"
+    },
+    {
+      "crc32c_base64": "wfF2Zg==",
+      "generation": "1789796201870117",
+      "md5_base64": "60fyslf15qFe/eOHw2kpYQ==",
+      "row_groups": 1,
+      "rows": 129600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6422649,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 129600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000069.parquet"
+    },
+    {
+      "crc32c_base64": "d8bkyA==",
+      "generation": "1789796200537305",
+      "md5_base64": "Rmq2ULi9gXAuIv0wNMqCmg==",
+      "row_groups": 1,
+      "rows": 112200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5527456,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 112200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000070.parquet"
+    },
+    {
+      "crc32c_base64": "UdoHRA==",
+      "generation": "1789796186293962",
+      "md5_base64": "UwA8jS1yZQ4jdgQ7EcPIeg==",
+      "row_groups": 1,
+      "rows": 103200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5119507,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 103200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000071.parquet"
+    },
+    {
+      "crc32c_base64": "9/3KUQ==",
+      "generation": "1789796186040581",
+      "md5_base64": "ms7+S9nONO8DfWfILtr3Ew==",
+      "row_groups": 1,
+      "rows": 98400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4879945,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 98400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000072.parquet"
+    },
+    {
+      "crc32c_base64": "Y7qBaw==",
+      "generation": "1789796187432188",
+      "md5_base64": "pTzyWtPMnMmvYJL2c0t3tw==",
+      "row_groups": 1,
+      "rows": 87000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4320406,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 87000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000073.parquet"
+    },
+    {
+      "crc32c_base64": "kFsyVw==",
+      "generation": "1789796186058332",
+      "md5_base64": "mWjR1mn4SWtXnr9u9ogdkw==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5233657,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000074.parquet"
+    },
+    {
+      "crc32c_base64": "lNM8/g==",
+      "generation": "1789796186675142",
+      "md5_base64": "WTKB9gqDLnU5J0wsayRA6A==",
+      "row_groups": 1,
+      "rows": 137400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6886043,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 137400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000075.parquet"
+    },
+    {
+      "crc32c_base64": "dvEPMQ==",
+      "generation": "1789796186231017",
+      "md5_base64": "in7IjnsT5xv4L93ZShZlxg==",
+      "row_groups": 1,
+      "rows": 107400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5307558,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 107400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000076.parquet"
+    },
+    {
+      "crc32c_base64": "opni7w==",
+      "generation": "1789796185433831",
+      "md5_base64": "ZdBs8hVA5V3ZbyqohrEoJA==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5288228,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000077.parquet"
+    },
+    {
+      "crc32c_base64": "kHrmSw==",
+      "generation": "1789796202728278",
+      "md5_base64": "xsCQCmv0gdxbAKvky1wMdg==",
+      "row_groups": 1,
+      "rows": 91200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4505372,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 91200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000078.parquet"
+    },
+    {
+      "crc32c_base64": "wUtlZw==",
+      "generation": "1789796185943733",
+      "md5_base64": "HQM25OntQFC6W/X2bLmfbA==",
+      "row_groups": 1,
+      "rows": 109800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5396534,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 109800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000079.parquet"
+    },
+    {
+      "crc32c_base64": "lOfvcw==",
+      "generation": "1789796186832588",
+      "md5_base64": "IzX7YzlVBvr3tOkV1XxvIQ==",
+      "row_groups": 1,
+      "rows": 108600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5363638,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 108600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000080.parquet"
+    },
+    {
+      "crc32c_base64": "81IsDA==",
+      "generation": "1789796186754683",
+      "md5_base64": "qrthZrDBcmUque8uuIKsOA==",
+      "row_groups": 1,
+      "rows": 118200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5855500,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 118200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000081.parquet"
+    },
+    {
+      "crc32c_base64": "ZUslGw==",
+      "generation": "1789796186956283",
+      "md5_base64": "1Cn6qBtZAXsCxXxKWn7Sow==",
+      "row_groups": 1,
+      "rows": 114000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5604440,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 114000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000082.parquet"
+    },
+    {
+      "crc32c_base64": "Iq+d0A==",
+      "generation": "1789796186650647",
+      "md5_base64": "uKgLUuQl1NsdHsKGkpukqA==",
+      "row_groups": 1,
+      "rows": 110400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5530548,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 57000,
+        "2026-07-21": 53400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000083.parquet"
+    },
+    {
+      "crc32c_base64": "75VWzw==",
+      "generation": "1789796186107788",
+      "md5_base64": "2YqWH69RAc7WIEJRRt+4Iw==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5245687,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000084.parquet"
+    },
+    {
+      "crc32c_base64": "M1Euig==",
+      "generation": "1789796185116087",
+      "md5_base64": "K+SwFxQvJ6S3wOs3/PKm9w==",
+      "row_groups": 1,
+      "rows": 121800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6081855,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 121800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000085.parquet"
+    },
+    {
+      "crc32c_base64": "enLFtw==",
+      "generation": "1789796188219799",
+      "md5_base64": "hqx/RKhd0xi56C0Fb3N9uw==",
+      "row_groups": 1,
+      "rows": 125400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6226328,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 125400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000086.parquet"
+    },
+    {
+      "crc32c_base64": "sqN9ug==",
+      "generation": "1789796185035454",
+      "md5_base64": "qrdlYTCJZuL2mrdRRH1rYw==",
+      "row_groups": 1,
+      "rows": 97200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4789001,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 97200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000087.parquet"
+    },
+    {
+      "crc32c_base64": "dNn4Bw==",
+      "generation": "1789796186835497",
+      "md5_base64": "MKJeA5EdYW9xmfBJE5jXPg==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5010938,
+      "snapshot_date_max": "2026-07-20",
+      "snapshot_date_min": "2026-07-20",
+      "snapshot_date_rows": {
+        "2026-07-20": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000088.parquet"
+    },
+    {
+      "crc32c_base64": "LMT0VQ==",
+      "generation": "1789796185218517",
+      "md5_base64": "/lomzTOSzBetDLcKxwzgJw==",
+      "row_groups": 1,
+      "rows": 109200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5407468,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 109200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000089.parquet"
+    },
+    {
+      "crc32c_base64": "Kjx75Q==",
+      "generation": "1789796187172200",
+      "md5_base64": "bsaTRWLSVVTATIiJCFQzGA==",
+      "row_groups": 1,
+      "rows": 96000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4781788,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 96000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000090.parquet"
+    },
+    {
+      "crc32c_base64": "PxNDCw==",
+      "generation": "1789796187139941",
+      "md5_base64": "8KX/xruf0ZxRfxuFwqHoSA==",
+      "row_groups": 1,
+      "rows": 120600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6000108,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 120600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000091.parquet"
+    },
+    {
+      "crc32c_base64": "Fs9bfQ==",
+      "generation": "1789796186783929",
+      "md5_base64": "OcIa7jrj1OdMpFVK84LlyQ==",
+      "row_groups": 1,
+      "rows": 95400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4715903,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 95400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000092.parquet"
+    },
+    {
+      "crc32c_base64": "XKyIPw==",
+      "generation": "1789796187248242",
+      "md5_base64": "hD8UvRhDpMBYTqKcf/Q2Og==",
+      "row_groups": 1,
+      "rows": 94200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4683782,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 94200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000093.parquet"
+    },
+    {
+      "crc32c_base64": "Wtju9g==",
+      "generation": "1789796185507999",
+      "md5_base64": "dyHfrQkLMAd8PSDz6ogIQA==",
+      "row_groups": 1,
+      "rows": 124140,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6147454,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 124140
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000094.parquet"
+    },
+    {
+      "crc32c_base64": "F1MO4Q==",
+      "generation": "1789796187266789",
+      "md5_base64": "RYBZzJm24wVmoHemBsmcFg==",
+      "row_groups": 1,
+      "rows": 114000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5657011,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 114000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000095.parquet"
+    },
+    {
+      "crc32c_base64": "fNWB9w==",
+      "generation": "1789796184899702",
+      "md5_base64": "p+misiIZDBFbFqXsBOt0gA==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5327343,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000096.parquet"
+    },
+    {
+      "crc32c_base64": "UOPQeA==",
+      "generation": "1789796201061574",
+      "md5_base64": "3w7JV3Pzt9dv/goa4CHhLg==",
+      "row_groups": 1,
+      "rows": 101400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5038256,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000097.parquet"
+    },
+    {
+      "crc32c_base64": "I8EKZA==",
+      "generation": "1789796185781333",
+      "md5_base64": "gQXUosoPagzII+HASA5TZQ==",
+      "row_groups": 1,
+      "rows": 100200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4949155,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 100200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000098.parquet"
+    },
+    {
+      "crc32c_base64": "IDuonA==",
+      "generation": "1789796185974649",
+      "md5_base64": "KC9GkUQ5hUQLpzw53Mol3w==",
+      "row_groups": 1,
+      "rows": 101400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5058536,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000099.parquet"
+    },
+    {
+      "crc32c_base64": "dzdtbg==",
+      "generation": "1789796186678326",
+      "md5_base64": "7Xltz9Ymn5cvyLiBlLQ5uw==",
+      "row_groups": 1,
+      "rows": 122400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6063044,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 122400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000100.parquet"
+    },
+    {
+      "crc32c_base64": "jk2C6w==",
+      "generation": "1789796187116654",
+      "md5_base64": "PeWltxhv+XHCyEN8vufkHQ==",
+      "row_groups": 1,
+      "rows": 109800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5438741,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 109800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000101.parquet"
+    },
+    {
+      "crc32c_base64": "zAQ1Jw==",
+      "generation": "1789796186421460",
+      "md5_base64": "eSypWWDhlewsyi9ABcKa0g==",
+      "row_groups": 1,
+      "rows": 103800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5145567,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 103800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000102.parquet"
+    },
+    {
+      "crc32c_base64": "hvuacQ==",
+      "generation": "1789796186426909",
+      "md5_base64": "3DXQ2ufUiMwiZM5vrezrsA==",
+      "row_groups": 1,
+      "rows": 122400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5999737,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 122400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000103.parquet"
+    },
+    {
+      "crc32c_base64": "ULRLgw==",
+      "generation": "1789796187808585",
+      "md5_base64": "a/0XEB9dnPCnfLXLsUrJrQ==",
+      "row_groups": 1,
+      "rows": 116400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5728235,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 116400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000104.parquet"
+    },
+    {
+      "crc32c_base64": "K5fAJw==",
+      "generation": "1789796202163318",
+      "md5_base64": "5uC3TXM2AEKOSM8dAbUuHg==",
+      "row_groups": 1,
+      "rows": 121200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6049064,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 121200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000105.parquet"
+    },
+    {
+      "crc32c_base64": "Oge+MQ==",
+      "generation": "1789796187037723",
+      "md5_base64": "lPUKz2O1i6dUho6f897hTA==",
+      "row_groups": 1,
+      "rows": 115800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5712056,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 115800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000106.parquet"
+    },
+    {
+      "crc32c_base64": "os0O4Q==",
+      "generation": "1789796191491883",
+      "md5_base64": "+2WNq1zw0QBynAFQt21Ahw==",
+      "row_groups": 1,
+      "rows": 103200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5110602,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 103200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000107.parquet"
+    },
+    {
+      "crc32c_base64": "RsIXzg==",
+      "generation": "1789796186315133",
+      "md5_base64": "6IrvJx3RwnrvZkmtzgnF8A==",
+      "row_groups": 1,
+      "rows": 122400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6079847,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 122400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000108.parquet"
+    },
+    {
+      "crc32c_base64": "RvBv+Q==",
+      "generation": "1789796192426231",
+      "md5_base64": "5FAfTzGG3RrAzVp7YOHtxg==",
+      "row_groups": 1,
+      "rows": 118800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5835818,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 118800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000109.parquet"
+    },
+    {
+      "crc32c_base64": "e1GADA==",
+      "generation": "1789796185313745",
+      "md5_base64": "ZHSrvUuoQc9D2wPAVX3ObQ==",
+      "row_groups": 1,
+      "rows": 108000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5308460,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 108000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000110.parquet"
+    },
+    {
+      "crc32c_base64": "/LXZCQ==",
+      "generation": "1789796185665719",
+      "md5_base64": "Zv5mpQn5KZIuCjsvKzTwdA==",
+      "row_groups": 1,
+      "rows": 114000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5708041,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 114000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000111.parquet"
+    },
+    {
+      "crc32c_base64": "sgMkPw==",
+      "generation": "1789796189516057",
+      "md5_base64": "Bt2okk/hr26HQ5dTws2RrA==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5191262,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000112.parquet"
+    },
+    {
+      "crc32c_base64": "+JteGg==",
+      "generation": "1789796187609188",
+      "md5_base64": "Ccf6WFsasZRdjPOPIDLMGQ==",
+      "row_groups": 1,
+      "rows": 101400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5003013,
+      "snapshot_date_max": "2026-07-21",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000113.parquet"
+    },
+    {
+      "crc32c_base64": "f22vVw==",
+      "generation": "1789796186784598",
+      "md5_base64": "Y5VDqzcXH6fAV073BctzSA==",
+      "row_groups": 1,
+      "rows": 109800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5478892,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-07-21",
+      "snapshot_date_rows": {
+        "2026-07-21": 63600,
+        "2026-08-12": 46200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000114.parquet"
+    },
+    {
+      "crc32c_base64": "c/obmg==",
+      "generation": "1789796186359144",
+      "md5_base64": "+jkn4xZ3c8yjc/3SVYLnCA==",
+      "row_groups": 1,
+      "rows": 117600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5768244,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 117600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000115.parquet"
+    },
+    {
+      "crc32c_base64": "yJ+ZWw==",
+      "generation": "1789796186091576",
+      "md5_base64": "npKrlQmHhYtgfq64EuPbHQ==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5552793,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000116.parquet"
+    },
+    {
+      "crc32c_base64": "hm65UQ==",
+      "generation": "1789796187997414",
+      "md5_base64": "jy1HkKDcjyrZTF/BBnpFuw==",
+      "row_groups": 1,
+      "rows": 119400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5892226,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 119400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000117.parquet"
+    },
+    {
+      "crc32c_base64": "g69CIg==",
+      "generation": "1789796189784838",
+      "md5_base64": "ZvHOLOFPFE4XIWbs/ZZluQ==",
+      "row_groups": 1,
+      "rows": 100800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4966649,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 100800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000118.parquet"
+    },
+    {
+      "crc32c_base64": "kVMHrg==",
+      "generation": "1789796188268103",
+      "md5_base64": "sCzkc42ASPRghED4sFgvQA==",
+      "row_groups": 1,
+      "rows": 124800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6162585,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 124800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000119.parquet"
+    },
+    {
+      "crc32c_base64": "2Bx1WQ==",
+      "generation": "1789796187559231",
+      "md5_base64": "g7qLfUbAFXsX1a3lOVAarw==",
+      "row_groups": 1,
+      "rows": 100800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4960062,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 100800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000120.parquet"
+    },
+    {
+      "crc32c_base64": "/brPUw==",
+      "generation": "1789796202066551",
+      "md5_base64": "f2E+MrbR1KIK9cXP3RWy7g==",
+      "row_groups": 1,
+      "rows": 121200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5929120,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 121200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000121.parquet"
+    },
+    {
+      "crc32c_base64": "RRbWbQ==",
+      "generation": "1789796186863525",
+      "md5_base64": "DbF+vOpEJdpu3RcCLeXJMA==",
+      "row_groups": 1,
+      "rows": 123600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6059357,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 123600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000122.parquet"
+    },
+    {
+      "crc32c_base64": "Z74ZVg==",
+      "generation": "1789796186744615",
+      "md5_base64": "JY3yNhjSRT3c37qX9rAMEg==",
+      "row_groups": 1,
+      "rows": 94800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4676566,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 94800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000123.parquet"
+    },
+    {
+      "crc32c_base64": "m7hhWw==",
+      "generation": "1789796190275831",
+      "md5_base64": "752dFV80UW2TN+ULhSSaPA==",
+      "row_groups": 1,
+      "rows": 105600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5179486,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 105600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000124.parquet"
+    },
+    {
+      "crc32c_base64": "nba8TA==",
+      "generation": "1789796188429979",
+      "md5_base64": "yApxzWjKgvhvdhKAM3Eygg==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5055042,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000125.parquet"
+    },
+    {
+      "crc32c_base64": "ri9zfQ==",
+      "generation": "1789796186560156",
+      "md5_base64": "9XqsMTiZ6GxH8oaM/RfjfA==",
+      "row_groups": 1,
+      "rows": 121200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5919284,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 121200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000126.parquet"
+    },
+    {
+      "crc32c_base64": "G+K3hw==",
+      "generation": "1789796187382354",
+      "md5_base64": "k+cT7zPqjykXUETHWyg1uw==",
+      "row_groups": 1,
+      "rows": 119400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5863027,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 119400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000127.parquet"
+    },
+    {
+      "crc32c_base64": "tCdn/A==",
+      "generation": "1789796192627325",
+      "md5_base64": "vfH3LJI1JXjYNfNUpeosPg==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5576456,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000128.parquet"
+    },
+    {
+      "crc32c_base64": "XJM3ew==",
+      "generation": "1789796185585938",
+      "md5_base64": "8VemKutzbkr5wreopTGZgQ==",
+      "row_groups": 1,
+      "rows": 82200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4065394,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 82200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000129.parquet"
+    },
+    {
+      "crc32c_base64": "B/nb7w==",
+      "generation": "1789796187261589",
+      "md5_base64": "G0WqxxsInwBIgy5+Ka5FSA==",
+      "row_groups": 1,
+      "rows": 100200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4889284,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 100200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000130.parquet"
+    },
+    {
+      "crc32c_base64": "MoxmMw==",
+      "generation": "1789796198227239",
+      "md5_base64": "33mtraO/+ZwPMHJe8EGLRA==",
+      "row_groups": 1,
+      "rows": 98400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4828277,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 98400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000131.parquet"
+    },
+    {
+      "crc32c_base64": "E1b3Qg==",
+      "generation": "1789796188648070",
+      "md5_base64": "YKoaeNa180uQ9/mgnouUog==",
+      "row_groups": 1,
+      "rows": 116400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5684795,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 116400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000132.parquet"
+    },
+    {
+      "crc32c_base64": "VAXQTw==",
+      "generation": "1789796186252117",
+      "md5_base64": "fc82RtdX00PUYXtovNMTwA==",
+      "row_groups": 1,
+      "rows": 110400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5438625,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 110400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000133.parquet"
+    },
+    {
+      "crc32c_base64": "8INcuw==",
+      "generation": "1789796186893905",
+      "md5_base64": "oiN4jW1IrOjSn+Q34wd2/g==",
+      "row_groups": 1,
+      "rows": 123000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5979198,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 123000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000134.parquet"
+    },
+    {
+      "crc32c_base64": "eviPQg==",
+      "generation": "1789796186685997",
+      "md5_base64": "Z5km5I0e2alXQTM2BJigDA==",
+      "row_groups": 1,
+      "rows": 117600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5764100,
+      "snapshot_date_max": "2026-08-12",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 117600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000135.parquet"
+    },
+    {
+      "crc32c_base64": "iEbOaw==",
+      "generation": "1789796186732044",
+      "md5_base64": "P0ciK1NRWqJL5qUq7g2LmQ==",
+      "row_groups": 1,
+      "rows": 121800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5992369,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 121800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000136.parquet"
+    },
+    {
+      "crc32c_base64": "1xH0mg==",
+      "generation": "1789796185875306",
+      "md5_base64": "mDoTzSiWuicgnYJLxyrQdw==",
+      "row_groups": 1,
+      "rows": 98400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4885061,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-12",
+      "snapshot_date_rows": {
+        "2026-08-12": 84600,
+        "2026-08-14": 13800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000137.parquet"
+    },
+    {
+      "crc32c_base64": "+Ed3ew==",
+      "generation": "1789796187371332",
+      "md5_base64": "UoK/B4B5AwAhbIglgA1vmA==",
+      "row_groups": 1,
+      "rows": 103800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5055505,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 103800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000138.parquet"
+    },
+    {
+      "crc32c_base64": "L8Q2gw==",
+      "generation": "1789796186646228",
+      "md5_base64": "pqhH2LVu7cU6+OncV/spzg==",
+      "row_groups": 1,
+      "rows": 107400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5286415,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 107400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000139.parquet"
+    },
+    {
+      "crc32c_base64": "A0L+zg==",
+      "generation": "1789796188325239",
+      "md5_base64": "d9Az2ethynMtLGoZuZYLEw==",
+      "row_groups": 1,
+      "rows": 117600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5710959,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 117600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000140.parquet"
+    },
+    {
+      "crc32c_base64": "dcSXng==",
+      "generation": "1789796187143412",
+      "md5_base64": "9es/YU3l4Y/HekxEafSc7Q==",
+      "row_groups": 1,
+      "rows": 141600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6976461,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 141600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000141.parquet"
+    },
+    {
+      "crc32c_base64": "KCKO/Q==",
+      "generation": "1789796188547124",
+      "md5_base64": "uz7swRh82uIOdlRXlP0ymw==",
+      "row_groups": 1,
+      "rows": 117600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5740637,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 117600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000142.parquet"
+    },
+    {
+      "crc32c_base64": "1AybGA==",
+      "generation": "1789796199715408",
+      "md5_base64": "UOgzGvsUnZZgOkgF9GiSqg==",
+      "row_groups": 1,
+      "rows": 117600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5713444,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 117600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000143.parquet"
+    },
+    {
+      "crc32c_base64": "sLmPPA==",
+      "generation": "1789796184984697",
+      "md5_base64": "ldjSmhCwWAJ8mGM3rXNbyw==",
+      "row_groups": 1,
+      "rows": 79800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 3924901,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 79800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000144.parquet"
+    },
+    {
+      "crc32c_base64": "6CRfBA==",
+      "generation": "1789796186856259",
+      "md5_base64": "btQbMOD02bHg9C7FSrLKVQ==",
+      "row_groups": 1,
+      "rows": 118800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5805310,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 118800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000145.parquet"
+    },
+    {
+      "crc32c_base64": "IpNrgg==",
+      "generation": "1789796186163144",
+      "md5_base64": "V2xwwlaQEalwZ7r1NqYeSQ==",
+      "row_groups": 1,
+      "rows": 112800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5538754,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 112800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000146.parquet"
+    },
+    {
+      "crc32c_base64": "a77d9w==",
+      "generation": "1789796186762942",
+      "md5_base64": "QabP3B+3eeLGGpc2KbGTow==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5212146,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000147.parquet"
+    },
+    {
+      "crc32c_base64": "nY+RAw==",
+      "generation": "1789796187303184",
+      "md5_base64": "a2XbXmGy73fov2/gxKUNLQ==",
+      "row_groups": 1,
+      "rows": 109800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5391769,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 109800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000148.parquet"
+    },
+    {
+      "crc32c_base64": "hXZ8Gw==",
+      "generation": "1789796186430735",
+      "md5_base64": "uXA5lmC2lnvxcufzrOfygg==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4991298,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000149.parquet"
+    },
+    {
+      "crc32c_base64": "5wY02Q==",
+      "generation": "1789796186930335",
+      "md5_base64": "1gVflAZThMepwufOV/puAQ==",
+      "row_groups": 1,
+      "rows": 108600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5290998,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 108600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000150.parquet"
+    },
+    {
+      "crc32c_base64": "JR7PBg==",
+      "generation": "1789796188161365",
+      "md5_base64": "+XccVVuusFoNluNWc96NkQ==",
+      "row_groups": 1,
+      "rows": 97200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4777298,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 97200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000151.parquet"
+    },
+    {
+      "crc32c_base64": "x5lBpQ==",
+      "generation": "1789796188733076",
+      "md5_base64": "PJxxFQFz332V7OB3Uvl7+g==",
+      "row_groups": 1,
+      "rows": 122400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6001078,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 122400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000152.parquet"
+    },
+    {
+      "crc32c_base64": "QeW1kQ==",
+      "generation": "1789796186049395",
+      "md5_base64": "tUUHEbv9mNaDOqGkYMCRNw==",
+      "row_groups": 1,
+      "rows": 115200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5654921,
+      "snapshot_date_max": "2026-08-14",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 115200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000153.parquet"
+    },
+    {
+      "crc32c_base64": "/Ocqow==",
+      "generation": "1789796188165039",
+      "md5_base64": "GiNLvncIYd9czAJr1eKAYA==",
+      "row_groups": 1,
+      "rows": 97800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4796784,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-14",
+      "snapshot_date_rows": {
+        "2026-08-14": 93000,
+        "2026-08-25": 4800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000154.parquet"
+    },
+    {
+      "crc32c_base64": "b8Vjvg==",
+      "generation": "1789796187115303",
+      "md5_base64": "seZiviholSyxi7WDXveITg==",
+      "row_groups": 1,
+      "rows": 101400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4978951,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 101400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000155.parquet"
+    },
+    {
+      "crc32c_base64": "ReEihA==",
+      "generation": "1789796185117788",
+      "md5_base64": "VjaYQzWT9q/1MHJL2YhvyQ==",
+      "row_groups": 1,
+      "rows": 120000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5892401,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 120000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000156.parquet"
+    },
+    {
+      "crc32c_base64": "GJFF4A==",
+      "generation": "1789796187091328",
+      "md5_base64": "YOkVLQtfb9e/Tu6Qqr94Hw==",
+      "row_groups": 1,
+      "rows": 105600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5174623,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 105600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000157.parquet"
+    },
+    {
+      "crc32c_base64": "eK4DTg==",
+      "generation": "1789796187542807",
+      "md5_base64": "w3udvi5YDpEGXPi1NsMdAw==",
+      "row_groups": 1,
+      "rows": 120000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5867894,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 120000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000158.parquet"
+    },
+    {
+      "crc32c_base64": "Vuu8iQ==",
+      "generation": "1789796187638951",
+      "md5_base64": "66xRRxwECUG1MHWQaUZmYw==",
+      "row_groups": 1,
+      "rows": 115200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5545391,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 115200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000159.parquet"
+    },
+    {
+      "crc32c_base64": "r+1ITQ==",
+      "generation": "1789796185781864",
+      "md5_base64": "EUnBhRKBqLjczOpSUVcBuA==",
+      "row_groups": 1,
+      "rows": 125400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6182892,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 125400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000160.parquet"
+    },
+    {
+      "crc32c_base64": "8YC7BQ==",
+      "generation": "1789796187690984",
+      "md5_base64": "TXQu826bNsGvLbM+r5x1XA==",
+      "row_groups": 1,
+      "rows": 111000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5419746,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 111000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000161.parquet"
+    },
+    {
+      "crc32c_base64": "oEmfcA==",
+      "generation": "1789796186972684",
+      "md5_base64": "cYHHBou8sq9QMvZ6vtZo+A==",
+      "row_groups": 1,
+      "rows": 124800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6113819,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 124800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000162.parquet"
+    },
+    {
+      "crc32c_base64": "jVq6Ww==",
+      "generation": "1789796187743903",
+      "md5_base64": "h3BwKRLjE3tEiVxY/cAP/Q==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5139563,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000163.parquet"
+    },
+    {
+      "crc32c_base64": "glcIew==",
+      "generation": "1789796188788134",
+      "md5_base64": "aD0p+RGgKxbaoeZXJCWXZA==",
+      "row_groups": 1,
+      "rows": 127800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6278947,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 127800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000164.parquet"
+    },
+    {
+      "crc32c_base64": "HvS0Ug==",
+      "generation": "1789796186324638",
+      "md5_base64": "I/6hXkVucq62UjaWBY7BkA==",
+      "row_groups": 1,
+      "rows": 115800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5685449,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 115800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000165.parquet"
+    },
+    {
+      "crc32c_base64": "DK708g==",
+      "generation": "1789796187244222",
+      "md5_base64": "yiiWlQzMCKNWD+rPRWRN4Q==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5061042,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000166.parquet"
+    },
+    {
+      "crc32c_base64": "9o3Vlw==",
+      "generation": "1789796187620418",
+      "md5_base64": "STKSQVlY3MOZz/e0uJtiYA==",
+      "row_groups": 1,
+      "rows": 110400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5400210,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 110400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000167.parquet"
+    },
+    {
+      "crc32c_base64": "WHKRYg==",
+      "generation": "1789796186385289",
+      "md5_base64": "kolWeR/GmU2QpBYjSbFB4A==",
+      "row_groups": 1,
+      "rows": 118800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5813512,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 118800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000168.parquet"
+    },
+    {
+      "crc32c_base64": "PCYY5Q==",
+      "generation": "1789796186993242",
+      "md5_base64": "8KWE8y4iDaNJoHLQtRAMEQ==",
+      "row_groups": 1,
+      "rows": 110400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5430283,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 110400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000169.parquet"
+    },
+    {
+      "crc32c_base64": "lcljVw==",
+      "generation": "1789796185844139",
+      "md5_base64": "w0MWdqXbMs1fvmzei+Ptcg==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5099969,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000170.parquet"
+    },
+    {
+      "crc32c_base64": "iqqvhA==",
+      "generation": "1789796185972940",
+      "md5_base64": "MRzPvdXO2JqulSmWA1gzsA==",
+      "row_groups": 1,
+      "rows": 129000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6315111,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 129000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000171.parquet"
+    },
+    {
+      "crc32c_base64": "DzyiWQ==",
+      "generation": "1789796187743228",
+      "md5_base64": "atc5CF4IH4xu1ypF4q6N0g==",
+      "row_groups": 1,
+      "rows": 122400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6027163,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 122400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000172.parquet"
+    },
+    {
+      "crc32c_base64": "SqpU/w==",
+      "generation": "1789796186988314",
+      "md5_base64": "ctxG2rhFGiBjdnOhRFqlwg==",
+      "row_groups": 1,
+      "rows": 123000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6013233,
+      "snapshot_date_max": "2026-08-25",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 123000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000173.parquet"
+    },
+    {
+      "crc32c_base64": "zxfneg==",
+      "generation": "1789796186148803",
+      "md5_base64": "4vL57OzkiAPKA1ZLx1VImQ==",
+      "row_groups": 1,
+      "rows": 108600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5345054,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 108600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000174.parquet"
+    },
+    {
+      "crc32c_base64": "/Cle4w==",
+      "generation": "1789796186759956",
+      "md5_base64": "4Un+Vz5SRE1kLd9AFvcR0Q==",
+      "row_groups": 1,
+      "rows": 109200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5416852,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 53400,
+        "2026-08-28": 55800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000175.parquet"
+    },
+    {
+      "crc32c_base64": "3h0FmA==",
+      "generation": "1789796188319116",
+      "md5_base64": "x7cKM0Kgq1pNWCgzQI36fQ==",
+      "row_groups": 1,
+      "rows": 105600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5171623,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 105600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000176.parquet"
+    },
+    {
+      "crc32c_base64": "QWFRpw==",
+      "generation": "1789796187822167",
+      "md5_base64": "eXw7xfvApDpwX6zDp4Ux8Q==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5016253,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000177.parquet"
+    },
+    {
+      "crc32c_base64": "lW7e6A==",
+      "generation": "1789796186477213",
+      "md5_base64": "vuQyGq6Mel0+cVJnpW1a2w==",
+      "row_groups": 1,
+      "rows": 120000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5840092,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 120000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000178.parquet"
+    },
+    {
+      "crc32c_base64": "E6FhvA==",
+      "generation": "1789796188107448",
+      "md5_base64": "/Qncl5CIVILlHv7Dm+3KYg==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5256323,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 106800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000179.parquet"
+    },
+    {
+      "crc32c_base64": "bZrhow==",
+      "generation": "1789796186238469",
+      "md5_base64": "Xm9RsGZ/wdJ0bWCeBlddjw==",
+      "row_groups": 1,
+      "rows": 106800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5304176,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-25",
+      "snapshot_date_rows": {
+        "2026-08-25": 39000,
+        "2026-08-26": 67800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000180.parquet"
+    },
+    {
+      "crc32c_base64": "VOo2HQ==",
+      "generation": "1789796192007066",
+      "md5_base64": "ZJuaUxLa0KLKrcYWrAfCHw==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5573090,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000181.parquet"
+    },
+    {
+      "crc32c_base64": "zuy0Vw==",
+      "generation": "1789796188092453",
+      "md5_base64": "fo1DJi7dM7/c/AvPPhNYkg==",
+      "row_groups": 1,
+      "rows": 110400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5433571,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 110400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000182.parquet"
+    },
+    {
+      "crc32c_base64": "XOnTfQ==",
+      "generation": "1789796187864000",
+      "md5_base64": "OEnAFLfRIqFS3dW2YSBEHg==",
+      "row_groups": 1,
+      "rows": 100800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4945676,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 100800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000183.parquet"
+    },
+    {
+      "crc32c_base64": "4JbYWw==",
+      "generation": "1789796184960225",
+      "md5_base64": "QWL8ylIX7J7bTwa1RIVUsA==",
+      "row_groups": 1,
+      "rows": 85800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4191380,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 85800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000184.parquet"
+    },
+    {
+      "crc32c_base64": "R/VyjA==",
+      "generation": "1789796187635577",
+      "md5_base64": "NM6MGehKntdWcMlLfRRS/A==",
+      "row_groups": 1,
+      "rows": 99600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4919146,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 99600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000185.parquet"
+    },
+    {
+      "crc32c_base64": "wnYnMQ==",
+      "generation": "1789796186935028",
+      "md5_base64": "T5wIkCx2FjoT6p2ZxjOLbA==",
+      "row_groups": 1,
+      "rows": 121200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5932674,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 121200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000186.parquet"
+    },
+    {
+      "crc32c_base64": "d4Zzmw==",
+      "generation": "1789796186718214",
+      "md5_base64": "ltqJzWKp9WlkUUnBf94xdQ==",
+      "row_groups": 1,
+      "rows": 109200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5379052,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 109200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000187.parquet"
+    },
+    {
+      "crc32c_base64": "mnn60w==",
+      "generation": "1789796185117967",
+      "md5_base64": "duewQe2zK8iurGalB8q0Rw==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5115312,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000188.parquet"
+    },
+    {
+      "crc32c_base64": "bzKapA==",
+      "generation": "1789796187291700",
+      "md5_base64": "29obn/wRKElh5CkM/yzr9w==",
+      "row_groups": 1,
+      "rows": 93000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4568504,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 93000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000189.parquet"
+    },
+    {
+      "crc32c_base64": "IfJDrg==",
+      "generation": "1789796185275288",
+      "md5_base64": "1dK66NXpvQIxvgGDaPGuug==",
+      "row_groups": 1,
+      "rows": 114600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5638639,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 114600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000190.parquet"
+    },
+    {
+      "crc32c_base64": "rwq/4Q==",
+      "generation": "1789796186318921",
+      "md5_base64": "vJsoCMc0yAn5Q2WEHjD+Zg==",
+      "row_groups": 1,
+      "rows": 108600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5373309,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 108600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000191.parquet"
+    },
+    {
+      "crc32c_base64": "7m3QgA==",
+      "generation": "1789796187572839",
+      "md5_base64": "1mYIMALsnDDXCZKOm6ZlGA==",
+      "row_groups": 1,
+      "rows": 102000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5015549,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 102000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000192.parquet"
+    },
+    {
+      "crc32c_base64": "DwNU8w==",
+      "generation": "1789796185899770",
+      "md5_base64": "OUKgsfRIPLxLIlk7Di6WfA==",
+      "row_groups": 1,
+      "rows": 100200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4942031,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 100200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000193.parquet"
+    },
+    {
+      "crc32c_base64": "R//5tw==",
+      "generation": "1789796185424486",
+      "md5_base64": "5HqdK8YmSTvYTgLxJwC4pQ==",
+      "row_groups": 1,
+      "rows": 108000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5315966,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 108000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000194.parquet"
+    },
+    {
+      "crc32c_base64": "Kb/oJg==",
+      "generation": "1789796187905057",
+      "md5_base64": "apTmkNLkoU4N9rVQUgZy8w==",
+      "row_groups": 1,
+      "rows": 109200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5319372,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 109200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000195.parquet"
+    },
+    {
+      "crc32c_base64": "xIxbjg==",
+      "generation": "1789796187059465",
+      "md5_base64": "UMozI8FjRoopSYEdMYKhpQ==",
+      "row_groups": 1,
+      "rows": 124200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6092418,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 124200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000196.parquet"
+    },
+    {
+      "crc32c_base64": "aqVyug==",
+      "generation": "1789796188028201",
+      "md5_base64": "S7i3PEu/pY+0jSAJiwHSPw==",
+      "row_groups": 1,
+      "rows": 105600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5195467,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 105600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000197.parquet"
+    },
+    {
+      "crc32c_base64": "cyO0Mg==",
+      "generation": "1789796187944219",
+      "md5_base64": "bvfam6HGonuDGWC2TV6Xrw==",
+      "row_groups": 1,
+      "rows": 117000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5756393,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 117000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000198.parquet"
+    },
+    {
+      "crc32c_base64": "lyUxvA==",
+      "generation": "1789796186805177",
+      "md5_base64": "4fyHifrr44ANInDdhP25Kg==",
+      "row_groups": 1,
+      "rows": 112200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5506899,
+      "snapshot_date_max": "2026-08-26",
+      "snapshot_date_min": "2026-08-26",
+      "snapshot_date_rows": {
+        "2026-08-26": 112200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000199.parquet"
+    },
+    {
+      "crc32c_base64": "uuH5oA==",
+      "generation": "1789796188226575",
+      "md5_base64": "TBVUxrLqSVUEIbo+My/KZA==",
+      "row_groups": 1,
+      "rows": 103800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5092137,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 103800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000200.parquet"
+    },
+    {
+      "crc32c_base64": "a8nvBw==",
+      "generation": "1789796186885678",
+      "md5_base64": "uwT7/bJdDIvJF+CmFbxENg==",
+      "row_groups": 1,
+      "rows": 118800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5859560,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 118800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000201.parquet"
+    },
+    {
+      "crc32c_base64": "Ags+0Q==",
+      "generation": "1789796187733943",
+      "md5_base64": "amWcYXkXPVCW7fbXHhRFsg==",
+      "row_groups": 1,
+      "rows": 117000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5739638,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 117000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000202.parquet"
+    },
+    {
+      "crc32c_base64": "MY6LJQ==",
+      "generation": "1789796188523128",
+      "md5_base64": "bUdCauBFg0RtuExorpyu2g==",
+      "row_groups": 1,
+      "rows": 116400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5712649,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 116400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000203.parquet"
+    },
+    {
+      "crc32c_base64": "C+Qbsg==",
+      "generation": "1789796186601557",
+      "md5_base64": "XHG1Fs/GXlDSjwfBKCnKkA==",
+      "row_groups": 1,
+      "rows": 124800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6146755,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 124800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000204.parquet"
+    },
+    {
+      "crc32c_base64": "Rs32HQ==",
+      "generation": "1789796188405821",
+      "md5_base64": "f0XqwZE4+a24kD6qAjyyvg==",
+      "row_groups": 1,
+      "rows": 110400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5457051,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 110400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000205.parquet"
+    },
+    {
+      "crc32c_base64": "p1xWkg==",
+      "generation": "1789796188472801",
+      "md5_base64": "JvytmHbnP8lebJZYq6jxSw==",
+      "row_groups": 1,
+      "rows": 114600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5623109,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 114600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000206.parquet"
+    },
+    {
+      "crc32c_base64": "wxOYMQ==",
+      "generation": "1789796186529379",
+      "md5_base64": "BWl0cJEWFOeuE84VEaYTsw==",
+      "row_groups": 1,
+      "rows": 102600,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5035676,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 102600
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000207.parquet"
+    },
+    {
+      "crc32c_base64": "lFy/3Q==",
+      "generation": "1789796188667698",
+      "md5_base64": "2BcAUgUtb6QbvFkD1dCCGg==",
+      "row_groups": 1,
+      "rows": 85200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 4187396,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 85200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000208.parquet"
+    },
+    {
+      "crc32c_base64": "D57GtQ==",
+      "generation": "1789796186041319",
+      "md5_base64": "z5Ao3j+9L9E9VaEhB5WxLA==",
+      "row_groups": 1,
+      "rows": 104400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5127361,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 104400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000209.parquet"
+    },
+    {
+      "crc32c_base64": "bpAOYg==",
+      "generation": "1789796187222323",
+      "md5_base64": "U65yEWWy6X0V85caRsn5Bg==",
+      "row_groups": 1,
+      "rows": 117000,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5718191,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 117000
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000210.parquet"
+    },
+    {
+      "crc32c_base64": "HukFrA==",
+      "generation": "1789796188564009",
+      "md5_base64": "TeZDbo73saSwhGuTYG5Vkw==",
+      "row_groups": 1,
+      "rows": 112200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5524518,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 112200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000211.parquet"
+    },
+    {
+      "crc32c_base64": "sX9Qtg==",
+      "generation": "1789796187222282",
+      "md5_base64": "nu67NF93GuvuZX57UKMGHA==",
+      "row_groups": 1,
+      "rows": 118200,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5764607,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 118200
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000212.parquet"
+    },
+    {
+      "crc32c_base64": "GD6dsA==",
+      "generation": "1789796187140029",
+      "md5_base64": "wOqLD+z8nCb9Czu1NancCA==",
+      "row_groups": 1,
+      "rows": 113400,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5606712,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 113400
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000213.parquet"
+    },
+    {
+      "crc32c_base64": "lG2znw==",
+      "generation": "1789796188008397",
+      "md5_base64": "PsZ3NXPiyXhP1krLJ4KMOQ==",
+      "row_groups": 1,
+      "rows": 112800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 5550612,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 112800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000214.parquet"
+    },
+    {
+      "crc32c_base64": "jx5Ukg==",
+      "generation": "1789796187426717",
+      "md5_base64": "WuDxilC3nAmPVB3yCH999Q==",
+      "row_groups": 1,
+      "rows": 133800,
+      "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+      "size_bytes": 6595356,
+      "snapshot_date_max": "2026-08-28",
+      "snapshot_date_min": "2026-08-28",
+      "snapshot_date_rows": {
+        "2026-08-28": 133800
+      },
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/data-000000000215.parquet"
+    }
+  ],
+  "objects_by_date": {
+    "2026-07-18": 25,
+    "2026-07-19": 28,
+    "2026-07-20": 27,
+    "2026-07-21": 24,
+    "2026-08-12": 24,
+    "2026-08-14": 23,
+    "2026-08-25": 25,
+    "2026-08-26": 25,
+    "2026-08-28": 23
+  },
+  "raw_input_glob": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input/*.parquet",
+  "required_ptd_columns": [
+    "snapshot_id",
+    "snapshot_date",
+    "snapshot_timestamp_utc",
+    "user_id",
+    "product_id",
+    "candidate_rank",
+    "click_seq_product_id",
+    "purchase_seq_product_id",
+    "first_category",
+    "feature_source_max_timestamp_utc",
+    "label_click",
+    "label_purchase"
+  ],
+  "rows_by_date": {
+    "2026-07-18": 2656800,
+    "2026-07-19": 2905200,
+    "2026-07-20": 2805000,
+    "2026-07-21": 2549340,
+    "2026-08-12": 2578200,
+    "2026-08-14": 2423400,
+    "2026-08-25": 2697600,
+    "2026-08-26": 2604600,
+    "2026-08-28": 2541000
+  },
+  "rows_by_split": {
+    "test": 12844800,
+    "train": 8367000,
+    "valid": 2549340
+  },
+  "schema": [
+    {
+      "name": "snapshot_id",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "name": "snapshot_date",
+      "nullable": true,
+      "type": "date32[day]"
+    },
+    {
+      "name": "snapshot_timestamp_utc",
+      "nullable": true,
+      "type": "timestamp[us]"
+    },
+    {
+      "name": "user_id",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "name": "product_id",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "candidate_rank",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "distance",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "conversion_score",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "cosine_similarity",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "old_score",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "click_seq_product_id",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "name": "purchase_seq_product_id",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "name": "history_click_count",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "history_purchase_count",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "first_category",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "name": "is_new_user",
+      "nullable": true,
+      "type": "bool"
+    },
+    {
+      "name": "is_new_product",
+      "nullable": true,
+      "type": "bool"
+    },
+    {
+      "name": "feature_source_max_timestamp_utc",
+      "nullable": true,
+      "type": "timestamp[us]"
+    },
+    {
+      "name": "label_click",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "label_purchase",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "repeat_click_match",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "repeat_purchase_match",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "new_score",
+      "nullable": true,
+      "type": "double"
+    }
+  ],
+  "schema_sha256": "912f565a491dac024de38982e9f10451ee23d9b096770338adbf12fa67f95f1a",
+  "scope_note": "Metadata-only inventory. It verifies immutable object identity, schema, and row-count alignment; it does not by itself prove semantic point-in-time correctness.",
+  "source_manifest": {
+    "sha256": "33e97c72a3925b5b1ffe5550fbf625e82cacf78f18e073c0be9a2718b4fa1748",
+    "source_contract_sha256": "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91",
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/shared_bottom_esmm_v2/source/manifest.json"
+  },
+  "status": "VERIFIED",
+  "total_rows": 23761140,
+  "total_size_bytes": 1170536361
+}

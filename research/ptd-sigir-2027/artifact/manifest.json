@@ -13,14 +13,14 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "059c08cc8a1d03190dd02fd6ab008482a4535a61d11a7ee9e9153a8a3a5635f8"
+      "sha256": "8f80ffeff34aa84e5dc05df812db670ba471ca6d330f2f63ed5b1252666a2a8c"
     },
     {
       "id": "paper-pdf",
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "b0c4363e70c12393187ae4784e97dca9580ad96494961b9f986fe18ad2bf097d"
+      "sha256": "952b9723aeb9699fdf20a856e31d16196c7f82a3d0cf197a6b9d8de56c604e99"
     },
     {
       "id": "paper-author-source",
@@ -34,21 +34,21 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "10174a18e985bc78908706f341c1996bf7588917531d42814172117083791c7b"
+      "sha256": "f0562f4b9778d9298a0333c97d4e467381c54cfe7698dc13df62b0f465b0ea27"
     },
     {
       "id": "preregistration",
       "path": "artifact/preregistration.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "74108be573fb789353424a8c5f3555d29803e06c626849c8c3cd3cd4fe78e99e"
+      "sha256": "7c78fa9cd08d8331c8d21d7e2218dec492647fad807dd50f49925a642008b853"
     },
     {
       "id": "preregistration-amendments",
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "27398766b2f9917ea890fb30e013143735d6e9d22cdb4b606da5c61bbbb215a9"
+      "sha256": "676e35dd368d6048c1c646855b23897c058b37de4a53403922bd0ec36ee96cf1"
     },
     {
       "id": "artifact-manifest-schema",
@@ -62,7 +62,7 @@
       "path": "artifact/run_manifest.schema.json",
       "media_type": "application/schema+json",
       "status": "PREREGISTERED",
-      "sha256": "346b1ebba231bf7fd8ad1c02e74e25d4e2a0ce32927613fab38a3780adcadd7c"
+      "sha256": "e84633fc636bf0a57049b8c96d86d9964f80c2fa52cc97039691dc7d534faf0c"
     },
     {
       "id": "paired-observation-row-schema",
@@ -83,28 +83,70 @@
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "b96bf1e069926583d90d49f40b17022aa5e74e9f37b6f1eb5a960d9f62601a04"
+      "sha256": "682b2bf58abf481f2b0fbb96ab69dc470852362df26bb24248586e6ce06c11a0"
     },
     {
       "id": "legacy-esmm-anchor",
       "path": "artifact/verified/legacy_esmm_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "2fdcb4e43ceb32cb86f0f930268e94d1b7f99fd12403c0c3ede89343a06c3e76"
+      "sha256": "966d06d24386e46f98f74ff5b6fb5e24fcae2a4975706788802f9419a50c231c"
+    },
+    {
+      "id": "raw-input-inventory",
+      "path": "artifact/verified/raw_input_inventory.json",
+      "media_type": "application/json",
+      "status": "VERIFIED",
+      "sha256": "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3"
+    },
+    {
+      "id": "raw-input-inventory-builder",
+      "path": "scripts/inventory_raw_inputs.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "1d86fd2625f7be7fabcc73a7f3d01fa1d182f0babaf9dc1cbc1939f22842825e"
+    },
+    {
+      "id": "raw-sequence-contract",
+      "path": "artifact/verified/raw_sequence_contract.json",
+      "media_type": "application/json",
+      "status": "VERIFIED",
+      "sha256": "c22332825f6baeab6375040f03fad5ed599f893d37e1ba78e215b0016d8ef4b7"
+    },
+    {
+      "id": "item-universe-audit",
+      "path": "artifact/verified/item_universe_audit.json",
+      "media_type": "application/json",
+      "status": "VERIFIED",
+      "sha256": "11293abab08c86bf386963d92c27daf116612d590c1a54d65771bdc442147415"
+    },
+    {
+      "id": "item-universe-auditor",
+      "path": "scripts/audit_item_universe.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "17b5cbf245bec43a54309d46438c7ec1478a49786c68bc78c759dc821080d442"
+    },
+    {
+      "id": "preregistered-method-contract",
+      "path": "artifact/preregistered_method.json",
+      "media_type": "application/json",
+      "status": "PREREGISTERED",
+      "sha256": "8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee"
     },
     {
       "id": "reference-implementation",
       "path": "reference/ptd.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "3ad15e01890dd7ba6d5c0df503588c3a46226875267e494864090b616ce86d14"
+      "sha256": "6c5c48773e80306ff01710832786cba251f9b4c1536a6ec624c4deb7e5f76f38"
     },
     {
       "id": "reference-tests",
       "path": "tests/test_reference_ptd.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "2331147c375d7263fcf5696ad73963c3eabdafa806e0a40ad80ea56687de3cb2"
+      "sha256": "7cda95a113a4049cca692b93324ae515724cf4a2249affc9629509c45e4161f1"
     },
     {
       "id": "reference-evaluation",
@@ -125,7 +167,7 @@
       "path": "reference/evidence_gate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "1036edd05b4b01070f426971f7069fe3ef92a37266ff56be3d6070a5a8634632"
+      "sha256": "c26c6453ce077052034749759cc6bc5ff88158d4f6a1b472fa640c1da3d8ff64"
     },
     {
       "id": "evidence-gate-cli",
@@ -139,7 +181,7 @@
       "path": "tests/test_evidence_gate.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "69de670f76dac91b61b8887cf063471cbbf7861a06102cb2d9e466c1663f7d5b"
+      "sha256": "cc9c12894b3527cf7a870ccafd10911eb567cd1a4de46502092f12ce4b682adf"
     },
     {
       "id": "reference-smoke",
@@ -188,7 +230,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "0514f35100e4a32b138880b277b9c09b19b3262412e6ae7b5e6aa6b6be4e9e7a"
+      "sha256": "55d04a7ed60844ea21c02c68dbbac8e3da5ccc92c8922c4d52b03e0b8ac51936"
     },
     {
       "id": "manifest-finalizer",
@@ -223,21 +265,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "a08c4ef36075613a3bef596197cd53165611fec61632f71bb7c47384ba2aa0c1"
+      "sha256": "7be65fc4afe5f49fc37b690f64a2bb58469ffca1b5a4b77433a30d933238fd52"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "c7afd68eefacf2c0354fc0e64d25ca53d9fad8d775f8316741c4d821591346f1"
+      "sha256": "595b2c525e1a4bdfad22e685f084d3223b8b9e83e3c01c1893d6307dd8014b83"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "e24435d9faaf86edd43cc5a0deeee5a56e0acd285280b203f3c8ff66dc856e80"
+      "sha256": "d629c9c36389518f85678278920e891ecf7b7fc18ef203232ce994c6579228f2"
     },
     {
       "id": "ptd-five-day-evaluation",

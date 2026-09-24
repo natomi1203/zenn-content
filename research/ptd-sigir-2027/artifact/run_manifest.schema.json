@@ -11,6 +11,7 @@
     "test_scoring_started_at",
     "code_revision",
     "source_contract",
+    "method_contract",
     "teacher",
     "split",
     "seeds",
@@ -31,12 +32,38 @@
     "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "source_contract": {
       "type": "object",
-      "required": ["contract_version", "manifest_uri", "manifest_sha256", "source_contract_sha256"],
+      "required": [
+        "contract_version",
+        "manifest_uri",
+        "manifest_sha256",
+        "source_contract_sha256",
+        "raw_input_inventory_uri",
+        "raw_input_inventory_sha256",
+        "raw_sequence_contract_uri",
+        "raw_sequence_contract_sha256",
+        "item_universe_audit_uri",
+        "item_universe_audit_sha256"
+      ],
       "properties": {
         "contract_version": {"const": "shared_bottom_esmm_v2_source"},
         "manifest_uri": {"type": "string", "minLength": 1},
         "manifest_sha256": {"const": "33e97c72a3925b5b1ffe5550fbf625e82cacf78f18e073c0be9a2718b4fa1748"},
-        "source_contract_sha256": {"const": "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91"}
+        "source_contract_sha256": {"const": "900637a45b8cbb84f4bdd15400db3f1a4eae8c0228b4a4b812c2968493abba91"},
+        "raw_input_inventory_uri": {"type": "string", "minLength": 1},
+        "raw_input_inventory_sha256": {"const": "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3"},
+        "raw_sequence_contract_uri": {"type": "string", "minLength": 1},
+        "raw_sequence_contract_sha256": {"const": "c22332825f6baeab6375040f03fad5ed599f893d37e1ba78e215b0016d8ef4b7"},
+        "item_universe_audit_uri": {"type": "string", "minLength": 1},
+        "item_universe_audit_sha256": {"const": "11293abab08c86bf386963d92c27daf116612d590c1a54d65771bdc442147415"}
+      },
+      "additionalProperties": false
+    },
+    "method_contract": {
+      "type": "object",
+      "required": ["uri", "sha256"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "sha256": {"const": "8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee"}
       },
       "additionalProperties": false
     },
@@ -47,7 +74,15 @@
         "teacher_id": {"const": "legacy_loss_shared_bottom_esmm_v2"},
         "frozen": {"const": true},
         "score": {"const": "pCTR*pCVR"},
-        "artifact": {"$ref": "#/$defs/artifact"}
+        "artifact": {
+          "type": "object",
+          "required": ["uri", "sha256"],
+          "properties": {
+            "uri": {"type": "string", "minLength": 1},
+            "sha256": {"const": "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"}
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     },
@@ -120,20 +155,46 @@
         "depth",
         "leaf_capacity",
         "beam_width",
-        "alternating_cycles_selected",
+        "catalog_order_sha256",
+        "item_universe_audit_sha256",
+        "date_eligibility_sha256",
+        "alternating_cycles_selected_by_seed",
         "locked_before_test",
         "locked_at",
-        "locked_tree_sha256"
+        "locked_bundle_sha256"
       ],
       "properties": {
-        "branching_factor": {"type": "integer", "minimum": 2},
-        "depth": {"type": "integer", "minimum": 1},
-        "leaf_capacity": {"type": "integer", "minimum": 1},
-        "beam_width": {"type": "integer", "minimum": 1},
-        "alternating_cycles_selected": {"type": "integer", "minimum": 0, "maximum": 3},
+        "branching_factor": {"const": 2},
+        "depth": {"const": 13},
+        "leaf_capacity": {"const": 1},
+        "beam_width": {"const": 600},
+        "catalog_order_sha256": {"const": "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61"},
+        "item_universe_audit_sha256": {"const": "11293abab08c86bf386963d92c27daf116612d590c1a54d65771bdc442147415"},
+        "date_eligibility_sha256": {
+          "type": "object",
+          "required": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"],
+          "properties": {
+            "2026-08-12": {"const": "5e71dc506230819f22f35527310c5c241a705300c0e61bfb5a6ee5ef537a03d4"},
+            "2026-08-14": {"const": "5600039a543faa8235b26b3a052f870acb2e64ecdbd36c950390f65519367927"},
+            "2026-08-25": {"const": "e1fc0e68422812a637a6ba1eb46b25c0e7cbe9ac1460b71096712910ba156dd8"},
+            "2026-08-26": {"const": "bb63904e1b8863f0632381a26d1f5917feabdeacbbbb3625886a6980826f7861"},
+            "2026-08-28": {"const": "fcc577e51c932f81b5f7c99f7f8a1a754c8013e8dd329c338be195919b7ab46a"}
+          },
+          "additionalProperties": false
+        },
+        "alternating_cycles_selected_by_seed": {
+          "type": "object",
+          "required": ["16630", "16631", "16632"],
+          "properties": {
+            "16630": {"type": "integer", "minimum": 0, "maximum": 3},
+            "16631": {"type": "integer", "minimum": 0, "maximum": 3},
+            "16632": {"type": "integer", "minimum": 0, "maximum": 3}
+          },
+          "additionalProperties": false
+        },
         "locked_before_test": {"const": true},
         "locked_at": {"type": "string", "format": "date-time"},
-        "locked_tree_sha256": {"$ref": "#/$defs/sha256"}
+        "locked_bundle_sha256": {"$ref": "#/$defs/sha256"}
       },
       "additionalProperties": false
     },

@@ -150,6 +150,35 @@ def balanced_paths(items: Iterable[str], branching_factor: int) -> dict[str, tup
     return paths
 
 
+def ordered_fixed_depth_paths(
+    ordered_items: Sequence[str],
+    *,
+    branching_factor: int,
+    depth: int,
+) -> dict[str, tuple[int, ...]]:
+    """Encode a preordered catalog into fixed-depth paths, leaving tail leaves as padding."""
+    if branching_factor < 2:
+        raise ValueError("branching_factor must be at least two")
+    if depth <= 0:
+        raise ValueError("depth must be positive")
+    if not ordered_items:
+        raise ValueError("ordered_items must not be empty")
+    if len(set(ordered_items)) != len(ordered_items):
+        raise ValueError("ordered_items must be unique")
+    capacity = branching_factor**depth
+    if len(ordered_items) > capacity:
+        raise ValueError("fixed-depth tree capacity is insufficient")
+    paths: dict[str, tuple[int, ...]] = {}
+    for index, item in enumerate(ordered_items):
+        digits = [0] * depth
+        value = index
+        for position in range(depth - 1, -1, -1):
+            digits[position] = value % branching_factor
+            value //= branching_factor
+        paths[item] = tuple(digits)
+    return paths
+
+
 @dataclass(frozen=True)
 class Assignment:
     item: str

@@ -47,7 +47,93 @@ def validate_verified_evidence() -> None:
     assert len(evidence["split"]["test"]) == 5
     assert evidence["summary"]["test_rows"] == 12_844_800
     assert evidence["summary"]["legacy_esmm"]["purchase_ndcg_at_50"] == 0.1762586881279632
+    assert evidence["teacher"]["frozen"] is True
+    assert evidence["teacher"]["score"] == "pCTR*pCVR"
+    assert evidence["teacher"]["checkpoint"]["sha256"] == (
+        "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+    )
     assert "no PTD outcome" in evidence["scope_note"]
+
+
+def validate_raw_input_inventory() -> None:
+    inventory = load("artifact/verified/raw_input_inventory.json")
+    assert inventory["contract_version"] == "ptd-raw-input-inventory/v1"
+    assert inventory["status"] == "VERIFIED"
+    assert inventory["object_count"] == 216
+    assert inventory["boundary_shard_count"] == 8
+    assert inventory["total_rows"] == 23_761_140
+    assert inventory["rows_by_split"] == {"train": 8_367_000, "valid": 2_549_340, "test": 12_844_800}
+    assert inventory["checks"] == {
+        "uniform_schema": True,
+        "required_columns_present": True,
+        "row_count_matches_verified_source": True,
+        "split_row_counts_match_verified_source": True,
+        "row_payloads_persisted_locally": False,
+    }
+    columns = {field["name"] for field in inventory["schema"]}
+    assert set(inventory["required_ptd_columns"]) <= columns
+    assert {"click_seq_product_id", "purchase_seq_product_id", "first_category"} <= columns
+    objects = inventory["objects"]
+    assert len(objects) == inventory["object_count"]
+    assert len({item["uri"] for item in objects}) == len(objects)
+    assert sum(item["rows"] for item in objects) == inventory["total_rows"]
+    assert all(re.fullmatch(r"[0-9]+", item["generation"]) for item in objects)
+    serialized = json.dumps(inventory)
+    assert '"acl"' not in serialized and '"owner"' not in serialized
+
+
+def validate_sequence_and_item_contracts() -> None:
+    sequence = load("artifact/verified/raw_sequence_contract.json")
+    assert sequence["contract_version"] == "ptd-raw-sequence-contract/v1"
+    assert sequence["status"] == "VERIFIED"
+    assert sequence["source_sql"]["sha256"] == (
+        "cda3ca1312d1060bb9690d3a9da0edd763b178ea4914f107ea58f540b9c98f65"
+    )
+    assert sequence["streams"]["click"]["maximum_length"] == 30
+    assert sequence["streams"]["purchase"]["maximum_length"] == 30
+    assert sequence["checks"]["per_event_time_gap_encoding_supported"] is False
+    assert sequence["checks"]["cross_stream_merge_supported"] is False
+
+    audit = load("artifact/verified/item_universe_audit.json")
+    assert audit["contract_version"] == "ptd-item-universe-audit/v1"
+    assert audit["status"] == "VERIFIED"
+    assert audit["raw_input_inventory"]["sha256"] == sha256(
+        ROOT / "artifact" / "verified" / "raw_input_inventory.json"
+    )
+    assert audit["split_unique_items"] == {"train": 3126, "valid": 2815, "test": 4592}
+    assert audit["pretest_unique_items"] == 3245
+    assert audit["all_unique_items"] == 5584
+    assert audit["overlap"] == {
+        "validation_only_vs_train": 119,
+        "test_only_vs_train": 2399,
+        "test_only_vs_pretest": 2339,
+        "test_overlap_pretest": 2253,
+    }
+    assert audit["catalog_envelope"]["binary_category_order_sha256"] == (
+        "dd41695bb4de9a7d09bae0237cdb2f0c5f1a08b572a5647cdba9c5165bb31d61"
+    )
+    assert audit["category_consistency"] == {
+        "items_with_within_date_conflict": 0,
+        "items_with_cross_date_conflict": 0,
+    }
+    assert audit["checks"]["outcomes_or_teacher_scores_read"] is False
+    assert audit["checks"]["identifiers_persisted_locally"] is False
+
+    method = load("artifact/preregistered_method.json")
+    assert method["contract_version"] == "ptd-preregistered-method/v1"
+    assert method["status"] == "PREREGISTERED"
+    assert method["result_readout_present_when_frozen"] is False
+    assert method["source"]["raw_sequence_contract_sha256"] == sha256(
+        ROOT / "artifact" / "verified" / "raw_sequence_contract.json"
+    )
+    assert method["source"]["item_universe_audit_sha256"] == sha256(
+        ROOT / "artifact" / "verified" / "item_universe_audit.json"
+    )
+    assert method["catalog_and_tree"]["depth"] == 13
+    assert method["catalog_and_tree"]["padding_leaf_count"] == 2608
+    assert method["hstu_style_encoder"]["use_time_encoding"] is False
+    assert method["baseline_encoder"]["parameter_equality_claimed"] is False
+    assert sum(method["baseline_encoder"]["windows_most_recent_first"]) == 30
 
 
 def validate_ledger() -> None:
@@ -102,7 +188,30 @@ def validate_evidence_contracts() -> None:
     assert evaluation_schema["$defs"]["contrast"]["properties"]["guardrails_pass"]["type"] == "boolean"
     assert evaluation_schema["properties"]["inference"]["const"]["unit"] == "date_user_after_seed_average"
     assert run_schema["properties"]["selected_hyperparameters"]["properties"]["epsilon_item"]["const"] == 1e-6
-    assert run_schema["properties"]["tree"]["properties"]["alternating_cycles_selected"]["maximum"] == 3
+    assert (
+        run_schema["properties"]["source_contract"]["properties"]["raw_input_inventory_sha256"]["const"]
+        == sha256(ROOT / "artifact" / "verified" / "raw_input_inventory.json")
+    )
+    assert (
+        run_schema["properties"]["source_contract"]["properties"]["raw_sequence_contract_sha256"]["const"]
+        == sha256(ROOT / "artifact" / "verified" / "raw_sequence_contract.json")
+    )
+    assert (
+        run_schema["properties"]["source_contract"]["properties"]["item_universe_audit_sha256"]["const"]
+        == sha256(ROOT / "artifact" / "verified" / "item_universe_audit.json")
+    )
+    assert run_schema["properties"]["method_contract"]["properties"]["sha256"]["const"] == sha256(
+        ROOT / "artifact" / "preregistered_method.json"
+    )
+    assert (
+        run_schema["properties"]["teacher"]["properties"]["artifact"]["properties"]["sha256"]["const"]
+        == "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+    )
+    cycles = run_schema["properties"]["tree"]["properties"]["alternating_cycles_selected_by_seed"]
+    assert set(cycles["required"]) == {"16630", "16631", "16632"}
+    assert all(value["maximum"] == 3 for value in cycles["properties"].values())
+    assert run_schema["properties"]["tree"]["properties"]["depth"]["const"] == 13
+    assert run_schema["properties"]["tree"]["properties"]["beam_width"]["const"] == 600
     assert set(paired_row_schema["properties"]["scores"]["required"]) == {
         "fixed_tdm",
         "ptd_item",
@@ -122,6 +231,8 @@ def validate_evidence_contracts() -> None:
 if __name__ == "__main__":
     validate_manifest()
     validate_verified_evidence()
+    validate_raw_input_inventory()
+    validate_sequence_and_item_contracts()
     validate_ledger()
     validate_generated()
     validate_reference_smoke()

@@ -9,6 +9,7 @@ from reference.ptd import (
     item_sibling_distribution,
     kl_divergence,
     node_sibling_distribution,
+    ordered_fixed_depth_paths,
     ptd_objective,
     softmax,
 )
@@ -60,6 +61,18 @@ class ReferencePTDTest(unittest.TestCase):
         self.assertEqual(paths, balanced_paths(reversed(["d", "b", "a", "c", "e"]), 2))
         self.assertEqual(len(set(paths.values())), 5)
         self.assertEqual({len(path) for path in paths.values()}, {3})
+
+    def test_ordered_fixed_depth_paths_preserve_catalog_order_and_padding(self) -> None:
+        paths = ordered_fixed_depth_paths(
+            ["category-b:2", "category-a:9", "category-a:1"],
+            branching_factor=2,
+            depth=3,
+        )
+        self.assertEqual(paths["category-b:2"], (0, 0, 0))
+        self.assertEqual(paths["category-a:9"], (0, 0, 1))
+        self.assertEqual(paths["category-a:1"], (0, 1, 0))
+        with self.assertRaises(ValueError):
+            ordered_fixed_depth_paths(["duplicate", "duplicate"], branching_factor=2, depth=3)
 
     def test_capacity_assignment_respects_limit_and_ties(self) -> None:
         assignments = capacity_balanced_assignment(
