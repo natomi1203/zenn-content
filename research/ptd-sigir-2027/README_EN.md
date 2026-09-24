@@ -34,6 +34,8 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 
 `artifact/preregistered_method.json` is the exact pre-result method contract (SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`). It records the no-time-encoding two-stream HSTU-style model, matched-input multiwindow-DIN ablation, binary depth-13 tree, eligibility masks, optimizer/sampling budget, and L4 runtime. Cloud execution is intentionally not launched by this repository workflow without explicit cost authorization.
 
+`artifact/verified/execution_readiness_audit.json` hashes the recovered one-day TDM runner and records why it cannot be relabelled as PTD: its teacher value is static per node, it has one KD term and one history stream, and it lacks the registered catalog masks and five-day paired-evidence emitter. The local reference now generates request-specific item/node sibling targets, but the six production components listed in that audit must be implemented and synthetic-tested before a paid launch can be proposed.
+
 ## Evidence-ingestion gate
 
 To promote PTD results from `PENDING` to `VERIFIED`, all of the following are required:

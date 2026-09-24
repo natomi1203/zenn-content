@@ -186,6 +186,89 @@ class Assignment:
     weight: float
 
 
+@dataclass(frozen=True)
+class SiblingTarget:
+    """One request-specific teacher distribution over a binary sibling decision."""
+
+    kind: str
+    child_level: int
+    parent_path: tuple[int, ...]
+    child_paths: tuple[tuple[int, ...], tuple[int, ...]]
+    probabilities: tuple[float, float]
+
+
+def binary_sibling_targets(
+    ordered_catalog: Sequence[str],
+    teacher_scores: Mapping[str, float],
+    *,
+    depth: int,
+    temperature: float,
+    epsilon_item: float = 1e-6,
+    epsilon_node: float = 1e-12,
+) -> list[SiblingTarget]:
+    """Build item- and node-sibling targets touched by one fixed candidate list.
+
+    ``teacher_scores`` contains the frozen per-request purchase probabilities for
+    eligible candidate items only. Every sibling of a touched path remains in
+    support, including zero-candidate branches and catalog-padding leaves.
+    """
+    paths = ordered_fixed_depth_paths(ordered_catalog, branching_factor=2, depth=depth)
+    if not teacher_scores:
+        raise ValueError("teacher_scores must not be empty")
+    unknown = set(teacher_scores) - set(paths)
+    if unknown:
+        raise ValueError(f"teacher_scores contain items outside the catalog: {sorted(unknown)}")
+    for item, score in teacher_scores.items():
+        if not isfinite(float(score)) or not 0.0 <= float(score) <= 1.0:
+            raise ValueError(f"teacher score for {item} must be finite and in [0, 1]")
+
+    reverse_paths = {path: item for item, path in paths.items()}
+    candidate_paths = {item: paths[item] for item in teacher_scores}
+    targets: list[SiblingTarget] = []
+    for child_level in range(1, depth + 1):
+        touched_parents = sorted({path[: child_level - 1] for path in candidate_paths.values()})
+        for parent in touched_parents:
+            children = (parent + (0,), parent + (1,))
+            if child_level == depth:
+                labels = tuple(reverse_paths.get(path, f"__padding__:{''.join(map(str, path))}") for path in children)
+                probabilities = item_sibling_distribution(
+                    {label: float(teacher_scores.get(label, 0.0)) for label in labels},
+                    labels,
+                    temperature=temperature,
+                    epsilon=epsilon_item,
+                )
+                values = (probabilities[labels[0]], probabilities[labels[1]])
+                kind = "item"
+            else:
+                descendant_items = {
+                    str(index): [
+                        item
+                        for item, item_path in candidate_paths.items()
+                        if item_path[:child_level] == child
+                    ]
+                    for index, child in enumerate(children)
+                }
+                probabilities = node_sibling_distribution(
+                    teacher_scores,
+                    descendant_items,
+                    tuple(teacher_scores),
+                    temperature=temperature,
+                    epsilon=epsilon_node,
+                )
+                values = (probabilities["0"], probabilities["1"])
+                kind = "node"
+            targets.append(
+                SiblingTarget(
+                    kind=kind,
+                    child_level=child_level,
+                    parent_path=parent,
+                    child_paths=children,
+                    probabilities=values,
+                )
+            )
+    return targets
+
+
 def capacity_balanced_assignment(
     weights: Mapping[str, Mapping[str, float]],
     nodes: Sequence[str],

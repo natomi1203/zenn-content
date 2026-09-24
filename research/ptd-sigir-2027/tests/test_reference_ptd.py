@@ -5,6 +5,7 @@ import unittest
 
 from reference.ptd import (
     balanced_paths,
+    binary_sibling_targets,
     capacity_balanced_assignment,
     item_sibling_distribution,
     kl_divergence,
@@ -73,6 +74,35 @@ class ReferencePTDTest(unittest.TestCase):
         self.assertEqual(paths["category-a:1"], (0, 1, 0))
         with self.assertRaises(ValueError):
             ordered_fixed_depth_paths(["duplicate", "duplicate"], branching_factor=2, depth=3)
+
+    def test_binary_sibling_targets_keep_zero_mass_and_padding_support(self) -> None:
+        targets = binary_sibling_targets(
+            ["a", "b", "c"],
+            {"a": 0.8, "c": 0.2},
+            depth=2,
+            temperature=1.0,
+        )
+        self.assertEqual([(target.kind, target.parent_path) for target in targets], [
+            ("node", ()),
+            ("item", (0,)),
+            ("item", (1,)),
+        ])
+        root = targets[0]
+        self.assertAlmostEqual(root.probabilities[0], 0.8)
+        self.assertAlmostEqual(root.probabilities[1], 0.2)
+        padded = targets[-1]
+        self.assertGreater(padded.probabilities[0], padded.probabilities[1])
+        self.assertGreater(padded.probabilities[1], 0.0)
+        self.assertAlmostEqual(sum(padded.probabilities), 1.0)
+
+    def test_binary_sibling_targets_reject_unknown_candidate(self) -> None:
+        with self.assertRaises(ValueError):
+            binary_sibling_targets(
+                ["a", "b"],
+                {"outside": 0.5},
+                depth=1,
+                temperature=1.0,
+            )
 
     def test_capacity_assignment_respects_limit_and_ties(self) -> None:
         assignments = capacity_balanced_assignment(

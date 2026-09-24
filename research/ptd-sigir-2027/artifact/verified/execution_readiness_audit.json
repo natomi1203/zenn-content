@@ -1,0 +1,59 @@
+{
+  "contract_version": "ptd-execution-readiness-audit/v1",
+  "status": "VERIFIED",
+  "audited_at": "2026-09-25T00:00:00+09:00",
+  "prospective_ptd_result_found": false,
+  "paid_cloud_job_launched_by_this_audit": false,
+  "prior_runner": {
+    "scope": "one_day_tree_family_diagnostic",
+    "successful_run_manifest_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/retrieval_torcheasyrec_v1/tdm-factorial-one-day-diagnostic-20260918-v28/runs/tdm_fixed_tree/seed-16630/run_manifest.json",
+    "successful_tree_sha256": "d9d702729230a5dceb103693433585a74f281155da421308fee481af00c236e3",
+    "source_prefix": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/retrieval_torcheasyrec_v1/tdm-factorial-one-day-diagnostic-20260918-v28/submitted-code/v4",
+    "source_sha256": {
+      "sitecustomize.py": "400c552b5c38380aae986cc464c8edca12054a88aaca3e082a3886f329e9895f",
+      "build_home_feed_tdm_factorial_tree.py": "00d6b4f8442d8b56f42bff60b4485007eff10f40d243053cb95b375901b8f325",
+      "materialize_candidates.py": "5472f78fe402dafabea25c4052b8c4d7eb182d727c4c8d6069bf76ff22f7996c",
+      "finalize_home_feed_tdm_factorial_run.py": "8c33881147fe68cb09b3413a43a89251217e61023712ae756b521c444d7d73d5"
+    },
+    "verified_capabilities": [
+      "binary_category_order_tree_generation",
+      "TorchEasyRec_TDM_training_and_export",
+      "top_600_beam_retrieval",
+      "single_stream_HSTU_prototype",
+      "generic_grouped_sibling_KD_prototype",
+      "no_clobber_checkpoint_recovery"
+    ],
+    "incompatibilities_with_registered_ptd": [
+      "teacher_score_is_a_static_node_attribute_not_a_per_request_frozen_ESMM_score",
+      "one_KD_term_does_not_separate_item_and_internal_node_losses",
+      "single_history_stream_does_not_implement_the_registered_click_and_purchase_streams",
+      "tree_does_not_use_the_5584_item_catalog_envelope_or_date_eligibility_hashes",
+      "scope_is_one_day_one_seed_and_cannot_support_the_five_day_claims",
+      "candidate_output_does_not_emit_the_registered_paired_evidence_bundle"
+    ]
+  },
+  "registered_inputs_ready": {
+    "raw_input_inventory": true,
+    "raw_sequence_contract": true,
+    "item_universe_audit": true,
+    "frozen_teacher_checkpoint": true,
+    "method_contract": true,
+    "run_and_evaluation_schemas": true,
+    "reference_sibling_target_generator": true
+  },
+  "production_components_ready": {
+    "per_row_frozen_teacher_score_materializer": false,
+    "two_stream_HSTU_and_multiwindow_DIN_trainer": false,
+    "catalog_envelope_and_date_mask_builder": false,
+    "train_only_anchored_alternating_solver": false,
+    "five_day_three_seed_retrieval_and_latency_runner": false,
+    "paired_JSONL_and_evaluation_emitter": false
+  },
+  "ready_for_paid_launch": false,
+  "launch_blockers": [
+    "implement_and_synthetic_test_every_missing_production_component",
+    "mint_an_immutable_no_clobber_code_bundle_and_dry_run_job_spec",
+    "obtain_explicit_authorization_for_Vertex_AI_cost"
+  ],
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. Launch is fail-closed until the missing implementation and authorization checks pass."
+}

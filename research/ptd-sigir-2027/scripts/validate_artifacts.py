@@ -136,6 +136,23 @@ def validate_sequence_and_item_contracts() -> None:
     assert sum(method["baseline_encoder"]["windows_most_recent_first"]) == 30
 
 
+def validate_execution_readiness() -> None:
+    audit = load("artifact/verified/execution_readiness_audit.json")
+    assert audit["contract_version"] == "ptd-execution-readiness-audit/v1"
+    assert audit["status"] == "VERIFIED"
+    assert audit["prospective_ptd_result_found"] is False
+    assert audit["paid_cloud_job_launched_by_this_audit"] is False
+    assert audit["prior_runner"]["successful_tree_sha256"] == (
+        "d9d702729230a5dceb103693433585a74f281155da421308fee481af00c236e3"
+    )
+    assert len(audit["prior_runner"]["source_sha256"]) == 4
+    assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
+    assert all(audit["registered_inputs_ready"].values())
+    assert audit["ready_for_paid_launch"] is False
+    assert not any(audit["production_components_ready"].values())
+    assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
+
+
 def validate_ledger() -> None:
     with (ROOT / "artifact" / "claim_evidence_ledger.csv").open(newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -233,6 +250,7 @@ if __name__ == "__main__":
     validate_verified_evidence()
     validate_raw_input_inventory()
     validate_sequence_and_item_contracts()
+    validate_execution_readiness()
     validate_ledger()
     validate_generated()
     validate_reference_smoke()

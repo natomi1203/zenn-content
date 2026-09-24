@@ -34,6 +34,8 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
 
+`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。既存実装は node 固定の teacher 値、単一 KD、単一 history stream であり、登録済み catalog mask と five-day paired-evidence emitter もありません。local reference には request ごとの item/node sibling target 生成を追加しましたが、有料起動の提案前に同監査が列挙する6つの production componentを実装し、synthetic testを通す必要があります。
+
 ## PTD 結果を取り込む条件
 
 1. `artifact/evaluation.schema.json` 準拠の immutable evaluation JSON と、`artifact/paired_observation_row.schema.json` に各行が準拠する hash-linked JSONL。
