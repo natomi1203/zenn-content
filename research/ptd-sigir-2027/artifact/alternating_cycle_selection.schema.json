@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/alternating-cycle-selection.schema.json",
+  "title": "PTD validation-only alternating cycle selection",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "status",
+    "variant",
+    "seed",
+    "maximum_cycles",
+    "selected_cycle",
+    "selection_metric",
+    "selection_population",
+    "cycle_tie_break",
+    "hyperparameters",
+    "teacher_manifest_sha256",
+    "assignment_queries_manifest_sha256",
+    "validation_queries_manifest_sha256",
+    "initial_catalog_sha256",
+    "initial_date_eligibility_sha256",
+    "cycles",
+    "selected",
+    "selected_bundle_sha256",
+    "checks",
+    "scope_note"
+  ],
+  "properties": {
+    "contract_version": {"const": "ptd-alternating-cycle-selection/v1"},
+    "status": {"const": "complete"},
+    "variant": {"enum": ["alternating_tdm", "alternating_ptd"]},
+    "seed": {"enum": [16630, 16631, 16632]},
+    "maximum_cycles": {"const": 3},
+    "selected_cycle": {"type": "integer", "minimum": 0, "maximum": 3},
+    "selection_metric": {"const": "purchase_ndcg_at_50"},
+    "selection_population": {"const": "purchase_positive_date_user_units"},
+    "cycle_tie_break": {"const": "metric_desc_then_cycle_asc"},
+    "hyperparameters": {"$ref": "#/$defs/hyperparameters"},
+    "teacher_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "assignment_queries_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "validation_queries_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "initial_catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "initial_date_eligibility_sha256": {"$ref": "#/$defs/sha256"},
+    "cycles": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "allOf": [
+            {"$ref": "#/$defs/cycle"},
+            {
+              "properties": {
+                "cycle": {"const": 0},
+                "warm_started_from_cycle": {"const": null},
+                "tree_manifest": {"const": null},
+                "assignment_weights": {"const": null}
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/cycle"},
+            {
+              "properties": {
+                "cycle": {"const": 1},
+                "warm_started_from_cycle": {"const": 0},
+                "tree_manifest": {"$ref": "#/$defs/artifact"},
+                "assignment_weights": {"$ref": "#/$defs/assignment_weights_non_null"}
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/cycle"},
+            {
+              "properties": {
+                "cycle": {"const": 2},
+                "warm_started_from_cycle": {"const": 1},
+                "tree_manifest": {"$ref": "#/$defs/artifact"},
+                "assignment_weights": {"$ref": "#/$defs/assignment_weights_non_null"}
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/cycle"},
+            {
+              "properties": {
+                "cycle": {"const": 3},
+                "warm_started_from_cycle": {"const": 2},
+                "tree_manifest": {"$ref": "#/$defs/artifact"},
+                "assignment_weights": {"$ref": "#/$defs/assignment_weights_non_null"}
+              }
+            }
+          ]
+        }
+      ],
+      "items": false
+    },
+    "selected": {"$ref": "#/$defs/cycle"},
+    "selected_bundle_sha256": {"$ref": "#/$defs/sha256"},
+    "checks": {
+      "type": "object",
+      "required": [
+        "all_four_cycles_complete",
+        "cycle_zero_fixed_tree",
+        "cycles_one_to_three_reassigned",
+        "model_parameters_warm_started",
+        "optimizers_reset_each_fit",
+        "validation_only_cycle_selection",
+        "lower_cycle_exact_tie_break",
+        "test_queries_not_read",
+        "selected_bundle_locked",
+        "no_overwrite"
+      ],
+      "properties": {
+        "all_four_cycles_complete": {"const": true},
+        "cycle_zero_fixed_tree": {"const": true},
+        "cycles_one_to_three_reassigned": {"const": true},
+        "model_parameters_warm_started": {"const": true},
+        "optimizers_reset_each_fit": {"const": true},
+        "validation_only_cycle_selection": {"const": true},
+        "lower_cycle_exact_tie_break": {"const": true},
+        "test_queries_not_read": {"const": true},
+        "selected_bundle_locked": {"const": true},
+        "no_overwrite": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "scope_note": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "hyperparameters": {
+      "type": "object",
+      "required": ["temperature", "lambda_item", "lambda_node"],
+      "properties": {
+        "temperature": {"enum": [1.0, 2.0, 4.0]},
+        "lambda_item": {"enum": [0.1, 0.3, 1.0]},
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]}
+      },
+      "additionalProperties": false
+    },
+    "assignment_weights": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/assignment_weights_non_null"}
+      ]
+    },
+    "assignment_weights_non_null": {
+      "type": "object",
+      "required": ["weights", "manifest"],
+      "properties": {
+        "weights": {"$ref": "#/$defs/artifact"},
+        "manifest": {"$ref": "#/$defs/artifact"}
+      },
+      "additionalProperties": false
+    },
+    "cycle": {
+      "type": "object",
+      "required": [
+        "cycle",
+        "warm_started_from_cycle",
+        "catalog",
+        "date_eligibility",
+        "tree_manifest",
+        "assignment_weights",
+        "training_examples_manifest",
+        "fit_manifest",
+        "checkpoint",
+        "state_sha256",
+        "validation_purchase_ndcg_at_50",
+        "validation_purchase_positive_units"
+      ],
+      "properties": {
+        "cycle": {"type": "integer", "minimum": 0, "maximum": 3},
+        "warm_started_from_cycle": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "integer", "minimum": 0, "maximum": 2}
+          ]
+        },
+        "catalog": {"$ref": "#/$defs/artifact"},
+        "date_eligibility": {"$ref": "#/$defs/artifact"},
+        "tree_manifest": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/artifact"}
+          ]
+        },
+        "assignment_weights": {"$ref": "#/$defs/assignment_weights"},
+        "training_examples_manifest": {"$ref": "#/$defs/artifact"},
+        "fit_manifest": {"$ref": "#/$defs/artifact"},
+        "checkpoint": {"$ref": "#/$defs/artifact"},
+        "state_sha256": {"$ref": "#/$defs/sha256"},
+        "validation_purchase_ndcg_at_50": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "validation_purchase_positive_units": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

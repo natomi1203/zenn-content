@@ -113,8 +113,9 @@ def synthetic_run_manifest() -> dict:
             "catalog_order_sha256": CATALOG_ORDER_SHA256,
             "item_universe_audit_sha256": ITEM_UNIVERSE_AUDIT_SHA256,
             "date_eligibility_sha256": DATE_ELIGIBILITY_SHA256,
-            "alternating_cycles_selected_by_seed": {
-                str(seed): 1 for seed in EXPECTED_SEEDS
+            "alternating_cycles_selected_by_variant_and_seed": {
+                variant: {str(seed): 1 for seed in EXPECTED_SEEDS}
+                for variant in ("alternating_tdm", "alternating_ptd")
             },
             "locked_before_test": True,
             "locked_at": "2026-09-25T10:00:00+09:00",

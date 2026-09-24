@@ -234,6 +234,7 @@ def train_from_examples(
     checkpoint_path: Path,
     output_manifest_path: Path,
     device: str,
+    initial_fit_manifest_path: Path | None = None,
     config: PTDModelConfig | None = None,
     test_only_config_override: bool = False,
 ) -> dict[str, Any]:
@@ -261,6 +262,62 @@ def train_from_examples(
 
     configure_determinism(seed)
     model, switches = build_registered_model(variant, model_config)
+    initial_fit: dict[str, Any] | None = None
+    if initial_fit_manifest_path is not None:
+        prior = json.loads(initial_fit_manifest_path.read_text())
+        if (
+            prior.get("contract_version") != "ptd-single-fit/v1"
+            or prior.get("status") != "complete"
+            or prior.get("variant") != variant
+            or prior.get("seed") != seed
+            or not all(prior.get("checks", {}).values())
+        ):
+            raise ValueError("initial fit manifest is incompatible")
+        prior_config = dict(prior.get("model_config", {}))
+        if "windows" in prior_config:
+            prior_config["windows"] = tuple(prior_config["windows"])
+        if PTDModelConfig(**prior_config) != model_config:
+            raise ValueError("initial fit model configuration differs")
+        expected_prior_training = {
+            "temperature": temperature,
+            "lambda_item": lambda_item,
+            "lambda_node": lambda_node,
+            "item_distillation_enabled": switches[0],
+            "node_distillation_enabled": switches[1],
+            "batch_size_paths": 64,
+            "epochs": 2,
+        }
+        if prior.get("configuration") != expected_prior_training:
+            raise ValueError("initial fit training configuration differs")
+        prior_checkpoint = prior.get("checkpoint", {})
+        prior_checkpoint_path = Path(prior_checkpoint.get("path", ""))
+        if (
+            not prior_checkpoint_path.is_file()
+            or sha256(prior_checkpoint_path) != prior_checkpoint.get("sha256")
+        ):
+            raise ValueError("initial fit checkpoint path/hash mismatch")
+        payload = torch.load(prior_checkpoint_path, map_location="cpu", weights_only=False)
+        if (
+            payload.get("contract_version") != "ptd-trainer-checkpoint/v1"
+            or payload.get("variant") != variant
+            or payload.get("seed") != seed
+        ):
+            raise ValueError("initial checkpoint identity mismatch")
+        model.load_state_dict(payload["state_dict"], strict=True)
+        initial_state = state_sha256(model)
+        if initial_state != prior.get("state_sha256"):
+            raise ValueError("initial checkpoint state hash differs from fit manifest")
+        initial_fit = {
+            "manifest": {
+                "path": str(initial_fit_manifest_path),
+                "sha256": sha256(initial_fit_manifest_path),
+            },
+            "checkpoint": {
+                "path": str(prior_checkpoint_path),
+                "sha256": prior_checkpoint["sha256"],
+            },
+            "state_sha256": initial_state,
+        }
     loss_configuration = LossConfiguration(
         temperature=temperature,
         lambda_item=lambda_item,
@@ -313,6 +370,8 @@ def train_from_examples(
             },
             "model_config": model_config.__dict__,
             "test_only_config_override": test_only_config_override,
+            "initial_fit": initial_fit,
+            "optimizer_state": "reset_before_this_two_epoch_fit",
             "counts": counts,
             "train_history": history,
             "validation_loss": validation_loss,
@@ -327,9 +386,11 @@ def train_from_examples(
                 "teacher_not_serving_feature": True,
                 "test_examples_absent": True,
                 "checkpoint_no_overwrite": True,
+                "warm_start_contract_valid": True,
             },
             "scope_note": (
-                "A single train/validation fit only. Purchase-NDCG hyperparameter selection, "
+                "A single train/validation fit only. Optional model-parameter warm start resets "
+                "both optimizers. Purchase-NDCG hyperparameter selection, "
                 "alternating-tree cycles, test retrieval, latency, and efficacy remain pending."
             ),
         }
@@ -351,6 +412,7 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
+    parser.add_argument("--initial-fit-manifest", type=Path)
     args = parser.parse_args()
     output = train_from_examples(
         examples_manifest_path=args.examples_manifest,
@@ -362,6 +424,7 @@ def main() -> None:
         checkpoint_path=args.checkpoint,
         output_manifest_path=args.manifest,
         device=args.device,
+        initial_fit_manifest_path=args.initial_fit_manifest,
     )
     print(
         json.dumps(

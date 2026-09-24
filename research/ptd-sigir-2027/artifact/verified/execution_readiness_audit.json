@@ -58,19 +58,22 @@
     "ptd_trainer_smoke_sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8",
     "training_example_builder_sha256": "843413f6df598ee6b4d536533c49ecbb3ab05a27c406e9afaccfb8d50ca37d14",
     "training_example_builder_tests_sha256": "8ee9936a58cd112c490b3048127efe74ffc517e4d542a2f29f86ee8fdc92837d",
-    "single_fit_runner_sha256": "19b394f8a358375db7b497ebee163901ac340dda76fc50d90f4bd2b8d63ae383",
-    "single_fit_runner_tests_sha256": "2ae7708663ac8db01f32b1419e29de89a7c110d7c21c19fbc96f2f6a75765861",
+    "single_fit_runner_sha256": "f778440966b3ed61303873c38d95cf54488b3bdb26e070790977f227de46408a",
+    "single_fit_runner_tests_sha256": "de1c3b96223e0ed609a94695a6c16d2ac08d89e4f9e07936eb49a4c8f4ed6657",
     "validation_query_builder_sha256": "e96c250e11a479feb3e49a9a4bf7d76b7c848d73500f9291ef4a0097670e4677",
     "validation_query_builder_tests_sha256": "09feee3edd9bf8e692349aec2b02c875d103d19d5be3d7a2374858053eb12693",
     "validation_selector_sha256": "20821d43f73c08691b311c9ad6e02c18da7d8af8597c8988e9c97f581eb2ef4c",
     "validation_selector_tests_sha256": "a31315934d5ea05bae57479a58db6b54947f4a76111c323388fa4d079b236fe3",
     "assignment_query_builder_sha256": "ac76a7d506edc8d27a74461e55d7ea7aa8e01b18a09b36c7e5c98ea4913e66dd",
     "assignment_weight_materializer_sha256": "a0d7a774d9a141b03a1f4df1742fa5f3fa41a804b6a4184eefccdacfab0e6de3",
-    "assignment_weight_tests_sha256": "0859989348504670c8d5f79bf88cc5a580ac6166d5790a4fdcc7c5f1d8eaa036",
+    "assignment_weight_tests_sha256": "d0a6372230f4efeea65eb24e1720be16a677f8e53494102c6d85901b2920e8d0",
     "alternating_solver_sha256": "e7c88e9eaca523ab5d76ae2c456efc64bfc8366de62287927624f16234526c69",
     "alternating_solver_smoke_sha256": "d7779d0b41c1e47255b7d28455f20bf074f92b99de000e8d06ecc92a3370afbb",
+    "alternating_cycle_selection_schema_sha256": "022a9137bd0f50dfddd0a7d958582c00976decb2a9d58d5f29480b0f87a00680",
+    "alternating_cycle_orchestrator_sha256": "967be12a795bc7fd642d5389fc4bf5c95f82ee80c07dbb0cc94ea9a77c4ac36a",
+    "alternating_cycle_orchestrator_tests_sha256": "d25719cde655c112435ba564c61590c4507bc366f7df429d8432f8bbe9eabae4",
     "evaluation_emitter_sha256": "db57236470e1bbc7e0f88a1f9e2d88231452f4d10ed91fe538e4a4f12010d052",
-    "evaluation_emitter_smoke_sha256": "1a72e3f9c039a647d0d285acf288e80a61cd589d840474a460fed8041d431a0f",
+    "evaluation_emitter_smoke_sha256": "c10f292ebb7359e37d1272f68f519df1e9a10b053c6057f6e2ee39f22f3c4a01",
     "retrieval_query_builder_sha256": "db221ac9dcb9a3f0ce7c53e1acc7ce275dac4ad50dae9f3397c93272a2475a34",
     "retrieval_runner_sha256": "d1a946b3a3a7b1512440f2b3603c5cace6d1fda6b3bcfa0d82553af52bbf679b",
     "retrieval_runner_smoke_sha256": "ab125a13543afcfa8c51a0c6b2b874aae2ea49aa9bc5923ead3fec897394c039"
@@ -78,10 +81,9 @@
   "production_pipeline_ready": false,
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "implement_alternating_cycle_orchestration_and_validation_cycle_selection",
     "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
     "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence; raw/teacher rows can be materialized into depth-13 train/validation paths, consumed by an immutable single-fit runner, selected with an exact 27-cell validation purchase-NDCG gate, and converted into a complete train-item by free-leaf assignment matrix accepted by the exact anchored solver. A complete paid launch is still blocked by alternating-cycle orchestration/validation stopping, full run-manifest assembly (including fit scheduling), a fresh deterministic bundle, and explicit Vertex AI cost authorization. This is not real reassignment, efficacy, or production-latency evidence."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence; raw/teacher rows can be materialized into depth-13 train/validation paths, consumed by an immutable single-fit runner, selected with an exact 27-cell validation purchase-NDCG gate, and converted into a complete train-item by free-leaf assignment matrix accepted by the exact anchored solver. The alternating orchestrator completes cycles 0--3 for each alternating variant/seed, warm-starts model parameters while resetting optimizers, selects on validation purchase NDCG@50 with a lower-cycle exact-tie rule, and locks the selected bundle without reading test queries. A complete paid launch is still blocked by full run-manifest/retrieval-plan assembly (including fit scheduling), a fresh deterministic bundle, and explicit Vertex AI cost authorization. This is not real reassignment, efficacy, or production-latency evidence."
 }

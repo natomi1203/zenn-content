@@ -126,3 +126,17 @@ Changes:
 5. Required the matrix manifest to pass the exact anchored solver's existing hash, split, formula, coverage, and no-validation/test checks before reassignment.
 
 Rationale: the registered equation fixed the weight but did not fully specify whether unused leaves were candidates or whether date masks applied to structural paths. These choices make the exact solver handoff reproducible without inspecting an alternating result or changing the registered objective.
+
+## A10 - 2026-09-25 JST - alternating cycle orchestration and tree-lock shape
+
+This amendment was made while no prospective five-day PTD evaluation or real alternating-tree result existed and every efficacy, ablation, and latency claim remained `PENDING`. The complete cycle graph was exercised only on synthetic four-item depth-13 data with reduced hash buckets.
+
+Changes:
+
+1. Required cycles `0,1,2,3` to be completed for each alternating variant and seed; cycle 0 uses the fixed tree, and cycles 1--3 each materialize train-only weights, solve a new anchored tree, rebuild sibling targets, and refit.
+2. Fixed refitting to warm-start model parameters from the preceding cycle while resetting both registered optimizers before each exact two-epoch fit.
+3. Fixed cycle selection to validation purchase NDCG@50 over purchase-positive date--user units. The maximum wins; exact equality selects the lower cycle.
+4. Corrected the run-manifest shape from one cycle count per seed to one count per alternating-variant--seed pair. `alternating_tdm` and `alternating_ptd` may produce different trees and therefore cannot share an implicit count.
+5. Required the selected catalog, date masks, fit manifest, checkpoint, and their combined bundle hash to be locked before test scoring.
+
+Rationale: the prior registration allowed up to three cycles and validation-only selection but did not specify warm-start/reset behavior, residual ties, or how two alternating variants map into one run manifest. This amendment removes those ambiguities without reading a PTD outcome.

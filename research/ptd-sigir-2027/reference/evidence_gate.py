@@ -451,14 +451,21 @@ def validate_evidence(
                 errors.append(f"tree.{key} does not match the preregistered method")
         if tree.get("date_eligibility_sha256") != DATE_ELIGIBILITY_SHA256:
             errors.append("tree date eligibility hashes do not match the fixed candidate sets")
-        cycles_by_seed = tree.get("alternating_cycles_selected_by_seed")
+        cycles_by_variant = tree.get("alternating_cycles_selected_by_variant_and_seed")
         expected_seed_keys = {str(seed) for seed in EXPECTED_SEEDS}
-        if not isinstance(cycles_by_seed, dict) or set(cycles_by_seed) != expected_seed_keys:
-            errors.append("alternating cycle selection must cover every seed")
+        expected_variants = {"alternating_tdm", "alternating_ptd"}
+        if not isinstance(cycles_by_variant, dict) or set(cycles_by_variant) != expected_variants:
+            errors.append("alternating cycle selection must cover both alternating variants")
         else:
-            for seed, cycles in cycles_by_seed.items():
-                if isinstance(cycles, bool) or not isinstance(cycles, int) or not 0 <= cycles <= 3:
-                    errors.append(f"alternating cycles for seed {seed} must be an integer in [0, 3]")
+            for variant, cycles_by_seed in cycles_by_variant.items():
+                if not isinstance(cycles_by_seed, dict) or set(cycles_by_seed) != expected_seed_keys:
+                    errors.append(f"alternating cycle selection for {variant} must cover every seed")
+                    continue
+                for seed, cycles in cycles_by_seed.items():
+                    if isinstance(cycles, bool) or not isinstance(cycles, int) or not 0 <= cycles <= 3:
+                        errors.append(
+                            f"alternating cycles for {variant}/{seed} must be an integer in [0, 3]"
+                        )
 
     hyperparameters = run.get("selected_hyperparameters")
     if not isinstance(hyperparameters, dict):

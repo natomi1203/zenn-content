@@ -79,6 +79,7 @@ class AssignmentFixture:
         for date_index, snapshot_date in enumerate(dates):
             raw_rows = []
             is_train = snapshot_date in EXPECTED_SPLIT["train"]
+            is_validation = snapshot_date in EXPECTED_SPLIT["validation"]
             for rank, product in enumerate(products, start=1):
                 common = {
                     "snapshot_id": f"snapshot-{date_index}",
@@ -93,8 +94,12 @@ class AssignmentFixture:
                         "click_seq_product_id": "104;101",
                         "purchase_seq_product_id": "102",
                         "first_category": "category-a" if product < 103 else "category-b",
-                        "label_click": int(product == 102) if is_train else 99,
-                        "label_purchase": int(product == 101) if is_train else 99,
+                        "label_click": int(product == 102)
+                        if (is_train or is_validation)
+                        else 99,
+                        "label_purchase": int(product == 101)
+                        if (is_train or is_validation)
+                        else 99,
                     }
                 )
                 teacher_rows.append({**common, "teacher_purchase": 0.1 * rank})

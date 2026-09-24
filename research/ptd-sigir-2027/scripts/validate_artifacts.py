@@ -200,6 +200,15 @@ def validate_execution_readiness() -> None:
         "alternating_solver_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "alternating_solver_smoke.json"
         ),
+        "alternating_cycle_selection_schema_sha256": sha256(
+            ROOT / "artifact" / "alternating_cycle_selection.schema.json"
+        ),
+        "alternating_cycle_orchestrator_sha256": sha256(
+            ROOT / "runner" / "run_alternating_cycles.py"
+        ),
+        "alternating_cycle_orchestrator_tests_sha256": sha256(
+            ROOT / "tests" / "test_alternating_cycles.py"
+        ),
         "evaluation_emitter_sha256": sha256(ROOT / "runner" / "emit_evaluation.py"),
         "evaluation_emitter_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "evaluation_emitter_smoke.json"
@@ -214,7 +223,6 @@ def validate_execution_readiness() -> None:
     }
     assert audit["production_pipeline_ready"] is False
     assert audit["launch_blockers"] == [
-        "implement_alternating_cycle_orchestration_and_validation_cycle_selection",
         "assemble_and_validate_the_full_run_manifest_and_retrieval_plan",
         "mint_a_new_deterministic_launch_bundle_from_the_completed_pipeline_revision",
         "obtain_explicit_authorization_for_Vertex_AI_cost",
@@ -456,6 +464,42 @@ def validate_production_component_evidence() -> None:
         == "all_physical_leaves_except_anchored"
     )
     assert assignment_weights_schema["properties"]["accumulation_dtype"]["const"] == "float64"
+    alternating_cycle_schema = load("artifact/alternating_cycle_selection.schema.json")
+    assert alternating_cycle_schema["additionalProperties"] is False
+    assert alternating_cycle_schema["properties"]["maximum_cycles"]["const"] == 3
+    assert alternating_cycle_schema["properties"]["variant"]["enum"] == [
+        "alternating_tdm",
+        "alternating_ptd",
+    ]
+    assert alternating_cycle_schema["properties"]["selection_metric"]["const"] == (
+        "purchase_ndcg_at_50"
+    )
+    assert alternating_cycle_schema["properties"]["cycle_tie_break"]["const"] == (
+        "metric_desc_then_cycle_asc"
+    )
+    assert alternating_cycle_schema["properties"]["cycles"]["minItems"] == 4
+    assert alternating_cycle_schema["properties"]["cycles"]["maxItems"] == 4
+    cycle_prefixes = alternating_cycle_schema["properties"]["cycles"]["prefixItems"]
+    assert len(cycle_prefixes) == 4
+    for cycle, prefix in enumerate(cycle_prefixes):
+        fixed = prefix["allOf"][1]["properties"]
+        assert fixed["cycle"]["const"] == cycle
+        assert fixed["warm_started_from_cycle"]["const"] == (
+            None if cycle == 0 else cycle - 1
+        )
+    assert alternating_cycle_schema["properties"]["cycles"]["items"] is False
+    assert set(alternating_cycle_schema["properties"]["checks"]["required"]) == {
+        "all_four_cycles_complete",
+        "cycle_zero_fixed_tree",
+        "cycles_one_to_three_reassigned",
+        "model_parameters_warm_started",
+        "optimizers_reset_each_fit",
+        "validation_only_cycle_selection",
+        "lower_cycle_exact_tie_break",
+        "test_queries_not_read",
+        "selected_bundle_locked",
+        "no_overwrite",
+    }
     plan_schema = load("artifact/retrieval_run_plan.schema.json")
     assert plan_schema["properties"]["entries"]["minItems"] == 24
     assert plan_schema["properties"]["entries"]["maxItems"] == 24
@@ -534,9 +578,19 @@ def validate_evidence_contracts() -> None:
         run_schema["properties"]["teacher"]["properties"]["artifact"]["properties"]["sha256"]["const"]
         == "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
     )
-    cycles = run_schema["properties"]["tree"]["properties"]["alternating_cycles_selected_by_seed"]
-    assert set(cycles["required"]) == {"16630", "16631", "16632"}
-    assert all(value["maximum"] == 3 for value in cycles["properties"].values())
+    cycles = run_schema["properties"]["tree"]["properties"][
+        "alternating_cycles_selected_by_variant_and_seed"
+    ]
+    assert set(cycles["required"]) == {"alternating_tdm", "alternating_ptd"}
+    assert set(run_schema["$defs"]["cycle_map"]["required"]) == {
+        "16630",
+        "16631",
+        "16632",
+    }
+    assert all(
+        value["minimum"] == 0 and value["maximum"] == 3
+        for value in run_schema["$defs"]["cycle_map"]["properties"].values()
+    )
     assert run_schema["properties"]["tree"]["properties"]["depth"]["const"] == 13
     assert run_schema["properties"]["tree"]["properties"]["beam_width"]["const"] == 600
     assert set(paired_row_schema["properties"]["scores"]["required"]) == {

@@ -97,6 +97,53 @@ class TrainPTDTest(unittest.TestCase):
             self.assertEqual(len(payload["history"]), 2)
             self.assertTrue(all(output["checks"].values()))
             self.assertTrue(output["test_only_config_override"])
+            warm_checkpoint = root / "warm-checkpoint.pt"
+            warm_manifest = root / "warm-fit-manifest.json"
+            warm = train_from_examples(
+                examples_manifest_path=examples,
+                variant="ptd_combined",
+                seed=16630,
+                temperature=2.0,
+                lambda_item=0.3,
+                lambda_node=0.3,
+                checkpoint_path=warm_checkpoint,
+                output_manifest_path=warm_manifest,
+                device="cpu",
+                initial_fit_manifest_path=output_manifest,
+                config=PTDModelConfig(
+                    item_hash_bucket_size=64,
+                    user_hash_bucket_size=32,
+                    category_hash_bucket_size=16,
+                ),
+                test_only_config_override=True,
+            )
+            self.assertEqual(warm["initial_fit"]["state_sha256"], output["state_sha256"])
+            self.assertEqual(warm["optimizer_state"], "reset_before_this_two_epoch_fit")
+            incompatible = json.loads(output_manifest.read_text())
+            incompatible["configuration"]["temperature"] = 4.0
+            incompatible_manifest = root / "incompatible-fit-manifest.json"
+            incompatible_manifest.write_text(json.dumps(incompatible) + "\n")
+            with self.assertRaisesRegex(
+                ValueError, "initial fit training configuration differs"
+            ):
+                train_from_examples(
+                    examples_manifest_path=examples,
+                    variant="ptd_combined",
+                    seed=16630,
+                    temperature=2.0,
+                    lambda_item=0.3,
+                    lambda_node=0.3,
+                    checkpoint_path=root / "rejected-checkpoint.pt",
+                    output_manifest_path=root / "rejected-fit-manifest.json",
+                    device="cpu",
+                    initial_fit_manifest_path=incompatible_manifest,
+                    config=PTDModelConfig(
+                        item_hash_bucket_size=64,
+                        user_hash_bucket_size=32,
+                        category_hash_bucket_size=16,
+                    ),
+                    test_only_config_override=True,
+                )
             with self.assertRaises(FileExistsError):
                 train_from_examples(
                     examples_manifest_path=examples,

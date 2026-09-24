@@ -119,7 +119,7 @@ The complete objective is
 The $\tau^2$ factors preserve gradient scale under temperature smoothing. Item-only, node-only, combined, and no-distillation variants isolate the terms in Eq.~\ref{eq:loss}. The teacher is evaluated without gradient and never updated from student or test data.
 
 \subsection{Train-only alternating optimization}
-The fixed tree is a deterministic binary depth-13 hierarchy over a preregistered 5,584-item catalog envelope, sorted by earliest point-in-time category and product ID. This uses test-period item identity/category but no label or teacher score; every date masks absent items before beam search. The design is therefore a disclosed transductive catalog comparison, not an inductive cold-item claim. The alternating variant follows JTM's broad model/index co-optimization pattern but imposes a strict evidence boundary: only train-seen items may move, and only training interactions and frozen training teacher scores contribute assignment weights. Validation selects at most one of three cycles per seed; the tree-and-mask bundle is then immutable for test scoring.
+The fixed tree is a deterministic binary depth-13 hierarchy over a preregistered 5,584-item catalog envelope, sorted by earliest point-in-time category and product ID. This uses test-period item identity/category but no label or teacher score; every date masks absent items before beam search. The design is therefore a disclosed transductive catalog comparison, not an inductive cold-item claim. The alternating variant follows JTM's broad model/index co-optimization pattern but imposes a strict evidence boundary: only train-seen items may move, and only training interactions and frozen training teacher scores contribute assignment weights. Validation selects a cycle in $\{0,1,2,3\}$ independently for each alternating variant and seed; the selected checkpoint, tree, and mask bundle is then immutable for test scoring.
 
 For a candidate leaf $\ell$ with path $\pi(\ell)$, the registered train-only assignment weight is
 \begin{equation}
@@ -136,15 +136,17 @@ The reassignment maximizes $\sum_i W(i,A(i))$ subject to one leaf per item and t
 \begin{algorithmic}[1]
 \Require train $D_{tr}$, validation $D_{va}$, initial tree $\mathcal{T}_0$, frozen teacher $T$
 \State Verify point-in-time and candidate-universe assertions
-\For{$r=0,\ldots,R$ with $R\leq 2$}
-  \State Fit $\theta_r$ on $D_{tr}$ using Eq.~\ref{eq:loss}
+\For{$r=0,\ldots,3$}
+  \State Fit $\theta_r$ on $D_{tr}$ for two epochs using Eq.~\ref{eq:loss}
+  \Statex \hspace{\algorithmicindent}if $r>0$, warm-start parameters from $\theta_{r-1}$; reset optimizers
   \State Record validation NDCG@50 without changing $T$
-  \If{$r<R$}
+  \If{$r<3$}
     \State Compute train-only assignment weights using Eq.~\ref{eq:assignment}
     \State $\mathcal{T}_{r+1}\gets$ capacity-constrained reassignment
   \EndIf
 \EndFor
-\State Select $r^*$ using validation only; lock $(\theta_{r^*},\mathcal{T}_{r^*})$
+\State Select validation maximum $r^*$; exact ties choose lower $r$
+\State Lock $(\theta_{r^*},\mathcal{T}_{r^*})$ and masks before test
 \State Score each test date once; emit manifest and evaluation JSON
 \end{algorithmic}
 \end{algorithm}
