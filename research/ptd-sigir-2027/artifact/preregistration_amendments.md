@@ -69,3 +69,17 @@ Changes:
 6. Added a hash-pinned machine-readable method contract and made its source, sequence, item-universe, tree, and mask hashes mandatory in the fail-closed run manifest.
 
 Rationale: the earlier prose assumed timestamps that the frozen input does not contain and did not say how a train-only tree represents later catalog items. Leaving either ambiguity would make the experiment non-reproducible or silently exclude 2,339 items. This amendment makes the retrospective comparison executable while explicitly limiting its external validity; it does not use or reinterpret a PTD result.
+
+## A6 - 2026-09-25 JST - canonical retrieval-to-evaluation handoff
+
+This amendment was made while no prospective five-day PTD evaluation existed and every PTD efficacy, ablation, and latency claim remained `PENDING`. Only synthetic rows were used to test the emitter.
+
+Changes:
+
+1. Added `artifact/retrieval_observation_row.schema.json` as the exact handoff from retrieval to evaluation: one row per date--user--seed--variant with all registered quality/diversity metrics, one measured latency, and the number of scored candidates.
+2. Required identical date--user--seed support across all eight variants, complete three-seed pairing for each date--user, and coverage of all five test dates. Duplicate, missing, non-finite, or out-of-range rows fail closed.
+3. Fixed aggregate, per-seed, and per-date quality metrics to arithmetic means over their rows; latency uses the registered linear-interpolated p50/p95; candidates scored uses the arithmetic mean.
+4. Required at least the run manifest's preregistered number of measured latency rows for every variant and prohibited automatic emission when the run manifest contains a deviation.
+5. Required the emitter to regenerate canonical paired JSONL, all four 10,000-resample contrasts, Holm values, and guardrail flags, then pass the existing evidence-admission checker before atomically publishing outputs.
+
+Rationale: the earlier schemas fixed final evidence but left the retrieval-to-evaluation handoff implicit. The new contract removes discretion in slicing and aggregation and prevents partially paired runs from being promoted. It changes no date, seed, variant, threshold, or observed result.

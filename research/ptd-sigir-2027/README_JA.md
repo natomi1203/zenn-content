@@ -34,7 +34,7 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/preregistered_method.json` は結果を見る前に固定した厳密な method contract（SHA-256 `8fd008bcfddfaeda74f6c6cddfab5b644e664bb5aa645ca778a94a788c5fcfee`）です。time encoding を使わない二系列 HSTU-style model、同じ入力を使う multiwindow-DIN ablation、binary depth-13 tree、eligibility mask、optimizer/sampling budget、L4 runtime を記録します。費用が発生する cloud 実行は、明示的な承認なしには開始しません。
 
-`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。既存実装は node 固定の teacher 値、単一 KD、単一 history stream であり、登録済み catalog mask と five-day paired-evidence emitter もありません。6つの production component のうち4つは実装済みです。`runner/materialize_teacher_scores.py` は正確な frozen checkpoint を label-free batch に適用し、`artifact/smoke/frozen_teacher_score_smoke.json` が実weight互換性を記録します。`runner/build_catalog_bundle.py` は実データから5,584商品treeと25,394行の日別eligibilityを生成し、identifierを含まない証跡を `artifact/verified/catalog_bundle_evidence.json` に保存しました。`runner/ptd_model.py` は共有二系列HSTU-style encoder、node条件付き7窓DIN baseline、共通tree scorer、root-to-leaf合計を保つitem/node別KL、登録済みsparse/dense optimizer loopを実装し、完全なdepth-13合成pathで検証済みです。`runner/alternating_solver.py` は全非anchor物理leaf上のexact maximum-weight matchingを解き、非train商品を固定し、日別maskを追随させ、validation/test証跡を含むweight manifestを拒否します。小規模treeではbrute-force最適値と一致しました。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。有料起動の提案前に残り2 componentの実装が必要です。
+`artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つの production component のうち5つ、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、paired evaluation emitterを実装済みです。`runner/emit_evaluation.py` は完全なdate--user--seed--variant metric行を要求し、canonical paired JSONLと全evaluation JSONを生成し、10,000回bootstrap、Holm補正、guardrailを再計算してからfail-closed admission gateを自己適用し、合格時だけ出力を確定します。smokeは8,040合成行とvariantごと1,000件以上のlatency観測を使い、正のfixture差分が実験結果でないことを明記します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。有料起動の提案前にはfive-day three-seed retrieval/latency runnerが残っています。
 
 制限付きデータ環境での任意チェックは次です。
 
@@ -44,6 +44,8 @@ uv run --with torch --with numpy python scripts/run_trainer_smoke.py
 uv run --with torch --with numpy python -m unittest tests.test_ptd_model -v
 uv run --with numpy --with scipy --with pyarrow python scripts/run_alternating_solver_smoke.py
 uv run --with numpy --with scipy --with pyarrow python -m unittest tests.test_alternating_solver -v
+python3 scripts/run_evaluation_emitter_smoke.py
+python3 -m unittest tests.test_evaluation_emitter -v
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle-rerun
 python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/output/catalog-bundle --rerun-bundle-dir /restricted/output/catalog-bundle-rerun

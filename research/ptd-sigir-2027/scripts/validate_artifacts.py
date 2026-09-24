@@ -149,11 +149,12 @@ def validate_execution_readiness() -> None:
     assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
     assert all(audit["registered_inputs_ready"].values())
     assert audit["ready_for_paid_launch"] is False
-    assert sum(audit["production_components_ready"].values()) == 4
+    assert sum(audit["production_components_ready"].values()) == 5
     assert audit["production_components_ready"]["per_row_frozen_teacher_score_materializer"] is True
     assert audit["production_components_ready"]["catalog_envelope_and_date_mask_builder"] is True
     assert audit["production_components_ready"]["two_stream_HSTU_and_multiwindow_DIN_trainer"] is True
     assert audit["production_components_ready"]["train_only_anchored_alternating_solver"] is True
+    assert audit["production_components_ready"]["paired_JSONL_and_evaluation_emitter"] is True
     assert audit["implemented_component_evidence"] == {
         "frozen_teacher_materializer_sha256": sha256(ROOT / "runner" / "materialize_teacher_scores.py"),
         "frozen_teacher_smoke_sha256": sha256(
@@ -170,6 +171,10 @@ def validate_execution_readiness() -> None:
         "alternating_solver_sha256": sha256(ROOT / "runner" / "alternating_solver.py"),
         "alternating_solver_smoke_sha256": sha256(
             ROOT / "artifact" / "smoke" / "alternating_solver_smoke.json"
+        ),
+        "evaluation_emitter_sha256": sha256(ROOT / "runner" / "emit_evaluation.py"),
+        "evaluation_emitter_smoke_sha256": sha256(
+            ROOT / "artifact" / "smoke" / "evaluation_emitter_smoke.json"
         ),
     }
     assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
@@ -272,6 +277,37 @@ def validate_production_component_evidence() -> None:
     assert alternating["checks"]["anchored_items_unchanged"] is True
     assert alternating["checks"]["matches_brute_force_optimum"] is True
     assert alternating["checks"]["rejects_test_date_weight_manifest"] is True
+
+    emitter = load("artifact/smoke/evaluation_emitter_smoke.json")
+    assert emitter["contract_version"] == "ptd-evaluation-emitter-smoke/v1"
+    assert emitter["status"] == "SMOKE_ONLY"
+    assert emitter["empirical_claim_allowed"] is False
+    assert emitter["synthetic_counts"] == {
+        "dates": 5,
+        "latency_rows_per_variant": 1005,
+        "paired_observation_rows": 1005,
+        "retrieval_metric_rows": 8040,
+        "seeds": 3,
+        "users": 67,
+        "variants": 8,
+    }
+    assert all(emitter["checks"].values())
+    assert emitter["checks"]["self_admission_passed"] is True
+    assert emitter["checks"]["deterministic_evaluation_hash"] is True
+    assert emitter["checks"]["deterministic_paired_hash"] is True
+
+    retrieval_schema = load("artifact/retrieval_observation_row.schema.json")
+    assert retrieval_schema["type"] == "object"
+    assert retrieval_schema["additionalProperties"] is False
+    assert set(retrieval_schema["properties"]["date"]["enum"]) == {
+        "2026-08-12",
+        "2026-08-14",
+        "2026-08-25",
+        "2026-08-26",
+        "2026-08-28",
+    }
+    assert set(retrieval_schema["properties"]["seed"]["enum"]) == {16630, 16631, 16632}
+    assert len(retrieval_schema["properties"]["variant"]["enum"]) == 8
 
 
 def validate_ledger() -> None:

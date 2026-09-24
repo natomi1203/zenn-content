@@ -47,7 +47,7 @@
     "catalog_envelope_and_date_mask_builder": true,
     "train_only_anchored_alternating_solver": true,
     "five_day_three_seed_retrieval_and_latency_runner": false,
-    "paired_JSONL_and_evaluation_emitter": false
+    "paired_JSONL_and_evaluation_emitter": true
   },
   "implemented_component_evidence": {
     "frozen_teacher_materializer_sha256": "0688ebb97167a85170687a13cd5cd9d46c9c6d3409318c99058dd52f81685bc3",
@@ -57,13 +57,15 @@
     "ptd_model_trainer_sha256": "a9832d8573484cd4102611fb412d3fc9333cb887275fc699df2cd3a3fa563d92",
     "ptd_trainer_smoke_sha256": "4aec898b09d0344f2ff8dc557b88096c02abdca0e261b39da70a2174728717d8",
     "alternating_solver_sha256": "e7c88e9eaca523ab5d76ae2c456efc64bfc8366de62287927624f16234526c69",
-    "alternating_solver_smoke_sha256": "d7779d0b41c1e47255b7d28455f20bf074f92b99de000e8d06ecc92a3370afbb"
+    "alternating_solver_smoke_sha256": "d7779d0b41c1e47255b7d28455f20bf074f92b99de000e8d06ecc92a3370afbb",
+    "evaluation_emitter_sha256": "db57236470e1bbc7e0f88a1f9e2d88231452f4d10ed91fe538e4a4f12010d052",
+    "evaluation_emitter_smoke_sha256": "1a72e3f9c039a647d0d285acf288e80a61cd589d840474a460fed8041d431a0f"
   },
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "implement_and_synthetic_test_the_two_remaining_production_components",
+    "implement_and_synthetic_test_the_remaining_retrieval_and_latency_runner",
     "mint_an_immutable_no_clobber_code_bundle_and_dry_run_job_spec",
     "obtain_explicit_authorization_for_Vertex_AI_cost"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. The registered model/trainer and exact train-only anchored solver now have deterministic synthetic implementation evidence, not real reassignment, efficacy, or latency evidence. Launch is fail-closed until the missing implementation and authorization checks pass."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. The registered model/trainer, exact train-only anchored solver, and paired evaluation emitter now have deterministic synthetic implementation evidence, not real reassignment, efficacy, or latency evidence. Launch is fail-closed until the retrieval/latency runner, immutable launch bundle, and authorization checks pass."
 }

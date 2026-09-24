@@ -1,0 +1,44 @@
+{
+  "checks": {
+    "all_eight_variants": true,
+    "deterministic_evaluation_hash": true,
+    "deterministic_paired_hash": true,
+    "duplicate_row_rejected": true,
+    "five_dates_three_seeds": true,
+    "minimum_latency_queries_per_variant": true,
+    "no_deviations": true,
+    "no_overwrite": true,
+    "self_admission_passed": true
+  },
+  "contract_version": "ptd-evaluation-emitter-smoke/v1",
+  "empirical_claim_allowed": false,
+  "input_sha256": {
+    "retrieval_metrics": "ae943ed24a800555980a17fd5fd83db17c0572e632e65c3027ed25ce2b6065aa",
+    "run_manifest": "9ca8bed9375c9c1bc309d8bf439e1f61f93ce52657735335393f84847d227d5d"
+  },
+  "output_sha256": {
+    "evaluation": "711ca322d9639bc5c8197504d53b75e048e02e9b97ede997922c45cf593b7f53",
+    "paired_observations": "a264aa82b5576093722d830557470b786b3e80f9932829b55c7d4f3484822e7f"
+  },
+  "runtime": {
+    "platform": "Darwin",
+    "python": "3.12.8"
+  },
+  "scope_note": "Synthetic emitter evidence only. Positive synthetic deltas are fixtures, not PTD results, and cannot populate the manuscript.",
+  "status": "SMOKE_ONLY",
+  "synthetic_counts": {
+    "dates": 5,
+    "latency_rows_per_variant": 1005,
+    "paired_observation_rows": 1005,
+    "retrieval_metric_rows": 8040,
+    "seeds": 3,
+    "users": 67,
+    "variants": 8
+  },
+  "synthetic_primary_mean_deltas": {
+    "rq1_combined_vs_tdm": 0.010000000000000009,
+    "rq2_combined_vs_best_single": 0.0030000000000000022,
+    "rq3_alternating_vs_fixed": 0.0020000000000000018,
+    "rq4_hstu_vs_baseline_encoder": 0.0040000000000000036
+  }
+}

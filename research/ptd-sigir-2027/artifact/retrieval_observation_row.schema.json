@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/retrieval-observation-row.schema.json",
+  "title": "PTD per-query retrieval metric row consumed by the evaluation emitter",
+  "type": "object",
+  "required": [
+    "date",
+    "user_id",
+    "seed",
+    "variant",
+    "purchase_ndcg_at_50",
+    "purchase_recall_at_50",
+    "purchase_ndcg_at_10",
+    "purchase_ndcg_at_100",
+    "purchase_auc",
+    "click_ndcg_at_50",
+    "category_coverage_at_50",
+    "max_category_share_at_50",
+    "latency_ms",
+    "candidates_scored"
+  ],
+  "properties": {
+    "date": {"enum": ["2026-08-12", "2026-08-14", "2026-08-25", "2026-08-26", "2026-08-28"]},
+    "user_id": {"type": "string", "minLength": 1},
+    "seed": {"enum": [16630, 16631, 16632]},
+    "variant": {
+      "enum": [
+        "fixed_tdm",
+        "ptd_item",
+        "ptd_node",
+        "ptd_combined",
+        "alternating_tdm",
+        "alternating_ptd",
+        "ptd_combined_baseline_encoder",
+        "teacher_oracle"
+      ]
+    },
+    "purchase_ndcg_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+    "purchase_recall_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+    "purchase_ndcg_at_10": {"type": "number", "minimum": 0, "maximum": 1},
+    "purchase_ndcg_at_100": {"type": "number", "minimum": 0, "maximum": 1},
+    "purchase_auc": {"type": "number", "minimum": 0, "maximum": 1},
+    "click_ndcg_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+    "category_coverage_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+    "max_category_share_at_50": {"type": "number", "minimum": 0, "maximum": 1},
+    "latency_ms": {"type": "number", "minimum": 0},
+    "candidates_scored": {"type": "number", "minimum": 0}
+  },
+  "additionalProperties": false
+}
