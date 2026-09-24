@@ -38,6 +38,8 @@ The Makefile pins `SOURCE_DATE_EPOCH` to the artifact manifest timestamp so repe
 
 `artifact/verified/launch_bundle_evidence.json` records a byte-identical two-run `git archive`/`gzip -n` bundle for revision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` (SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`). The extracted bundle passes all dependency-available tests, citation checks, and artifact validation. It remains local and has not been uploaded or submitted to Vertex AI.
 
+`artifact/vertex_preflight_job_spec.json` is a non-launchable Vertex `CustomJobSpec` template for synthetic runtime compatibility checks. It fixes the registered L4 machine and container, exact bundle hash, empty-output/no-clobber checks, and an in-container `PTD_COST_AUTHORIZED=true` gate; service account and GCS locations remain placeholders and authorization defaults to false. Validate it safely with `make vertex-preflight-validate`. `scripts/validate_vertex_preflight.py` can render a spec only with the explicit `--authorize-cost` flag and concrete service-account/GCS values; it never calls `gcloud` or submits a job. No rendered launchable spec currently exists.
+
 The optional restricted-data checks are:
 
 ```bash

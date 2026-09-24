@@ -212,6 +212,36 @@ def validate_execution_readiness() -> None:
         "paid_cloud_job_launched": False,
     }
 
+    preflight = load("artifact/verified/vertex_preflight_evidence.json")
+    assert preflight["contract_version"] == "ptd-vertex-preflight-evidence/v1"
+    assert preflight["status"] == "VERIFIED"
+    assert preflight["spec_sha256"] == sha256(
+        ROOT / "artifact" / "vertex_preflight_job_spec.json"
+    )
+    assert preflight["validator_sha256"] == sha256(
+        ROOT / "scripts" / "validate_vertex_preflight.py"
+    )
+    assert preflight["tests_sha256"] == sha256(ROOT / "tests" / "test_vertex_preflight.py")
+    assert preflight["bundle_sha256"] == bundle["bundle"]["sha256"]
+    assert preflight["runtime"] == {
+        "project": "kauche-app-lab",
+        "region": "us-central1",
+        "machine_type": "g2-standard-16",
+        "accelerator_type": "NVIDIA_L4",
+        "accelerator_count": 1,
+        "container_image": (
+            "us-central1-docker.pkg.dev/kauche-app-lab/kauche-app/"
+            "tzrec-mmoe-training:1.3.9-cu130-py312"
+        ),
+    }
+    assert preflight["checks"]["custom_job_spec_structure_valid"] is True
+    assert preflight["checks"]["template_cost_authorization_false"] is True
+    assert preflight["checks"]["remote_output_no_clobber"] is True
+    assert preflight["checks"]["rendered_launchable_spec_created"] is False
+    assert preflight["checks"]["external_upload_performed"] is False
+    assert preflight["checks"]["vertex_job_created"] is False
+    assert preflight["checks"]["paid_cloud_job_launched"] is False
+
 
 def validate_production_component_evidence() -> None:
     smoke = load("artifact/smoke/frozen_teacher_score_smoke.json")

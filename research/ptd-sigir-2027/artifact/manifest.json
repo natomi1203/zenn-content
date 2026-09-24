@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "1fa90ed31270c1f054e294bf190e58e561b13b62bfc8fbef34cc9629d4d0ba6d"
+      "sha256": "67b205afb7692df810bfcc12c9baffbfae81622c1fbe89cbfb7e8e04e858d3db"
     },
     {
       "id": "launch-bundle-evidence",
@@ -147,6 +147,34 @@
       "media_type": "application/json",
       "status": "VERIFIED",
       "sha256": "7200c594c8f5a2a40aeb6960073d72d50c8d9038ed22df4e22a91355d9afc59e"
+    },
+    {
+      "id": "vertex-preflight-job-spec",
+      "path": "artifact/vertex_preflight_job_spec.json",
+      "media_type": "application/json",
+      "status": "PREREGISTERED",
+      "sha256": "1cb3b7a179304a2bc4399f88ffbe38ad6c7c439f45bc4e3961f9d6a3605a41eb"
+    },
+    {
+      "id": "vertex-preflight-evidence",
+      "path": "artifact/verified/vertex_preflight_evidence.json",
+      "media_type": "application/json",
+      "status": "VERIFIED",
+      "sha256": "cbe7abbca2f7201acc94d82582277974a9df25d62c975e2ff8276ab11d076479"
+    },
+    {
+      "id": "vertex-preflight-validator",
+      "path": "scripts/validate_vertex_preflight.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "a3d1da06605faab1d1278b82748d1f4ae9a0b8412be36bae806bc0c2cbd80efc"
+    },
+    {
+      "id": "vertex-preflight-tests",
+      "path": "tests/test_vertex_preflight.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "10f23a52e66df6c6a1819aea424da5d621a6de74def5f7dd4509d71487257184"
     },
     {
       "id": "frozen-teacher-materializer",
@@ -447,7 +475,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "8581076ddba6af455e6310f6e3e9768b5c3e5679a318ee361f079dcbc7e1e091"
+      "sha256": "50d46d656abc1217e60a39250229dcfab72b19d76eedcc33526128f23432b1d8"
     },
     {
       "id": "manifest-finalizer",
@@ -482,21 +510,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "5e7205fdeec446fbb59bae1e14c2be8e2dc87c6a9b59aa8fc4350811de992aa1"
+      "sha256": "8f9961cdadd09cdd3af9e9e1f74d4cec8b1aa1dc889e65ba03499f1267f50744"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "9f8adf0520598b668c689a2bd8c02ceb6b9d8572cc724fa2f1b01853f08f0b65"
+      "sha256": "263bcb61c7ea2412dfada319934c1b1b113754283e506e8112000e1dac861a73"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "4ad6e7aff6962863195c82ce9dd9de47c65a79cadca69f4a0903293b037b4b6a"
+      "sha256": "a2eef0d5957d5ae86bccb8a01d26573c54e59f23c1ccc9fc2a22caba78511ebb"
     },
     {
       "id": "ptd-five-day-evaluation",

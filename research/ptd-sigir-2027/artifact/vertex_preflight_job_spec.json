@@ -1,0 +1,45 @@
+{
+  "serviceAccount": "__REQUIRED_AT_AUTHORIZED_LAUNCH__",
+  "workerPoolSpecs": [
+    {
+      "machineSpec": {
+        "machineType": "g2-standard-16",
+        "acceleratorType": "NVIDIA_L4",
+        "acceleratorCount": 1
+      },
+      "replicaCount": 1,
+      "diskSpec": {
+        "bootDiskType": "pd-ssd",
+        "bootDiskSizeGb": 200
+      },
+      "containerSpec": {
+        "imageUri": "us-central1-docker.pkg.dev/kauche-app-lab/kauche-app/tzrec-mmoe-training:1.3.9-cu130-py312",
+        "command": [
+          "bash",
+          "-lc"
+        ],
+        "args": [
+          "set -euo pipefail\ntest \"${PTD_COST_AUTHORIZED}\" = \"true\"\ntest -n \"${PTD_CODE_BUNDLE_URI}\"\ntest -n \"${PTD_PREFLIGHT_OUTPUT_PREFIX}\"\nif gsutil ls \"${PTD_PREFLIGHT_OUTPUT_PREFIX}/**\" >/dev/null 2>&1; then echo \"refusing non-empty output prefix\" >&2; exit 20; fi\nmkdir -p /workspace/source /workspace/results\ngsutil cp \"${PTD_CODE_BUNDLE_URI}\" /workspace/ptd-code.tar.gz\necho \"${PTD_CODE_BUNDLE_SHA256}  /workspace/ptd-code.tar.gz\" | sha256sum -c -\ntar -xzf /workspace/ptd-code.tar.gz -C /workspace/source\ncd /workspace/source/research/ptd-sigir-2027\npython -m unittest discover -s tests -v\npython scripts/check_citations.py\npython scripts/validate_artifacts.py\npython scripts/run_trainer_smoke.py --output /workspace/results/trainer_smoke.json\npython scripts/run_alternating_solver_smoke.py --output /workspace/results/alternating_solver_smoke.json\npython scripts/run_retrieval_runner_smoke.py --output /workspace/results/retrieval_runner_smoke.json\npython scripts/run_evaluation_emitter_smoke.py --output /workspace/results/evaluation_emitter_smoke.json\nprintf '%s\\n' \"${PTD_CODE_BUNDLE_SHA256}\" > /workspace/results/code_bundle_sha256.txt\nprintf '%s\\n' \"preflight-only:no-ptd-result\" > /workspace/results/SCOPE\ngsutil -m cp -n /workspace/results/* \"${PTD_PREFLIGHT_OUTPUT_PREFIX}/\"\nprintf '%s\\n' \"complete\" > /workspace/PREFLIGHT_SUCCESS\ngsutil cp -n /workspace/PREFLIGHT_SUCCESS \"${PTD_PREFLIGHT_OUTPUT_PREFIX}/_SUCCESS\""
+        ],
+        "env": [
+          {
+            "name": "PTD_COST_AUTHORIZED",
+            "value": "false"
+          },
+          {
+            "name": "PTD_CODE_BUNDLE_URI",
+            "value": "__REQUIRED_AT_AUTHORIZED_LAUNCH__"
+          },
+          {
+            "name": "PTD_CODE_BUNDLE_SHA256",
+            "value": "ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9"
+          },
+          {
+            "name": "PTD_PREFLIGHT_OUTPUT_PREFIX",
+            "value": "__REQUIRED_AT_AUTHORIZED_LAUNCH__"
+          }
+        ]
+      }
+    }
+  ]
+}

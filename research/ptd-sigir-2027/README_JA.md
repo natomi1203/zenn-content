@@ -38,6 +38,8 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/verified/launch_bundle_evidence.json` はrevision `f8158afdc84b8831c1dac6c5c7893e0bec0d5e51` から2回独立生成してbyte一致した `git archive` / `gzip -n` bundle（SHA-256 `ce5c399287192ff5a5a723aa7540b4533e0a90f6906f23634c5ecdea32ce5be9`）を記録します。展開後bundleは利用可能な全テスト、引用検査、artifact検証を通過しました。bundleはlocalにのみ存在し、uploadもVertex AI submitもしていません。
 
+`artifact/vertex_preflight_job_spec.json` はsynthetic runtime互換性検査用で、まだlaunch不能なVertex `CustomJobSpec` templateです。登録済みL4 machine/container、正確なbundle hash、空output/no-clobber検査、container内の `PTD_COST_AUTHORIZED=true` gateを固定し、service accountとGCS locationはplaceholder、authorization既定値はfalseです。`make vertex-preflight-validate` は安全なlocal検証だけを行います。`scripts/validate_vertex_preflight.py` は明示的な `--authorize-cost` と具体的なservice-account/GCS値がある場合だけspecをrenderでき、`gcloud`呼び出しやjob submitは一切行いません。現在、launch可能なrender済みspecは存在しません。
+
 制限付きデータ環境での任意チェックは次です。
 
 ```bash
