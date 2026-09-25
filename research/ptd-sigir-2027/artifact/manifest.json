@@ -13,7 +13,7 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "4fcfb178745265a44a40709eb4375323b8a9246c131bbcf9ddfef65b6dbf4ffc"
+      "sha256": "79a3b79f7a1f171c72d59864f3425b0a7b04d22b0c084acc62628ea1a7c1d10c"
     },
     {
       "id": "paper-pdf",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "c33056fe0fb0b2271fcb2576902167aaaa9ffc68398315f21f83dca73962e4b6"
+      "sha256": "a1c5ff3af5c76941d6d8b15d26acaad26a26ce02cf61da86046d6d8c0f5cd6d7"
     },
     {
       "id": "preregistration",
@@ -720,14 +720,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "cd4be8ded3939492227ae32a736f84c839e4f58471c33ab0dc967f91bb8b31ff"
+      "sha256": "4402723763930c1ce12afcb15ae3a14417fca913fe86ca21680fe07b8d9a3f90"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "4bf693523c2d7656584417d79608c1b924e6c8c45778fa6107eb61d3b48c5df6"
+      "sha256": "8545d6f3cdac7b9626cbf3c491decfc062d8f246c81a39c73637c8da2649c888"
     },
     {
       "id": "ptd-five-day-evaluation",

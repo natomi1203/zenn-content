@@ -201,4 +201,4 @@ checker は immutable hash link、code revision、source/teacher identity、spli
 
 この開発リポジトリは所有者を特定できるため、匿名査読原稿から直接リンクできません。証跡 gate 通過後に匿名 snapshot を作ります。所属、謝辞、公開 artifact URL は review/camera-ready の移行まで非表示または placeholder のままです。
 
-原稿ソースの著者名は、名前を Naoyuki、家族名を Tomita として **Naoyuki Tomita** と記録しています。著者版は現在の所属を **XPIPELINES, Ho Chi Minh City, Vietnam** とし、謝辞で本研究が復旦大学への一か月間の研究訪問中に着想されたことを明記します。復旦大学は所属としては記載しません。review build は ACM の `anonymous=true` を維持し、`paper/main.pdf` では著者名、所属、謝辞をすべて非表示にします。`paper/main-author.pdf` ではこれらを表示します。
+原稿ソースの著者名は、名前を Naoyuki、家族名を Tomita として **Naoyuki Tomita** と記録しています。著者版は現在の所属を **X Pipelines Co., Ltd., Ho Chi Minh City, Vietnam** とし、謝辞で本研究が復旦大学への一か月間の研究訪問中に着想されたことを明記します。復旦大学は所属としては記載しません。review build は ACM の `anonymous=true` を維持し、`paper/main.pdf` では著者名、所属、謝辞をすべて非表示にします。`paper/main-author.pdf` ではこれらを表示します。
