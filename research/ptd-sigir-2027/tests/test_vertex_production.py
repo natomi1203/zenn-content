@@ -37,6 +37,8 @@ class VertexProductionTest(unittest.TestCase):
             "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3",
             'uris.append(f"{uri}#{generation}")',
             'gsutil -m cp -I "${PTD_RAW_ROOT}/"',
+            '"contract_version": "ptd-production-artifact-index/v1"',
+            '"gcs_uri": f"{prefix}/{relative}"',
             'gsutil -m cp -n -r "${PTD_RUN_ROOT}/"*',
         ):
             self.assertIn(fragment, program)

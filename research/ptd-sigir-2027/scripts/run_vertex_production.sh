@@ -3,6 +3,8 @@ set -euo pipefail
 
 for PTD_REQUIRED_NAME in \
   PTD_COST_AUTHORIZED \
+  PTD_DRIVER_URI \
+  PTD_DRIVER_SHA256 \
   PTD_CODE_BUNDLE_URI \
   PTD_CODE_BUNDLE_SHA256 \
   PTD_CODE_REVISION \
@@ -195,6 +197,59 @@ python scripts/check_evidence_candidate.py \
 
 printf '%s\n' "prospective-ptd-five-day" > "${PTD_RUN_ROOT}/SCOPE"
 printf '%s\n' "${PTD_CODE_BUNDLE_SHA256}" > "${PTD_RUN_ROOT}/code-bundle-sha256.txt"
+printf '%s\n' "${PTD_DRIVER_URI}" > "${PTD_RUN_ROOT}/production-driver-uri.txt"
+printf '%s\n' "${PTD_DRIVER_SHA256}" > "${PTD_RUN_ROOT}/production-driver-sha256.txt"
+python - "${PTD_RUN_ROOT}" "${PTD_RUN_OUTPUT_PREFIX}" <<'PY'
+import hashlib
+import json
+import os
+import sys
+
+root = os.path.abspath(sys.argv[1])
+prefix = sys.argv[2].rstrip("/")
+records = []
+for directory, _subdirectories, filenames in os.walk(root):
+    for filename in sorted(filenames):
+        path = os.path.join(directory, filename)
+        relative = os.path.relpath(path, root)
+        if relative == "artifact-index.json":
+            continue
+        digest = hashlib.sha256()
+        with open(path, "rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+        records.append(
+            {
+                "local_path": path,
+                "relative_path": relative,
+                "gcs_uri": f"{prefix}/{relative}",
+                "sha256": digest.hexdigest(),
+                "size_bytes": os.path.getsize(path),
+            }
+        )
+required = {
+    "run-manifest.json",
+    "evaluation.json",
+    "paired-observations.jsonl",
+    "retrieval-metrics.jsonl",
+    "fit-execution.json",
+    "production-driver-sha256.txt",
+}
+observed = {record["relative_path"] for record in records}
+missing = required - observed
+if missing:
+    raise SystemExit(f"artifact index missing required outputs: {sorted(missing)}")
+payload = {
+    "contract_version": "ptd-production-artifact-index/v1",
+    "status": "complete",
+    "source_root": root,
+    "output_prefix": prefix,
+    "artifacts": sorted(records, key=lambda value: value["relative_path"]),
+}
+with open(os.path.join(root, "artifact-index.json"), "x") as handle:
+    json.dump(payload, handle, indent=2, sort_keys=True)
+    handle.write("\n")
+PY
 gsutil -m cp -n -r "${PTD_RUN_ROOT}/"* "${PTD_RUN_OUTPUT_PREFIX}/"
 printf '%s\n' "complete" > "${PTD_WORK_ROOT}/PRODUCTION_SUCCESS"
 gsutil cp -n "${PTD_WORK_ROOT}/PRODUCTION_SUCCESS" "${PTD_RUN_OUTPUT_PREFIX}/_SUCCESS"
