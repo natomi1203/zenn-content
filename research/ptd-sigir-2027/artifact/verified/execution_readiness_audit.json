@@ -1,9 +1,16 @@
 {
   "contract_version": "ptd-execution-readiness-audit/v1",
   "status": "VERIFIED",
-  "audited_at": "2026-09-25T00:00:00+09:00",
+  "audited_at": "2026-09-25T09:03:02+09:00",
   "prospective_ptd_result_found": false,
-  "paid_cloud_job_launched_by_this_audit": false,
+  "paid_cloud_job_launched_by_this_audit": true,
+  "cost_authorization": {
+    "authorized": true,
+    "scope": "kauche-app-lab only",
+    "authorized_activity": "Vertex AI execution and required GCS bundle placement",
+    "preflight_job_resource": "projects/974309197206/locations/us-central1/customJobs/1755582940395339776",
+    "preflight_state": "JOB_STATE_SUCCEEDED"
+  },
   "prior_runner": {
     "scope": "one_day_tree_family_diagnostic",
     "successful_run_manifest_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/retrieval_torcheasyrec_v1/tdm-factorial-one-day-diagnostic-20260918-v28/runs/tdm_fixed_tree/seed-16630/run_manifest.json",
@@ -62,8 +69,8 @@
     "single_fit_runner_tests_sha256": "de1c3b96223e0ed609a94695a6c16d2ac08d89e4f9e07936eb49a4c8f4ed6657",
     "validation_query_builder_sha256": "e96c250e11a479feb3e49a9a4bf7d76b7c848d73500f9291ef4a0097670e4677",
     "validation_query_builder_tests_sha256": "09feee3edd9bf8e692349aec2b02c875d103d19d5be3d7a2374858053eb12693",
-    "validation_selector_sha256": "20821d43f73c08691b311c9ad6e02c18da7d8af8597c8988e9c97f581eb2ef4c",
-    "validation_selector_tests_sha256": "a31315934d5ea05bae57479a58db6b54947f4a76111c323388fa4d079b236fe3",
+    "validation_selector_sha256": "7d8928a294fd03f2d701480bc6a4f1aa988488b71065113327758b9bc15f2fdb",
+    "validation_selector_tests_sha256": "2b1086c93e2fd21e72118355c81b92ae491ab3a565204022979d9d7b91235b0e",
     "assignment_query_builder_sha256": "ac76a7d506edc8d27a74461e55d7ea7aa8e01b18a09b36c7e5c98ea4913e66dd",
     "assignment_weight_materializer_sha256": "a0d7a774d9a141b03a1f4df1742fa5f3fa41a804b6a4184eefccdacfab0e6de3",
     "assignment_weight_tests_sha256": "d0a6372230f4efeea65eb24e1720be16a677f8e53494102c6d85901b2920e8d0",
@@ -74,6 +81,9 @@
     "alternating_cycle_orchestrator_tests_sha256": "d25719cde655c112435ba564c61590c4507bc366f7df429d8432f8bbe9eabae4",
     "fit_schedule_schema_sha256": "ec7250c5e4173b7ab1cdd2cc156d9c011cd1bc9687f405feefefe30d0b4bf676",
     "fit_schedule_builder_sha256": "3f7f1e15f9c0ca2bf891fe48ad0be4ac4dc5203bd0893ff772940e16fdd51b6c",
+    "fit_execution_schema_sha256": "e7fda7e588a2413cd26c6f0c14f37fe1fdd70ef40a805db0e01c6dd41abb7e9a",
+    "fit_schedule_runner_sha256": "eeedf1216c08ccd11bd0455a59f38fe006a2e6957d279f1a6da9eec257e78fe7",
+    "fit_schedule_runner_tests_sha256": "1d89d90f9516ecee757070e3975fb866b488c01b02d13b1f42a98e6409838aff",
     "run_bundle_assembler_sha256": "a40b5c0c75a2ef9c2f5f055b6a722a9360e74e013dc6815885b3917522e30ed0",
     "run_bundle_assembler_tests_sha256": "4372ac2def408367e2815f93cc8c63c08ca0e989c3a6d911d0f32f0b2a037af8",
     "evaluation_emitter_sha256": "db57236470e1bbc7e0f88a1f9e2d88231452f4d10ed91fe538e4a4f12010d052",
@@ -82,10 +92,11 @@
     "retrieval_runner_sha256": "9eeb36b6136c84e8e74affab8b6a3c416fc495825d54d80dfeca15dfdeade0ca",
     "retrieval_runner_smoke_sha256": "ab125a13543afcfa8c51a0c6b2b874aae2ea49aa9bc5923ead3fec897394c039"
   },
-  "production_pipeline_ready": true,
+  "production_pipeline_ready": false,
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "obtain_explicit_authorization_for_Vertex_AI_cost"
+    "freeze_and_validate_post_preflight_fit_executor_revision",
+    "materialize_authorized_production_Vertex_job_spec"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence; raw/teacher rows can be materialized into depth-13 train/validation paths, consumed by an immutable single-fit runner, selected with an exact 27-cell validation purchase-NDCG gate, and converted into a complete train-item by free-leaf assignment matrix accepted by the exact anchored solver. The alternating orchestrator completes cycles 0--3 for each alternating variant/seed, warm-starts model parameters while resetting optimizers, selects on validation purchase NDCG@50 with a lower-cycle exact-tie rule, and locks the selected bundle without reading test queries. The full 65-fit DAG now hash-links every pre-test input; the run-bundle assembler verifies the 15 fixed-tree and six alternating artifacts, locks all 24 retrieval cells before test scoring, and finalizes the run manifest only after complete retrieval metrics exist. Revision c6c507060a8c90e5e65d6d8478e55b1012e4c860 has a byte-reproducible local launch bundle whose extracted tree passed all 70 tests, citation checks, and artifact validation. The only remaining paid-launch blocker is explicit Vertex AI cost authorization. This is not real reassignment, efficacy, or production-latency evidence."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor now performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits; completed immutable outputs can be reused on restart without overwrite. The exact c6c5070 bundle passed the authorized kauche-app-lab synthetic L4 preflight as CustomJob 1755582940395339776, but that bundle predates the new executor. A new revision and production Vertex job spec must therefore be frozen and validated before restricted-data execution. This is not real reassignment, efficacy, or production-latency evidence."
 }

@@ -139,14 +139,14 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "6b0836f9e761a768fcacdeb7733e9349e8731e9b73c3a294821339330c8f38cc"
+      "sha256": "e6ea6c87dff97069df9636d34613f85f204570c4e1bb306259d8eeb58b4efef2"
     },
     {
       "id": "launch-bundle-evidence",
       "path": "artifact/verified/launch_bundle_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "5a776604ac4580baa99a162d7b93fd397ab80f54b5599e5b64cc4898d890ed6f"
+      "sha256": "715e53b5d2eea237383457886810729900ac074b9d9856599ac440593ae103b5"
     },
     {
       "id": "vertex-preflight-job-spec",
@@ -160,7 +160,7 @@
       "path": "artifact/verified/vertex_preflight_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "5192be9a67a0b2abf9e9a061e9a1ac44ae762bf6b3dee72872cf5e6fb8e836fa"
+      "sha256": "6636478c0d0eada2bdf3316d656785b86b437fc8981c836c4634b276b02113d9"
     },
     {
       "id": "vertex-preflight-validator",
@@ -314,7 +314,7 @@
       "path": "runner/select_validation.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "20821d43f73c08691b311c9ad6e02c18da7d8af8597c8988e9c97f581eb2ef4c"
+      "sha256": "7d8928a294fd03f2d701480bc6a4f1aa988488b71065113327758b9bc15f2fdb"
     },
     {
       "id": "validation-selection-schema",
@@ -328,7 +328,7 @@
       "path": "tests/test_select_validation.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "a31315934d5ea05bae57479a58db6b54947f4a76111c323388fa4d079b236fe3"
+      "sha256": "2b1086c93e2fd21e72118355c81b92ae491ab3a565204022979d9d7b91235b0e"
     },
     {
       "id": "assignment-query-row-schema",
@@ -427,6 +427,27 @@
       "media_type": "text/x-python",
       "status": "GENERATED",
       "sha256": "3f7f1e15f9c0ca2bf891fe48ad0be4ac4dc5203bd0893ff772940e16fdd51b6c"
+    },
+    {
+      "id": "fit-execution-schema",
+      "path": "artifact/fit_execution.schema.json",
+      "media_type": "application/schema+json",
+      "status": "PREREGISTERED",
+      "sha256": "e7fda7e588a2413cd26c6f0c14f37fe1fdd70ef40a805db0e01c6dd41abb7e9a"
+    },
+    {
+      "id": "fit-schedule-runner",
+      "path": "runner/run_fit_schedule.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "eeedf1216c08ccd11bd0455a59f38fe006a2e6957d279f1a6da9eec257e78fe7"
+    },
+    {
+      "id": "fit-schedule-runner-tests",
+      "path": "tests/test_fit_schedule_runner.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "1d89d90f9516ecee757070e3975fb866b488c01b02d13b1f42a98e6409838aff"
     },
     {
       "id": "run-bundle-assembler",
@@ -629,7 +650,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "db9771fad0d605004a3dcca8c0ed6c8025a48619145b3fe59d5c903acb55adda"
+      "sha256": "28e329f28a6fa1d78c39b5308a780c8ac19894b9040761c7e34a33154457b0e1"
     },
     {
       "id": "manifest-finalizer",
@@ -671,14 +692,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "7e2ff5db262fdbdecce88a89b94a278edb57029bc7575126782e407705e97938"
+      "sha256": "88e1519efaa8e6b2e43caf3c58a57e445c637af6fdd3312862aa0b20187fc01e"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "765f0916f4087678756702f250a8e96d74d02a7991071dd9bf69fc0c58f9226a"
+      "sha256": "0d2893675d4cc73f88dea53328a21e5ed5104a12f3992b7f8dc90ebd34d7c491"
     },
     {
       "id": "ptd-five-day-evaluation",

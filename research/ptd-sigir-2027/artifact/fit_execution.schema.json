@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ptd/fit-execution.schema.json",
+  "title": "PTD complete pre-test fit execution",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "status",
+    "code_revision",
+    "fit_schedule",
+    "validation_selection",
+    "selected_hyperparameters",
+    "grid_fit_manifests",
+    "single_level_fit_manifests",
+    "final_fixed_tree_fit_manifests",
+    "alternating_cycle_manifests",
+    "counts",
+    "checks",
+    "scope_note"
+  ],
+  "properties": {
+    "contract_version": {"const": "ptd-fit-execution/v1"},
+    "status": {"const": "complete"},
+    "code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "fit_schedule": {"$ref": "#/$defs/artifact"},
+    "validation_selection": {"$ref": "#/$defs/artifact"},
+    "selected_hyperparameters": {"$ref": "#/$defs/hyperparameters"},
+    "grid_fit_manifests": {
+      "type": "array",
+      "minItems": 27,
+      "maxItems": 27,
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "single_level_fit_manifests": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "final_fixed_tree_fit_manifests": {
+      "type": "array",
+      "minItems": 15,
+      "maxItems": 15,
+      "items": {"$ref": "#/$defs/final_fit"}
+    },
+    "alternating_cycle_manifests": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/alternating"}
+    },
+    "counts": {
+      "const": {
+        "grid_fits": 27,
+        "single_level_fits": 2,
+        "additional_fixed_tree_fits": 12,
+        "alternating_chains": 6,
+        "fits_per_alternating_chain": 4,
+        "total_fit_executions": 65
+      }
+    },
+    "checks": {
+      "type": "object",
+      "required": [
+        "fit_schedule_hash_verified",
+        "grid_selected_before_single_level_fits",
+        "full_validation_selection_matches_preselection",
+        "exact_fixed_tree_matrix",
+        "exact_alternating_matrix",
+        "test_queries_not_opened",
+        "complete_outputs_reusable_on_restart",
+        "no_overwrite"
+      ],
+      "properties": {
+        "fit_schedule_hash_verified": {"const": true},
+        "grid_selected_before_single_level_fits": {"const": true},
+        "full_validation_selection_matches_preselection": {"const": true},
+        "exact_fixed_tree_matrix": {"const": true},
+        "exact_alternating_matrix": {"const": true},
+        "test_queries_not_opened": {"const": true},
+        "complete_outputs_reusable_on_restart": {"const": true},
+        "no_overwrite": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "scope_note": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "hyperparameters": {
+      "type": "object",
+      "required": ["temperature", "lambda_item", "lambda_node"],
+      "properties": {
+        "temperature": {"enum": [1.0, 2.0, 4.0]},
+        "lambda_item": {"enum": [0.1, 0.3, 1.0]},
+        "lambda_node": {"enum": [0.1, 0.3, 1.0]}
+      },
+      "additionalProperties": false
+    },
+    "final_fit": {
+      "type": "object",
+      "required": ["variant", "seed", "path", "sha256"],
+      "properties": {
+        "variant": {
+          "enum": [
+            "fixed_tdm",
+            "ptd_item",
+            "ptd_node",
+            "ptd_combined",
+            "ptd_combined_baseline_encoder"
+          ]
+        },
+        "seed": {"enum": [16630, 16631, 16632]},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "alternating": {
+      "type": "object",
+      "required": ["variant", "seed", "path", "sha256"],
+      "properties": {
+        "variant": {"enum": ["alternating_tdm", "alternating_ptd"]},
+        "seed": {"enum": [16630, 16631, 16632]},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

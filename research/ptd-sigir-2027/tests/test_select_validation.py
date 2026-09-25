@@ -16,7 +16,12 @@ except ImportError:  # pragma: no cover - optional schema-validation dependency
     jsonschema = None
 
 from runner.materialize_teacher_scores import sha256
-from runner.select_validation import LAMBDAS, TEMPERATURES, select_validation
+from runner.select_validation import (
+    LAMBDAS,
+    TEMPERATURES,
+    preselect_combined_grid,
+    select_validation,
+)
 
 
 class TargetBackend:
@@ -203,6 +208,31 @@ class ValidationSelectionTest(unittest.TestCase):
                     backend_factory=factory,
                     allow_test_only_fits=True,
                 )
+
+    def test_preselects_grid_before_single_level_fits_exist(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            query_manifest, catalog, eligibility, fits, target_leaf, selected = self.inputs(root)
+
+            def factory(fit, _tree, _device):
+                return TargetBackend(
+                    target_leaf=target_leaf,
+                    favor_target=tuple(fit["selection_key"]) == selected,
+                    depth=13,
+                )
+
+            output = preselect_combined_grid(
+                validation_queries_manifest_path=query_manifest,
+                catalog_path=catalog,
+                date_eligibility_path=eligibility,
+                fit_manifest_paths=fits[:27],
+                device="cpu",
+                backend_factory=factory,
+                allow_test_only_fits=True,
+            )
+            self.assertEqual(output["selected_key"], selected)
+            self.assertEqual(len(output["grid_scores"]), 27)
+            self.assertEqual(output["purchase_positive_units"], 1)
 
     def test_applies_registered_grid_and_single_variant_tie_breaks(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

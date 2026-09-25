@@ -141,7 +141,17 @@ def validate_execution_readiness() -> None:
     assert audit["contract_version"] == "ptd-execution-readiness-audit/v1"
     assert audit["status"] == "VERIFIED"
     assert audit["prospective_ptd_result_found"] is False
-    assert audit["paid_cloud_job_launched_by_this_audit"] is False
+    assert audit["paid_cloud_job_launched_by_this_audit"] is True
+    assert audit["cost_authorization"] == {
+        "authorized": True,
+        "scope": "kauche-app-lab only",
+        "authorized_activity": "Vertex AI execution and required GCS bundle placement",
+        "preflight_job_resource": (
+            "projects/974309197206/locations/us-central1/"
+            "customJobs/1755582940395339776"
+        ),
+        "preflight_state": "JOB_STATE_SUCCEEDED",
+    }
     assert audit["prior_runner"]["successful_tree_sha256"] == (
         "d9d702729230a5dceb103693433585a74f281155da421308fee481af00c236e3"
     )
@@ -215,6 +225,15 @@ def validate_execution_readiness() -> None:
         "fit_schedule_builder_sha256": sha256(
             ROOT / "runner" / "build_fit_schedule.py"
         ),
+        "fit_execution_schema_sha256": sha256(
+            ROOT / "artifact" / "fit_execution.schema.json"
+        ),
+        "fit_schedule_runner_sha256": sha256(
+            ROOT / "runner" / "run_fit_schedule.py"
+        ),
+        "fit_schedule_runner_tests_sha256": sha256(
+            ROOT / "tests" / "test_fit_schedule_runner.py"
+        ),
         "run_bundle_assembler_sha256": sha256(
             ROOT / "runner" / "assemble_run_bundle.py"
         ),
@@ -233,22 +252,32 @@ def validate_execution_readiness() -> None:
             ROOT / "artifact" / "smoke" / "retrieval_runner_smoke.json"
         ),
     }
-    assert audit["production_pipeline_ready"] is True
+    assert audit["production_pipeline_ready"] is False
     assert audit["launch_blockers"] == [
-        "obtain_explicit_authorization_for_Vertex_AI_cost",
+        "freeze_and_validate_post_preflight_fit_executor_revision",
+        "materialize_authorized_production_Vertex_job_spec",
     ]
-    assert "obtain_explicit_authorization_for_Vertex_AI_cost" in audit["launch_blockers"]
 
     bundle = load("artifact/verified/launch_bundle_evidence.json")
     assert bundle["contract_version"] == "ptd-launch-bundle-evidence/v1"
     assert bundle["status"] == "VERIFIED"
     assert re.fullmatch(r"[0-9a-f]{40}", bundle["code_revision"])
     assert bundle["code_revision"] == "c6c507060a8c90e5e65d6d8478e55b1012e4c860"
-    assert bundle["bundle"] == {
-        "filename": "ptd-sigir-2027-c6c5070.tar.gz",
-        "sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
-        "size_bytes": 437432,
-        "tar_entries": 118,
+    assert bundle["bundle"]["filename"] == "ptd-sigir-2027-c6c5070.tar.gz"
+    assert bundle["bundle"]["sha256"] == (
+        "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507"
+    )
+    assert bundle["bundle"]["size_bytes"] == 437432
+    assert bundle["bundle"]["tar_entries"] == 118
+    assert bundle["bundle"]["remote"] == {
+        "uri": (
+            "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/"
+            "ptd-sigir-2027/bundles/ptd-sigir-2027-c6c5070-6d9da3e853c5.tar.gz"
+        ),
+        "generation": "1790293184781504",
+        "created_at": "2026-09-24T23:39:44Z",
+        "md5_base64": "LflVluCchD3668s9W5W9Cw==",
+        "crc32c_base64": "SxGnxA==",
     }
     assert bundle["checks"] == {
         "independent_rerun_byte_identical": True,
@@ -260,8 +289,8 @@ def validate_execution_readiness() -> None:
         "unit_tests_skipped_optional_dependencies": 0,
         "citation_check_passed": True,
         "artifact_validation_passed": True,
-        "external_upload_performed": False,
-        "paid_cloud_job_launched": False,
+        "external_upload_performed": True,
+        "paid_cloud_job_launched": True,
     }
 
     preflight = load("artifact/verified/vertex_preflight_evidence.json")
@@ -289,10 +318,29 @@ def validate_execution_readiness() -> None:
     assert preflight["checks"]["custom_job_spec_structure_valid"] is True
     assert preflight["checks"]["template_cost_authorization_false"] is True
     assert preflight["checks"]["remote_output_no_clobber"] is True
-    assert preflight["checks"]["rendered_launchable_spec_created"] is False
-    assert preflight["checks"]["external_upload_performed"] is False
-    assert preflight["checks"]["vertex_job_created"] is False
-    assert preflight["checks"]["paid_cloud_job_launched"] is False
+    assert preflight["checks"]["rendered_launchable_spec_created"] is True
+    assert preflight["checks"]["external_upload_performed"] is True
+    assert preflight["checks"]["vertex_job_created"] is True
+    assert preflight["checks"]["paid_cloud_job_launched"] is True
+    assert all(
+        preflight["checks"][key]
+        for key in (
+            "vertex_job_succeeded",
+            "bundle_sha256_verified_in_container",
+            "unit_tests_passed_in_container",
+            "citation_check_passed_in_container",
+            "artifact_validation_passed_in_container",
+            "all_four_smokes_passed_in_container",
+            "success_marker_verified",
+            "scope_marker_excludes_empirical_result",
+        )
+    )
+    run = preflight["authorized_run"]
+    assert run["state"] == "JOB_STATE_SUCCEEDED"
+    assert run["authorization_scope"] == "kauche-app-lab only"
+    assert run["scope_marker"] == "preflight-only:no-ptd-result"
+    assert run["success_marker"] == "complete"
+    assert len(run["output_objects"]) == 7
 
 
 def validate_production_component_evidence() -> None:

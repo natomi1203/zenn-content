@@ -11,7 +11,7 @@ import math
 import os
 import tempfile
 from pathlib import Path
-from typing import Any, Callable, Mapping, Protocol, Sequence
+from typing import Any, Mapping, Protocol, Sequence
 
 from reference.evidence_gate import EXPECTED_SPLIT
 from runner.materialize_teacher_scores import sha256
@@ -105,6 +105,124 @@ def _score_fit(
     return sum(values) / len(values), len(values)
 
 
+def _select_grid_record(grid_scores: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Apply the registered near-tie rule to a complete scored 27-cell grid."""
+    if len(grid_scores) != 27:
+        raise ValueError("grid selection requires exactly 27 scored cells")
+    observed = {
+        (
+            float(value["temperature"]),
+            float(value["lambda_item"]),
+            float(value["lambda_node"]),
+        )
+        for value in grid_scores
+    }
+    if observed != set(itertools.product(TEMPERATURES, LAMBDAS, LAMBDAS)):
+        raise ValueError("scored grid does not cover the registered 27 cells")
+    metrics = [float(value[SELECTION_METRIC]) for value in grid_scores]
+    if any(not math.isfinite(value) for value in metrics):
+        raise ValueError("grid selection metrics must be finite")
+    best_metric = max(metrics)
+    tied_grid = [
+        value
+        for value in grid_scores
+        if best_metric - float(value[SELECTION_METRIC]) <= 0.001
+    ]
+    return dict(
+        min(
+            tied_grid,
+            key=lambda value: (
+                float(value["lambda_item"]) + float(value["lambda_node"]),
+                float(value["temperature"]),
+                float(value["lambda_item"]),
+                float(value["lambda_node"]),
+            ),
+        )
+    )
+
+
+def preselect_combined_grid(
+    *,
+    validation_queries_manifest_path: Path,
+    catalog_path: Path,
+    date_eligibility_path: Path,
+    fit_manifest_paths: Sequence[Path],
+    device: str,
+    backend_factory: BackendFactory | None = None,
+    allow_test_only_fits: bool = False,
+) -> dict[str, Any]:
+    """Score only the combined grid so single-level fits can use its winner."""
+    query_manifest = json.loads(validation_queries_manifest_path.read_text())
+    if (
+        query_manifest.get("contract_version") != "ptd-validation-queries/v1"
+        or query_manifest.get("status") != "complete"
+        or not all(query_manifest.get("checks", {}).values())
+        or query_manifest.get("dates") != EXPECTED_SPLIT["validation"]
+    ):
+        raise ValueError("validation-query manifest is incomplete")
+    query_artifact = query_manifest.get("output", {})
+    query_path = Path(query_artifact.get("path", ""))
+    if not query_path.is_file() or sha256(query_path) != query_artifact.get("sha256"):
+        raise ValueError("validation-query path/hash mismatch")
+    fits = [
+        _load_fit(path, allow_test_only_fits=allow_test_only_fits)
+        for path in fit_manifest_paths
+    ]
+    if len(fits) != 27 or any(fit["variant"] != COMBINED_VARIANT for fit in fits):
+        raise ValueError("grid preselection accepts exactly 27 combined fits")
+    if {fit["selection_key"] for fit in fits} != set(
+        itertools.product(TEMPERATURES, LAMBDAS, LAMBDAS)
+    ):
+        raise ValueError("combined PTD fits must cover the exact 27-cell grid")
+    tree = CatalogTree(
+        catalog_path,
+        date_eligibility_path,
+        depth=13,
+        required_dates=EXPECTED_SPLIT["validation"],
+    )
+    queries = load_queries(query_path, allowed_dates=EXPECTED_SPLIT["validation"])
+    for query in queries:
+        tree.validate_query(query)
+    factory = backend_factory or _default_backend_factory
+    grid_scores = []
+    positive_units: int | None = None
+    for fit in sorted(fits, key=lambda value: value["selection_key"]):
+        metric, units = _score_fit(
+            fit,
+            tree=tree,
+            queries=queries,
+            device=device,
+            backend_factory=factory,
+        )
+        if positive_units is None:
+            positive_units = units
+        elif units != positive_units:
+            raise ValueError("validation fits used different purchase-positive units")
+        grid_scores.append(
+            {
+                "temperature": fit["selection_key"][0],
+                "lambda_item": fit["selection_key"][1],
+                "lambda_node": fit["selection_key"][2],
+                SELECTION_METRIC: metric,
+                "fit_manifest": {
+                    "path": fit["manifest_path"],
+                    "sha256": fit["manifest_sha256"],
+                },
+                "checkpoint_sha256": fit["checkpoint"]["sha256"],
+            }
+        )
+    selected = _select_grid_record(grid_scores)
+    return {
+        "grid_scores": grid_scores,
+        "selected_key": (
+            float(selected["temperature"]),
+            float(selected["lambda_item"]),
+            float(selected["lambda_node"]),
+        ),
+        "purchase_positive_units": positive_units,
+    }
+
+
 def select_validation(
     *,
     validation_queries_manifest_path: Path,
@@ -182,21 +300,7 @@ def select_validation(
                 "checkpoint_sha256": fit["checkpoint"]["sha256"],
             }
         )
-    best_metric = max(value["purchase_ndcg_at_50"] for value in grid_scores)
-    tied_grid = [
-        value
-        for value in grid_scores
-        if best_metric - value["purchase_ndcg_at_50"] <= 0.001
-    ]
-    selected_grid = min(
-        tied_grid,
-        key=lambda value: (
-            value["lambda_item"] + value["lambda_node"],
-            value["temperature"],
-            value["lambda_item"],
-            value["lambda_node"],
-        ),
-    )
+    selected_grid = _select_grid_record(grid_scores)
     selected_key = (
         selected_grid["temperature"],
         selected_grid["lambda_item"],

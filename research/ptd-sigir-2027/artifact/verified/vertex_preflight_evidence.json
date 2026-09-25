@@ -15,6 +15,29 @@
     "accelerator_count": 1,
     "container_image": "us-central1-docker.pkg.dev/kauche-app-lab/kauche-app/tzrec-mmoe-training:1.3.9-cu130-py312"
   },
+  "authorized_run": {
+    "authorization_scope": "kauche-app-lab only",
+    "service_account": "product-recommend-pipelines@kauche-app-lab.iam.gserviceaccount.com",
+    "job_resource": "projects/974309197206/locations/us-central1/customJobs/1755582940395339776",
+    "display_name": "ptd-sigir-2027-preflight-c6c5070-20260924t233931z",
+    "state": "JOB_STATE_SUCCEEDED",
+    "created_at": "2026-09-24T23:40:31.043884Z",
+    "started_at": "2026-09-24T23:59:59Z",
+    "completed_at": "2026-09-25T00:03:00Z",
+    "bundle_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/bundles/ptd-sigir-2027-c6c5070-6d9da3e853c5.tar.gz",
+    "output_prefix": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/preflight/preflight-c6c5070-20260924T233931Z",
+    "scope_marker": "preflight-only:no-ptd-result",
+    "success_marker": "complete",
+    "output_objects": {
+      "SCOPE": {"generation": "1790294574807652", "size_bytes": 29, "md5_base64": "3cV8ueNICpp8ZPjNwB9qvA=="},
+      "_SUCCESS": {"generation": "1790294579029251", "size_bytes": 9, "md5_base64": "xRSTn91h3yaxA5JaUSKzVg=="},
+      "alternating_solver_smoke.json": {"generation": "1790294574810101", "size_bytes": 1256, "md5_base64": "ZmPOHTJM71Zs7WEH3N+IMQ=="},
+      "code_bundle_sha256.txt": {"generation": "1790294574820679", "size_bytes": 65, "md5_base64": "vEfZKouCYK4tBWyfVo/PLg=="},
+      "evaluation_emitter_smoke.json": {"generation": "1790294574756970", "size_bytes": 1555, "md5_base64": "40/eXkiM4K9WpteOkpU90w=="},
+      "retrieval_runner_smoke.json": {"generation": "1790294574884426", "size_bytes": 1402, "md5_base64": "WN29964Ib1Faaj9iv/CldA=="},
+      "trainer_smoke.json": {"generation": "1790294574837627", "size_bytes": 4548, "md5_base64": "XMQA1vgz573J8M5UoDiaCQ=="}
+    }
+  },
   "checks": {
     "custom_job_spec_structure_valid": true,
     "template_cost_authorization_false": true,
@@ -26,10 +49,18 @@
     "preflight_scope_marker_present": true,
     "authorized_renderer_no_submit": true,
     "unit_tests_passed": true,
-    "rendered_launchable_spec_created": false,
-    "external_upload_performed": false,
-    "vertex_job_created": false,
-    "paid_cloud_job_launched": false
+    "rendered_launchable_spec_created": true,
+    "external_upload_performed": true,
+    "vertex_job_created": true,
+    "paid_cloud_job_launched": true,
+    "vertex_job_succeeded": true,
+    "bundle_sha256_verified_in_container": true,
+    "unit_tests_passed_in_container": true,
+    "citation_check_passed_in_container": true,
+    "artifact_validation_passed_in_container": true,
+    "all_four_smokes_passed_in_container": true,
+    "success_marker_verified": true,
+    "scope_marker_excludes_empirical_result": true
   },
-  "scope_note": "This is a validated preflight template only. It runs synthetic compatibility checks in the registered Vertex runtime after explicit authorization; it does not train PTD or produce an empirical result."
+  "scope_note": "The authorized kauche-app-lab Vertex preflight completed successfully in the registered L4 runtime. It ran synthetic compatibility checks only, wrote an explicit no-result scope marker, did not train PTD on restricted data, and produced no empirical result."
 }
