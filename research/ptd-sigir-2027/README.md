@@ -1,4 +1,4 @@
-# Purchase-aware Tree Distillation for Home-feed Retrieval
+# From Ranking to Retrieval: Purchase-Aware Tree Distillation for Recommendation
 
 This directory is the research workspace for a SIGIR 2027 full-paper submission. It intentionally separates verified evidence from preregistered analyses and pending experiments.
 
