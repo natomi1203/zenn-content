@@ -33,7 +33,7 @@
     "artifact_validation_passed": true,
     "external_upload_performed": true,
     "paid_cloud_job_launched": true,
-    "exact_bundle_preflight_succeeded": false
+    "exact_bundle_preflight_succeeded": true
   },
-  "scope_note": "This proves a reproducible no-clobber code archive for the post-preflight fit-executor revision. The exact bundle was uploaded once to the authorized kauche-app-lab scope; its exact-bundle synthetic preflight is pending and no prospective PTD result is present."
+  "scope_note": "This proves a reproducible no-clobber code archive for the post-preflight fit-executor revision. The exact bundle was uploaded once to the authorized kauche-app-lab scope and passed its synthetic L4 preflight; no prospective PTD result is present in that preflight."
 }

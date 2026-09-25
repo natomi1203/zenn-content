@@ -1,11 +1,10 @@
 {
   "contract_version": "ptd-vertex-preflight-evidence/v1",
   "status": "VERIFIED",
-  "spec_sha256": "c66365e16a38275a2634b0e1ba45e5ccee944e13272e181ef00e96c9b1dc3262",
-  "validator_sha256": "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a",
+  "spec_sha256": "b70acd8ca6b40fdc548fe5c86bc125499c4b1ee9c8cd13253d3aebf9605d45da",
+  "validator_sha256": "f255124e410efc3eab2aebc45f056482e8345e68812d24a4f0d307f84929ed76",
   "tests_sha256": "10f23a52e66df6c6a1819aea424da5d621a6de74def5f7dd4509d71487257184",
-  "bundle_sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
-  "superseded_by_bundle_sha256": "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e",
+  "bundle_sha256": "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e",
   "gcloud_cli_version_inspected": "Google Cloud SDK 562.0.0",
   "gcloud_help_contract": "--config accepts a YAML CustomJobSpec; JSON is valid YAML",
   "runtime": {
@@ -19,24 +18,24 @@
   "authorized_run": {
     "authorization_scope": "kauche-app-lab only",
     "service_account": "product-recommend-pipelines@kauche-app-lab.iam.gserviceaccount.com",
-    "job_resource": "projects/974309197206/locations/us-central1/customJobs/1755582940395339776",
-    "display_name": "ptd-sigir-2027-preflight-c6c5070-20260924t233931z",
+    "job_resource": "projects/974309197206/locations/us-central1/customJobs/215211130346274816",
+    "display_name": "ptd-sigir-2027-preflight-b3f2468-20260925t000859z",
     "state": "JOB_STATE_SUCCEEDED",
-    "created_at": "2026-09-24T23:40:31.043884Z",
-    "started_at": "2026-09-24T23:59:59Z",
-    "completed_at": "2026-09-25T00:03:00Z",
-    "bundle_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/bundles/ptd-sigir-2027-c6c5070-6d9da3e853c5.tar.gz",
-    "output_prefix": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/preflight/preflight-c6c5070-20260924T233931Z",
+    "created_at": "2026-09-25T00:09:17.322020Z",
+    "started_at": "2026-09-25T00:28:42Z",
+    "completed_at": "2026-09-25T00:31:44Z",
+    "bundle_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/bundles/ptd-sigir-2027-b3f2468-f1f510cd105b.tar.gz",
+    "output_prefix": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/preflight/preflight-b3f2468-20260925T000859Z",
     "scope_marker": "preflight-only:no-ptd-result",
     "success_marker": "complete",
     "output_objects": {
-      "SCOPE": {"generation": "1790294574807652", "size_bytes": 29, "md5_base64": "3cV8ueNICpp8ZPjNwB9qvA=="},
-      "_SUCCESS": {"generation": "1790294579029251", "size_bytes": 9, "md5_base64": "xRSTn91h3yaxA5JaUSKzVg=="},
-      "alternating_solver_smoke.json": {"generation": "1790294574810101", "size_bytes": 1256, "md5_base64": "ZmPOHTJM71Zs7WEH3N+IMQ=="},
-      "code_bundle_sha256.txt": {"generation": "1790294574820679", "size_bytes": 65, "md5_base64": "vEfZKouCYK4tBWyfVo/PLg=="},
-      "evaluation_emitter_smoke.json": {"generation": "1790294574756970", "size_bytes": 1555, "md5_base64": "40/eXkiM4K9WpteOkpU90w=="},
-      "retrieval_runner_smoke.json": {"generation": "1790294574884426", "size_bytes": 1402, "md5_base64": "WN29964Ib1Faaj9iv/CldA=="},
-      "trainer_smoke.json": {"generation": "1790294574837627", "size_bytes": 4548, "md5_base64": "XMQA1vgz573J8M5UoDiaCQ=="}
+      "SCOPE": {"generation": "1790296284721558", "size_bytes": 29, "md5_base64": "3cV8ueNICpp8ZPjNwB9qvA=="},
+      "_SUCCESS": {"generation": "1790296288811160", "size_bytes": 9, "md5_base64": "xRSTn91h3yaxA5JaUSKzVg=="},
+      "alternating_solver_smoke.json": {"generation": "1790296284717813", "size_bytes": 1256, "md5_base64": "ZmPOHTJM71Zs7WEH3N+IMQ=="},
+      "code_bundle_sha256.txt": {"generation": "1790296284707293", "size_bytes": 65, "md5_base64": "LRXMHUBdQoB11p5RRh4stg=="},
+      "evaluation_emitter_smoke.json": {"generation": "1790296284706707", "size_bytes": 1555, "md5_base64": "40/eXkiM4K9WpteOkpU90w=="},
+      "retrieval_runner_smoke.json": {"generation": "1790296284715604", "size_bytes": 1402, "md5_base64": "WN29964Ib1Faaj9iv/CldA=="},
+      "trainer_smoke.json": {"generation": "1790296284709390", "size_bytes": 4548, "md5_base64": "XMQA1vgz573J8M5UoDiaCQ=="}
     }
   },
   "checks": {
@@ -63,5 +62,5 @@
     "success_marker_verified": true,
     "scope_marker_excludes_empirical_result": true
   },
-  "scope_note": "The authorized kauche-app-lab Vertex preflight completed successfully in the registered L4 runtime. It ran synthetic compatibility checks only, wrote an explicit no-result scope marker, did not train PTD on restricted data, and produced no empirical result."
+  "scope_note": "The exact post-executor b3f2468 bundle completed the authorized kauche-app-lab Vertex preflight successfully in the registered L4 runtime. It ran synthetic compatibility checks only, wrote an explicit no-result scope marker, did not train PTD on restricted data, and produced no empirical result."
 }

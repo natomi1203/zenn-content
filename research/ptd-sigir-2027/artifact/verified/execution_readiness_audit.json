@@ -1,15 +1,25 @@
 {
   "contract_version": "ptd-execution-readiness-audit/v1",
   "status": "VERIFIED",
-  "audited_at": "2026-09-25T09:03:02+09:00",
+  "audited_at": "2026-09-25T09:32:56+09:00",
   "prospective_ptd_result_found": false,
   "paid_cloud_job_launched_by_this_audit": true,
   "cost_authorization": {
     "authorized": true,
     "scope": "kauche-app-lab only",
     "authorized_activity": "Vertex AI execution and required GCS bundle placement",
-    "preflight_job_resource": "projects/974309197206/locations/us-central1/customJobs/1755582940395339776",
+    "preflight_job_resource": "projects/974309197206/locations/us-central1/customJobs/215211130346274816",
     "preflight_state": "JOB_STATE_SUCCEEDED"
+  },
+  "production_launch": {
+    "job_resource": "projects/974309197206/locations/us-central1/customJobs/3111588640698925056",
+    "state_at_audit": "JOB_STATE_PENDING",
+    "created_at": "2026-09-25T00:32:39.535335Z",
+    "run_id": "ptd-five-day-b3f2468-20260925t003212z",
+    "output_prefix": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/runs/ptd-five-day-b3f2468-20260925T003212Z",
+    "driver_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/drivers/run_vertex_production-38859f4b03a8.sh",
+    "driver_generation": "1790295564271587",
+    "driver_sha256": "38859f4b03a8cab9beddc232db72a3ea33be49534281cf609d1ecaa607bf0133"
   },
   "prior_runner": {
     "scope": "one_day_tree_family_diagnostic",
@@ -96,11 +106,8 @@
     "retrieval_runner_sha256": "9eeb36b6136c84e8e74affab8b6a3c416fc495825d54d80dfeca15dfdeade0ca",
     "retrieval_runner_smoke_sha256": "ab125a13543afcfa8c51a0c6b2b874aae2ea49aa9bc5923ead3fec897394c039"
   },
-  "production_pipeline_ready": false,
-  "ready_for_paid_launch": false,
-  "launch_blockers": [
-    "complete_exact_bundle_Vertex_preflight",
-    "freeze_and_upload_hash_pinned_production_driver"
-  ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits. Revision b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093 is frozen in a deterministic bundle whose extracted tree passed 72 tests, citation checks, and artifact validation. A fail-closed Lab-only production driver and Vertex template now bind raw/checkpoint/code identities, the pre-test/test boundary, evidence admission, and no-clobber publication. The exact-bundle preflight and production-driver freeze/upload remain before restricted-data launch. This is not real reassignment, efficacy, or production-latency evidence."
+  "production_pipeline_ready": true,
+  "ready_for_paid_launch": true,
+  "launch_blockers": [],
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits. Revision b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093 is frozen in a deterministic bundle whose extracted tree passed 72 tests, citation checks, artifact validation, and its exact-bundle L4 preflight. The hash-pinned Lab-only production job has been submitted and was pending at this audit. No prospective PTD result was available at audit time; efficacy, ablation, and latency claims remain pending until the immutable run passes admission."
 }

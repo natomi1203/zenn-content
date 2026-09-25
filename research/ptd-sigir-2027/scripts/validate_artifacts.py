@@ -148,9 +148,30 @@ def validate_execution_readiness() -> None:
         "authorized_activity": "Vertex AI execution and required GCS bundle placement",
         "preflight_job_resource": (
             "projects/974309197206/locations/us-central1/"
-            "customJobs/1755582940395339776"
+            "customJobs/215211130346274816"
         ),
         "preflight_state": "JOB_STATE_SUCCEEDED",
+    }
+    assert audit["production_launch"] == {
+        "job_resource": (
+            "projects/974309197206/locations/us-central1/"
+            "customJobs/3111588640698925056"
+        ),
+        "state_at_audit": "JOB_STATE_PENDING",
+        "created_at": "2026-09-25T00:32:39.535335Z",
+        "run_id": "ptd-five-day-b3f2468-20260925t003212z",
+        "output_prefix": (
+            "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/"
+            "ptd-sigir-2027/runs/ptd-five-day-b3f2468-20260925T003212Z"
+        ),
+        "driver_uri": (
+            "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/"
+            "ptd-sigir-2027/drivers/run_vertex_production-38859f4b03a8.sh"
+        ),
+        "driver_generation": "1790295564271587",
+        "driver_sha256": (
+            "38859f4b03a8cab9beddc232db72a3ea33be49534281cf609d1ecaa607bf0133"
+        ),
     }
     assert audit["prior_runner"]["successful_tree_sha256"] == (
         "d9d702729230a5dceb103693433585a74f281155da421308fee481af00c236e3"
@@ -158,7 +179,7 @@ def validate_execution_readiness() -> None:
     assert len(audit["prior_runner"]["source_sha256"]) == 4
     assert len(audit["prior_runner"]["incompatibilities_with_registered_ptd"]) == 6
     assert all(audit["registered_inputs_ready"].values())
-    assert audit["ready_for_paid_launch"] is False
+    assert audit["ready_for_paid_launch"] is True
     assert sum(audit["production_components_ready"].values()) == 6
     assert audit["production_components_ready"]["per_row_frozen_teacher_score_materializer"] is True
     assert audit["production_components_ready"]["catalog_envelope_and_date_mask_builder"] is True
@@ -264,11 +285,8 @@ def validate_execution_readiness() -> None:
             ROOT / "artifact" / "smoke" / "retrieval_runner_smoke.json"
         ),
     }
-    assert audit["production_pipeline_ready"] is False
-    assert audit["launch_blockers"] == [
-        "complete_exact_bundle_Vertex_preflight",
-        "freeze_and_upload_hash_pinned_production_driver",
-    ]
+    assert audit["production_pipeline_ready"] is True
+    assert audit["launch_blockers"] == []
 
     bundle = load("artifact/verified/launch_bundle_evidence.json")
     assert bundle["contract_version"] == "ptd-launch-bundle-evidence/v1"
@@ -303,23 +321,20 @@ def validate_execution_readiness() -> None:
         "artifact_validation_passed": True,
         "external_upload_performed": True,
         "paid_cloud_job_launched": True,
-        "exact_bundle_preflight_succeeded": False,
+        "exact_bundle_preflight_succeeded": True,
     }
 
     preflight = load("artifact/verified/vertex_preflight_evidence.json")
     assert preflight["contract_version"] == "ptd-vertex-preflight-evidence/v1"
     assert preflight["status"] == "VERIFIED"
-    assert preflight["spec_sha256"] == (
-        "c66365e16a38275a2634b0e1ba45e5ccee944e13272e181ef00e96c9b1dc3262"
+    assert preflight["spec_sha256"] == sha256(
+        ROOT / "artifact" / "vertex_preflight_job_spec.json"
     )
-    assert preflight["validator_sha256"] == (
-        "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a"
+    assert preflight["validator_sha256"] == sha256(
+        ROOT / "scripts" / "validate_vertex_preflight.py"
     )
     assert preflight["tests_sha256"] == sha256(ROOT / "tests" / "test_vertex_preflight.py")
-    assert preflight["bundle_sha256"] == (
-        "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507"
-    )
-    assert preflight["superseded_by_bundle_sha256"] == bundle["bundle"]["sha256"]
+    assert preflight["bundle_sha256"] == bundle["bundle"]["sha256"]
     assert preflight["runtime"] == {
         "project": "kauche-app-lab",
         "region": "us-central1",
