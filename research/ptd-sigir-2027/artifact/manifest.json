@@ -13,14 +13,14 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "f39f9185547a78e2a0cffef484eccb8a7bd832e7b266b66a3c9d4cb1009a4a61"
+      "sha256": "482bb44c3aadb57c9eea17cb01c3136f4ff57816ff7c31c93562098914c43e12"
     },
     {
       "id": "paper-pdf",
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "b01eaa3406f040b39569f4353866cb0de6ea1aeabac4b0170b6568625449d3d1"
+      "sha256": "87fa0abc7e4d656ccba69f459725b9868122a04b6be3c29c39199130ac680b85"
     },
     {
       "id": "paper-author-source",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "0b4dc937b0bc4acf48a66bab59dbbe9a290656fa0d8dd6f61ca10ff3611ea14d"
+      "sha256": "538077f8b2f6791489c75089a4407fd4e634494bbdbc721b247234e3e37dc7c3"
     },
     {
       "id": "preregistration",
@@ -48,7 +48,7 @@
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "ea0173bcbc07e26597a83362829baafd1986ae6102d8300b169d2e15c2732df2"
+      "sha256": "1fede79fa3468a38535dd21975b40c9d1fe66622413d6cfed73fb87441a3bdba"
     },
     {
       "id": "artifact-manifest-schema",
@@ -83,7 +83,7 @@
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "31671bf4a3dc1364537baed6658858691ff6af2ae60d48de6ef2fbae4e2a809c"
+      "sha256": "3be55afee5cebbb40a3a9a57f27d06aaef1b11c7b06b578a295ae48a613ff735"
     },
     {
       "id": "legacy-esmm-anchor",
@@ -720,14 +720,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "4402723763930c1ce12afcb15ae3a14417fca913fe86ca21680fe07b8d9a3f90"
+      "sha256": "9b955aad6c7027a620f3eaf3d4b01c9942b57b46ceeffebc908f685ffa51eed3"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "8545d6f3cdac7b9626cbf3c491decfc062d8f246c81a39c73637c8da2649c888"
+      "sha256": "5fc403e50d1f004106549ad9263e798d016f050b6bc30dd24a56ca96de34ade5"
     },
     {
       "id": "ptd-five-day-evaluation",

@@ -12,6 +12,10 @@ SIGIR 2027 full-paper の公式要項は公開済みです。英語 PDF、最新
 
 収録した legacy ESMM anchor は社内制限付き証跡です。teacher 定義と point-in-time-safe な共通評価母集団の固定には使えますが、PTD の有効性を示すものではありません。匿名投稿前に、内容ハッシュを維持した匿名 artifact mirror を作り、組織を特定できる URI は置換します。
 
+## 目的依存の集約則を検証する拡張
+
+A14では、中心仮説を「maxはbest-one retrieval、sum-massは加法的top-$K$購入utilityに対応し、有限beamが不可逆な早期pruningを通じて差を増幅し得る」という目的依存の形へ修正しました。sumの常勝は仮定しません。P0はhard/no-KD、leaf-only、max、full-mean、sum-massを同一条件で比較し、beam interactionとdepth別survivalを測ります。P1はcardinality matching、shuffle/uniform/popularity control、sparsity×teacher quality、P2はlog-sum-exp、teacher quality比較、公開データ再現です。既存one-dayのmax/log-sum-exp/top-8-mean診断はcontextに限定し、この拡張の証拠にはしません。exact beam幅、停止規則、不変identityを結果より前にlockするまで拡張jobは開始しません。
+
 ## 再現手順
 
 Python 3.10+ と Tectonic（または `acmart` を含む TeX Live）が必要です。
@@ -36,7 +40,7 @@ Makefile は `SOURCE_DATE_EPOCH` を artifact manifest の時刻に固定し、�
 
 `artifact/verified/execution_readiness_audit.json` は既存 one-day TDM runner の code hash と、これを PTD と呼べない理由を固定します。6つのcore component、すなわち frozen teacher materialization、実5,584商品catalog/date mask、共有二系列HSTU-style/multiwindow-DIN trainer、exact train-only anchored reassignment、five-date/three-seed beam retrieval・latency測定、paired evaluation emitterに決定論的な合成実装証跡があります。`runner/build_training_examples.py` はraw/frozen-teacher rowをkey一致させ、train/validationのcandidate setを固定date maskと照合し、観測purchaseごとに完全なdepth-13 groupを出力します。test shardではoutcome列を開きません。`runner/train_ptd.py` はこのimmutable artifactから登録済みvariant/seedの単一fitを実行し、batch size 64、exact 2 epoch、no-clobber checkpoint、validation-loss auditを強制します。`runner/build_assignment_queries.py`と`runner/materialize_assignment_weights.py`は3つのtrain日だけを隔離し、exact anchored solverが受理する完全なfloat64 train-item×free-leaf行列を生成します。`runner/run_alternating_cycles.py`は一つのalternating variant/seedについてcycle 0--3を完走し、model parameterをwarm-startする一方で両optimizerをresetし、validation purchase NDCG@50とlower-cycle exact-tie ruleで選択して、test queryを開かずに選択bundleを固定します。`runner/build_fit_schedule.py`はpre-test inputをhash-linkした完全な65-fit staged DAGを固定し、`runner/run_fit_schedule.py`はsingle-level 2 fitの前にvalidation-only grid preselectionを行い、そのDAGを実行してtest queryを開かず正確な15 fixed-tree＋6 alternating manifestを出力します。`runner/assemble_run_bundle.py`はそれらを検証し、test scoring前に正確な24-cell retrieval planをlockし、complete retrieval metricsの後だけrun manifestを確定します。test側は`runner/build_retrieval_queries.py`と`runner/retrieval_runner.py`がbeam/latency実行を担当します。これらは実装検査であり、効果、実tree、または本番latencyの証跡ではありません。
 
-有料実行は`kauche-app-lab`内だけ承認されています。完全な65-fit executorは`b3f2468` bundleに固定され、そのexact synthetic L4 Vertex preflightをCustomJob `215211130346274816`として完了しました。GCS outputには`_SUCCESS`と明示的scope marker `preflight-only:no-ptd-result`があります。最初のproduction jobはprogram開始前にregional L4不足となり、空prefixのままcancelしました。hash-identical Flex Start replacementはCustomJob `5503281517809369088`で、最終audit時点では`PENDING`です。不変outputがadmissionを通るまでempirical readoutは昇格しません。
+有料実行は`kauche-app-lab`内だけ承認されています。完全な65-fit executorは`b3f2468` bundleに固定され、そのexact synthetic L4 Vertex preflightをCustomJob `215211130346274816`として完了しました。GCS outputには`_SUCCESS`と明示的scope marker `preflight-only:no-ptd-result`があります。最初のproduction jobはprogram開始前にregional L4不足となり、空prefixのままcancelしました。hash-identical Flex Start replacementのCustomJob `5503281517809369088`はtraining開始前に失敗し、不変output prefixは空のままです。driverは登録済み216 objectから同名Parquet 2件だけを平坦化copyした後、exact count checkで停止しました。この運用失敗はempirical evidenceではありません。完全な不変outputがadmissionを通るまでreadoutは昇格しません。
 
 `artifact/verified/launch_bundle_evidence.json` は完成pipeline revision `b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093` から2回独立生成してbyte一致した `git archive` / `gzip -n` bundle（SHA-256 `f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e`）を記録します。展開後bundleはoptional依存を含む全72テスト、引用検査、artifact検証を通過し、no-clobberで一度uploadしてexact synthetic Vertex preflightも通過しました。`artifact/verified/vertex_preflight_evidence.json`が不変job/output-object identityを記録します。
 
