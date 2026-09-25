@@ -34,6 +34,9 @@ class VertexProductionTest(unittest.TestCase):
             "runner/retrieval_runner.py",
             "runner/emit_evaluation.py",
             "scripts/check_evidence_candidate.py",
+            "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3",
+            'uris.append(f"{uri}#{generation}")',
+            'gsutil -m cp -I "${PTD_RAW_ROOT}/"',
             'gsutil -m cp -n -r "${PTD_RUN_ROOT}/"*',
         ):
             self.assertIn(fragment, program)

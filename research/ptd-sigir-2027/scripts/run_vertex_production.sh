@@ -38,7 +38,29 @@ mkdir -p "${PTD_SOURCE_ROOT}" "${PTD_RAW_ROOT}" "${PTD_RUN_ROOT}"
 gsutil cp "${PTD_CODE_BUNDLE_URI}" "${PTD_WORK_ROOT}/code.tar.gz"
 echo "${PTD_CODE_BUNDLE_SHA256}  ${PTD_WORK_ROOT}/code.tar.gz" | sha256sum -c -
 tar -xzf "${PTD_WORK_ROOT}/code.tar.gz" -C "${PTD_SOURCE_ROOT}"
-gsutil -m cp "${PTD_RAW_INPUT_PREFIX}/*.parquet" "${PTD_RAW_ROOT}/"
+PTD_RAW_INVENTORY="${PTD_SOURCE_ROOT}/research/ptd-sigir-2027/artifact/verified/raw_input_inventory.json"
+echo "d28d69f602b3782f923190768b0d2efc64104c456c9b7b961ea457ed04a31db3  ${PTD_RAW_INVENTORY}" | sha256sum -c -
+python - "${PTD_RAW_INVENTORY}" "${PTD_RAW_INPUT_PREFIX}" > "${PTD_INPUT_ROOT}/raw-generation-uris.txt" <<'PY'
+import json
+import sys
+
+inventory = json.load(open(sys.argv[1]))
+prefix = sys.argv[2].rstrip("/") + "/"
+objects = inventory.get("objects", [])
+if inventory.get("object_count") != 216 or len(objects) != 216:
+    raise SystemExit("registered raw inventory does not contain 216 objects")
+uris = []
+for item in objects:
+    uri = item["uri"]
+    generation = item["generation"]
+    if not uri.startswith(prefix) or not generation.isdigit():
+        raise SystemExit("raw inventory URI/generation differs from the launch prefix")
+    uris.append(f"{uri}#{generation}")
+if len(set(uris)) != 216:
+    raise SystemExit("raw inventory contains duplicate versioned objects")
+print("\n".join(uris))
+PY
+gsutil -m cp -I "${PTD_RAW_ROOT}/" < "${PTD_INPUT_ROOT}/raw-generation-uris.txt"
 PTD_RAW_COUNT=$(find "${PTD_RAW_ROOT}" -maxdepth 1 -type f -name '*.parquet' | wc -l | tr -d ' ')
 test "${PTD_RAW_COUNT}" = "216"
 gsutil cp "${PTD_TEACHER_CHECKPOINT_URI}" "${PTD_TEACHER_CHECKPOINT}"
