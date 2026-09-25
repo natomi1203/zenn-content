@@ -146,28 +146,28 @@
       "path": "artifact/verified/launch_bundle_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "715e53b5d2eea237383457886810729900ac074b9d9856599ac440593ae103b5"
+      "sha256": "b2c6e2c22433627f90625a1252147a5d2e434a961781fb799f3eacffbd1ca432"
     },
     {
       "id": "vertex-preflight-job-spec",
       "path": "artifact/vertex_preflight_job_spec.json",
       "media_type": "application/json",
       "status": "PREREGISTERED",
-      "sha256": "c66365e16a38275a2634b0e1ba45e5ccee944e13272e181ef00e96c9b1dc3262"
+      "sha256": "b70acd8ca6b40fdc548fe5c86bc125499c4b1ee9c8cd13253d3aebf9605d45da"
     },
     {
       "id": "vertex-preflight-evidence",
       "path": "artifact/verified/vertex_preflight_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "6636478c0d0eada2bdf3316d656785b86b437fc8981c836c4634b276b02113d9"
+      "sha256": "ac4fb8fea9347a93e52bece5b76ca2daeb610e93ed10cb54f9f0ad16ac42095d"
     },
     {
       "id": "vertex-preflight-validator",
       "path": "scripts/validate_vertex_preflight.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a"
+      "sha256": "f255124e410efc3eab2aebc45f056482e8345e68812d24a4f0d307f84929ed76"
     },
     {
       "id": "vertex-preflight-tests",
@@ -650,7 +650,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "28e329f28a6fa1d78c39b5308a780c8ac19894b9040761c7e34a33154457b0e1"
+      "sha256": "98d7c3fefb9e17e2fbae543177eb8816ec4a36872364d255d8c99059d26a78ba"
     },
     {
       "id": "manifest-finalizer",

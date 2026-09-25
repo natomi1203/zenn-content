@@ -12,7 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SPEC = ROOT / "artifact" / "vertex_preflight_job_spec.json"
 EXPECTED_BUNDLE_SHA256 = (
-    "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507"
+    "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e"
 )
 EXPECTED_IMAGE = (
     "us-central1-docker.pkg.dev/kauche-app-lab/kauche-app/"

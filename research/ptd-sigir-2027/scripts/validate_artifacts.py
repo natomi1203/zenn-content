@@ -262,22 +262,22 @@ def validate_execution_readiness() -> None:
     assert bundle["contract_version"] == "ptd-launch-bundle-evidence/v1"
     assert bundle["status"] == "VERIFIED"
     assert re.fullmatch(r"[0-9a-f]{40}", bundle["code_revision"])
-    assert bundle["code_revision"] == "c6c507060a8c90e5e65d6d8478e55b1012e4c860"
-    assert bundle["bundle"]["filename"] == "ptd-sigir-2027-c6c5070.tar.gz"
+    assert bundle["code_revision"] == "b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093"
+    assert bundle["bundle"]["filename"] == "ptd-sigir-2027-b3f2468.tar.gz"
     assert bundle["bundle"]["sha256"] == (
-        "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507"
+        "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e"
     )
-    assert bundle["bundle"]["size_bytes"] == 437432
-    assert bundle["bundle"]["tar_entries"] == 118
+    assert bundle["bundle"]["size_bytes"] == 444750
+    assert bundle["bundle"]["tar_entries"] == 121
     assert bundle["bundle"]["remote"] == {
         "uri": (
             "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/"
-            "ptd-sigir-2027/bundles/ptd-sigir-2027-c6c5070-6d9da3e853c5.tar.gz"
+            "ptd-sigir-2027/bundles/ptd-sigir-2027-b3f2468-f1f510cd105b.tar.gz"
         ),
-        "generation": "1790293184781504",
-        "created_at": "2026-09-24T23:39:44Z",
-        "md5_base64": "LflVluCchD3668s9W5W9Cw==",
-        "crc32c_base64": "SxGnxA==",
+        "generation": "1790294857677492",
+        "created_at": "2026-09-25T00:07:37Z",
+        "md5_base64": "Ag9H+drWNsjvlq2Hwm+Hzg==",
+        "crc32c_base64": "dIeAnw==",
     }
     assert bundle["checks"] == {
         "independent_rerun_byte_identical": True,
@@ -285,25 +285,29 @@ def validate_execution_readiness() -> None:
         "no_git_metadata": True,
         "no_python_cache": True,
         "unit_tests_passed": True,
-        "unit_tests_run": 70,
+        "unit_tests_run": 72,
         "unit_tests_skipped_optional_dependencies": 0,
         "citation_check_passed": True,
         "artifact_validation_passed": True,
         "external_upload_performed": True,
         "paid_cloud_job_launched": True,
+        "exact_bundle_preflight_succeeded": False,
     }
 
     preflight = load("artifact/verified/vertex_preflight_evidence.json")
     assert preflight["contract_version"] == "ptd-vertex-preflight-evidence/v1"
     assert preflight["status"] == "VERIFIED"
-    assert preflight["spec_sha256"] == sha256(
-        ROOT / "artifact" / "vertex_preflight_job_spec.json"
+    assert preflight["spec_sha256"] == (
+        "c66365e16a38275a2634b0e1ba45e5ccee944e13272e181ef00e96c9b1dc3262"
     )
-    assert preflight["validator_sha256"] == sha256(
-        ROOT / "scripts" / "validate_vertex_preflight.py"
+    assert preflight["validator_sha256"] == (
+        "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a"
     )
     assert preflight["tests_sha256"] == sha256(ROOT / "tests" / "test_vertex_preflight.py")
-    assert preflight["bundle_sha256"] == bundle["bundle"]["sha256"]
+    assert preflight["bundle_sha256"] == (
+        "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507"
+    )
+    assert preflight["superseded_by_bundle_sha256"] == bundle["bundle"]["sha256"]
     assert preflight["runtime"] == {
         "project": "kauche-app-lab",
         "region": "us-central1",

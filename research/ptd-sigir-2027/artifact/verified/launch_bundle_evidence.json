@@ -1,19 +1,19 @@
 {
   "contract_version": "ptd-launch-bundle-evidence/v1",
   "status": "VERIFIED",
-  "code_revision": "c6c507060a8c90e5e65d6d8478e55b1012e4c860",
+  "code_revision": "b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093",
   "source_subtree": "research/ptd-sigir-2027",
   "bundle": {
-    "filename": "ptd-sigir-2027-c6c5070.tar.gz",
-    "sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
-    "size_bytes": 437432,
-    "tar_entries": 118,
+    "filename": "ptd-sigir-2027-b3f2468.tar.gz",
+    "sha256": "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e",
+    "size_bytes": 444750,
+    "tar_entries": 121,
     "remote": {
-      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/bundles/ptd-sigir-2027-c6c5070-6d9da3e853c5.tar.gz",
-      "generation": "1790293184781504",
-      "created_at": "2026-09-24T23:39:44Z",
-      "md5_base64": "LflVluCchD3668s9W5W9Cw==",
-      "crc32c_base64": "SxGnxA=="
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/bundles/ptd-sigir-2027-b3f2468-f1f510cd105b.tar.gz",
+      "generation": "1790294857677492",
+      "created_at": "2026-09-25T00:07:37Z",
+      "md5_base64": "Ag9H+drWNsjvlq2Hwm+Hzg==",
+      "crc32c_base64": "dIeAnw=="
     }
   },
   "generation": {
@@ -27,12 +27,13 @@
     "no_git_metadata": true,
     "no_python_cache": true,
     "unit_tests_passed": true,
-    "unit_tests_run": 70,
+    "unit_tests_run": 72,
     "unit_tests_skipped_optional_dependencies": 0,
     "citation_check_passed": true,
     "artifact_validation_passed": true,
     "external_upload_performed": true,
-    "paid_cloud_job_launched": true
+    "paid_cloud_job_launched": true,
+    "exact_bundle_preflight_succeeded": false
   },
-  "scope_note": "This proves a reproducible no-clobber code archive for the fixed revision. The exact bundle was uploaded once to the authorized kauche-app-lab scope and executed only in a synthetic Vertex preflight; no prospective PTD result is present."
+  "scope_note": "This proves a reproducible no-clobber code archive for the post-preflight fit-executor revision. The exact bundle was uploaded once to the authorized kauche-app-lab scope; its exact-bundle synthetic preflight is pending and no prospective PTD result is present."
 }

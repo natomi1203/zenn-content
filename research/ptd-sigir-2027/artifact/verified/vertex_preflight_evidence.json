@@ -5,6 +5,7 @@
   "validator_sha256": "dd12e9d1c16090306b8326ef41c3d8b3d2eede6a04bec0fb55f08eaceaad774a",
   "tests_sha256": "10f23a52e66df6c6a1819aea424da5d621a6de74def5f7dd4509d71487257184",
   "bundle_sha256": "6d9da3e853c51511821d450e2a83a0db64ac11375bf2124011e09e4a8a1b2507",
+  "superseded_by_bundle_sha256": "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e",
   "gcloud_cli_version_inspected": "Google Cloud SDK 562.0.0",
   "gcloud_help_contract": "--config accepts a YAML CustomJobSpec; JSON is valid YAML",
   "runtime": {
