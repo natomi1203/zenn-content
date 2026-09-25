@@ -6,14 +6,11 @@
 \toprule
 Work & Prior mechanism & Registered PTD distinction \\
 \midrule
-TDM~\cite{zhu2018tdm} & tree node / item leaf; teacher: none; tree: optional learned tree. & PTD retains coarse-to-fine beam retrieval but changes supervision to purchase-aware sibling distributions. \\
-JTM~\cite{zhu2019jtm} & tree node / item leaf; teacher: none; tree: alternating joint optimization. & PTD adopts only train-side alternating structure learning and adds a frozen external purchase teacher. \\
-OTM~\cite{zhuo2020otm} & beam-visited nodes; teacher: estimated optimal pseudo-target; tree: not PTD's focus. & OTM targets beam-search calibration; PTD targets transfer of a downstream purchase model. \\
-DTR/TDR~\cite{liu2024dtr} & same-level competing nodes; teacher: none; tree: learned tree / forest. & Both use horizontal competition; PTD's soft targets come from fixed purchase scores over sibling groups. \\
-ESMM~\cite{ma2018esmm} & impression/item score; teacher: not applicable; tree: none. & PTD freezes ESMM pCTR x pCVR as teacher rather than proposing a new conversion model. \\
-Ranking KD / RankDistil~\cite{reddi2021rankdistil} & ranked list; teacher: high-capacity ranker; tree: none. & PTD specializes listwise transfer to local tree siblings and evaluates candidate retrieval. \\
-RocketQAv2~\cite{ren2021rocketqav2} & passages; teacher: dynamic reranker/retriever; tree: none. & Both connect ranking and retrieval; PTD uses a frozen purchase teacher and a hierarchical item index. \\
-HSTU~\cite{zhai2024hstu} & sequential recommendation tokens; teacher: none; tree: none. & PTD uses an HSTU-style encoder as a component; it does not claim the HSTU architecture. \\
+TDM / JTM~\cite{zhu2018tdm,zhu2019jtm} & tree node / item leaf; teacher: none; tree: optional / alternating. & PTD retains coarse-to-fine retrieval and train-side reassignment but adds purchase-aware sibling targets from a frozen external ranker. \\
+OTM / DTR~\cite{zhuo2020otm,liu2024dtr} & beam or same-level competing nodes; teacher: pseudo-target / none; tree: varies. & They address beam or horizontal competition; PTD transfers downstream purchase utility and treats finite-beam mismatch as residual. \\
+Structural KD~\cite{wang2021structural} & structured output factors; teacher: structured predictor; tree: none. & Factorized KD and incompatible factorizations are prior art; PTD instantiates marginalization between heterogeneous funnel stages. \\
+Funnel transfer~\cite{zhao2021dmtl,huang2023corr,yi2024dmmp,zheng2024fsltr,tencent2025recall} & candidate items or funnel stages; teacher: engagement, CTR-CVR, or downstream ranker; tree: none. & Ranker-to-retriever and conversion-aware alignment are prior art; PTD instantiates them at explicit tree-routing decisions. \\
+OneMall / SmartGR~\cite{zhang2026onemall,yang2026bear,yu2026apao,zhang2026smartgr} & generated item or semantic-ID prefix; teacher: ranker reward / large generator; tree: semantic tokenizer. & Purchase rewards and hierarchy/beam-aware objectives are prior art; PTD evaluates tree-induced purchase-utility targets in an explicit index. \\
 \bottomrule
 \end{tabularx}
 \end{table*}

@@ -1,74 +1,47 @@
 [
   {
-    "work": "TDM",
-    "citation": "zhu2018tdm",
+    "work": "TDM / JTM",
+    "citation": "zhu2018tdm,zhu2019jtm",
     "retrieval_unit": "tree node / item leaf",
     "teacher": "none",
-    "tree_update": "optional learned tree",
-    "user_model": "arbitrary DNN; attention variant",
-    "relation": "PTD retains coarse-to-fine beam retrieval but changes supervision to purchase-aware sibling distributions."
+    "tree_update": "optional / alternating",
+    "user_model": "deep preference models",
+    "relation": "PTD retains coarse-to-fine retrieval and train-side reassignment but adds purchase-aware sibling targets from a frozen external ranker."
   },
   {
-    "work": "JTM",
-    "citation": "zhu2019jtm",
-    "retrieval_unit": "tree node / item leaf",
-    "teacher": "none",
-    "tree_update": "alternating joint optimization",
-    "user_model": "hierarchical preference representation",
-    "relation": "PTD adopts only train-side alternating structure learning and adds a frozen external purchase teacher."
+    "work": "OTM / DTR",
+    "citation": "zhuo2020otm,liu2024dtr",
+    "retrieval_unit": "beam or same-level competing nodes",
+    "teacher": "pseudo-target / none",
+    "tree_update": "varies",
+    "user_model": "node scorers",
+    "relation": "They address beam or horizontal competition; PTD transfers downstream purchase utility and treats finite-beam mismatch as residual."
   },
   {
-    "work": "OTM",
-    "citation": "zhuo2020otm",
-    "retrieval_unit": "beam-visited nodes",
-    "teacher": "estimated optimal pseudo-target",
-    "tree_update": "not PTD's focus",
-    "user_model": "node scorer",
-    "relation": "OTM targets beam-search calibration; PTD targets transfer of a downstream purchase model."
-  },
-  {
-    "work": "DTR/TDR",
-    "citation": "liu2024dtr",
-    "retrieval_unit": "same-level competing nodes",
-    "teacher": "none",
-    "tree_update": "learned tree / forest",
-    "user_model": "deep preference model",
-    "relation": "Both use horizontal competition; PTD's soft targets come from fixed purchase scores over sibling groups."
-  },
-  {
-    "work": "ESMM",
-    "citation": "ma2018esmm",
-    "retrieval_unit": "impression/item score",
-    "teacher": "not applicable",
+    "work": "Structural KD",
+    "citation": "wang2021structural",
+    "retrieval_unit": "structured output factors",
+    "teacher": "structured predictor",
     "tree_update": "none",
-    "user_model": "shared embeddings, CTR/CVR towers",
-    "relation": "PTD freezes ESMM pCTR x pCVR as teacher rather than proposing a new conversion model."
+    "user_model": "structured student",
+    "relation": "Factorized KD and incompatible factorizations are prior art; PTD instantiates marginalization between heterogeneous funnel stages."
   },
   {
-    "work": "Ranking KD / RankDistil",
-    "citation": "reddi2021rankdistil",
-    "retrieval_unit": "ranked list",
-    "teacher": "high-capacity ranker",
+    "work": "Funnel transfer",
+    "citation": "zhao2021dmtl,huang2023corr,yi2024dmmp,zheng2024fsltr,tencent2025recall",
+    "retrieval_unit": "candidate items or funnel stages",
+    "teacher": "engagement, CTR-CVR, or downstream ranker",
     "tree_update": "none",
-    "user_model": "ranking model",
-    "relation": "PTD specializes listwise transfer to local tree siblings and evaluates candidate retrieval."
+    "user_model": "matching and ranking models",
+    "relation": "Ranker-to-retriever and conversion-aware alignment are prior art; PTD instantiates them at explicit tree-routing decisions."
   },
   {
-    "work": "RocketQAv2",
-    "citation": "ren2021rocketqav2",
-    "retrieval_unit": "passages",
-    "teacher": "dynamic reranker/retriever",
-    "tree_update": "none",
-    "user_model": "dual/cross encoders",
-    "relation": "Both connect ranking and retrieval; PTD uses a frozen purchase teacher and a hierarchical item index."
-  },
-  {
-    "work": "HSTU",
-    "citation": "zhai2024hstu",
-    "retrieval_unit": "sequential recommendation tokens",
-    "teacher": "none",
-    "tree_update": "none",
-    "user_model": "HSTU sequence transducer",
-    "relation": "PTD uses an HSTU-style encoder as a component; it does not claim the HSTU architecture."
+    "work": "OneMall / SmartGR",
+    "citation": "zhang2026onemall,yang2026bear,yu2026apao,zhang2026smartgr",
+    "retrieval_unit": "generated item or semantic-ID prefix",
+    "teacher": "ranker reward / large generator",
+    "tree_update": "semantic tokenizer",
+    "user_model": "generative retriever",
+    "relation": "Purchase rewards and hierarchy/beam-aware objectives are prior art; PTD evaluates tree-induced purchase-utility targets in an explicit index."
   }
 ]

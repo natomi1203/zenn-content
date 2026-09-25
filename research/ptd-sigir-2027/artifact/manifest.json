@@ -13,14 +13,14 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "1f19f80aacc0303e20ca654c4a0025795e744badfda9026a5e22cf8ec7e1e8ad"
+      "sha256": "f39f9185547a78e2a0cffef484eccb8a7bd832e7b266b66a3c9d4cb1009a4a61"
     },
     {
       "id": "paper-pdf",
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "92725284bcabc7d313428ad9e2588d803eb3da58bb0bfa3dcc2e9413d14715a8"
+      "sha256": "b01eaa3406f040b39569f4353866cb0de6ea1aeabac4b0170b6568625449d3d1"
     },
     {
       "id": "paper-author-source",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "1645a6a0f8ca74078b99178d3a0cdaa1a19411be326582365a2263531518bd92"
+      "sha256": "0b4dc937b0bc4acf48a66bab59dbbe9a290656fa0d8dd6f61ca10ff3611ea14d"
     },
     {
       "id": "preregistration",
@@ -48,7 +48,7 @@
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "2cb72329df6035182b64744744aa24b60b672fb6697e5ea1c245cad10d5baa6d"
+      "sha256": "ea0173bcbc07e26597a83362829baafd1986ae6102d8300b169d2e15c2732df2"
     },
     {
       "id": "artifact-manifest-schema",
@@ -83,7 +83,7 @@
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "2c7a1a1f8ae74540041fd7a4d81ccca7e003106bdec418aa9a34bf544eeba095"
+      "sha256": "31671bf4a3dc1364537baed6658858691ff6af2ae60d48de6ef2fbae4e2a809c"
     },
     {
       "id": "legacy-esmm-anchor",
@@ -692,14 +692,14 @@
       "path": "paper/references.bib",
       "media_type": "application/x-bibtex",
       "status": "GENERATED",
-      "sha256": "d085fbab214a8f11f80e78b92538b7a9d64a5a07af7faf4da9a782952eaf0e61"
+      "sha256": "36107e292e0f5dd0736ccbf1dd182135e97f7092325ea26b54f4f9f68886933e"
     },
     {
       "id": "related-work-matrix",
       "path": "artifact/related_work.json",
       "media_type": "application/json",
       "status": "GENERATED",
-      "sha256": "28ba6dc6b91b3ba6599785eb4fb25a2ed7c9f87597ce57241558322920c021a8"
+      "sha256": "c76e054af6b16fbc282fb8f5379e97029b38230712880d78380eecb8a6710f5e"
     },
     {
       "id": "venue-requirements",

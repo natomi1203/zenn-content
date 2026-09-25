@@ -180,3 +180,18 @@ Changes:
 3. Required the standard pending job to be cancelled before submitting one Flex Start replacement against the same still-empty, no-clobber output prefix.
 
 Rationale: this changes only how the preregistered hardware waits for regional capacity. It does not change the hardware, code, data, random seeds, model, metric, evaluation, output prefix, or any observed result.
+
+## A14 - 2026-09-26 JST - separate mechanistic aggregation extension
+
+This planning amendment does not change, stop, relabel, or reopen the original eight-variant PTD run. No result from the extension described here is admitted to the manuscript. Every extension output requires a new immutable run identity and evidence-admission record; original and extension evidence must remain distinguishable.
+
+Changes:
+
+1. Reframed the prospective mechanism question: under a fixed finite-beam serving budget, does the rule used to aggregate downstream purchase utility over a subtree determine high-utility target survival and final candidate quality?
+2. Required matched targets for no KD/hard ancestor supervision, leaf-only KD, internal max-descendant, internal mean, and internal sum-mass PTD. OTM/DTR, direct CTCVR recall distillation, and a BEAR/APAO/SmartGR-inspired prefix baseline must be included when an implementation can be matched without changing the serving tree or beam budget; omitted comparisons require an explicit reason fixed before extension outcomes.
+3. Fixed falsifiable hypotheses before extension readout: sum mass improves target survival over max/hard/leaf-only at the same beam budget; differences are mediated by shallow-depth pruning; differences shrink as beam width grows; teacher-score shuffling removes the advantage; and subtree cardinality alone does not explain it.
+4. Required beam-width frontiers; depth-wise survival and pruning; purchase-sparsity and subtree-size buckets; temperature sensitivity; shuffled/random-teacher controls; teacher calibration and utility-concentration diagnostics; paired intervals and multiplicity-aware tests; and preservation of every negative, null, and failed slice.
+5. Required at least one public dataset with an explicit purchase/conversion proxy and a separately labelled protocol before claiming external reproduction. Kauche and public results may not be pooled or used to repair one another.
+6. Kept the current title and all efficacy/mechanism statements pending. A mechanism-forward title may be considered only after the sum-by-beam-width-by-sparsity interaction and depth-survival mediation reproduce; a one-condition metric gain is insufficient.
+
+Rationale: prior academic and patent work covers factorized and marginal KD, descendant summation, conversion-aware recall distillation, ranker-to-retriever transfer, and beam-aware training. The extension therefore tests a narrower design principle---whether aggregation choice changes finite-beam survival---without retroactively changing the original confirmatory family or selecting comparisons after observing extension outcomes.
