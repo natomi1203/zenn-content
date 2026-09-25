@@ -48,7 +48,7 @@
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "9c0ee52796eaa5e25ad835baa576fc3c5ed9df4687c7f8a82ea60772ab72c65e"
+      "sha256": "2cb72329df6035182b64744744aa24b60b672fb6697e5ea1c245cad10d5baa6d"
     },
     {
       "id": "artifact-manifest-schema",
@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "fb38552294a12629971d4046ea6adcdc2977b7fe19c34716667530d9b4659335"
+      "sha256": "881ab132a3f5bdaedfaebfa5011b7419141e442dc74fac7dc6ab250875a81fac"
     },
     {
       "id": "launch-bundle-evidence",
@@ -181,7 +181,7 @@
       "path": "artifact/vertex_production_job_spec.json",
       "media_type": "application/json",
       "status": "PREREGISTERED",
-      "sha256": "9530cf966502ddaf5e1761f9bfe0c34a3027fa4e260fa9249f8520187ea4c9a0"
+      "sha256": "7e5db106e8bd6d116d4d64f7019898739473ab27e69d05fad6c9db7e4869a3f8"
     },
     {
       "id": "vertex-production-driver",
@@ -195,14 +195,14 @@
       "path": "scripts/validate_vertex_production.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "dce0e00dfc5651dd581d5d3f357819e3d8d656cfb6fb18beec026114584f6b9e"
+      "sha256": "1124c2f9ac31b55996b7ed7272783601204748ef48913a8ce670d24beb0059d2"
     },
     {
       "id": "vertex-production-tests",
       "path": "tests/test_vertex_production.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "ad3d96849c0aadb0cd18030366f749489c78c238725c6b966d55801c5fb2f4af"
+      "sha256": "455619ccc4871a38eca6cd7cda2a438dc240406f1339d801ef20637e4e16f8b3"
     },
     {
       "id": "frozen-teacher-materializer",

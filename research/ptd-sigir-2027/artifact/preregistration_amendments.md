@@ -168,3 +168,15 @@ Changes:
 5. Required the production driver to finish and lock all pre-test fits before materializing test queries, lock the 24-entry retrieval plan before test scoring, then emit retrieval metrics, the run manifest, paired observations, and evaluation in timestamp order.
 
 Rationale: component implementations and the staged DAG were already fixed, but the authorized cloud handoff still lacked one auditable command boundary. This amendment constrains execution and publication without changing any model, data split, metric, threshold, comparison, or observed result.
+
+## A13 - 2026-09-25 JST - capacity-only Flex Start scheduling
+
+This amendment was made before the production training program started and before any restricted-data PTD artifact or empirical result existed. The initial on-demand CustomJob remained in `PENDING`, its output prefix stayed empty, and Vertex logged only regional L4 insufficiency before retrying provisioning.
+
+Changes:
+
+1. Replaced standard on-demand provisioning with Vertex Dynamic Workload Scheduler `FLEX_START` in the same `kauche-app-lab` project, `us-central1` region, `g2-standard-16` machine, and single NVIDIA L4 configuration.
+2. Fixed the maximum resource wait to one day (`86400s`) and the maximum running time to seven days (`604800s`).
+3. Required the standard pending job to be cancelled before submitting one Flex Start replacement against the same still-empty, no-clobber output prefix.
+
+Rationale: this changes only how the preregistered hardware waits for regional capacity. It does not change the hardware, code, data, random seeds, model, metric, evaluation, output prefix, or any observed result.

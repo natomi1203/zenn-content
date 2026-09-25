@@ -1,5 +1,10 @@
 {
   "serviceAccount": "__REQUIRED_AT_AUTHORIZED_LAUNCH__",
+  "scheduling": {
+    "strategy": "FLEX_START",
+    "maxWaitDuration": "86400s",
+    "timeout": "604800s"
+  },
   "workerPoolSpecs": [
     {
       "machineSpec": {

@@ -24,6 +24,9 @@ class VertexProductionTest(unittest.TestCase):
         self.assertFalse(report["rendered"])
         self.assertEqual(report["bundle_sha256"], EXPECTED_BUNDLE_SHA256)
         self.assertEqual(report["driver_sha256"], EXPECTED_DRIVER_SHA256)
+        self.assertEqual(report["scheduling_strategy"], "FLEX_START")
+        self.assertEqual(report["max_wait_duration"], "86400s")
+        self.assertEqual(report["timeout"], "604800s")
         driver = Path(__file__).parents[1] / "scripts" / "run_vertex_production.sh"
         self.assertEqual(sha256(driver), EXPECTED_DRIVER_SHA256)
         program = driver.read_text()
@@ -84,6 +87,10 @@ class VertexProductionTest(unittest.TestCase):
             validate_spec(payload, rendered=False)
         payload = self.payload()
         payload["workerPoolSpecs"][0]["containerSpec"]["env"][4]["value"] = "0" * 64
+        with self.assertRaises(ValueError):
+            validate_spec(payload, rendered=False)
+        payload = self.payload()
+        payload["scheduling"]["strategy"] = "STANDARD"
         with self.assertRaises(ValueError):
             validate_spec(payload, rendered=False)
 

@@ -53,8 +53,14 @@ def _env_map(container: dict[str, Any]) -> dict[str, str]:
 
 
 def validate_spec(payload: dict[str, Any], *, rendered: bool) -> dict[str, Any]:
-    if set(payload) != {"serviceAccount", "workerPoolSpecs"}:
+    if set(payload) != {"serviceAccount", "scheduling", "workerPoolSpecs"}:
         raise ValueError("CustomJobSpec fields differ from the production contract")
+    if payload["scheduling"] != {
+        "strategy": "FLEX_START",
+        "maxWaitDuration": "86400s",
+        "timeout": "604800s",
+    }:
+        raise ValueError("production scheduling must use one-day Flex Start")
     pools = payload["workerPoolSpecs"]
     if not isinstance(pools, list) or len(pools) != 1:
         raise ValueError("production requires exactly one worker pool")
@@ -152,6 +158,9 @@ def validate_spec(payload: dict[str, Any], *, rendered: bool) -> dict[str, Any]:
         "accelerator_type": pool["machineSpec"]["acceleratorType"],
         "accelerator_count": pool["machineSpec"]["acceleratorCount"],
         "container_image": container["imageUri"],
+        "scheduling_strategy": payload["scheduling"]["strategy"],
+        "max_wait_duration": payload["scheduling"]["maxWaitDuration"],
+        "timeout": payload["scheduling"]["timeout"],
         "driver_sha256": env["PTD_DRIVER_SHA256"],
         "bundle_sha256": env["PTD_CODE_BUNDLE_SHA256"],
         "paid_job_launched": False,
