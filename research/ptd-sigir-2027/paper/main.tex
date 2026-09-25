@@ -23,10 +23,14 @@
 \title{Purchase-aware Tree Distillation for Home-feed Retrieval}
 
 % The review build suppresses this identity; main-author.tex displays it.
-% Given name: NAOYUKI; family name: TOMITA.
-\author{NAOYUKI TOMITA}
+% Given name: Naoyuki; family name: Tomita.
+\author{Naoyuki Tomita}
 \ifdefined\PTDAuthorVersion
-  % Affiliation is intentionally omitted until the author supplies it.
+  \affiliation{%
+    \institution{XPIPELINES}
+    \city{Ho Chi Minh City}
+    \country{Vietnam}
+  }
 \else
   \affiliation{\institution{Affiliation withheld for anonymous review}}
 \fi
@@ -223,6 +227,12 @@ Purchase optimization can over-emphasize high-propensity users or products, ampl
 
 \section{Conclusion}
 We specified Purchase-aware Tree Distillation as a testable integration of a frozen ESMM purchase teacher, sibling-level tree supervision, an HSTU-style sequence encoder, and train-only alternating tree optimization. The current contribution is methodological and procedural: equations, algorithm, preregistered contrasts, and a machine-checkable evidence boundary. \pending{Five-day PTD effect sizes, confidence intervals, latency measurements, and ablation conclusions await a valid artifact.}
+
+\ifdefined\PTDAuthorVersion
+\begin{acks}
+This work was initiated during a one-month research visit to Fudan University.
+\end{acks}
+\fi
 
 \FloatBarrier
 \bibliographystyle{ACM-Reference-Format}
