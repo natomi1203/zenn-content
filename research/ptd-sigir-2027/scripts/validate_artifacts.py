@@ -234,6 +234,18 @@ def validate_execution_readiness() -> None:
         "fit_schedule_runner_tests_sha256": sha256(
             ROOT / "tests" / "test_fit_schedule_runner.py"
         ),
+        "vertex_production_job_spec_sha256": sha256(
+            ROOT / "artifact" / "vertex_production_job_spec.json"
+        ),
+        "vertex_production_driver_sha256": sha256(
+            ROOT / "scripts" / "run_vertex_production.sh"
+        ),
+        "vertex_production_validator_sha256": sha256(
+            ROOT / "scripts" / "validate_vertex_production.py"
+        ),
+        "vertex_production_tests_sha256": sha256(
+            ROOT / "tests" / "test_vertex_production.py"
+        ),
         "run_bundle_assembler_sha256": sha256(
             ROOT / "runner" / "assemble_run_bundle.py"
         ),
@@ -254,8 +266,8 @@ def validate_execution_readiness() -> None:
     }
     assert audit["production_pipeline_ready"] is False
     assert audit["launch_blockers"] == [
-        "freeze_and_validate_post_preflight_fit_executor_revision",
-        "materialize_authorized_production_Vertex_job_spec",
+        "complete_exact_bundle_Vertex_preflight",
+        "freeze_and_upload_hash_pinned_production_driver",
     ]
 
     bundle = load("artifact/verified/launch_bundle_evidence.json")

@@ -1,0 +1,73 @@
+{
+  "serviceAccount": "__REQUIRED_AT_AUTHORIZED_LAUNCH__",
+  "workerPoolSpecs": [
+    {
+      "machineSpec": {
+        "machineType": "g2-standard-16",
+        "acceleratorType": "NVIDIA_L4",
+        "acceleratorCount": 1
+      },
+      "replicaCount": 1,
+      "diskSpec": {
+        "bootDiskType": "pd-ssd",
+        "bootDiskSizeGb": 300
+      },
+      "containerSpec": {
+        "imageUri": "us-central1-docker.pkg.dev/kauche-app-lab/kauche-app/tzrec-mmoe-training:1.3.9-cu130-py312",
+        "command": [
+          "bash",
+          "-lc"
+        ],
+        "args": [
+          "set -euo pipefail\ntest \"${PTD_COST_AUTHORIZED}\" = \"true\"\ntest -n \"${PTD_DRIVER_URI}\"\ntest -n \"${PTD_RUN_OUTPUT_PREFIX}\"\nif gsutil ls \"${PTD_RUN_OUTPUT_PREFIX}/**\" >/dev/null 2>&1; then echo \"refusing non-empty production output prefix\" >&2; exit 20; fi\nmkdir -p /workspace/launch\ngsutil cp \"${PTD_DRIVER_URI}\" /workspace/launch/run_vertex_production.sh\necho \"${PTD_DRIVER_SHA256}  /workspace/launch/run_vertex_production.sh\" | sha256sum -c -\nchmod 0500 /workspace/launch/run_vertex_production.sh\nexec /workspace/launch/run_vertex_production.sh"
+        ],
+        "env": [
+          {
+            "name": "PTD_COST_AUTHORIZED",
+            "value": "false"
+          },
+          {
+            "name": "PTD_DRIVER_URI",
+            "value": "__REQUIRED_AT_AUTHORIZED_LAUNCH__"
+          },
+          {
+            "name": "PTD_DRIVER_SHA256",
+            "value": "acbc97fdaf02f16a8e262283f96182329430153ef9ffeb4e080aa480118945e7"
+          },
+          {
+            "name": "PTD_CODE_BUNDLE_URI",
+            "value": "__REQUIRED_AT_AUTHORIZED_LAUNCH__"
+          },
+          {
+            "name": "PTD_CODE_BUNDLE_SHA256",
+            "value": "f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e"
+          },
+          {
+            "name": "PTD_CODE_REVISION",
+            "value": "b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093"
+          },
+          {
+            "name": "PTD_RAW_INPUT_PREFIX",
+            "value": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/input"
+          },
+          {
+            "name": "PTD_TEACHER_CHECKPOINT_URI",
+            "value": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/offline_gate_full/f065bd20db-five-day-esmm-cold-start-v1/shared_bottom_esmm_v2/search/legacy_loss/seed-16630/checkpoint-valid_loss.pt"
+          },
+          {
+            "name": "PTD_TEACHER_CHECKPOINT_SHA256",
+            "value": "5a435e4ea2579ca226f26fd8dfa5ad48a7be016f3d1a8e61798ce1b2d6ed1540"
+          },
+          {
+            "name": "PTD_RUN_OUTPUT_PREFIX",
+            "value": "__REQUIRED_AT_AUTHORIZED_LAUNCH__"
+          },
+          {
+            "name": "PTD_RUN_ID",
+            "value": "__REQUIRED_AT_AUTHORIZED_LAUNCH__"
+          }
+        ]
+      }
+    }
+  ]
+}

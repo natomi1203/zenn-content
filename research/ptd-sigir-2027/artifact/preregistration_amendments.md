@@ -154,3 +154,17 @@ Changes:
 5. Required the final run manifest to be created only after a complete retrieval-metrics manifest exists, to hash-link the fit schedule, retrieval plan, and retrieval metrics manifest, and to record ordered creation, lock, test-start, and completion timestamps.
 
 Rationale: the earlier contracts specified every component but left the full fit count, reuse rules, and pre-test/post-test assembly boundary implicit. This amendment makes the paid execution graph and evidence handoff auditable without changing a model, comparison, threshold, or observed result.
+
+## A12 - 2026-09-25 JST - authorized Lab execution and production launch contract
+
+This amendment was made after an authorized synthetic runtime preflight but before any restricted-data PTD training, prospective five-day retrieval, or empirical PTD result. The successful preflight carried the explicit marker `preflight-only:no-ptd-result`; every efficacy, ablation, and latency claim remained `PENDING`.
+
+Changes:
+
+1. Limited paid execution, code/driver upload, and result storage to the `kauche-app-lab` project and its existing internal recommendation bucket.
+2. Added a fail-closed 65-fit executor that performs the 27-cell combined grid first, selects its validation-only tuple before creating the two single-level fits, completes the 12 additional fixed-tree fits and six four-fit alternating chains, and emits an immutable fit-execution inventory. Complete outputs may be reused on restart, while partial outputs fail closed.
+3. Fixed the production code bundle to revision `b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093` with SHA-256 `f1f510cd105b255496e04307714b024a1eb3ab7a082c0b693abaddfe7745542e`; its extracted tree passed all 72 tests, citation checks, and artifact validation before upload.
+4. Added a separately hash-pinned production launch driver and non-launchable Vertex template. The rendered job requires explicit cost authorization, the registered L4 runtime, exact raw/checkpoint/bundle identities, an empty unique output prefix, no-clobber publication, and a final evidence-admission pass before `_SUCCESS`.
+5. Required the production driver to finish and lock all pre-test fits before materializing test queries, lock the 24-entry retrieval plan before test scoring, then emit retrieval metrics, the run manifest, paired observations, and evaluation in timestamp order.
+
+Rationale: component implementations and the staged DAG were already fixed, but the authorized cloud handoff still lacked one auditable command boundary. This amendment constrains execution and publication without changing any model, data split, metric, threshold, comparison, or observed result.

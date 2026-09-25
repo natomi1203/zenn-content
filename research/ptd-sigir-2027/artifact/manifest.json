@@ -48,7 +48,7 @@
       "path": "artifact/preregistration_amendments.md",
       "media_type": "text/markdown",
       "status": "PREREGISTERED",
-      "sha256": "f3a030baf05634d387986a3a7c5fd6977e01b5b5d756f56ceb348708cf697377"
+      "sha256": "9c0ee52796eaa5e25ad835baa576fc3c5ed9df4687c7f8a82ea60772ab72c65e"
     },
     {
       "id": "artifact-manifest-schema",
@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "e6ea6c87dff97069df9636d34613f85f204570c4e1bb306259d8eeb58b4efef2"
+      "sha256": "2ca2b5cedd05b8fb55be7293611e66b745dc0050cd694a60deadececefe29aa0"
     },
     {
       "id": "launch-bundle-evidence",
@@ -175,6 +175,34 @@
       "media_type": "text/x-python",
       "status": "GENERATED",
       "sha256": "10f23a52e66df6c6a1819aea424da5d621a6de74def5f7dd4509d71487257184"
+    },
+    {
+      "id": "vertex-production-job-spec",
+      "path": "artifact/vertex_production_job_spec.json",
+      "media_type": "application/json",
+      "status": "PREREGISTERED",
+      "sha256": "1afe605f69bd159217c0f91b483f56e2311945178ce2abe76d40c03b05f085d2"
+    },
+    {
+      "id": "vertex-production-driver",
+      "path": "scripts/run_vertex_production.sh",
+      "media_type": "text/x-shellscript",
+      "status": "GENERATED",
+      "sha256": "acbc97fdaf02f16a8e262283f96182329430153ef9ffeb4e080aa480118945e7"
+    },
+    {
+      "id": "vertex-production-validator",
+      "path": "scripts/validate_vertex_production.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "80aa576fa72672062dd8d4a3d4c831f2df8fba0646bb4eec13c2f314e1c6266c"
+    },
+    {
+      "id": "vertex-production-tests",
+      "path": "tests/test_vertex_production.py",
+      "media_type": "text/x-python",
+      "status": "GENERATED",
+      "sha256": "b0417c0eae83f79fa88dfeb920c9541e9070e5b09d2caff69b7f65420cd772f4"
     },
     {
       "id": "frozen-teacher-materializer",
@@ -650,7 +678,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "98d7c3fefb9e17e2fbae543177eb8816ec4a36872364d255d8c99059d26a78ba"
+      "sha256": "2712643cdcb288b19d3c5b2a17d8293ba9c1856acdac2e275c1d2cfdd1f6d0a3"
     },
     {
       "id": "manifest-finalizer",
@@ -685,21 +713,21 @@
       "path": "Makefile",
       "media_type": "text/x-makefile",
       "status": "GENERATED",
-      "sha256": "8f9961cdadd09cdd3af9e9e1f74d4cec8b1aa1dc889e65ba03499f1267f50744"
+      "sha256": "ffa968e87e2aa333beebf5590174f16fb37093f8baa9aaba92e79da61abe1baa"
     },
     {
       "id": "reproduction-guide-en",
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "88e1519efaa8e6b2e43caf3c58a57e445c637af6fdd3312862aa0b20187fc01e"
+      "sha256": "cf9de707e8b72eb2a12a07fdef49b29fc8ceb217397bb3f0a8c0ef1dc32e5814"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "0d2893675d4cc73f88dea53328a21e5ed5104a12f3992b7f8dc90ebd34d7c491"
+      "sha256": "934041a63afca1dc60632d19d4ced776cb7d14fb44d296b14fae7223680c6f63"
     },
     {
       "id": "ptd-five-day-evaluation",

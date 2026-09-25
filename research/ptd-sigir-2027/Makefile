@@ -7,7 +7,7 @@ TEACHER_CHECKPOINT ?=
 CATALOG_BUNDLE_DIR ?=
 CATALOG_BUNDLE_RERUN_DIR ?=
 
-.PHONY: all generate test smoke teacher-smoke trainer-smoke alternating-smoke retrieval-smoke evaluation-smoke vertex-preflight-validate audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
+.PHONY: all generate test smoke teacher-smoke trainer-smoke alternating-smoke retrieval-smoke evaluation-smoke vertex-preflight-validate vertex-production-validate audit-source catalog-bundle finalize validate check-evidence paper paper-review paper-author clean
 
 all: generate test smoke paper finalize validate
 
@@ -45,6 +45,11 @@ evaluation-smoke:
 vertex-preflight-validate:
 	$(PYTHON) scripts/validate_vertex_preflight.py
 	$(PYTHON) -m unittest tests.test_vertex_preflight -v
+
+vertex-production-validate:
+	bash -n scripts/run_vertex_production.sh
+	$(PYTHON) scripts/validate_vertex_production.py
+	$(PYTHON) -m unittest tests.test_vertex_production -v
 
 audit-source:
 	$(PYARROW_RUN) scripts/inventory_raw_inputs.py

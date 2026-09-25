@@ -84,6 +84,10 @@
     "fit_execution_schema_sha256": "e7fda7e588a2413cd26c6f0c14f37fe1fdd70ef40a805db0e01c6dd41abb7e9a",
     "fit_schedule_runner_sha256": "eeedf1216c08ccd11bd0455a59f38fe006a2e6957d279f1a6da9eec257e78fe7",
     "fit_schedule_runner_tests_sha256": "1d89d90f9516ecee757070e3975fb866b488c01b02d13b1f42a98e6409838aff",
+    "vertex_production_job_spec_sha256": "1afe605f69bd159217c0f91b483f56e2311945178ce2abe76d40c03b05f085d2",
+    "vertex_production_driver_sha256": "acbc97fdaf02f16a8e262283f96182329430153ef9ffeb4e080aa480118945e7",
+    "vertex_production_validator_sha256": "80aa576fa72672062dd8d4a3d4c831f2df8fba0646bb4eec13c2f314e1c6266c",
+    "vertex_production_tests_sha256": "b0417c0eae83f79fa88dfeb920c9541e9070e5b09d2caff69b7f65420cd772f4",
     "run_bundle_assembler_sha256": "a40b5c0c75a2ef9c2f5f055b6a722a9360e74e013dc6815885b3917522e30ed0",
     "run_bundle_assembler_tests_sha256": "4372ac2def408367e2815f93cc8c63c08ca0e989c3a6d911d0f32f0b2a037af8",
     "evaluation_emitter_sha256": "db57236470e1bbc7e0f88a1f9e2d88231452f4d10ed91fe538e4a4f12010d052",
@@ -95,8 +99,8 @@
   "production_pipeline_ready": false,
   "ready_for_paid_launch": false,
   "launch_blockers": [
-    "freeze_and_validate_post_preflight_fit_executor_revision",
-    "materialize_authorized_production_Vertex_job_spec"
+    "complete_exact_bundle_Vertex_preflight",
+    "freeze_and_upload_hash_pinned_production_driver"
   ],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor now performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits; completed immutable outputs can be reused on restart without overwrite. The exact c6c5070 bundle passed the authorized kauche-app-lab synthetic L4 preflight as CustomJob 1755582940395339776, but that bundle predates the new executor. A new revision and production Vertex job spec must therefore be frozen and validated before restricted-data execution. This is not real reassignment, efficacy, or production-latency evidence."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits. Revision b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093 is frozen in a deterministic bundle whose extracted tree passed 72 tests, citation checks, and artifact validation. A fail-closed Lab-only production driver and Vertex template now bind raw/checkpoint/code identities, the pre-test/test boundary, evidence admission, and no-clobber publication. The exact-bundle preflight and production-driver freeze/upload remain before restricted-data launch. This is not real reassignment, efficacy, or production-latency evidence."
 }
