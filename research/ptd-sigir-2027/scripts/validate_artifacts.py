@@ -155,10 +155,27 @@ def validate_execution_readiness() -> None:
     assert audit["production_launch"] == {
         "job_resource": (
             "projects/974309197206/locations/us-central1/"
-            "customJobs/3111588640698925056"
+            "customJobs/5503281517809369088"
         ),
         "state_at_audit": "JOB_STATE_PENDING",
-        "created_at": "2026-09-25T00:32:39.535335Z",
+        "created_at": "2026-09-25T01:19:45.612571Z",
+        "scheduling": {
+            "strategy": "FLEX_START",
+            "max_wait_duration": "86400s",
+            "timeout": "604800s",
+        },
+        "replaced_standard_job": {
+            "job_resource": (
+                "projects/974309197206/locations/us-central1/"
+                "customJobs/3111588640698925056"
+            ),
+            "state": "JOB_STATE_CANCELLED",
+            "output_prefix_was_empty": True,
+            "reason": (
+                "Vertex logged regional L4 resource insufficiency before the "
+                "training program started"
+            ),
+        },
         "run_id": "ptd-five-day-b3f2468-20260925t003212z",
         "output_prefix": (
             "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/"

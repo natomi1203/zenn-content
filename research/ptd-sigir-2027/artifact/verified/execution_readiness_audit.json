@@ -1,7 +1,7 @@
 {
   "contract_version": "ptd-execution-readiness-audit/v1",
   "status": "VERIFIED",
-  "audited_at": "2026-09-25T09:32:56+09:00",
+  "audited_at": "2026-09-25T10:20:26+09:00",
   "prospective_ptd_result_found": false,
   "paid_cloud_job_launched_by_this_audit": true,
   "cost_authorization": {
@@ -12,9 +12,20 @@
     "preflight_state": "JOB_STATE_SUCCEEDED"
   },
   "production_launch": {
-    "job_resource": "projects/974309197206/locations/us-central1/customJobs/3111588640698925056",
+    "job_resource": "projects/974309197206/locations/us-central1/customJobs/5503281517809369088",
     "state_at_audit": "JOB_STATE_PENDING",
-    "created_at": "2026-09-25T00:32:39.535335Z",
+    "created_at": "2026-09-25T01:19:45.612571Z",
+    "scheduling": {
+      "strategy": "FLEX_START",
+      "max_wait_duration": "86400s",
+      "timeout": "604800s"
+    },
+    "replaced_standard_job": {
+      "job_resource": "projects/974309197206/locations/us-central1/customJobs/3111588640698925056",
+      "state": "JOB_STATE_CANCELLED",
+      "output_prefix_was_empty": true,
+      "reason": "Vertex logged regional L4 resource insufficiency before the training program started"
+    },
     "run_id": "ptd-five-day-b3f2468-20260925t003212z",
     "output_prefix": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/runs/ptd-five-day-b3f2468-20260925T003212Z",
     "driver_uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-sigir-2027/drivers/run_vertex_production-38859f4b03a8.sh",
@@ -109,5 +120,5 @@
   "production_pipeline_ready": true,
   "ready_for_paid_launch": true,
   "launch_blockers": [],
-  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits. Revision b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093 is frozen in a deterministic bundle whose extracted tree passed 72 tests, citation checks, artifact validation, and its exact-bundle L4 preflight. The hash-pinned Lab-only production job has been submitted and was pending at this audit. No prospective PTD result was available at audit time; efficacy, ablation, and latency claims remain pending until the immutable run passes admission."
+  "scope_note": "The earlier one-day runner is useful engineering evidence but is not the registered PTD experiment. All six core components have local synthetic evidence. The complete pre-test executor performs validation-only grid preselection, the two selected single-level fits, the 12 additional fixed-tree fits, and six four-fit alternating chains for exactly 65 fits. Revision b3f2468ae88d95658c8bfb6d1b13b0ecf31e8093 is frozen in a deterministic bundle whose extracted tree passed 72 tests, citation checks, artifact validation, and its exact-bundle L4 preflight. A standard Lab-only production job encountered only regional L4 insufficiency before program start and was cancelled with an empty prefix; one hash-identical Flex Start replacement is pending. No prospective PTD result was available at audit time; efficacy, ablation, and latency claims remain pending until the immutable run passes admission."
 }

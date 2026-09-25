@@ -139,7 +139,7 @@
       "path": "artifact/verified/execution_readiness_audit.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "881ab132a3f5bdaedfaebfa5011b7419141e442dc74fac7dc6ab250875a81fac"
+      "sha256": "de7bf0df1c9242a860b7e41a3ffe5d903b5ca09a4f9d275be65906477084a6aa"
     },
     {
       "id": "launch-bundle-evidence",
@@ -678,7 +678,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "6cfb4a405ec628826f7859007568f40f64e036439a6033a60cbd9e7def5a9e76"
+      "sha256": "24925798a755072df1fd6845d4858a38253dc890b69daad62848decabf0736a2"
     },
     {
       "id": "manifest-finalizer",
@@ -720,14 +720,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "a9be2ea19f6513ef80d2905471907d53340ad8cb2219ab57b961479261bf46dd"
+      "sha256": "02fce7060b59e38c857c41ae31252bb4d85a5f7fe702d4bbbd39bd7ec8cb1856"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "d980b110b7aa58c66ce82ff8b9b39d057006bcd327e64a7898feb1ec7de6afb0"
+      "sha256": "c0d4a466dbfa5d405389bdd34080014846d534f3d8a3b271b40c3a4800de1be7"
     },
     {
       "id": "ptd-five-day-evaluation",
