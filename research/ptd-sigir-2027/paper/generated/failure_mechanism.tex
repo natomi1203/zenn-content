@@ -1,0 +1,19 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[node distance=7mm and 8mm, every node/.style={font=\footnotesize}, obs/.style={draw,rounded corners,align=center,minimum width=31mm,minimum height=13mm}, unknown/.style={draw,dashed,rounded corners,align=center,minimum width=31mm,minimum height=13mm}, arr/.style={-Latex,thick}]
+\node[obs] (agg) {Aggregation rule\\max vs. true-sum\\\textbf{observed}};
+\node[obs,right=of agg] (prune) {Finite-beam pruning\\first depth 11/12/13/14\\\textbf{observed}};
+\node[obs,right=of prune] (overlap) {Candidate overlap\\mean Jaccard 0.151--0.201\\\textbf{observed}};
+\node[obs,right=of overlap] (recall) {Recall@600 difference\\$-0.003/-0.022/-0.023/-0.041$\\\textbf{observed}};
+\draw[arr] (agg)--(prune);
+\draw[arr] (prune)--(overlap);
+\draw[arr] (overlap)--(recall);
+\node[unknown,below=of overlap] (causal) {Recovery of already pruned positives\\causal mediation not identified};
+\draw[arr,dashed] (prune)--(causal);
+\draw[arr,dashed] (causal)--(recall);
+\node[unknown,below=of agg] (kmcr) {KMCR complement injection\\future preregistered direction};
+\draw[arr,dashed] (kmcr)--(causal);
+\end{tikzpicture}
+\caption{Descriptive failure-mechanism boundary. Solid boxes/arrows summarize observed 24-cell artifacts; dashed paths are unverified causal explanations or future work. The low overlap shows that the null/negative result is not candidate-set convergence, while wider search delayed first pruning without producing a true-sum advantage.}
+\label{fig:failure-mechanism}
+\end{figure*}

@@ -13,7 +13,7 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "29ae6e8f5980f6f378168f8290dd1c24c112256ee344026729a554aec5265667"
+      "sha256": "de6dfd2e64d4a5e2c9f2f9acb3e597d144ecd84908ec0836b9d0f1e4d5cbb9cb"
     },
     {
       "id": "paper-pdf",
@@ -83,7 +83,7 @@
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "0e00f9a35636dccb5378785099238705a9a280c7e4264cd116041062038ac2e3"
+      "sha256": "b93cb1adadef6f76b498a446d90ae55144a97c3727c28a896cb7141b9f41124c"
     },
     {
       "id": "legacy-esmm-anchor",
@@ -685,14 +685,14 @@
       "path": "scripts/generate_tables.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "69845c6ee04aac48bd6b365cf9b0e294148012560b947f0d5585d5f65baf78f3"
+      "sha256": "f7868d1d151be37659fb8e8450b7843e0caeb56d8a254114f68b61f76a8940f2"
     },
     {
       "id": "figure-generator",
       "path": "scripts/generate_figures.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "b168c1ea961581c798d84e8944c3b30bb239e7a75137eb6f37be2cbf4c5d71f4"
+      "sha256": "d8c6f84ac572bf007bf829a07754babff2b32d9dd1406c5978e329ea5324edba"
     },
     {
       "id": "artifact-validator",

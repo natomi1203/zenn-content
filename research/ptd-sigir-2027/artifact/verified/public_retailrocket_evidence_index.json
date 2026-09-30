@@ -1,0 +1,916 @@
+{
+  "admission": {
+    "admissible": true,
+    "checker": "reference/public_evidence_gate.py"
+  },
+  "category": "C",
+  "contract_version": "ptd-public-immutable-evidence-index/v1",
+  "dataset": "RetailRocket",
+  "evaluation_artifacts": {
+    "audit": {
+      "generation": 1790781608775386,
+      "metageneration": 1,
+      "sha256": "d65b9b1e19eb1ee69b2d90649da325bbbc051528c50b7cba5039748879de4637",
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/audit.json"
+    },
+    "candidate_jaccard": {
+      "generation": 1790781612296999,
+      "metageneration": 1,
+      "sha256": "dc4075e4d4a85f28406218b0d32aab96776ebae81f2622906a4537a3fbf56f56",
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/candidate_jaccard.parquet"
+    },
+    "evaluation": {
+      "generation": 1790781615896054,
+      "metageneration": 1,
+      "sha256": "aed3e46e37867dd7189bfa0735c0c54c1cd9c9919cfcc05f1372f705ad1c9d45",
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/evaluation.json"
+    },
+    "input_identities": {
+      "generation": 1790781618894633,
+      "metageneration": 1,
+      "sha256": "9099cedcf71aa8629eb2e42b42e0955b525270c5d5f0d0646fc0df0b872e0d6d",
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/input_identities.json"
+    },
+    "paired_observations": {
+      "generation": 1790781622333703,
+      "metageneration": 1,
+      "sha256": "ecdd87e64190c47da88981ed44ce0a383e86c7b911d1d3775af4a3f50249d7c7",
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/paired_observations.jsonl"
+    },
+    "per_user_outcomes": {
+      "generation": 1790781630171460,
+      "metageneration": 1,
+      "sha256": "45f556dd8908df9b0e60a551a6879faf2c4bcdfc5daabdf3856003423f14f6ee",
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/per_user_outcomes.parquet"
+    }
+  },
+  "evidence_separation": {
+    "A": "exact Kauche PTD evidence only",
+    "B": "bounded Kauche context only",
+    "C": "this independent RetailRocket validation",
+    "D": "failed, cancelled, smoke, partial, or otherwise inadmissible attempts"
+  },
+  "failure_analysis": {
+    "analysis_type": "exploratory-descriptive-only",
+    "path": "artifact/verified/public_retailrocket_failure_analysis.json",
+    "sha256": "7f6372bc84e6d361507fee609e7442ac445b6381b14aea998963724f2b4a1af1"
+  },
+  "input_objects": [
+    {
+      "crc32c_base64": "iFdpZQ==",
+      "generation": 1790569241560657,
+      "md5_base64": "ScwESfNDkQ6Oncn46UK+4Q==",
+      "metageneration": 1,
+      "size": 369035,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/prepared/retailrocket/git-c348f9f5a2/target_users.parquet"
+    },
+    {
+      "crc32c_base64": "R1gcJA==",
+      "generation": 1790569244249894,
+      "md5_base64": "v4zQ35lZfZjzLXjUsP/5mA==",
+      "metageneration": 1,
+      "size": 7644,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/prepared/retailrocket/git-c348f9f5a2/validation_labels.parquet"
+    },
+    {
+      "crc32c_base64": "8YZNow==",
+      "generation": 1790667595620581,
+      "md5_base64": "EW0wrBHWu9v1K1YRAOI7MQ==",
+      "metageneration": 1,
+      "size": 69786121,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-1200__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "edYnIA==",
+      "generation": 1790667613588500,
+      "md5_base64": "gRQG8uKzpnC11Yx2/jjdWg==",
+      "metageneration": 1,
+      "size": 841,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-1200__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "UBa3oQ==",
+      "generation": 1790667609080504,
+      "md5_base64": "SkmiXZK18K3Upk7tf9NxtQ==",
+      "metageneration": 1,
+      "size": 725,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-1200__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "wyLN+g==",
+      "generation": 1790667604499671,
+      "md5_base64": "c1tvcuX5yzqtSR0LnrTjSg==",
+      "metageneration": 1,
+      "size": 53724775,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-1200__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "lsSAgw==",
+      "generation": 1790735495437978,
+      "md5_base64": "FhdU3OBPNeTLC10hirdQNg==",
+      "metageneration": 1,
+      "size": 71790296,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-2400__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "ZnCvhQ==",
+      "generation": 1790735512251336,
+      "md5_base64": "ER/vktQiBT+w0mhisy5wUA==",
+      "metageneration": 1,
+      "size": 843,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-2400__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "aOkuIw==",
+      "generation": 1790735507808442,
+      "md5_base64": "P12LbxMsB27plPLMPek+vA==",
+      "metageneration": 1,
+      "size": 717,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-2400__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "njlmdA==",
+      "generation": 1790735503479139,
+      "md5_base64": "RvrFpzk5ZJMdWVWtndWsYA==",
+      "metageneration": 1,
+      "size": 43047050,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-2400__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "Cv7XSg==",
+      "generation": 1790640406025553,
+      "md5_base64": "RH5ho3JUlRXZs6Jot3ke5w==",
+      "metageneration": 1,
+      "size": 69010701,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-300__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "TMVCaA==",
+      "generation": 1790640424623776,
+      "md5_base64": "Hco/DCMiZH5+ogVwb4LnfA==",
+      "metageneration": 1,
+      "size": 839,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-300__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "K34FsA==",
+      "generation": 1790640420143164,
+      "md5_base64": "YD61xdLFI2LBLSE3VlMM6g==",
+      "metageneration": 1,
+      "size": 727,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-300__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "jLaFgg==",
+      "generation": 1790640415714963,
+      "md5_base64": "oU+TJzBO0uX7ZxUHycJXrg==",
+      "metageneration": 1,
+      "size": 74759387,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-300__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "Ig323g==",
+      "generation": 1790649578961163,
+      "md5_base64": "aPDLm3yHyTDt/lGLtjwFPw==",
+      "metageneration": 1,
+      "size": 69187829,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-600__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "daoJzw==",
+      "generation": 1790649597250898,
+      "md5_base64": "ElFzl5s6tEoOvozOMtZalg==",
+      "metageneration": 1,
+      "size": 840,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-600__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "3SGuEw==",
+      "generation": 1790649592735898,
+      "md5_base64": "PKiXY3paiQpa6dEA0DLZeA==",
+      "metageneration": 1,
+      "size": 720,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-600__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "BiDiKg==",
+      "generation": 1790649588163055,
+      "md5_base64": "B5t2E0j0mjyRZSgKmueAlw==",
+      "metageneration": 1,
+      "size": 64469687,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16630__search-600__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "ZyCbKw==",
+      "generation": 1790672380699260,
+      "md5_base64": "Jx66YHu/2Ff3I57JEZCfjQ==",
+      "metageneration": 1,
+      "size": 69079132,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-1200__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "MVqX7g==",
+      "generation": 1790672398012242,
+      "md5_base64": "+1MEjrQlc5XLrfXn4p7yaA==",
+      "metageneration": 1,
+      "size": 843,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-1200__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "Hwf9Uw==",
+      "generation": 1790672393590638,
+      "md5_base64": "zB7esMZAhmCIm/p8Z1pwLw==",
+      "metageneration": 1,
+      "size": 729,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-1200__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "Qs9TyQ==",
+      "generation": 1790672389232237,
+      "md5_base64": "Wr3abi5FkCBzJWzH2HP12A==",
+      "metageneration": 1,
+      "size": 53687928,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-1200__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "0pAMhw==",
+      "generation": 1790735331198033,
+      "md5_base64": "9NrtZ/KUp3q5It2C2wpq7g==",
+      "metageneration": 1,
+      "size": 69725100,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-2400__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "X8ZTCw==",
+      "generation": 1790735348072072,
+      "md5_base64": "6FaA3oc9aOwt1RxcCXlwDQ==",
+      "metageneration": 1,
+      "size": 841,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-2400__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "nWCdew==",
+      "generation": 1790735343605169,
+      "md5_base64": "Y17gy6iu0U8WB/060Dbs4w==",
+      "metageneration": 1,
+      "size": 718,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-2400__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "qj9q2Q==",
+      "generation": 1790735339249748,
+      "md5_base64": "a5fchhyYC9Sncm/q8fchQw==",
+      "metageneration": 1,
+      "size": 43021732,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-2400__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "bkmSGg==",
+      "generation": 1790644715864644,
+      "md5_base64": "yAG5OIeGtn/S2nA/JDkFEw==",
+      "metageneration": 1,
+      "size": 68698941,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-300__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "FmDPww==",
+      "generation": 1790644733000659,
+      "md5_base64": "WEatXvkhGUBMitEMA0ZIwQ==",
+      "metageneration": 1,
+      "size": 836,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-300__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "JjeGmw==",
+      "generation": 1790644729207380,
+      "md5_base64": "M6ut9hFgUUwwd8a4ygdK1g==",
+      "metageneration": 1,
+      "size": 708,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-300__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "FoV5Ag==",
+      "generation": 1790644724864975,
+      "md5_base64": "ZCdEEb0kSGMfeecVf6GYKw==",
+      "metageneration": 1,
+      "size": 74728207,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-300__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "rsRfeQ==",
+      "generation": 1790653871933880,
+      "md5_base64": "x8tO0PLNHZZ8BnENVGbp/Q==",
+      "metageneration": 1,
+      "size": 68610418,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-600__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "ymAcSw==",
+      "generation": 1790653890301573,
+      "md5_base64": "to03sWbjPYggNCX41x/PSg==",
+      "metageneration": 1,
+      "size": 840,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-600__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "tce5Hg==",
+      "generation": 1790653885852092,
+      "md5_base64": "5zDITso5LPdtGZl9+Z+kSA==",
+      "metageneration": 1,
+      "size": 729,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-600__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "3Yyzog==",
+      "generation": 1790653881219481,
+      "md5_base64": "pkb+zisamGdZo97sbpVGfg==",
+      "metageneration": 1,
+      "size": 64431375,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16631__search-600__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "2DtshQ==",
+      "generation": 1790667300007431,
+      "md5_base64": "u3NeW1fB9Yg3XegtASxzfw==",
+      "metageneration": 1,
+      "size": 69036371,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-1200__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "YzF2oQ==",
+      "generation": 1790667317332644,
+      "md5_base64": "LUe+8NLYs2tgNCZZYp8mCA==",
+      "metageneration": 1,
+      "size": 842,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-1200__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "DlBnrA==",
+      "generation": 1790667312694675,
+      "md5_base64": "SuxClZxE0igk9VXIP3aiwA==",
+      "metageneration": 1,
+      "size": 727,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-1200__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "bhsCFQ==",
+      "generation": 1790667308280708,
+      "md5_base64": "9k93035T+OidBBL/KNUxpg==",
+      "metageneration": 1,
+      "size": 53777963,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-1200__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "228law==",
+      "generation": 1790735680897821,
+      "md5_base64": "gHp1QqdKPbeKYww+ZUo15Q==",
+      "metageneration": 1,
+      "size": 69706897,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-2400__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "1LlOMA==",
+      "generation": 1790735698325695,
+      "md5_base64": "mWzsWPUmmfEpfenojUnGcA==",
+      "metageneration": 1,
+      "size": 843,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-2400__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "728QqA==",
+      "generation": 1790735693789281,
+      "md5_base64": "e7Gw5tOnl3ex6oZUeD3nQA==",
+      "metageneration": 1,
+      "size": 721,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-2400__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "eYpMDQ==",
+      "generation": 1790735689336161,
+      "md5_base64": "iin7gNKrqiE4TEtunV8s+g==",
+      "metageneration": 1,
+      "size": 43083220,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-2400__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "cgLb2g==",
+      "generation": 1790640087223471,
+      "md5_base64": "J7T21qY8kguGOxPIzzDWhw==",
+      "metageneration": 1,
+      "size": 68503740,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-300__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "alZPwQ==",
+      "generation": 1790640105658109,
+      "md5_base64": "wrYNPskJlnkiLebdFt0RIw==",
+      "metageneration": 1,
+      "size": 839,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-300__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "ASZKWw==",
+      "generation": 1790640101160562,
+      "md5_base64": "q2bWW61OcVUuqbF8fpXOkA==",
+      "metageneration": 1,
+      "size": 722,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-300__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "15QOFw==",
+      "generation": 1790640096808322,
+      "md5_base64": "5GTb6eRC86yrjVWyOM6LKw==",
+      "metageneration": 1,
+      "size": 74825235,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-300__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "TGDJ8g==",
+      "generation": 1790649298800088,
+      "md5_base64": "rtE2yfykzLFTb8QWAjqcSw==",
+      "metageneration": 1,
+      "size": 68545461,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-600__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "c1rcqg==",
+      "generation": 1790649317134191,
+      "md5_base64": "IWOpkhOTzjW1a6nHmAT8bQ==",
+      "metageneration": 1,
+      "size": 841,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-600__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "us2LmQ==",
+      "generation": 1790649312537953,
+      "md5_base64": "CG9mHnuYTly5fKLAOkfbnQ==",
+      "metageneration": 1,
+      "size": 728,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-600__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "OM3CQA==",
+      "generation": 1790649308055566,
+      "md5_base64": "qNZQBvFIAPBhEDDWbwQXLQ==",
+      "metageneration": 1,
+      "size": 64530986,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_max_descendant__seed-16632__search-600__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "DDY0Gw==",
+      "generation": 1790668082146711,
+      "md5_base64": "9AKNGXNBJE97Qzo0YwA4JQ==",
+      "metageneration": 1,
+      "size": 68884957,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-1200__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "aQ+ARg==",
+      "generation": 1790668099986320,
+      "md5_base64": "AA1a6dGH/OnWcI5CZlsb+g==",
+      "metageneration": 1,
+      "size": 841,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-1200__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "S7PxHA==",
+      "generation": 1790668095562939,
+      "md5_base64": "4iwW4PQgQ10N3Hjal22ReQ==",
+      "metageneration": 1,
+      "size": 728,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-1200__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "l4wulw==",
+      "generation": 1790668091063765,
+      "md5_base64": "OZYJZeR32NccII3hs6FlpA==",
+      "metageneration": 1,
+      "size": 53822418,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-1200__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "kRGdLA==",
+      "generation": 1790735051770340,
+      "md5_base64": "0O4/cxuM0MEJqcU/aixfuw==",
+      "metageneration": 1,
+      "size": 69326631,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-2400__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "KO1s/g==",
+      "generation": 1790735068613247,
+      "md5_base64": "hPeEQ9DbHg2L8TWnh2n9wg==",
+      "metageneration": 1,
+      "size": 840,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-2400__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "nGWQUQ==",
+      "generation": 1790735064224685,
+      "md5_base64": "rzEfEohPcwXDkBBgbBbpJQ==",
+      "metageneration": 1,
+      "size": 718,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-2400__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "cFnjRg==",
+      "generation": 1790735059835042,
+      "md5_base64": "78WImWopkowlL5KyRbncxg==",
+      "metageneration": 1,
+      "size": 43111355,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-2400__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "pxJwog==",
+      "generation": 1790640167958023,
+      "md5_base64": "xYNekIVjaiaCpJxSw5kxXQ==",
+      "metageneration": 1,
+      "size": 69005832,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-300__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "MhJGJg==",
+      "generation": 1790640186181266,
+      "md5_base64": "PO5O0q4h4wcvxvnPfxGc+g==",
+      "metageneration": 1,
+      "size": 833,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-300__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "ecHzgQ==",
+      "generation": 1790640181588139,
+      "md5_base64": "9o1Cc7eL53LBX/OcChnWog==",
+      "metageneration": 1,
+      "size": 708,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-300__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "Qfrnzw==",
+      "generation": 1790640177000716,
+      "md5_base64": "sBDd1pAhqmeG45LC9JPwaA==",
+      "metageneration": 1,
+      "size": 74869403,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-300__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "6wRUvw==",
+      "generation": 1790649333030268,
+      "md5_base64": "qKiHdjDt8FMbTBcMHRiEQw==",
+      "metageneration": 1,
+      "size": 68631024,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-600__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "aWaa5g==",
+      "generation": 1790649351333234,
+      "md5_base64": "9xQ+0Xb/KwPhsHd6O8hPag==",
+      "metageneration": 1,
+      "size": 837,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-600__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "rJSuTA==",
+      "generation": 1790649346786171,
+      "md5_base64": "Zfmc7PC+O3igoh09v3rs+g==",
+      "metageneration": 1,
+      "size": 726,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-600__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "kus6Mg==",
+      "generation": 1790649342175586,
+      "md5_base64": "mYUuIWi6Ad45aiAHFIqPng==",
+      "metageneration": 1,
+      "size": 64583392,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16630__search-600__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "08Nwhw==",
+      "generation": 1790667835878217,
+      "md5_base64": "MYYu+NxcB26j/P+u+9ynVA==",
+      "metageneration": 1,
+      "size": 69758250,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-1200__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "lIQl7w==",
+      "generation": 1790667853798914,
+      "md5_base64": "LN4MqIRmnho9vFl5aVznCg==",
+      "metageneration": 1,
+      "size": 841,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-1200__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "MmjG2Q==",
+      "generation": 1790667849289465,
+      "md5_base64": "o9gevCIoiHAzw0wYdXjuHA==",
+      "metageneration": 1,
+      "size": 729,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-1200__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "LzVCJw==",
+      "generation": 1790667844641001,
+      "md5_base64": "EIKcyqQ1RInIAyEBeRubzg==",
+      "metageneration": 1,
+      "size": 53841877,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-1200__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "Bju6fA==",
+      "generation": 1790738638214959,
+      "md5_base64": "qRJCYYZxjKoGlzx+A7cJig==",
+      "metageneration": 1,
+      "size": 70894369,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-2400__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "Ie5uvA==",
+      "generation": 1790738655916259,
+      "md5_base64": "xe2a2DZjYEHPl3fodFdmJA==",
+      "metageneration": 1,
+      "size": 840,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-2400__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "QxW5IQ==",
+      "generation": 1790738651328778,
+      "md5_base64": "xVjhoiPLbDUSTGfTKMK1fw==",
+      "metageneration": 1,
+      "size": 720,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-2400__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "P8tUEQ==",
+      "generation": 1790738646716276,
+      "md5_base64": "1v2Qm++upZnsCFGj1W5xlg==",
+      "metageneration": 1,
+      "size": 43143042,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-2400__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "DcwhYg==",
+      "generation": 1790640459208541,
+      "md5_base64": "TqoYq/al59kHW0BC9xG33g==",
+      "metageneration": 1,
+      "size": 71143838,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-300__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "i/VoXw==",
+      "generation": 1790640477883263,
+      "md5_base64": "6BkkQLpU72oMUhVxX/nRCQ==",
+      "metageneration": 1,
+      "size": 837,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-300__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "9aXa4Q==",
+      "generation": 1790640473387245,
+      "md5_base64": "SiH7HWFl7cfH+jJ3tr1FqQ==",
+      "metageneration": 1,
+      "size": 729,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-300__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "bgSZJQ==",
+      "generation": 1790640468916558,
+      "md5_base64": "DmQfSVbtZZfG4SAQweBSVA==",
+      "metageneration": 1,
+      "size": 74902961,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-300__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "GDb3KA==",
+      "generation": 1790649667234971,
+      "md5_base64": "Kv2XPUhbZIMPkCGuWupx0Q==",
+      "metageneration": 1,
+      "size": 69692976,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-600__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "PJzUWw==",
+      "generation": 1790649685144994,
+      "md5_base64": "fF9jKMSwHGk4dCl16z7gQg==",
+      "metageneration": 1,
+      "size": 837,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-600__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "kOkwlg==",
+      "generation": 1790649680713918,
+      "md5_base64": "vjiDV5DuLQ+1n7IKmlHSSg==",
+      "metageneration": 1,
+      "size": 727,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-600__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "aCU9PQ==",
+      "generation": 1790649676268421,
+      "md5_base64": "/TuaFbWITCP6Z+Gamq12gA==",
+      "metageneration": 1,
+      "size": 64606606,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16631__search-600__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "WQGKqw==",
+      "generation": 1790667485334094,
+      "md5_base64": "0c/FOwPHjVsLsK3x3mDEiA==",
+      "metageneration": 1,
+      "size": 69034293,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-1200__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "0b45bg==",
+      "generation": 1790667503151689,
+      "md5_base64": "yiMnxxrD3TobGY9ZUV5bFw==",
+      "metageneration": 1,
+      "size": 840,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-1200__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "8Vz2gA==",
+      "generation": 1790667498657789,
+      "md5_base64": "wWFkLZYXr+7I0ZaPXd6L4g==",
+      "metageneration": 1,
+      "size": 727,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-1200__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "Ap7Lkg==",
+      "generation": 1790667494050651,
+      "md5_base64": "YYD954g6eonFxZNZyKOMsg==",
+      "metageneration": 1,
+      "size": 53734322,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-1200__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "Fo37LQ==",
+      "generation": 1790735916903344,
+      "md5_base64": "Xf9sftPbGpmaZWbYD7nsxg==",
+      "metageneration": 1,
+      "size": 69483229,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-2400__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "7ruKQQ==",
+      "generation": 1790735934337230,
+      "md5_base64": "/3z9cb3hOUlCOFIovUr4xg==",
+      "metageneration": 1,
+      "size": 840,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-2400__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "v/sWhw==",
+      "generation": 1790735929861188,
+      "md5_base64": "ihLFbOamY15WqH4EOS6K4w==",
+      "metageneration": 1,
+      "size": 722,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-2400__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "OoMx0g==",
+      "generation": 1790735925363668,
+      "md5_base64": "f7a/akXrrs3I8GTscRMYjA==",
+      "metageneration": 1,
+      "size": 43045022,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-2400__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "KSpMNA==",
+      "generation": 1790640119747332,
+      "md5_base64": "tSjncKsODsR4aLgelfiSag==",
+      "metageneration": 1,
+      "size": 69375664,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-300__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "sP1x/g==",
+      "generation": 1790640137244714,
+      "md5_base64": "H2zmyzV5JgAx1ZIh+F1BIA==",
+      "metageneration": 1,
+      "size": 837,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-300__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "13ByzA==",
+      "generation": 1790640133403349,
+      "md5_base64": "VYDenD7XGxbQ0xtx/2hImA==",
+      "metageneration": 1,
+      "size": 726,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-300__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "GRuezA==",
+      "generation": 1790640128807677,
+      "md5_base64": "ueKW2wPsd+AGdQwAEGDbyg==",
+      "metageneration": 1,
+      "size": 74754987,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-300__return-600/trace.json"
+    },
+    {
+      "crc32c_base64": "uCKITQ==",
+      "generation": 1790649317468901,
+      "md5_base64": "tsOb8/5LbJjwGq4gqUgXSw==",
+      "metageneration": 1,
+      "size": 68897255,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-600__return-600/candidates.parquet"
+    },
+    {
+      "crc32c_base64": "UDMw3w==",
+      "generation": 1790649335226237,
+      "md5_base64": "Tp4zTceNdM8Xh0/0Sv94Kw==",
+      "metageneration": 1,
+      "size": 838,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-600__return-600/inference_manifest.json"
+    },
+    {
+      "crc32c_base64": "Fm/FGw==",
+      "generation": 1790649330609864,
+      "md5_base64": "QHqXjG/kYF1abIRNvrMciQ==",
+      "metageneration": 1,
+      "size": 726,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-600__return-600/performance.json"
+    },
+    {
+      "crc32c_base64": "+62AYQ==",
+      "generation": 1790649326800272,
+      "md5_base64": "WM1CtE07VXwkjrNovatR+A==",
+      "metageneration": 1,
+      "size": 64479144,
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/inference-v7/git-5393153ccd/inference/retailrocket__internal_true_sum_mass__seed-16632__search-600__return-600/trace.json"
+    }
+  ],
+  "json_pointers": {
+    "candidate_overlap": "/candidate_jaccard",
+    "decision": "/decision",
+    "first_prune": "/first_prune_depth",
+    "holm": "/holm_bonferroni/primary_recall_1200",
+    "performance": "/performance",
+    "primary": "/hypotheses/primary_recall_1200"
+  },
+  "non_evidence_registry": [
+    {
+      "attempt": "inference-v1",
+      "authority": "AMENDMENT-007",
+      "status": "failed/cancelled"
+    },
+    {
+      "attempt": "inference-v2",
+      "authority": "AMENDMENT-008",
+      "status": "failed/cancelled"
+    },
+    {
+      "attempt": "inference-v3",
+      "authority": "AMENDMENT-009",
+      "status": "failed/cancelled"
+    },
+    {
+      "attempt": "inference-v4",
+      "authority": "AMENDMENT-010",
+      "status": "failed"
+    },
+    {
+      "attempt": "inference-v5",
+      "authority": "AMENDMENT-011",
+      "status": "failed"
+    },
+    {
+      "attempt": "inference-v6",
+      "authority": "AMENDMENT-012",
+      "status": "failed after local retrieval before upload"
+    },
+    {
+      "attempt": "inference-v7",
+      "authority": "AMENDMENT-013",
+      "status": "six grouped jobs timed out; 18 immutable completed cells retained as evidence"
+    },
+    {
+      "attempt": "inference-v8",
+      "authority": "AMENDMENT-014",
+      "status": "five timeouts and one capacity failure; no new manifests"
+    },
+    {
+      "attempt": "inference-v9-width-4800",
+      "authority": "AMENDMENT-015",
+      "job_ids": [
+        "5659018543790817280",
+        "5652263144349761536",
+        "7667623977598058496",
+        "7845516162879193088",
+        "2253171325591879680",
+        "4386751649058652160"
+      ],
+      "status": "six terminal failures; zero artifacts"
+    },
+    {
+      "attempt": "cancelled duplicates and runtime smokes",
+      "authority": "AMENDMENTS-005-008",
+      "status": "diagnostic non-evidence"
+    }
+  ],
+  "source_revision": "3277ed3d9fe349567bc24638e87b44b1b48123e6",
+  "status": "complete-negative-null-evidence",
+  "test_opened": false,
+  "validation_only": true
+}

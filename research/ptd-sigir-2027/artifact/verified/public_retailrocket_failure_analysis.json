@@ -1,0 +1,261 @@
+{
+  "analysis_type": "exploratory-descriptive-only",
+  "candidate_overlap": [
+    {
+      "mean": 0.150776616647618,
+      "quartiles": [
+        0.10395584176632934,
+        0.14285714285714285,
+        0.19047619047619047
+      ],
+      "search_topk": 300
+    },
+    {
+      "mean": 0.1902865026462504,
+      "quartiles": [
+        0.13851992409867173,
+        0.18226600985221675,
+        0.2345679012345679
+      ],
+      "search_topk": 600
+    },
+    {
+      "mean": 0.20132998859542678,
+      "quartiles": [
+        0.14832535885167464,
+        0.1952191235059761,
+        0.24740124740124741
+      ],
+      "search_topk": 1200
+    },
+    {
+      "mean": 0.19548577403202286,
+      "quartiles": [
+        0.14176974310180782,
+        0.18929633300297324,
+        0.2422360248447205
+      ],
+      "search_topk": 2400
+    }
+  ],
+  "category": "C",
+  "confirmatory_conclusion_changed": false,
+  "contract_version": "ptd-public-failure-analysis/v1",
+  "dataset": "RetailRocket",
+  "first_prune": [
+    {
+      "evaluated_nodes_at_first_prune": 2048,
+      "mean_first_prune_depth": 11,
+      "queries_with_pruning": 65624,
+      "retained_nodes_at_first_prune": 600,
+      "retained_to_evaluated_ratio": 0.29296875,
+      "search_topk": 300
+    },
+    {
+      "evaluated_nodes_at_first_prune": 4096,
+      "mean_first_prune_depth": 12,
+      "queries_with_pruning": 65624,
+      "retained_nodes_at_first_prune": 1200,
+      "retained_to_evaluated_ratio": 0.29296875,
+      "search_topk": 600
+    },
+    {
+      "evaluated_nodes_at_first_prune": 8192,
+      "mean_first_prune_depth": 13,
+      "queries_with_pruning": 65624,
+      "retained_nodes_at_first_prune": 2400,
+      "retained_to_evaluated_ratio": 0.29296875,
+      "search_topk": 1200
+    },
+    {
+      "evaluated_nodes_at_first_prune": 16384,
+      "mean_first_prune_depth": 14,
+      "queries_with_pruning": 65624,
+      "retained_nodes_at_first_prune": 4800,
+      "retained_to_evaluated_ratio": 0.29296875,
+      "search_topk": 2400
+    }
+  ],
+  "mechanism_interpretation": {
+    "candidate_convergence": false,
+    "causal_claim": "not identified",
+    "reason": "Mean Jaccard remains only 0.151-0.201, so the null/negative Recall result did not arise because both aggregators converged to the same candidate set.",
+    "supported_boundary": "On RetailRocket validation through width 2400, delaying first prune by three levels did not turn true-sum aggregation into a Recall@600 advantage."
+  },
+  "performance": [
+    {
+      "mean_p50_latency_ms": 16568.40623058333,
+      "mean_p95_latency_ms": 18293.53904760833,
+      "mean_peak_gpu_memory_gib": 8.470372041066488,
+      "search_topk": 300
+    },
+    {
+      "mean_p50_latency_ms": 30156.75465058348,
+      "mean_p95_latency_ms": 31302.823248991535,
+      "mean_peak_gpu_memory_gib": 17.243479251861572,
+      "search_topk": 600
+    },
+    {
+      "mean_p50_latency_ms": 27831.827303000257,
+      "mean_p95_latency_ms": 29305.545279591417,
+      "mean_peak_gpu_memory_gib": 13.332679669062296,
+      "search_topk": 1200
+    },
+    {
+      "mean_p50_latency_ms": 25424.97683850001,
+      "mean_p95_latency_ms": 26575.949655874985,
+      "mean_peak_gpu_memory_gib": 12.874586820602417,
+      "search_topk": 2400
+    }
+  ],
+  "population": {
+    "evaluable_fraction": 0.0017676459831768865,
+    "purchase_users": 116,
+    "target_users": 65624
+  },
+  "primary_effect_boundary": {
+    "ci95": [
+      -0.05259179322553879,
+      0.0036080265543797013
+    ],
+    "estimate": -0.02310337108980761,
+    "interpretation": "The registered 95% interval excludes positive effects above 0.003608 Recall@600 under this design; non-significance is not an equivalence result."
+  },
+  "prohibitions": [
+    "no additional hypothesis tests",
+    "no post-hoc efficacy claim",
+    "no pooling with Kauche historical context",
+    "no width-4800 evidence claim"
+  ],
+  "purchase_positive_subgroups": [
+    {
+      "descriptive_estimate": 0.015151515151515152,
+      "paired_rows": 198,
+      "purchase_positive_bucket": "1",
+      "search_topk": 300
+    },
+    {
+      "descriptive_estimate": -0.07407407407407407,
+      "paired_rows": 54,
+      "purchase_positive_bucket": "2",
+      "search_topk": 300
+    },
+    {
+      "descriptive_estimate": -0.0016267255038447496,
+      "paired_rows": 96,
+      "purchase_positive_bucket": "3_plus",
+      "search_topk": 300
+    },
+    {
+      "descriptive_estimate": -0.04040404040404041,
+      "paired_rows": 198,
+      "purchase_positive_bucket": "1",
+      "search_topk": 600
+    },
+    {
+      "descriptive_estimate": 0.018518518518518517,
+      "paired_rows": 54,
+      "purchase_positive_bucket": "2",
+      "search_topk": 600
+    },
+    {
+      "descriptive_estimate": -0.005244717447972343,
+      "paired_rows": 96,
+      "purchase_positive_bucket": "3_plus",
+      "search_topk": 600
+    },
+    {
+      "descriptive_estimate": -0.03535353535353535,
+      "paired_rows": 198,
+      "purchase_positive_bucket": "1",
+      "search_topk": 1200
+    },
+    {
+      "descriptive_estimate": 0.0,
+      "paired_rows": 54,
+      "purchase_positive_bucket": "2",
+      "search_topk": 1200
+    },
+    {
+      "descriptive_estimate": -0.01083305353388594,
+      "paired_rows": 96,
+      "purchase_positive_bucket": "3_plus",
+      "search_topk": 1200
+    },
+    {
+      "descriptive_estimate": -0.06565656565656566,
+      "paired_rows": 198,
+      "purchase_positive_bucket": "1",
+      "search_topk": 2400
+    },
+    {
+      "descriptive_estimate": 0.009259259259259259,
+      "paired_rows": 54,
+      "purchase_positive_bucket": "2",
+      "search_topk": 2400
+    },
+    {
+      "descriptive_estimate": -0.01769900010917194,
+      "paired_rows": 96,
+      "purchase_positive_bucket": "3_plus",
+      "search_topk": 2400
+    }
+  ],
+  "source_revision": "3277ed3d9fe349567bc24638e87b44b1b48123e6",
+  "test_opened": false,
+  "validation_only": true,
+  "width_effects": [
+    {
+      "descriptive_ci95_registered_bootstrap": [
+        -0.03811048886047567,
+        0.030568188699581236
+      ],
+      "estimate": -0.0033223150815203887,
+      "search_topk": 300,
+      "seed_estimates": {
+        "16630": -0.00040114560446922304,
+        "16631": 0.002474918666068243,
+        "16632": -0.012040718306160193
+      }
+    },
+    {
+      "descriptive_ci95_registered_bootstrap": [
+        -0.054940183954630496,
+        0.008496069164665766
+      ],
+      "estimate": -0.02156176113507283,
+      "search_topk": 600,
+      "seed_estimates": {
+        "16630": -0.02393344748985511,
+        "16631": -0.04123177321510242,
+        "16632": 0.00047993729973903746
+      }
+    },
+    {
+      "descriptive_ci95_registered_bootstrap": [
+        -0.05259179322553879,
+        0.0036080265543797013
+      ],
+      "estimate": -0.02310337108980761,
+      "search_topk": 1200,
+      "seed_estimates": {
+        "16630": -0.04601057037237184,
+        "16631": -0.020656751985751585,
+        "16632": -0.0026427909112994173
+      }
+    },
+    {
+      "descriptive_ci95_registered_bootstrap": [
+        -0.07392532446887774,
+        -0.010280057098325081
+      ],
+      "estimate": -0.040802023018622145,
+      "search_topk": 2400,
+      "seed_estimates": {
+        "16630": -0.06775304630771721,
+        "16631": -0.049706214358400794,
+        "16632": -0.004946808389748426
+      }
+    }
+  ]
+}
