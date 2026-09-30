@@ -185,6 +185,8 @@ python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/outpu
 
 RetailRocket の独立 Category C 検証は、負/null の証拠として受理済みです。主指標では true-sum mass は max-descendant を上回らず、beam-gap 縮小機構も支持されませんでした。Kauche の PTD 効能評価は引き続き pending です。
 
+今後の研究投資は PTD 20--30%、KMCR 70--80%を目安とします。新しい事前登録方針では、base retriever が union 前に欠落させた関連商品を、上限付きの補完候補注入で回復できるかを検証します。これは効能主張ではありません。詳細は `artifact/kmcr_research_direction.md` を参照してください。
+
 ## PTD 結果を取り込む条件
 
 1. `artifact/evaluation.schema.json` 準拠の immutable evaluation JSON と、`artifact/paired_observation_row.schema.json` に各行が準拠する hash-linked JSONL。
