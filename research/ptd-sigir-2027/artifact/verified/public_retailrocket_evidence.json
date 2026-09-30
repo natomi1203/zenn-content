@@ -23,6 +23,21 @@
     "metageneration": 1,
     "sha256": "ecdd87e64190c47da88981ed44ce0a383e86c7b911d1d3775af4a3f50249d7c7"
   },
+  "preservation": {
+    "analysis_revision": "f4fbfa0a7b60565500db997bd2eba40a3e0c7884",
+    "evidence_index": {
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/failure-analysis-v1/git-f4fbfa0/evidence_index.json",
+      "generation": 1790810186003499,
+      "metageneration": 1,
+      "sha256": "8e980dd530987d77134fef857acef10c68586fa5c83d9f7db2508f28d624efb1"
+    },
+    "failure_analysis": {
+      "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/failure-analysis-v1/git-f4fbfa0/failure_analysis.json",
+      "generation": 1790810182921702,
+      "metageneration": 1,
+      "sha256": "7f6372bc84e6d361507fee609e7442ac445b6381b14aea998963724f2b4a1af1"
+    }
+  },
   "population": {
     "query_users": 65624,
     "purchase_users": 116,

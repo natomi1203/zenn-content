@@ -20,7 +20,7 @@
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "bf82e223c46dcb3d5259ac30728b04925defd8fedb8facccbf2a95c3dd79174c"
+      "sha256": "d76d96052cf23296dc85e1cd2bad28c21046bef73c58889244151b83fa7fa186"
     },
     {
       "id": "paper-author-source",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "4ae2982e547a46ab52edbf9c5c81bbf05604614f6cf0e4283954ae14b5e08295"
+      "sha256": "33433b07052b50df98f587e3a45ee22fa733369e6737a254f89b7fffc82192e4"
     },
     {
       "id": "preregistration",
@@ -97,7 +97,7 @@
       "path": "artifact/verified/public_retailrocket_evidence.json",
       "media_type": "application/json",
       "status": "VERIFIED",
-      "sha256": "842c25eb7463fdb546196fa769471b821a7a6189d91408d9a3bbb9019cdcb6b1"
+      "sha256": "c2afa8f2eba11819e5a171e6c1411f96f8ec7c575f9d2990c9f55069b25ea261"
     },
     {
       "id": "raw-input-inventory",
