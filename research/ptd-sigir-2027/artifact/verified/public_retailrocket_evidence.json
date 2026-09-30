@@ -1,0 +1,68 @@
+{
+  "contract_version": "ptd-public-retailrocket-evidence/v1",
+  "status": "VERIFIED",
+  "category": "C",
+  "dataset": "RetailRocket",
+  "scope": "validation-only external validity through search width 2400",
+  "source_revision": "3277ed3d9fe349567bc24638e87b44b1b48123e6",
+  "run_manifest": {
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/run_manifest.json",
+    "generation": 1790781741441319,
+    "metageneration": 1,
+    "sha256": "0f2d638810edc697f431d511f8f997e1fafe8a23d72614b2e1d8dd58d24be9ed"
+  },
+  "evaluation": {
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/evaluation.json",
+    "generation": 1790781615896054,
+    "metageneration": 1,
+    "sha256": "aed3e46e37867dd7189bfa0735c0c54c1cd9c9919cfcc05f1372f705ad1c9d45"
+  },
+  "paired_observations": {
+    "uri": "gs://kauche-app-lab-product-recommend/home-feed-cvr-lab/ptd-public-external-validity-v1/runs/evaluation-v2/git-3277ed3d9fe/paired_observations.jsonl",
+    "generation": 1790781622333703,
+    "metageneration": 1,
+    "sha256": "ecdd87e64190c47da88981ed44ce0a383e86c7b911d1d3775af4a3f50249d7c7"
+  },
+  "population": {
+    "query_users": 65624,
+    "purchase_users": 116,
+    "unique_purchase_user_products": 630,
+    "evaluable_fraction": 0.0017676459831768865
+  },
+  "design": {
+    "arms": ["internal_max_descendant", "internal_true_sum_mass"],
+    "seeds": [16630, 16631, 16632],
+    "search_topks": [300, 600, 1200, 2400],
+    "return_k": 600,
+    "cells": 24,
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 16630
+  },
+  "primary": {
+    "contrast": "internal_true_sum_mass - internal_max_descendant",
+    "metric": "transaction Recall@600",
+    "search_topk": 1200,
+    "estimate": -0.02310337108980761,
+    "ci95": [-0.05259179322553879, 0.0036080265543797013],
+    "raw_p_value": 0.09459054094590541,
+    "holm_adjusted_p_value": 0.37836216378362164,
+    "superiority": false
+  },
+  "mechanism": {
+    "absolute_gap_shrinkage_300_to_2400": -0.03747970793710176,
+    "holm_adjusted_p_value": 0.37836216378362164,
+    "supported": false
+  },
+  "admission": {
+    "contract_version": "ptd-public-evidence-admission/v1",
+    "admissible": true,
+    "errors": []
+  },
+  "excluded_non_evidence": {
+    "search_topk": 4800,
+    "jobs": 6,
+    "artifacts_created": 0
+  },
+  "sealed_test_opened": false,
+  "interpretation": "The complete Category C validation evidence is negative/null. It does not support true-sum superiority or beam-gap shrinkage and does not alter the pending Kauche efficacy claim."
+}

@@ -2,7 +2,7 @@
 
 ## 現在地（2026-09-25 JST）
 
-リポジトリ規約確認、独立 worktree、論文 scaffold、preregistration、claim--evidence ledger、関連研究比較表、artifact 契約、証跡境界を守った初稿まで完了しています。PTD 実行に必要な raw sequence/category 216 shard と frozen teacher checkpoint に加え、結果列を読まない商品監査と機械可読 method contract により、5,584 商品の catalog envelope、日別 mask、実装可能な二系列 encoder、tree/training 設定も固定しました。PTD の one-day tree-family 診断と prospective five-day 評価は **pending** であり、効果の結論には使っていません。
+リポジトリ規約確認、独立 worktree、論文 scaffold、preregistration、claim--evidence ledger、関連研究比較表、artifact 契約、証跡境界を守った初稿まで完了しています。PTD 実行に必要な raw sequence/category 216 shard と frozen teacher checkpoint に加え、結果列を読まない商品監査と機械可読 method contract により、5,584 商品の catalog envelope、日別 mask、実装可能な二系列 encoder、tree/training 設定も固定しました。独立した24セルの RetailRocket 検証は Category C の負/null 証拠として受理済みです。Kauche の one-day tree-family 診断と prospective five-day 評価は **pending** であり、効果の結論には使っていません。
 
 SIGIR 2027 full-paper の公式要項は公開済みです。英語 PDF、最新 ACM `sigconf` 二段組、参考文献を除く最大 9 ページ、匿名査読、CCS concepts と keywords が必要です。確認日時点で日程には "PROPOSED" と表示されています。詳細は `artifact/venue_requirements.md` に固定しています。
 
@@ -182,6 +182,8 @@ uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inven
 uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inventory artifact/verified/raw_input_inventory.json --output-dir /restricted/output/catalog-bundle-rerun
 python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/output/catalog-bundle --rerun-bundle-dir /restricted/output/catalog-bundle-rerun
 ```
+
+RetailRocket の独立 Category C 検証は、負/null の証拠として受理済みです。主指標では true-sum mass は max-descendant を上回らず、beam-gap 縮小機構も支持されませんでした。Kauche の PTD 効能評価は引き続き pending です。
 
 ## PTD 結果を取り込む条件
 

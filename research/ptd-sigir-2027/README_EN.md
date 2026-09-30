@@ -2,7 +2,7 @@
 
 ## Status (2026-09-25 JST)
 
-The repository rules, isolated worktree, paper scaffold, preregistration, claim--evidence ledger, related-work matrix, artifact contracts, and evidence-bounded manuscript are complete. A metadata-only inventory fixes the 216 raw sequence/category shards and exact frozen teacher checkpoint. An outcome-free item audit and a machine-readable method contract now also fix the 5,584-item catalog envelope, date masks, implementable two-stream encoder, and tree/training settings. PTD one-day tree-family diagnostics and the prospective five-day evaluation remain **pending** and are not used for efficacy claims.
+The repository rules, isolated worktree, paper scaffold, preregistration, claim--evidence ledger, related-work matrix, artifact contracts, and evidence-bounded manuscript are complete. A metadata-only inventory fixes the 216 raw sequence/category shards and exact frozen teacher checkpoint. An outcome-free item audit and a machine-readable method contract now also fix the 5,584-item catalog envelope, date masks, implementable two-stream encoder, and tree/training settings. The independent 24-cell RetailRocket validation is admitted as negative/null Category C evidence; PTD one-day Kauche diagnostics and the prospective five-day Kauche evaluation remain **pending** and are not used for efficacy claims.
 
 The official SIGIR 2027 full-paper call is available. It requires English PDF submissions in the current ACM `sigconf` two-column format, at most nine pages excluding references, anonymous review, CCS concepts, and keywords. The dates on the call are labelled "PROPOSED" as of the access date. See `artifact/venue_requirements.md`.
 
@@ -10,7 +10,7 @@ The official SIGIR 2027 full-paper call is available. It requires English PDF su
 
 `VERIFIED` means that a stable URI, a manifest, a content hash, and a machine-readable evaluation record are available. `PREREGISTERED` is a method or analysis fixed before the prospective PTD five-day readout. `PENDING` must not be converted into a result sentence, abstract claim, conclusion, or table value. The machine-checkable source of truth is `artifact/claim_evidence_ledger.csv`.
 
-The included legacy ESMM anchor is restricted internal evidence. It is useful for defining the teacher and the common point-in-time-safe evaluation universe, but it is not evidence that PTD works. Before anonymous submission, mirror public artifacts to an anonymous repository and redact organization-identifying URIs without changing content hashes.
+The included legacy ESMM anchor is restricted internal evidence. An independent RetailRocket Category C validation is also admitted as negative/null evidence: true-sum mass did not outperform max-descendant aggregation at the primary width, and the beam-gap-shrinkage mechanism was not supported. Kauche PTD efficacy remains pending. Before anonymous submission, mirror public artifacts to an anonymous repository and redact organization-identifying URIs without changing content hashes.
 
 ## Objective-conditional aggregation extension
 

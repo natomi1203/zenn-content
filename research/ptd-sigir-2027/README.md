@@ -9,4 +9,4 @@ This directory is the research workspace for a SIGIR 2027 full-paper submission.
 - [Claim--evidence ledger](artifact/claim_evidence_ledger.csv)
 - [Artifact manifest](artifact/manifest.json) and [schema](artifact/manifest.schema.json)
 
-The current manuscript is an evidence-bounded first draft. It reports only the verified legacy ESMM anchor; every PTD outcome is visibly marked as preregistered or pending.
+The current manuscript is evidence-bounded. It reports the verified legacy ESMM anchor and an independently admitted negative/null RetailRocket Category C validation result; Kauche PTD efficacy remains preregistered or pending.
