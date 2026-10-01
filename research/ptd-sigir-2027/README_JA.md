@@ -2,13 +2,13 @@
 
 ## 現在地（2026-09-25 JST）
 
-リポジトリ規約確認、独立 worktree、論文 scaffold、preregistration、claim--evidence ledger、関連研究比較表、artifact 契約、証跡境界を守った初稿まで完了しています。PTD 実行に必要な raw sequence/category 216 shard と frozen teacher checkpoint に加え、結果列を読まない商品監査と機械可読 method contract により、5,584 商品の catalog envelope、日別 mask、実装可能な二系列 encoder、tree/training 設定も固定しました。独立した24セルの RetailRocket 検証は Category C の負/null 証拠として受理済みです。Kauche の one-day tree-family 診断と prospective five-day 評価は **pending** であり、効果の結論には使っていません。
+本リポジトリは、RetailRocket 24セルのCategory C検証を実証範囲とする負/null結果論文として完結しています。Kaucheの計画・診断は履歴およびbounded contextとして保存しますが、本稿の完成条件や効能結論には含めません。
 
 SIGIR 2027 full-paper の公式要項は公開済みです。英語 PDF、最新 ACM `sigconf` 二段組、参考文献を除く最大 9 ページ、匿名査読、CCS concepts と keywords が必要です。確認日時点で日程には "PROPOSED" と表示されています。詳細は `artifact/venue_requirements.md` に固定しています。
 
 ## 証跡ポリシー
 
-`VERIFIED` は、固定 URI、manifest、content hash、機械可読 evaluation record がすべて存在する状態です。`PREREGISTERED` は PTD five-day 結果を見る前に固定した方法・分析です。`PENDING` は abstract、結論、結果表、効果主張へ昇格させません。正本は `artifact/claim_evidence_ledger.csv` です。
+`VERIFIED` は受理済み証拠、`PREREGISTERED` は結果確認前に固定した方法、`UNSUPPORTED` は検証したが支持されなかった仮説、`OUT_OF_SCOPE` は本稿で未検証の比較、`FUTURE_WORK` は将来研究へ移管した分析です。正本は `artifact/claim_evidence_ledger.csv` です。
 
 収録した legacy ESMM anchor は社内制限付き証跡です。teacher 定義と point-in-time-safe な共通評価母集団の固定には使えますが、PTD の有効性を示すものではありません。匿名投稿前に、内容ハッシュを維持した匿名 artifact mirror を作り、組織を特定できる URI は置換します。
 
@@ -183,7 +183,7 @@ uv run --with pyarrow --with numpy python runner/build_catalog_bundle.py --inven
 python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/output/catalog-bundle --rerun-bundle-dir /restricted/output/catalog-bundle-rerun
 ```
 
-RetailRocket の独立 Category C 検証は、負/null の証拠として受理済みです。主指標では true-sum mass は max-descendant を上回らず、beam-gap 縮小機構も支持されませんでした。Kauche の PTD 効能評価は引き続き pending です。
+RetailRocket の独立 Category C 検証は、負/null の証拠として受理済みです。主指標では true-sum mass は max-descendant を上回らず、beam-gap 縮小機構も支持されませんでした。Kauche の PTD 効能評価は本稿の対象外です。
 
 今後の研究投資は PTD 20--30%、KMCR 70--80%を目安とします。新しい事前登録方針では、base retriever が union 前に欠落させた関連商品を、上限付きの補完候補注入で回復できるかを検証します。これは効能主張ではありません。詳細は `artifact/kmcr_research_direction.md` を参照してください。
 

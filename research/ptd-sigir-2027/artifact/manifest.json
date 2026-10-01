@@ -13,14 +13,14 @@
       "path": "paper/main.tex",
       "media_type": "application/x-tex",
       "status": "GENERATED",
-      "sha256": "de6dfd2e64d4a5e2c9f2f9acb3e597d144ecd84908ec0836b9d0f1e4d5cbb9cb"
+      "sha256": "35d3d8dee26264c68305e053f02b1653df35e074bc26975149daaad7aab3f1ff"
     },
     {
       "id": "paper-pdf",
       "path": "paper/main.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "d76d96052cf23296dc85e1cd2bad28c21046bef73c58889244151b83fa7fa186"
+      "sha256": "74cb696a2389b8e807019007853a8a98132229d15f6e472459d2e801f5381837"
     },
     {
       "id": "paper-author-source",
@@ -34,7 +34,7 @@
       "path": "paper/main-author.pdf",
       "media_type": "application/pdf",
       "status": "GENERATED",
-      "sha256": "33433b07052b50df98f587e3a45ee22fa733369e6737a254f89b7fffc82192e4"
+      "sha256": "3e88da5e4f87948587512da7a6eb10003dd5d05f8e62a07621a5ae782756a364"
     },
     {
       "id": "preregistration",
@@ -83,7 +83,7 @@
       "path": "artifact/claim_evidence_ledger.csv",
       "media_type": "text/csv",
       "status": "VERIFIED",
-      "sha256": "b93cb1adadef6f76b498a446d90ae55144a97c3727c28a896cb7141b9f41124c"
+      "sha256": "efb9d63e2cb3548ac216d2e1fae68a9cc9a2b9302a1da1da1b9ae11b8c165546"
     },
     {
       "id": "legacy-esmm-anchor",
@@ -685,7 +685,7 @@
       "path": "scripts/generate_tables.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "f7868d1d151be37659fb8e8450b7843e0caeb56d8a254114f68b61f76a8940f2"
+      "sha256": "903c8aba16bf3d633b0439ffadc3514c60e12cc7b3f56a5431f1e6b9b1c39e57"
     },
     {
       "id": "figure-generator",
@@ -699,7 +699,7 @@
       "path": "scripts/validate_artifacts.py",
       "media_type": "text/x-python",
       "status": "GENERATED",
-      "sha256": "24925798a755072df1fd6845d4858a38253dc890b69daad62848decabf0736a2"
+      "sha256": "061f890785e41b0644347737383eef8c0454350b111fc7dce56efbc633d7c9db"
     },
     {
       "id": "manifest-finalizer",
@@ -741,14 +741,14 @@
       "path": "README_EN.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "06dc7b151dcc5c61fe27f6e63f87a92ead7761694835f87fe6caecbe3d1590e2"
+      "sha256": "5f97a464868a8f88cfffcfbb93030a9f03b4f54eb26c7b7ff6a11a5a93a084ac"
     },
     {
       "id": "reproduction-guide-ja",
       "path": "README_JA.md",
       "media_type": "text/markdown",
       "status": "GENERATED",
-      "sha256": "551bc93fb4ccde6d6ee9e6d55d0a6102ae059144ea8a79749090803cc570646a"
+      "sha256": "c352197f8f875cf1ffa1a5dae9320a2af0a3648a8baf294506520febdb5f8cca"
     },
     {
       "id": "ptd-five-day-evaluation",

@@ -69,7 +69,15 @@ def evidence_table() -> None:
 def status_table() -> None:
     with (ROOT / "artifact" / "claim_evidence_ledger.csv").open(newline="") as handle:
         rows = list(csv.DictReader(handle))
-    counts = {status: sum(row["status"] == status for row in rows) for status in ("VERIFIED", "PREREGISTERED", "PENDING")}
+    statuses = ("VERIFIED", "PREREGISTERED", "UNSUPPORTED", "OUT_OF_SCOPE", "FUTURE_WORK")
+    counts = {status: sum(row["status"] == status for row in rows) for status in statuses}
+    labels = {
+        "VERIFIED": "Verified",
+        "PREREGISTERED": "Preregistered",
+        "UNSUPPORTED": "Unsupported",
+        "OUT_OF_SCOPE": "Out of scope",
+        "FUTURE_WORK": "Future work",
+    }
     lines = [
         r"\begin{table}[t]",
         r"\caption{Claim status at manuscript generation time.}",
@@ -77,34 +85,11 @@ def status_table() -> None:
         r"\centering",
         r"\begin{tabular}{lr}",
         r"\toprule Status & Claims \\ \midrule",
-        *(f"{status.title()} & {count} \\\\" for status, count in counts.items()),
+        *(f"{labels[status]} & {count} \\\\" for status, count in counts.items()),
         r"\bottomrule\end{tabular}",
         r"\end{table}",
     ]
     (OUT / "claim_status_table.tex").write_text("\n".join(lines) + "\n")
-
-
-def pending_results() -> None:
-    lines = [
-        r"\begin{table}[!t]",
-        r"\caption{Preregistered prospective comparisons. Values remain pending until the evidence gate passes.}",
-        r"\label{tab:ptd-results}",
-        r"\centering",
-        r"\scriptsize",
-        r"\begin{tabular}{lccc}",
-        r"\toprule Variant & NDCG@50 & $\Delta$ [95\% CI] & Status \\ \midrule",
-        r"Fixed-tree TDM & -- & -- & pending \\",
-        r"PTD item sibling & -- & -- & pending \\",
-        r"PTD node sibling & -- & -- & pending \\",
-        r"PTD item+node & -- & -- & pending \\",
-        r"Alternating TDM & -- & -- & pending \\",
-        r"Alternating PTD & -- & -- & pending \\",
-        r"PTD baseline encoder & -- & -- & pending \\",
-        r"ESMM reranking oracle & -- & -- & pending \\",
-        r"\bottomrule\end{tabular}",
-        r"\end{table}",
-    ]
-    (OUT / "pending_results_table.tex").write_text("\n".join(lines) + "\n")
 
 
 def public_failure_results() -> None:
@@ -141,5 +126,4 @@ if __name__ == "__main__":
     related_work()
     evidence_table()
     status_table()
-    pending_results()
     public_failure_results()

@@ -2,15 +2,15 @@
 
 ## Status (2026-09-25 JST)
 
-The repository rules, isolated worktree, paper scaffold, preregistration, claim--evidence ledger, related-work matrix, artifact contracts, and evidence-bounded manuscript are complete. A metadata-only inventory fixes the 216 raw sequence/category shards and exact frozen teacher checkpoint. An outcome-free item audit and a machine-readable method contract now also fix the 5,584-item catalog envelope, date masks, implementable two-stream encoder, and tree/training settings. The independent 24-cell RetailRocket validation is admitted as negative/null Category C evidence; PTD one-day Kauche diagnostics and the prospective five-day Kauche evaluation remain **pending** and are not used for efficacy claims.
+The repository rules, preregistration history, claim--evidence ledger, artifact contracts, and completed negative/null manuscript are fixed. The paper's empirical scope is the admitted 24-cell RetailRocket Category C validation over widths 300/600/1200/2400. Historical Kauche plans and diagnostics remain preserved as bounded context or out-of-scope claims and are not required to finish this paper.
 
 The official SIGIR 2027 full-paper call is available. It requires English PDF submissions in the current ACM `sigconf` two-column format, at most nine pages excluding references, anonymous review, CCS concepts, and keywords. The dates on the call are labelled "PROPOSED" as of the access date. See `artifact/venue_requirements.md`.
 
 ## Evidence policy
 
-`VERIFIED` means that a stable URI, a manifest, a content hash, and a machine-readable evaluation record are available. `PREREGISTERED` is a method or analysis fixed before the prospective PTD five-day readout. `PENDING` must not be converted into a result sentence, abstract claim, conclusion, or table value. The machine-checkable source of truth is `artifact/claim_evidence_ledger.csv`.
+`VERIFIED` identifies admitted evidence. `PREREGISTERED` preserves methods fixed before outcome access. `UNSUPPORTED` records a tested hypothesis that the evidence did not support. `OUT_OF_SCOPE` preserves an untested comparison excluded from this paper's empirical scope. `FUTURE_WORK` preserves a proposed analysis without presenting it as an unfinished result. The machine-checkable source of truth is `artifact/claim_evidence_ledger.csv`.
 
-The included legacy ESMM anchor is restricted internal evidence. An independent RetailRocket Category C validation is also admitted as negative/null evidence: true-sum mass did not outperform max-descendant aggregation at the primary width, and the beam-gap-shrinkage mechanism was not supported. Kauche PTD efficacy remains pending. Before anonymous submission, mirror public artifacts to an anonymous repository and redact organization-identifying URIs without changing content hashes.
+The included legacy ESMM anchor is restricted internal context. The RetailRocket Category C validation is admitted negative/null evidence: true-sum mass did not outperform max-descendant aggregation at the primary width, and the beam-gap-shrinkage mechanism was not supported. Kauche PTD efficacy is outside this paper's scope. Before anonymous submission, mirror public artifacts to an anonymous repository and redact organization-identifying URIs without changing content hashes.
 
 Future research effort is allocated approximately 20--30% to PTD evidence preservation and 70--80% to KMCR. The new preregistered direction tests whether bounded complementary candidate injection recovers relevant items that the base retriever omitted before union; it is not an efficacy claim. See `artifact/kmcr_research_direction.md`.
 
@@ -187,7 +187,7 @@ python3 scripts/record_catalog_bundle_evidence.py --bundle-dir /restricted/outpu
 
 ## Evidence-ingestion gate
 
-To promote PTD results from `PENDING` to `VERIFIED`, all of the following are required:
+For any future empirical claim to become `VERIFIED`, all of the following are required:
 
 1. An immutable evaluation JSON conforming to `artifact/evaluation.schema.json` and a hash-linked JSONL file whose rows conform to `artifact/paired_observation_row.schema.json`.
 2. A prospective run manifest conforming to `artifact/run_manifest.schema.json`, plus the research artifact manifest conforming to `artifact/manifest.schema.json`, with the exact raw-input, sequence, item-universe, method-contract, candidate-mask, and frozen-teacher hashes.

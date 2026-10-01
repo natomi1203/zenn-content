@@ -1,6 +1,6 @@
 # From Ranking to Retrieval: Purchase-Aware Tree Distillation for Recommendation
 
-This directory is the research workspace for a SIGIR 2027 full-paper submission. It intentionally separates verified evidence from preregistered analyses and pending experiments.
+This directory is the research workspace for a completed negative/null RetailRocket external-validation paper for SIGIR 2027. It separates verified evidence, historical preregistrations, unsupported hypotheses, out-of-scope comparisons, and future work.
 
 - [English progress and reproduction guide](README_EN.md)
 - [Japanese progress and reproduction guide](README_JA.md)
@@ -9,7 +9,7 @@ This directory is the research workspace for a SIGIR 2027 full-paper submission.
 - [Claim--evidence ledger](artifact/claim_evidence_ledger.csv)
 - [Artifact manifest](artifact/manifest.json) and [schema](artifact/manifest.schema.json)
 
-The current manuscript is evidence-bounded. It reports the verified legacy ESMM anchor and an independently admitted negative/null RetailRocket Category C validation result; Kauche PTD efficacy remains preregistered or pending.
+The manuscript's empirical scope is fixed to the admitted 24-cell RetailRocket Category C validation over widths 300/600/1200/2400. Kauche PTD evaluation is outside the paper's scope and is not required to complete its conclusions.
 
 The RetailRocket evidence index at `artifact/verified/public_retailrocket_evidence_index.json` preserves all 24 admitted cells, evaluation artifacts, immutable object identities, and the complete non-evidence lineage. The accompanying failure analysis is descriptive and does not alter the confirmatory conclusion.
 

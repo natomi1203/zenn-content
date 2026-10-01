@@ -638,13 +638,17 @@ def validate_ledger() -> None:
     with (ROOT / "artifact" / "claim_evidence_ledger.csv").open(newline="") as handle:
         rows = list(csv.DictReader(handle))
     assert rows and len({row["claim_id"] for row in rows}) == len(rows)
-    assert {row["status"] for row in rows} <= {"VERIFIED", "PREREGISTERED", "PENDING"}
-    pending = [row for row in rows if row["status"] == "PENDING"]
-    assert len(pending) >= 4
+    allowed = {"VERIFIED", "PREREGISTERED", "UNSUPPORTED", "OUT_OF_SCOPE", "FUTURE_WORK"}
+    assert {row["status"] for row in rows} <= allowed
+    assert not any(row["status"] == "PENDING" for row in rows)
+    assert sum(row["status"] == "UNSUPPORTED" for row in rows) >= 1
+    assert sum(row["status"] == "OUT_OF_SCOPE" for row in rows) >= 4
+    assert sum(row["status"] == "FUTURE_WORK" for row in rows) >= 5
     tex = (ROOT / "paper" / "main.tex").read_text().lower()
     forbidden = ["ptd significantly improves", "ptd outperforms", "our results show that ptd"]
     assert not any(phrase in tex for phrase in forbidden)
-    assert "pending" in tex
+    assert "evidence-bounded draft" not in tex
+    assert "\\pending{" not in tex
 
 
 def validate_generated() -> None:
@@ -652,7 +656,8 @@ def validate_generated() -> None:
         "related_work_table.tex",
         "legacy_evidence_table.tex",
         "claim_status_table.tex",
-        "pending_results_table.tex",
+        "public_failure_results_table.tex",
+        "failure_mechanism.tex",
         "ptd_architecture.tex",
         "evidence_flow.tex",
     ]
